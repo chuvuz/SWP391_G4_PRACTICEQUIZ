@@ -1,52 +1,83 @@
 package com.quiz.g4.entity;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 
-@Entity
-@Data
-@Builder
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Builder
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Integer userId;
 
-	@Column(name = "first_name", nullable = false)
-	private String firstName;
+	@ManyToOne
+	@JoinColumn(name = "role_id", nullable = false)
+	private Role role;
 
-	@Column(name = "last_name", nullable = false)
-	private String lastName;
+	@Column(name = "full_name", nullable = false)
+	private String fullName;
 
-	@Column(name = "address_line1")
-	private String address_line1;
-
-	@Column(name = "address_line2")
-	private String address_line2;
-
-	@Column(name = "phone")
-	private String phone;
+	@Column(name = "password", nullable = false)
+	private String password;
 
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
 
-	@Column(nullable = false, length = 64)
-	private String password;
+	@Column(name = "created_date")
+	private LocalDate createdDate = LocalDate.now();
 
-	@Column(name = "date_of_birth")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate dateOfBirth;
+	@Column(name = "updated_date")
+	private LocalDate updatedDate = LocalDate.now();
 
-	@Column(columnDefinition = "VARCHAR(500)")
-	private String avatar;
+	@Column(name = "is_active", nullable = false)
+	private Boolean isActive = true;
 
-	@Column(name = "type", nullable = false)
-	private String type;
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
+	}
 
+	@Override
+	public String getUsername() {
+		return email;  // Sử dụng email làm tên đăng nhập
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return isActive;
+	}
 }
