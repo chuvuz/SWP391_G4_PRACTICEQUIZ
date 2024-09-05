@@ -3,7 +3,7 @@ package com.quiz.g4.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data
@@ -13,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "quizzes")
 public class Quiz {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_id")
@@ -21,19 +22,23 @@ public class Quiz {
     @Column(name = "quiz_name", nullable = false)
     private String quizName;
 
-    @Column(name = "description")
-    private String description;
+    @ManyToOne
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 
-    @Column(name = "created_date")
-    private LocalDate createdDate = LocalDate.now();
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "updated_date")
-    private LocalDate updatedDate = LocalDate.now();
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "quiz")
     private Set<Question> questions;
+
+    @OneToMany(mappedBy = "quiz")
+    private Set<RecordStudent> records;
 }

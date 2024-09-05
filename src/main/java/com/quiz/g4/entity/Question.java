@@ -12,6 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "questions")
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
@@ -25,11 +26,14 @@ public class Question {
     private Quiz quiz;
 
     @Column(name = "question_type", nullable = false)
-    private String questionType;
+    private String questionType; // single choice, multiple choice, numeric input
 
     @Column(name = "correct_numeric_answer")
     private Double correctNumericAnswer;
 
     @OneToMany(mappedBy = "question")
     private Set<Answer> answers;
+
+    @OneToMany(mappedBy = "question")
+    private Set<StudentAnswer> studentAnswers;
 }

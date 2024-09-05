@@ -11,33 +11,28 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "student_quiz_attempts")
-public class StudentQuizAttempt {
+@Table(name = "record_student")
+public class RecordStudent {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "attempt_id")
-    private Integer attemptId;
-
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
+    @Column(name = "record_id")
+    private Integer recordId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "score")
-    private Float score;
+    @ManyToOne
+    @JoinColumn(name = "quiz_id", nullable = false)
+    private Quiz quiz;
+
+    @Column(name = "score", nullable = false)
+    private Float score; // Điểm số đã chuẩn hóa trên thang điểm 10
 
     @Column(name = "attempt_date", nullable = false)
     private LocalDateTime attemptDate = LocalDateTime.now();
 
-    @Column(name = "completed_at")
-    private LocalDateTime completedAt;
-
-    @Column(name = "status", nullable = false)
-    private String status;
-
-    @OneToMany(mappedBy = "studentQuizAttempt")
+    @OneToMany(mappedBy = "recordStudent")
     private Set<StudentAnswer> studentAnswers;
 }

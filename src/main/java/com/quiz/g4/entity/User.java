@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,6 +28,10 @@ public class User implements UserDetails {
 	@ManyToOne
 	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
+
+	@ManyToOne
+	@JoinColumn(name = "subject_id")
+	private Subject subject; // Chỉ áp dụng cho giáo viên, có thể null cho học sinh và admin
 
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
@@ -80,4 +85,10 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return isActive;
 	}
+
+	@OneToMany(mappedBy = "createdBy")
+	private Set<Quiz> quizzes;
+
+	@OneToMany(mappedBy = "user")
+	private Set<RecordStudent> records;
 }

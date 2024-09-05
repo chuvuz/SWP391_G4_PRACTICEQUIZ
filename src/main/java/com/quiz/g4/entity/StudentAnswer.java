@@ -11,14 +11,15 @@ import javax.persistence.*;
 @Entity
 @Table(name = "student_answers")
 public class StudentAnswer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_answer_id")
     private Integer studentAnswerId;
 
     @ManyToOne
-    @JoinColumn(name = "attempt_id", nullable = false)
-    private StudentQuizAttempt studentQuizAttempt;
+    @JoinColumn(name = "record_id", nullable = false)
+    private RecordStudent recordStudent;
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
