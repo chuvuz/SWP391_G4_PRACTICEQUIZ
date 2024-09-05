@@ -2,12 +2,15 @@ package com.quiz.g4;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class G1Application {
+public class G4Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(G1Application.class, args);
+		SpringApplication.run(G4Application.class, args);
 	}
+
+
 
 }

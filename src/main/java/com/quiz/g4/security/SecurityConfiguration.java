@@ -39,33 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/resources/**", "/templates/**", "/static/css/**", "/static/js/**", "/static/img/**", "/static/scss/**", "/static/vendors/**",
-                        "/css/**", "/js/**", "/img/**", "/scss/**", "/vendors/**",
-                        "/static/dashboard/**","/dashboard/**").permitAll()
-                // Swagger config
-                .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-
-                .antMatchers("/resources/**", "/templates/**",
-                        "/static/css/**", "/static/js/**", "/static/img/**", "/static/scss/**", "/static/vendors/**", "/static/dashboard/**",
-                        "/css/**", "/js/**", "/img/**", "/scss/**", "/vendors/**", "/dashboard/**").permitAll()
-
-                //Homepage
-                .antMatchers("/").permitAll()
-
-                //Common
-                .antMatchers("/register/**", "/register", "/register/verify", "/change-password/**", "/change-password", "/now").permitAll()
-
-                // Multiple role access with url
-                // TODO: Need modify
-                .antMatchers(
-                        "/dashboard/**",
-                        "/edit-staff-profile/**", "/edit-staff-profile",
-                        "/staff-change-password/**", "/staff-change-password").hasAnyRole("ADMIN", "MANAGER", "MARKETING", "SALE")
-
-                //ADMIN
-                .antMatchers("/search-staff").hasRole("ADMIN")
-
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/register/**", "/login", "/home").permitAll() // Cho phép truy cập vào /home
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -76,6 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
+
 }
