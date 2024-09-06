@@ -1,3 +1,3 @@
 # SWP391
 
-Chào Anh em G4 , project start
+Chào Anh em G4 , project start now
