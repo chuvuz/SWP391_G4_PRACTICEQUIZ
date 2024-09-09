@@ -1,5 +1,6 @@
 package com.quiz.g4.entity;
 
+import com.quiz.g4.enums.CommentStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,11 +28,12 @@ public class Feedback {
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;  // Bài kiểm tra được phản hồi
 
-    @Column(name = "rating", nullable = false)
-    private Integer rating;  // Đánh giá, có thể là thang điểm từ 1 đến 5
-
     @Column(name = "comments", columnDefinition = "TEXT")
     private String comments;  // Phản hồi của người dùng
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private CommentStatus status = CommentStatus.PENDING;  // Trạng thái của phản hồi
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();  // Thời gian phản hồi
