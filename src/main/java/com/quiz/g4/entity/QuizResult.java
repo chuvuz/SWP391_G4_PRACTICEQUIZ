@@ -11,13 +11,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "record_student")
-public class RecordStudent {
+@Table(name = "quiz_results")
+public class QuizResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "record_id")
-    private Integer recordId;
+    @Column(name = "result_id")
+    private Integer resultId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -27,9 +27,9 @@ public class RecordStudent {
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;  // Bài kiểm tra mà học sinh đã làm
 
-    @Column(name = "score")
-    private Double score;
+    @Column(name = "total_score", nullable = false)
+    private Double totalScore;  // Điểm tổng của học sinh
 
-    @Column(name = "attempted_date", nullable = false)
-    private LocalDate attemptedDate = LocalDate.now();
+    @Column(name = "completed_at", nullable = false)
+    private LocalDate completedAt = LocalDate.now();
 }

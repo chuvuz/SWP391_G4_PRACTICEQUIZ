@@ -5,11 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
+@Builder
 @Table(name = "questions")
 public class Question {
 
@@ -18,22 +19,16 @@ public class Question {
     @Column(name = "question_id")
     private Integer questionId;
 
-    @Column(name = "content", nullable = false)
-    private String content;
-
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
+    @Column(name = "question_content", nullable = false)
+    private String content;
+
     @Column(name = "question_type", nullable = false)
-    private String questionType; // single choice, multiple choice, numeric input
-
-    @Column(name = "correct_numeric_answer")
-    private Double correctNumericAnswer;
+    private String questionType;  // single-choice, multi-choice, numeric
 
     @OneToMany(mappedBy = "question")
-    private Set<Answer> answers;
-
-    @OneToMany(mappedBy = "question")
-    private Set<StudentAnswer> studentAnswers;
+    private Set<AnswerOption> answerOptions;  // Các lựa chọn trả lời cho câu hỏi này
 }

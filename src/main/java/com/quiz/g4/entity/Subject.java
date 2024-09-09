@@ -5,11 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
+@Builder
 @Table(name = "subjects")
 public class Subject {
 
@@ -18,15 +19,12 @@ public class Subject {
     @Column(name = "subject_id")
     private Integer subjectId;
 
-    @Column(name = "subject_name", nullable = false, unique = true)
+    @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
-    @Column(name = "description")
-    private String description;
+    @OneToMany(mappedBy = "subject")
+    private Set<User> users;  // Giáo viên thuộc môn học này
 
     @OneToMany(mappedBy = "subject")
-    private Set<User> users;
-
-    @OneToMany(mappedBy = "subject")
-    private Set<Quiz> quizzes;
+    private Set<Quiz> quizzes;  // Bài kiểm tra thuộc môn học này
 }

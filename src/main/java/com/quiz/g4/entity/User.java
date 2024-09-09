@@ -51,6 +51,12 @@ public class User implements UserDetails {
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive = true;
 
+	@OneToMany(mappedBy = "createdBy")
+	private Set<Quiz> quizzes;  // Quizzes created by the teacher
+
+	@OneToMany(mappedBy = "user")
+	private Set<RecordStudent> records;  // Records of student's quiz attempts
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
@@ -85,10 +91,4 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return isActive;
 	}
-
-	@OneToMany(mappedBy = "createdBy")
-	private Set<Quiz> quizzes;
-
-	@OneToMany(mappedBy = "user")
-	private Set<RecordStudent> records;
 }
