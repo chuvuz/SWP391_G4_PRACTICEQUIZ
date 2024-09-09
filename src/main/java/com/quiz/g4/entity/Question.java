@@ -1,5 +1,6 @@
 package com.quiz.g4.entity;
 
+import com.quiz.g4.enums.QuestionType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,8 +27,9 @@ public class Question {
     @Column(name = "question_content", nullable = false)
     private String content;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "question_type", nullable = false)
-    private String questionType;  // single-choice, multi-choice, numeric
+    private QuestionType questionType;  // Sử dụng enum cho kiểu câu hỏi
 
     @OneToMany(mappedBy = "question")
     private Set<AnswerOption> answerOptions;  // Các lựa chọn trả lời cho câu hỏi này
