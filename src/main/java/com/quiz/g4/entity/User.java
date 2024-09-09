@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
 	@ManyToOne
 	@JoinColumn(name = "subject_id")
-	private Subject subject; // Chỉ áp dụng cho giáo viên, có thể null cho học sinh và admin
+	private Subject subject;
 
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
@@ -41,6 +41,9 @@ public class User implements UserDetails {
 
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
+
+	@Column(name = "profile_image")  // Trường bổ sung cho ảnh đại diện
+	private String profileImage;
 
 	@Column(name = "created_date")
 	private LocalDate createdDate = LocalDate.now();
@@ -52,10 +55,10 @@ public class User implements UserDetails {
 	private Boolean isActive = true;
 
 	@OneToMany(mappedBy = "createdBy")
-	private Set<Quiz> quizzes;  // Quizzes created by the teacher
+	private Set<Quiz> quizzes;
 
 	@OneToMany(mappedBy = "user")
-	private Set<RecordStudent> records;  // Records of student's quiz attempts
+	private Set<RecordStudent> records;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -64,7 +67,7 @@ public class User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return email;  // Sử dụng email làm tên đăng nhập
+		return email;
 	}
 
 	@Override

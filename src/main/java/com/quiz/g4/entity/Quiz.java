@@ -26,14 +26,17 @@ public class Quiz {
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;  // Giáo viên tạo bài kiểm tra
+    private User createdBy;
 
     @Column(name = "quiz_name", nullable = false)
     private String quizName;
+
+    @Column(name = "quiz_image")  // Trường bổ sung cho ảnh bài kiểm tra
+    private String quizImage;
 
     @Column(name = "created_date", nullable = false)
     private LocalDate createdDate = LocalDate.now();
 
     @OneToMany(mappedBy = "quiz")
-    private Set<RecordStudent> records;  // Kết quả bài kiểm tra của học sinh
+    private Set<RecordStudent> records;
 }

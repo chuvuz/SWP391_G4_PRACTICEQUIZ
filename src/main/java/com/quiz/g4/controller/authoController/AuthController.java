@@ -21,24 +21,19 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")  
+    @GetMapping("/login")
     public String loginForm(Authentication authentication, Model model, HttpSession session) {
         // Authentication đến từ Spring Security, chứa thông tin về người dùng hiện tại nếu họ đã đăng nhập
         if (authentication != null && authentication.isAuthenticated()) {
             // Nếu người dùng đã đăng nhập, chuyển hướng họ tới trang chủ
             return "redirect:/home";
         } else {
-            // Kiểm tra xem có thông báo xác thực thành công trong session không, nếu có thì đưa vào model để hiển thị
-            if (session.getAttribute("verificationSuccessMessage") != null) {
-                model.addAttribute("successMessage", session.getAttribute("verificationSuccessMessage"));
-                session.removeAttribute("verificationSuccessMessage");  // Sau khi lấy thông báo ra thì xóa nó khỏi session
-            }
             // Trả về tên của template Thymeleaf "auth/login" để hiển thị trang đăng nhập
             return "auth/login";
         }
     }
 
-    @PostMapping("/login")  // @PostMapping từ Spring MVC, định nghĩa một phương thức xử lý yêu cầu POST tới URL "/login"
+    @PostMapping("/login")
     public String loginSubmit(@RequestParam("email") String email,
                               @RequestParam("password") String password,
                               Model model) {

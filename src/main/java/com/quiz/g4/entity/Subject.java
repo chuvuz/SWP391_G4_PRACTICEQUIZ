@@ -22,9 +22,12 @@ public class Subject {
     @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
-    @OneToMany(mappedBy = "subject")
-    private Set<User> users;  // Giáo viên thuộc môn học này
+    @Column(name = "subject_image")  // Trường bổ sung cho ảnh môn học
+    private String subjectImage;
 
     @OneToMany(mappedBy = "subject")
-    private Set<Quiz> quizzes;  // Bài kiểm tra thuộc môn học này
+    private Set<User> users;
+
+    @OneToMany(mappedBy = "subject")
+    private Set<Quiz> quizzes;
 }
