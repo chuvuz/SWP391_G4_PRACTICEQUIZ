@@ -10105,3 +10105,11 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+.user-img img {
+  border-radius: 50%; /* Làm ảnh bo tròn */
+  width: 80px; /* Điều chỉnh kích thước hình ảnh */
+  height: 80px; /* Điều chỉnh kích thước hình ảnh */
+  object-fit: cover; /* Đảm bảo ảnh giữ tỉ lệ */
+}
+

@@ -1,7 +1,10 @@
 package com.quiz.g4.controller.authoController;
 
+import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
+import com.quiz.g4.service.QuizService;
+import com.quiz.g4.service.RoleService;
 import com.quiz.g4.service.SubjectService;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,12 @@ public class HomeController {
     @Autowired
     private SubjectService subjectService;
 
+    @Autowired
+    private QuizService quizService;
+
+    @Autowired
+    private RoleService roleService;
+
     @GetMapping({"/", "/home"})
     public String home(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,6 +46,17 @@ public class HomeController {
 
         // Đưa danh sách subject vào model
         model.addAttribute("subjects", subjects);
+
+
+        // Lấy danh sách quiz
+        List<Quiz> quizzes = quizService.getAllQuizzes();
+        model.addAttribute("quizzes", quizzes);
+
+        // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
+        List<User> experts = userService.findByRoleId(3);
+
+        // Đưa danh sách này vào model
+        model.addAttribute("experts", experts);
         return "home";
     }
 }
