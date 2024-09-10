@@ -32,6 +32,16 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" th:href="@{/profile}">Profile</a>
+
+              <!-- Dropdown item cho user có role_id = 3 (Quản lý quiz) -->
+              <a class="dropdown-item" th:if="${user.role.roleId == 3}" th:href="@{/manage_quizz}">Manage Quizz</a>
+
+              <!-- Dropdown item cho user có role_id = 4 (Admin) -->
+              <a class="dropdown-item" th:if="${user.role.roleId == 4}" th:href="@{/admin}">Admin Dashboard</a>
+
+              <!-- Dropdown item cho user có role_id = 4 (Quản lý expert) -->
+              <a class="dropdown-item" th:if="${user.role.roleId == 4}" th:href="@{/manage_expert}">Manage Expert</a>
+
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" th:href="@{/logout}">Logout</a>
             </div>
