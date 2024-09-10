@@ -1,6 +1,8 @@
 package com.quiz.g4.controller.authoController;
 
+import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
+import com.quiz.g4.service.SubjectService;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -16,6 +19,9 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private SubjectService subjectService;
 
     @GetMapping({"/", "/home"})
     public String home(Model model) {
@@ -25,6 +31,12 @@ public class HomeController {
             User user = userService.findByEmail(email);
             model.addAttribute("user", user);
         }
+
+        // Tạo một danh sách subject từ service
+        List<Subject> subjects = subjectService.getAllSubjects();
+
+        // Đưa danh sách subject vào model
+        model.addAttribute("subjects", subjects);
         return "home";
     }
 }

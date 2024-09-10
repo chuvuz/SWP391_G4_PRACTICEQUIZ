@@ -1,0 +1,44 @@
+<!-- fragments/header.html -->
+<!DOCTYPE html>
+<html lang="en">
+<th:block th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><span>Study</span>Lab</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+              aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="quizz.html" class="nav-link">Quizz</a></li>
+          <li class="nav-item"><a href="expert.html" class="nav-link">Expert</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+
+          <!-- Kiểm tra người dùng đã đăng nhập -->
+          <li class="nav-item" th:if="${user == null}">
+            <a th:href="@{/login}" class="nav-link">Login</a>
+          </li>
+
+          <!-- Nếu đã đăng nhập thì hiển thị tên người dùng và nút logout -->
+          <li class="nav-item dropdown" th:if="${user != null}">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span th:text="${user.fullName}">User</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" th:href="@{/profile}">Profile</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</th:block>
+</html>
