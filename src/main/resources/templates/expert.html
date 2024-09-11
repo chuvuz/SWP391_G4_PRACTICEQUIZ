@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -19,25 +19,7 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="index.html"><span>Study</span>Lab</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
-        </button>
-
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="course.html" class="nav-link">Course</a></li>
-                <li class="nav-item active"><a href="instructor.html" class="nav-link">Instructor</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="header :: header"></div>
 <!-- END nav -->
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
@@ -55,180 +37,15 @@
 <section class="ftco-section bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
+            <div th:each="experts : ${experts}" class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
                 <div class="staff">
                     <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-1.jpg);"></div>
+                        <div class="img align-self-stretch" th:style="|background-image: url('${experts.profileImage}')|"></div>
                     </div>
                     <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Bianca Wilson</a></h3>
-                        <span class="position mb-2">Business</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
+                        <h3 th:text="${experts.fullName}"><a href="instructor-details.html"></a></h3>
+                        <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-2.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Mitch Parker</a></h3>
-                        <span class="position mb-2">Programmer</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-3.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Stella Smith</a></h3>
-                        <span class="position mb-2">Developer</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-4.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Monshe Henderson</a></h3>
-                        <span class="position mb-2">Graphic</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-5.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Bianca Wilson</a></h3>
-                        <span class="position mb-2">Business</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-6.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Mitch Parker</a></h3>
-                        <span class="position mb-2">Programmer</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-7.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Stella Smith</a></h3>
-                        <span class="position mb-2">Developer</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(images/teacher-8.jpg);"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <h3><a href="instructor-details.html">Monshe Henderson</a></h3>
-                        <span class="position mb-2">Graphic</span>
-                        <div class="faded">
-                            <p>I am an ambitious workaholic, but apart from that, pretty simple person.</p>
-                            <ul class="ftco-social text-center">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-google"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
-                    </ul>
                 </div>
             </div>
         </div>
