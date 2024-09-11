@@ -34,10 +34,7 @@ public class QuizController {
 
         // Tạo một danh sách subject từ service
         List<Subject> subjects = subjectService.getAllSubjects();
-
-        // Đưa danh sách subject vào model
         model.addAttribute("subjects", subjects);
-
 
         // Lấy danh sách quiz
         Page<Quiz> quizPage = quizService.getAllQuizzes(page, size);
@@ -45,7 +42,6 @@ public class QuizController {
 
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
         List<User> experts = userService.findByRoleId(3);
-        // Đưa danh sách này vào model
         model.addAttribute("experts", experts);
 
 
