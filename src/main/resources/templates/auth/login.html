@@ -79,8 +79,8 @@
         <div th:if="${successMessage}" class="alert alert-success">
             <span th:text="${successMessage}"></span>
         </div>
-        <div th:if="${errorMessage}" class="alert alert-danger">
-            <span th:text="${errorMessage}"></span>
+        <div th:if="${param.error}" class="alert alert-danger">
+            <span>Tài khoản hoặc mật khẩu sai</span>
         </div>
         <!-- Form đăng nhập -->
         <div class="form-group">

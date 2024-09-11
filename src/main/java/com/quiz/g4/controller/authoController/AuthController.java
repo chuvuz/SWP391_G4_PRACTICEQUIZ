@@ -34,37 +34,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String loginSubmit(@RequestParam("email") String email,
-                              @RequestParam("password") String password,
-                              Model model) {
-        try {
-            // Sử dụng UserService để tải thông tin người dùng từ cơ sở dữ liệu bằng email
-            UserDetails userDetails = userService.loadUserByUsername(email);
-
-            // Kiểm tra xem người dùng có tồn tại hay không
-            if (userDetails == null) {
-                model.addAttribute("errorMessage", "Email không tồn tại");
-                return "auth/login";  // Trả về trang đăng nhập kèm theo thông báo lỗi
-            }
-
-            // Tạo đối tượng Authentication để xác thực người dùng
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-
-            // Đặt thông tin xác thực vào SecurityContextHolder để Spring Security xử lý
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            // Chuyển hướng người dùng đến trang chủ sau khi đăng nhập thành công
-            return "redirect:/home";
-
-        } catch (BadCredentialsException e) {
-            // Xử lý lỗi khi mật khẩu không đúng
-            model.addAttribute("errorMessage", "Mật khẩu không đúng");
-            return "auth/login";  // Trả về trang đăng nhập kèm theo thông báo lỗi
-        } catch (Exception e) {
-            // Xử lý các lỗi khác nếu có
-            model.addAttribute("errorMessage", "Đã xảy ra lỗi. Vui lòng thử lại.");
-            return "auth/login";  // Trả về trang đăng nhập kèm theo thông báo lỗi
-        }
+    public String loginSubmit() {
+            return "auth/login";
     }
 }
