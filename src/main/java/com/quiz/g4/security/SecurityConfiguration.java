@@ -41,7 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register/**", "/login", "/expert", "/home", "/css/**", "/js/**", "/images/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
+                .antMatchers("/", "/register/**", "/login", "/expert", "/home", "/css/**", "/js/**", "/images/**","/blog-detail/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
+                .antMatchers("/manage_expert").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

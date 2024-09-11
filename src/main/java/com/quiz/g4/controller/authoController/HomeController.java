@@ -68,4 +68,9 @@ public class HomeController {
         model.addAttribute("experts", experts);
         return "expert";
     }
+
+    @GetMapping("/about-us")
+    public String aboutUs(){
+        return "about-us";
+    }
 }

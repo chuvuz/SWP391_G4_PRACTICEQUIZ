@@ -57,9 +57,6 @@ public class User implements UserDetails {
 	@OneToMany(mappedBy = "createdBy")
 	private Set<Quiz> quizzes;
 
-	@OneToMany(mappedBy = "user")
-	private Set<RecordStudent> records;
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
