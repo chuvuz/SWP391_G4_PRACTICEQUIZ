@@ -14,8 +14,9 @@ public class UserProfileController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'EXPERT', 'CUSTOMER', 'MARKETING')")
+    //@PreAuthorize("hasAnyRole('ADMIN', 'EXPERT', 'CUSTOMER', 'MARKETING')")
     @GetMapping
+    //Principal confirm access profile nao
     public String getUserProfile(Principal principal, Model model) {
         String username = principal.getName();
         //chua chay
