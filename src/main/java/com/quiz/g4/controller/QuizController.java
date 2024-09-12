@@ -64,7 +64,7 @@ public class QuizController {
         // Truyền giá trị đã chọn vào model để hiển thị selected trong dropdown
         model.addAttribute("selectedSubjectId", subjectId);
         model.addAttribute("selectedExpertId", expertId);
-        model.addAttribute("quizName", quizName);  // Truyền giá trị quizName nếu có
+        model.addAttribute("quizName", quizName);  
 
         // Tìm kiếm quiz dựa trên các tiêu chí
         Page<Quiz> quizPage = quizService.searchQuizzes(quizName, subjectId, expertId, page, size);
