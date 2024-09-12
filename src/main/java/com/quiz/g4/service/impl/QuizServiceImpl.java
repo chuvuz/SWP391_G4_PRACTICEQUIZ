@@ -28,5 +28,11 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
+    }
+
 
 }

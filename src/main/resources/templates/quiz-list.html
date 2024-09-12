@@ -39,48 +39,50 @@
         <div class="row">
             <div class="col-lg-3 sidebar">
                 <div class="sidebar-box bg-white ftco-animate">
-                    <form action="#" class="search-form">
+                    <form action="#" th:action="@{/search-quizzes}" method="GET" class="search-form">
+                        <!-- Search by Quiz Name -->
+                        <!-- Search by Quiz Name -->
                         <div class="form-group">
-                            <span class="icon fa fa-search"></span>
-                            <input type="text" class="form-control" placeholder="Search...">
+                            <input type="text" name="quizName" class="form-control"
+                                   placeholder="Search by quiz name"
+                                   th:value="${quizName != null} ? ${quizName} : ''">
                         </div>
-                    </form>
-                </div>
-
-                <div class="sidebar-box bg-white p-4 ftco-animate">
-                    <h3 class="heading-sidebar">Subject</h3>
-                    <form action="#" class="browse-form">
-                        <!-- Lặp qua danh sách subject -->
-                        <div th:each="subject : ${subjects}">
-                            <label th:for="'option-category-' + ${subject.subjectId}">
-                                <input type="checkbox"
-                                       th:id="'option-category-' + ${subject.subjectId}"
-                                       th:name="subject"
-                                       th:value="${subject.subjectId}" />
-                                <span th:text="${subject.subjectName}">Subject Name</span>
-                            </label>
-                            <br>
-                        </div>
-                    </form>
-                </div>
 
 
-                <div class="sidebar-box bg-white p-4 ftco-animate">
-                    <h3 class="heading-sidebar">Quiz Expert</h3>
-                    <form action="#" class="browse-form">
-                        <!-- Lặp qua danh sách expert -->
-                        <div th:each="expert : ${experts}">
-                            <label th:for="'option-instructor-' + ${expert.userId}">
-                                <input type="checkbox"
-                                       th:id="'option-instructor-' + ${expert.userId}"
-                                       th:name="expert"
-                                       th:value="${expert.userId}" />
-                                <span th:text="${expert.fullName}">Expert Name</span>
-                            </label>
-                            <br>
+
+                        <!-- Search by Subject -->
+                        <div class="form-group">
+                            <select name="subjectId" class="form-control">
+                                <option value="">-- Select Subject --</option>
+                                <option th:each="subject : ${subjects}"
+                                        th:value="${subject.subjectId}"
+                                        th:text="${subject.subjectName}"
+                                        th:selected="${subject.subjectId} == ${selectedSubjectId}">
+                                </option>
+                            </select>
                         </div>
+
+                        <!-- Search by Expert -->
+                        <div class="form-group">
+                            <select name="expertId" class="form-control">
+                                <option value="">-- Select Expert --</option>
+                                <option th:each="expert : ${experts}"
+                                        th:value="${expert.userId}"
+                                        th:text="${expert.fullName}"
+                                        th:selected="${expert.userId} == ${selectedExpertId}">
+                                </option>
+                            </select>
+                        </div>
+
+
+
+
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </form>
+
                 </div>
+
+
 
             </div>
             <div class="col-lg-9">
@@ -110,12 +112,12 @@
                             <ul>
                                 <!-- Hiển thị nút trang trước nếu có -->
                                 <li th:if="${quizPage.hasPrevious()}">
-                                    <a th:href="@{/quiz-list(page=${quizPage.number - 1}, size=${quizPage.size})}">&lt;</a>
+                                    <a th:href="@{/search-quizzes(page=${quizPage.number - 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&lt;</a>
                                 </li>
 
                                 <!-- Hiển thị số trang -->
                                 <li th:each="i : ${#numbers.sequence(0, quizPage.totalPages - 1)}">
-                                    <a th:href="@{/quiz-list(page=${i}, size=${quizPage.size})}"
+                                    <a th:href="@{/search-quizzes(page=${i}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}"
                                        th:classappend="${i} == ${quizPage.number} ? 'active' : ''">
                                         <span th:text="${i + 1}">1</span>
                                     </a>
@@ -123,9 +125,10 @@
 
                                 <!-- Hiển thị nút trang tiếp theo nếu có -->
                                 <li th:if="${quizPage.hasNext()}">
-                                    <a th:href="@{/quiz-list(page=${quizPage.number + 1}, size=${quizPage.size})}">&gt;</a>
+                                    <a th:href="@{/search-quizzes(page=${quizPage.number + 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&gt;</a>
                                 </li>
                             </ul>
+
                         </div>
                     </div>
                 </div>

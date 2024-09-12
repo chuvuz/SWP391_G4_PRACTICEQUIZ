@@ -13,4 +13,6 @@ public interface QuizService {
     List<Quiz> getAllQuizzes();
 
     Page<Quiz> getAllQuizzes(int page, int size);
+
+    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
 }
