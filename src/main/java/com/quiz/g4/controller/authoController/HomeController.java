@@ -69,8 +69,8 @@ public class HomeController {
         return "expert";
     }
 
-    @GetMapping("/about-us")
+    @GetMapping("/about")
     public String aboutUs(){
-        return "about-us";
+        return "about";
     }
 }
