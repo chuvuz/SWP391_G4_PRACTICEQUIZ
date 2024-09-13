@@ -9,20 +9,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 @Controller
-@RequestMapping("/profile")
+
 public class UserProfileController {
     @Autowired
     private UserService userService;
 
-    //@PreAuthorize("hasAnyRole('ADMIN', 'EXPERT', 'CUSTOMER', 'MARKETING')")
-    @GetMapping
-    //Principal confirm access profile nao
+
+    @GetMapping("/profile")
+    //Principal tra ve current user
     public String getUserProfile(Principal principal, Model model) {
-        String username = principal.getName();
-        //chua chay
-        //User user = userService.getUserProfile(username);
-        //model.addAttribute("user", user);
-        return "profile";
+        try {
+            String username = principal.getName();
+
+            User user = (User) userService.loadUserByUsername(username);
+            model.addAttribute("user", user);
+            return "profile";
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
 
 }
