@@ -198,13 +198,13 @@
                         <div class="testimony-wrap py-4">
                             <div class="text">
                                 <p class="star">
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+<!--                                    <span class="fa fa-star"></span>-->
+<!--                                    <span class="fa fa-star"></span>-->
+<!--                                    <span class="fa fa-star"></span>-->
+<!--                                    <span class="fa fa-star"></span>-->
+<!--                                    <span class="fa fa-star"></span>-->
                                 </p>
-                                <p class="mb-4">"Chuyên gia của chúng tôi cung cấp các bài giảng chất lượng cao."</p>
+                                <p class="mb-4" th:text="${user.description}"></p>
                                 <div class="d-flex align-items-center">
                                     <!-- Thay đổi từ style thành img tag và thêm class "user-img img" -->
                                     <div class="user-img">
@@ -329,7 +329,7 @@
                             <h3 class="heading"><a href="#" th:text="${blog.title}">I'm not creative, Should I take this course?</a></h3>
                             <!-- Nội dung ngắn của bài viết -->
                             <p th:text="${blog.content}">Far far away, behind the word mountains...</p>
-                            <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
+                            <p><a th:href="@{/blog-detail/{blogId}(blogId=${blog.blogId})}" class="btn btn-secondary py-2 px-3">Read more</a></p>
                         </div>
                     </div>
                 </div>
