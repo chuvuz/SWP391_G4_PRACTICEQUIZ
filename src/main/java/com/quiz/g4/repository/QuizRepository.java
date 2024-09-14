@@ -17,7 +17,10 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
 
 
 
-    @Query("SELECT DISTINCT q FROM Quiz q JOIN FETCH q.questions qu JOIN FETCH qu.answerOptions WHERE q.quizId = :quizId")
+    @Query("SELECT DISTINCT q FROM Quiz q " +
+            "JOIN FETCH q.questions qu " +
+            "JOIN FETCH qu.answerOptions " +
+            "WHERE q.quizId = :quizId")
     Quiz findQuizWithQuestionsAndAnswers(@Param("quizId") Integer quizId);
 
 }

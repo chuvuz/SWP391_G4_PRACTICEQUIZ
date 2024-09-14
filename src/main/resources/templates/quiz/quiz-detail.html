@@ -1,21 +1,141 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Quiz Details</title>
-</head>
-<body>
-<h1 th:text="${quiz.quizName}">Quiz Name</h1>
-<img th:src="@{'/images/' + ${quiz.quizImage}}" alt="Quiz Image"/>
+<html lang="en">
 
-<h2>Questions</h2>
-<div th:each="question : ${quiz.questions}">
-    <h3 th:text="${question.content}">Question Content</h3>
-    <ul>
-        <li th:each="answer : ${question.answerOptions}">
-            <span th:text="${answer.content}">Answer Option</span>
-            <span th:if="${answer.isCorrect}"> (Correct Answer)</span>
-        </li>
-    </ul>
-</div>
+<head>
+    <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+
+    <style>
+        /* Tạo khoảng cách giữa các câu hỏi để cuộn dễ nhìn hơn */
+        .question {
+            margin: 30px 0;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="header :: header"></div>
+<!-- END nav -->
+
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i
+                        class="fa fa-chevron-right"></i></a></span> <span class="mr-2"><a href="index.html">Blog <i
+                        class="fa fa-chevron-right"></i></a></span> <span>Blog Single <i
+                        class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Our Blog</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-no-pt ftco-no-pb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ftco-animate py-md-5 mt-md-5">
+                <!-- Hiển thị tên của quiz -->
+                <h2 th:text="${quiz.quizName}">Quiz Name</h2>
+
+                <!-- Lặp qua các câu hỏi và hiển thị nội dung -->
+                <div th:each="question, qStat : ${quiz.questions}" class="question" id="question-[[${qStat.index}]]">
+                    <h4>Câu hỏi [[${qStat.index + 1}]]: <span th:text="${question.content}"></span></h4>
+
+                    <!-- Lặp qua các lựa chọn trả lời của mỗi câu hỏi -->
+                    <ul>
+                        <li th:each="answer, aStat : ${question.answerOptions}">
+                            <!-- Đảm bảo mỗi câu hỏi có một nhóm riêng bằng cách thêm chỉ mục câu hỏi vào thuộc tính 'name' -->
+                            <input type="radio" name="question-[[${qStat.index}]]"
+                                   value="[[${answer.isCorrect}]]">
+                            <span>[[${aStat.index + 1}]]. </span>
+                            <span th:text="${answer.content}">Answer Option</span>
+                        </li>
+                    </ul>
+
+                    <hr>
+                </div>
+            </div>
+
+            <div class="col-lg-4 sidebar ftco-animate pl-md-4 py-md-5">
+                <div class="sidebar-box mt-md-5 bg-light">
+                    <form action="#" class="search-form">
+                        <div class="form-group">
+                            <span class="icon fa fa-search"></span>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </form>
+                </div>
+                <div class="sidebar-box ftco-animate">
+                    <div class="categories">
+                        <h3>Danh sách câu hỏi</h3>
+                        <ul>
+                            <!-- Lặp qua các câu hỏi và tạo liên kết đến từng câu hỏi -->
+                            <li th:each="question, qStat : ${quiz.questions}">
+                                <a href="#question-[[${qStat.index}]]" onclick="scrollToQuestion([[${qStat.index}]])">
+                                    Câu hỏi [[${qStat.index + 1}]]
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> <!-- .section -->
+
+<div th:replace=" footer :: footer"></div>
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+    <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+    <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+            stroke="#F96D00" />
+</svg></div>
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+<!-- Thêm script cuộn đến câu hỏi -->
+<script>
+    function scrollToQuestion(index) {
+        const questionElement = document.getElementById('question-' + index);
+        questionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+</script>
+
 </body>
+
 </html>
