@@ -81,7 +81,7 @@
             <div th:each="quiz : ${quizzes}" class="col-md-4 ftco-animate">
                 <div class="project-wrap">
                     <!-- Ảnh của quiz -->
-                    <a href="#" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
+                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
                         <!-- Tên subject -->
                         <span class="price" th:text="${quiz.subject.subjectName}"></span>
                     </a>
