@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/register/**", "/login","/quiz-list","/search-quizzes/**", "/expert", "/home", "/css/**", "/js/**", "/images/**","/blog-detail/**", "/about").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 .antMatchers("/manage_expert").hasRole("ADMIN")
-                .antMatchers("/profile/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
+                .antMatchers("/profile/**","/quiz-detail/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

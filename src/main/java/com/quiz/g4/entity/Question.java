@@ -33,4 +33,6 @@ public class Question {
 
     @OneToMany(mappedBy = "question")
     private Set<AnswerOption> answerOptions;  // Các lựa chọn trả lời cho câu hỏi này
+
+
 }

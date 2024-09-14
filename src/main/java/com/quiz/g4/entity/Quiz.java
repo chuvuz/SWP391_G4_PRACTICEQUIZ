@@ -37,4 +37,7 @@ public class Quiz {
     @Column(name = "created_date", nullable = false)
     private LocalDate createdDate = LocalDate.now();
 
+    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Question> questions;
+
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Details</title>
+</head>
+<body>
+<h1 th:text="${quiz.quizName}">Quiz Name</h1>
+<img th:src="@{'/images/' + ${quiz.quizImage}}" alt="Quiz Image"/>
+
+<h2>Questions</h2>
+<div th:each="question : ${quiz.questions}">
+    <h3 th:text="${question.content}">Question Content</h3>
+    <ul>
+        <li th:each="answer : ${question.answerOptions}">
+            <span th:text="${answer.content}">Answer Option</span>
+            <span th:if="${answer.isCorrect}"> (Correct Answer)</span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
