@@ -14,17 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class AboutController {
+
     @Autowired
     private UserService userService;
 
     @GetMapping("/about")
     public String aboutUs(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
-            String email = authentication.getName();
-            User user = userService.findByEmail(email);
-            model.addAttribute("user", user);
-        }
+
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
         List<User> experts = userService.findByRoleId(3);
         // Đưa danh sách này vào model
