@@ -61,11 +61,13 @@
                     <!-- Lặp qua các lựa chọn trả lời của mỗi câu hỏi -->
                     <ul>
                         <li th:each="answer, aStat : ${question.answerOptions}">
-                            <!-- Đảm bảo mỗi câu hỏi có một nhóm riêng bằng cách thêm chỉ mục câu hỏi vào thuộc tính 'name' -->
-                            <input type="radio" name="question-[[${qStat.index}]]"
-                                   value="[[${answer.isCorrect}]]">
-                            <span>[[${aStat.index + 1}]]. </span>
-                            <span th:text="${answer.content}">Answer Option</span>
+                            <!-- Sử dụng checkbox cho tất cả các câu hỏi -->
+                            <label>
+                                <input type="checkbox" name="question-[[${qStat.index}]]" value="[[${answer.isCorrect}]]">
+                                <span>[[${aStat.index + 1}]]. </span>
+                                <span th:text="${answer.content}">Answer Option</span>
+                            </label>
+                            <br>
                         </li>
                     </ul>
 
@@ -99,7 +101,8 @@
 
         </div>
     </div>
-</section> <!-- .section -->
+</section>
+ <!-- .section -->
 
 <div th:replace=" footer :: footer"></div>
 

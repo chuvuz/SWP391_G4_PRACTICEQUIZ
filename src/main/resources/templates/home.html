@@ -81,7 +81,7 @@
             <div th:each="quiz : ${quizzes}" class="col-md-4 ftco-animate">
                 <div class="project-wrap">
                     <!-- Ảnh của quiz -->
-                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
+                    <a class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
                         <!-- Tên subject -->
                         <span class="price" th:text="${quiz.subject.subjectName}"></span>
                     </a>
@@ -91,8 +91,7 @@
                         <!-- Người tạo quiz -->
                         <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
                         <ul class="d-flex justify-content-between">
-                            <li><span class="flaticon-shower"></span>2300</li>
-                            <li class="price">$199</li>
+                            <li><a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"  class="btn btn-secondary py-2 px-3">Take Quiz</a></li>
                         </ul>
                     </div>
                 </div>
