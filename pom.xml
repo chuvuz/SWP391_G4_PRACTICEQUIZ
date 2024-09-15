@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.ffood</groupId>
-    <artifactId>g1</artifactId>
+    <groupId>com.quiz</groupId>
+    <artifactId>g4</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>g1</name>
-    <description>FPTU Capstone Project SEP490 G1</description>
+    <name>g4</name>
+    <description>SWP391</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
