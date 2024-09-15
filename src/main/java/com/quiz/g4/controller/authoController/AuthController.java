@@ -37,4 +37,9 @@ public class AuthController {
     public String loginSubmit() {
             return "auth/login";
     }
+    @GetMapping("/resetpassword")
+    public String resetPassword() {
+        return "auth/resetpassword";
+    }
+
 }
