@@ -5,33 +5,47 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Data
 @Builder
-@Table(name = "tokens")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "reset_tokens")
 public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "token_id")
-    private Integer tokenId;
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "token", nullable = false)
+    private String token;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // Người dùng yêu cầu reset mật khẩu
+    private User user;
 
-    @Column(name = "token", nullable = false)
-    private String token;  // Mã token
+    @Column(name = "expiry_date", nullable = false)
+    private LocalDateTime expiryDate;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "expires_at", nullable = false)
-    private LocalDateTime expiresAt;  // Thời gian hết hạn của token
-
     @Column(name = "used", nullable = false)
-    private Boolean used = false;  // Token đã được sử dụng hay chưa
+    private Boolean used = false;
+
+    public Token(String token, User user) {
+        this.token = token;
+        this.user = user;
+        this.expiryDate = LocalDateTime.now().plusHours(24); // Token expires in 24 hours
+    }
+
+    public boolean isValid() {
+        return !this.used && LocalDateTime.now().isBefore(this.expiryDate);
+    }
+
+    public void markAsUsed() {
+        this.used = true;
+    }
 }
+
