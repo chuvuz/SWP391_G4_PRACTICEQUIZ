@@ -8,6 +8,8 @@ import com.quiz.g4.service.SubjectService;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -79,6 +82,14 @@ public class QuizController {
 
     @GetMapping("/quiz-detail/{quizId}")
     public String getQuizDetail(@PathVariable("quizId") Integer quizId, Model model) {
+        // Lấy thông tin người dùng đã đăng nhập
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
+
         // Lấy quiz với các câu hỏi và lựa chọn trả lời
         Quiz quiz = quizService.getQuizWithQuestionsAndAnswers(quizId);
 
@@ -92,6 +103,7 @@ public class QuizController {
 
         return "quiz/quiz-detail";  // Tên của view Thymeleaf để hiển thị chi tiết quiz
     }
+
 
 
 

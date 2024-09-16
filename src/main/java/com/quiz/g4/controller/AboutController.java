@@ -20,6 +20,12 @@ public class AboutController {
 
     @GetMapping("/about")
     public String aboutUs(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
 
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
         List<User> experts = userService.findByRoleId(3);
