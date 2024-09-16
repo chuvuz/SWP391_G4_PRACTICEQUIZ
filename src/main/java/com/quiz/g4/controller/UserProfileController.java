@@ -48,7 +48,7 @@ public class UserProfileController {
             userService.updateUser(email, updatedUser);
             return "redirect:/profile";
         } catch (Exception e) {
-            return "error";
+            return "redirect:/profile";
         }
     }
 
@@ -59,13 +59,14 @@ public class UserProfileController {
     }
 
     @PostMapping("/profile/change-password")
-    public String changePassword(@ModelAttribute PasswordForm passwordForm, Authentication authentication) {
+    public String changePassword(@ModelAttribute PasswordForm passwordForm, Authentication authentication, Model model) {
         String email = authentication.getName();
-        if (!passwordForm.getNewPassword().equals(passwordForm.getConfirmPassword())) {
-            return "error";
+        try {
+            userService.changePassword(email, passwordForm.getNewPassword());
+            return "redirect:/profile";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("passwordForm", passwordForm);
+            return "changePassword";
         }
-        userService.changePassword(email, passwordForm.getNewPassword());
-        return "redirect:/profile";
     }
-
 }

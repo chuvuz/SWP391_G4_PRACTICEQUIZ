@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean isValidPassword(String password) {
-        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,}$");
     }
 
 }
