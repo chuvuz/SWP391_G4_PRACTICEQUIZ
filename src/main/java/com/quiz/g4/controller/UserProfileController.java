@@ -52,4 +52,20 @@ public class UserProfileController {
         }
     }
 
+    @GetMapping("/change-password")
+    public String changePasswordForm(Model model) {
+        model.addAttribute("passwordForm", new PasswordForm());
+        return "changePassword";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@ModelAttribute PasswordForm passwordForm, Authentication authentication) {
+        String email = authentication.getName();
+        if (!passwordForm.getNewPassword().equals(passwordForm.getConfirmPassword())) {
+            return "error";
+        }
+        userService.changePassword(email, passwordForm.getNewPassword());
+        return "redirect:/profile";
+    }
+
 }

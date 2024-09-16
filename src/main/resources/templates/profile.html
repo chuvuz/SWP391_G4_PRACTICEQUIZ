@@ -25,7 +25,8 @@
 
     <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
     <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
-
+    <a th:href="@{/profile/edit}">Edit Profile</a>
+    <a th:href="@{/profile/change-password}">Change Password</a>
 </div>
 <a th:href="@{/profile/{userId}(userId=${user.userId})}"/>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">

@@ -46,5 +46,20 @@ public class UserServiceImpl implements UserService {
         user.setDescription(updatedUser.getDescription());
         return userRepository.save(user);
     }
+
+    @Override
+    public void changePassword(String email, String newPassword) {
+        if (!isValidPassword(newPassword)) {
+            throw new IllegalArgumentException("Password must contain at least one lowercase letter, one uppercase letter, one number, and be at least 8 characters long.");
+        }
+        User user = findByEmail(email);
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
+    }
+
 }
 
