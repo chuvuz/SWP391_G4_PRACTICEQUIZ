@@ -10,5 +10,7 @@ public interface UserService extends UserDetailsService {
     User findByEmail(String email);
 
     List<User> findByRoleId(int roleId);
+
+    User updateUser(String email, User updatedUser);
 }
 

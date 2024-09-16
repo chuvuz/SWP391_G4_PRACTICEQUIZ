@@ -37,5 +37,14 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+
+    @Override
+    public User updateUser(String email, User updatedUser) {
+        User user = findByEmail(email);
+        user.setFullName(updatedUser.getFullName());
+        user.setProfileImage(updatedUser.getProfileImage());
+        user.setDescription(updatedUser.getDescription());
+        return userRepository.save(user);
+    }
 }
 
