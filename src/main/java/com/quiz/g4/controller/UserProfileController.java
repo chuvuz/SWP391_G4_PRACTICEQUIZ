@@ -29,7 +29,7 @@ public class UserProfileController {
             return e.getMessage();
         }
     }
-    @GetMapping("/edit")
+    @GetMapping("/profile/edit")
     public String editUserProfile(Model model, Authentication authentication) {
         String email = authentication.getName();
         try {
@@ -41,7 +41,7 @@ public class UserProfileController {
         }
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/profile/edit")
     public String updateUserProfile(@ModelAttribute User updatedUser, Authentication authentication) {
         String email = authentication.getName();
         try {
@@ -52,13 +52,13 @@ public class UserProfileController {
         }
     }
 
-    @GetMapping("/change-password")
+    @GetMapping("/profile/change-password")
     public String changePasswordForm(Model model) {
         model.addAttribute("passwordForm", new PasswordForm());
         return "changePassword";
     }
 
-    @PostMapping("/change-password")
+    @PostMapping("/profile/change-password")
     public String changePassword(@ModelAttribute PasswordForm passwordForm, Authentication authentication) {
         String email = authentication.getName();
         if (!passwordForm.getNewPassword().equals(passwordForm.getConfirmPassword())) {

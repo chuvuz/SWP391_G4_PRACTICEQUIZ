@@ -17,13 +17,13 @@
     <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+
 </head>
 <body>
 <h1>Edit Profile</h1>
 <form th:action="@{/profile/edit}" th:object="${user}" method="post">
     <label for="fullName">Full Name:</label>
     <input type="text" id="fullName" th:field="*{fullName}" /><br/>
-
     <label for="profilePicture">Profile Picture URL:</label>
     <input type="text" id="profilePicture" th:field="*{profileImage}" /><br/>
 

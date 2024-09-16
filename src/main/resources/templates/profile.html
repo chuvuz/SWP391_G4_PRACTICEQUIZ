@@ -17,10 +17,12 @@
     <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <a th:href="@{/profile/{userId}(userId=${user.userId})}"/>
 </head>
 <body>
 <div th:replace="header :: header"></div>
 <!-- END nav -->
+
 <div>
 
     <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
@@ -28,7 +30,7 @@
     <a th:href="@{/profile/edit}">Edit Profile</a>
     <a th:href="@{/profile/change-password}">Change Password</a>
 </div>
-<a th:href="@{/profile/{userId}(userId=${user.userId})}"/>
+
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
     <div class="overlay"></div>
     <div class="container">
