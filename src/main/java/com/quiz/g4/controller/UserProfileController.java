@@ -95,12 +95,13 @@ public class UserProfileController {
                 userService.updateUser(username, user);
             } catch (IOException e) {
                 e.printStackTrace();
+                return "redirect:/profile";
             }
         }
         model.addAttribute("user", user);
         return "redirect:/profile";
     }
-    @GetMapping("/profile/images/{filename:.+")
+    @GetMapping("/profile/images/{filename:.+}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         try {
             Path file = imagePath.resolve(filename);

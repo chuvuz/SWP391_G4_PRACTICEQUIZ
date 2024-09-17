@@ -39,7 +39,7 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
-        <img th:src="@{'/images/' + ${profileImage}}" alt="Profile Image"/>
+        <img th:src="@{'profile/images/' + ${user.profileImage}}" alt="Profile Image"/>
         <form action="#" th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">
             <input type="file" name="image" accept="image/*"/>
             <button type="submit">Upload New Profile Image</button>
