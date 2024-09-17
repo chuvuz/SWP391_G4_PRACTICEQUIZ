@@ -4,6 +4,9 @@ import com.quiz.g4.entity.User;
 import com.quiz.g4.repository.UserRepository;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +30,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByRoleId(int roleId) {
         return userRepository.findByRoleRoleId(roleId);
+    }
+
+    @Override
+    public Page<User> getAllExpert(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findByRoleRoleId(3, pageable);
     }
 
     @Override
