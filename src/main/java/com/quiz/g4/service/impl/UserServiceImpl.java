@@ -13,8 +13,10 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
     private UserRepository userRepository;
 
