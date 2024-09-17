@@ -10113,3 +10113,10 @@ textarea.form-control {
   object-fit: cover; /* Đảm bảo ảnh giữ tỉ lệ */
 }
 
+.pagination {
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;     /* Căn giữa theo chiều dọc nếu cần */
+    gap: 5px;                /* Khoảng cách giữa các phần tử */
+    margin-top: 20px;        /* Tùy chỉnh khoảng cách so với các phần tử khác */
+}
