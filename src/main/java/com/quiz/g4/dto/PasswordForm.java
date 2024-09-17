@@ -1,4 +1,4 @@
-package com.quiz.g4.controller;
+package com.quiz.g4.dto;
 
 public class PasswordForm {
     private String newPassword;

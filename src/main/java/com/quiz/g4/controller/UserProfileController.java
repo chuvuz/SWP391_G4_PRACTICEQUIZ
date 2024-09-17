@@ -1,8 +1,8 @@
 package com.quiz.g4.controller;
+import com.quiz.g4.dto.PasswordForm;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
