@@ -51,6 +51,7 @@
 
         <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
         <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
+        <p><strong>Description</strong> <span th:text="${user.description}"></span> </p>
         <a th:href="@{/profile/edit}">Edit Profile</a><br>
         Want to change password? <a th:href="@{/profile/change-password}">Change Password</a>
     </div>
