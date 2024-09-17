@@ -60,13 +60,4 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/expert")
-    public String getAllExpert(Model model){
-        // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
-        List<User> experts = userService.findByRoleId(3);
-        // Đưa danh sách này vào model
-        model.addAttribute("experts", experts);
-        return "expert";
-    }
-
 }
