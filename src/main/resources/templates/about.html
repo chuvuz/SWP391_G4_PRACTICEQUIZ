@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -73,7 +73,7 @@
   <div class="row">
    <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
      <div class="block-18 d-flex align-items-center">
-      <div class="icon"><span class="flaticon-online"></span></div>
+
       <div class="text">
        <strong class="number" data-number="400">0</strong>
        <span>Online Courses</span>
@@ -82,7 +82,7 @@
  </div>
  <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
    <div class="block-18 d-flex align-items-center">
-    <div class="icon"><span class="flaticon-graduated"></span></div>
+
     <div class="text">
      <strong class="number" data-number="4500">0</strong>
      <span>Students Enrolled</span>
@@ -91,7 +91,7 @@
 </div>
 <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
  <div class="block-18 d-flex align-items-center">
-  <div class="icon"><span class="flaticon-instructor"></span></div>
+
   <div class="text">
    <strong class="number" data-number="1200">0</strong>
    <span>Experts Instructors</span>
@@ -100,7 +100,7 @@
 </div>
 <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
  <div class="block-18 d-flex align-items-center">
-  <div class="icon"><span class="flaticon-tools"></span></div>
+
   <div class="text">
    <strong class="number" data-number="300">0</strong>
    <span>Hours Content</span>
@@ -113,128 +113,48 @@
 
 
 <section class="ftco-section testimony-section bg-light">
- <div class="overlay" style="background-image: url(images/bg_2.jpg);"></div>
- <div class="container">
-  <div class="row pb-4">
-    <div class="col-md-7 heading-section ftco-animate">
-     <span class="subheading">Testimonial</span>
-     <h2 class="mb-4">What Are Students Says</h2>
-   </div>
- </div>
-</div>
-<div class="container container-2">
-  <div class="row ftco-animate">
-    <div class="col-md-12">
-      <div class="carousel-testimony owl-carousel">
-        <div class="item">
-          <div class="testimony-wrap py-4">
-            <div class="text">
-             <p class="star">
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-            </p>
-            <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-            <div class="d-flex align-items-center">
-             <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-             <div class="pl-3">
-              <p class="name">Roger Scott</p>
-              <span class="position">Marketing Manager</span>
+    <div class="overlay" style="background-image: url(images/bg_2.jpg);"></div>
+    <div class="container">
+        <div class="row pb-4">
+            <div class="col-md-7 heading-section ftco-animate">
+                <span class="subheading">Testimonial</span>
+                <h2 class="mb-4">What Are Students Says</h2>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-    <div class="item">
-      <div class="testimony-wrap py-4">
-        <div class="text">
-         <p class="star">
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
-        </p>
-        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-        <div class="d-flex align-items-center">
-         <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-         <div class="pl-3">
-          <p class="name">Roger Scott</p>
-          <span class="position">Marketing Manager</span>
+    <div class="container container-2">
+        <div class="row ftco-animate">
+            <div class="col-md-12">
+                <div class="carousel-testimony owl-carousel">
+                    <div th:each="user : ${experts}" class="item">
+                        <div class="testimony-wrap py-4">
+                            <div class="text">
+                                <p class="star">
+                                    <!--                                    <span class="fa fa-star"></span>-->
+                                    <!--                                    <span class="fa fa-star"></span>-->
+                                    <!--                                    <span class="fa fa-star"></span>-->
+                                    <!--                                    <span class="fa fa-star"></span>-->
+                                    <!--                                    <span class="fa fa-star"></span>-->
+                                </p>
+                                <p class="mb-4" th:text="${user.description}"></p>
+                                <div class="d-flex align-items-center">
+                                    <!-- Thay đổi từ style thành img tag và thêm class "user-img img" -->
+                                    <div class="user-img">
+                                        <img th:src="@{${user.profileImage}}" alt="Profile Image" class="img-fluid" />
+                                    </div>
+                                    <div class="pl-3">
+                                        <p class="name" th:text="${user.fullName}">Roger Scott</p>
+                                        <span class="position">Expert</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
-<div class="item">
-  <div class="testimony-wrap py-4">
-    <div class="text">
-     <p class="star">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-    <div class="d-flex align-items-center">
-     <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
-     <div class="pl-3">
-      <p class="name">Roger Scott</p>
-      <span class="position">Marketing Manager</span>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-<div class="item">
-  <div class="testimony-wrap py-4">
-    <div class="text">
-     <p class="star">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-    <div class="d-flex align-items-center">
-     <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
-     <div class="pl-3">
-      <p class="name">Roger Scott</p>
-      <span class="position">Marketing Manager</span>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-<div class="item">
-  <div class="testimony-wrap py-4">
-    <div class="text">
-     <p class="star">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-    <div class="d-flex align-items-center">
-     <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
-     <div class="pl-3">
-      <p class="name">Roger Scott</p>
-      <span class="position">Marketing Manager</span>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </section>
 
 <section class="ftco-intro ftco-section ftco-no-pb">
@@ -245,7 +165,12 @@
      <div class="overlay"></div>
      <h2>We Are StudyLab An Online Learning Center</h2>
      <p>We can manage your dream building A small river named Duden flows by their place</p>
-     <p class="mb-0"><a href="" class="btn btn-primary px-4 py-3">Enroll Now</a></p>
+        <li class="mb-0 nav-item active" th:if="${user == null}">
+            <a th:href="@{/login}" class="btn btn-primary px-4 py-3">Enroll Now</a>
+        </li>
+        <li class="mb-0 nav-item active" th:if="${user != null}">
+            <a th:href="@{/quiz-list}" class="btn btn-primary px-4 py-3">Enroll Now</a>
+        </li>
    </div>
  </div>
 </div>

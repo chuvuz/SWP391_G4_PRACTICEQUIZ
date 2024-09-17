@@ -39,6 +39,13 @@ public class QuizController {
                            @RequestParam(value = "page", defaultValue = "0") int page,
                            @RequestParam(value = "size", defaultValue = "10") int size) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
+
         // Lấy danh sách các subject và expert để hiển thị
         List<Subject> subjects = subjectService.getAllSubjects();
         List<User> experts = userService.findByRoleId(3); // Expert có role_id = 3
@@ -60,6 +67,13 @@ public class QuizController {
                                 @RequestParam(value = "expertId", required = false) Integer expertId,
                                 @RequestParam(value = "page", defaultValue = "0") int page,
                                 @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
 
         // Lấy danh sách subject và expert để hiển thị trong form tìm kiếm
         List<Subject> subjects = subjectService.getAllSubjects();

@@ -1,5 +1,6 @@
 package com.quiz.g4.controller.authoController;
 
+import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -41,5 +43,23 @@ public class AuthController {
     public String resetPassword() {
         return "auth/resetpassword";
     }
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        model.addAttribute("user", new User()); // Gửi đối tượng rỗng để Thymeleaf có thể binding dữ liệu
+        return "auth/register"; // Trả về template Thymeleaf tương ứng
+    }
+
+    /*@PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") User user, Model model) {
+        try {
+            userService.saveUser(user); // Lưu người dùng mới vào cơ sở dữ liệu
+            model.addAttribute("successMessage", "Đăng ký thành công!");
+            return "auth/login"; // Sau khi đăng ký thành công, chuyển đến trang đăng nhập
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Đã có lỗi xảy ra trong quá trình đăng ký.");
+            return "auth/register"; // Trả về trang đăng ký nếu có lỗi
+        }
+    }*/
+
 
 }

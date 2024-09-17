@@ -1,13 +1,22 @@
 package com.quiz.g4.controller;
+import com.quiz.g4.dto.PasswordForm;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 @Controller
 
@@ -15,6 +24,7 @@ public class UserProfileController {
     @Autowired
     private UserService userService;
 
+    private final Path imagePath = Paths.get("user-images");
 
     @GetMapping("/profile")
     //Principal tra ve current user
@@ -67,6 +77,41 @@ public class UserProfileController {
         } catch (IllegalArgumentException e) {
             model.addAttribute("passwordForm", passwordForm);
             return "changePassword";
+        }
+    }
+
+    @PostMapping("/profile/upload")
+    public String uploadProfileImage(@RequestParam("image") MultipartFile image, Model model, Principal principal) {
+
+        String username = principal.getName();
+        User user = (User) userService.loadUserByUsername(username);
+
+        if (user != null && !image.isEmpty()) {
+            try {
+                String filename = "user-" + user.getUserId() + "-" + image.getOriginalFilename();
+                Path filePath = imagePath.resolve(filename);
+                Files.copy(image.getInputStream(), filePath);
+                user.setProfileImage(filename);
+                userService.updateUser(username, user);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "redirect:/profile";
+            }
+        }
+        model.addAttribute("user", user);
+        return "redirect:/profile";
+    }
+    @GetMapping("/profile/images/{filename:.+}")
+    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+        try {
+            Path file = imagePath.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 }
