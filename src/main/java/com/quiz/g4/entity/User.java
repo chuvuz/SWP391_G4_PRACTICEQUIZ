@@ -29,9 +29,13 @@ public class User implements UserDetails {
 	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
 
+//	@ManyToOne
+//	@JoinColumn(name = "subject_id")
+//	private Subject subject;
+
 	@ManyToOne
-	@JoinColumn(name = "subject_id")
-	private Subject subject;
+	@JoinColumn(name = "quiz_id")
+	private Quiz quiz;
 
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
