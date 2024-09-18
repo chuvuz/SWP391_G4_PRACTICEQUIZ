@@ -27,8 +27,8 @@
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Certified Instructor <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Certified Instructor</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Certified Expert <i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Certified Expert</h1>
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                         <div class="img align-self-stretch" th:style="|background-image: url('${experts.profileImage}')|"></div>
                     </div>
                     <div class="text pt-3">
-                        <h3 th:text="${experts.fullName}"><a href="instructor-details.html"></a></h3>
+                        <a th:href="@{/expert_detail}"><h3 th:text="${experts.fullName}"></h3></a>
                         <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
                         <div class="faded">
                             <p th:text ="${experts.description}"></p>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+</head>
+<body>
+<div th:replace="header :: header"></div>
+<!-- END nav -->
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate pb-5 text-center">
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Expert Details<i class="fa fa-chevron-right"></i></span></p>
+                <h1 class="mb-0 bread">Expert Detail</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 ftco-animate d-flex align-items-center align-items-stretch">
+                <div class="staff-2 w-100">
+                    <div class="img-wrap d-flex align-items-stretch">
+                        <div class="img align-self-stretch d-flex align-items-end" th:style="|background-image: url('images/teacher-1.jpg')|">
+                            <div class="text mb-4 text-md-center">
+                                <h3>Stephen Wilson</h3>
+                                <span class="position mb-2">Business</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 d-flex align-items-center">
+                <div class="staff-detail w-100 pl-md-5">
+                    <h3>About</h3>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                    <h3>Education</h3>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+                    <h3>Experience</h3>
+                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 sidebar">
+                <div class="sidebar-box bg-white ftco-animate">
+                </div>
+
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+                    <div th:if="${#lists.isEmpty(quizPage.content)}">
+                        No quizzes found
+                    </div>
+                    <!-- Lặp qua danh sách quiz và hiển thị -->
+                    <div th:each="quiz : ${quizPage.content}" class="col-md-6 d-flex align-items-stretch ftco-animate">
+                        <div class="project-wrap">
+                            <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
+                                <span class="price" th:text="${quiz.subject.subjectName}">Software</span>
+                            </a>
+                            <div class="text p-4">
+                                <h3><a href="#" th:text="${quiz.quizName}">Design for the web with adobe photoshop</a></h3>
+                                <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
+                                <ul class="d-flex justify-content-between">
+                                    <li><span class="flaticon-shower"></span>2300</li>
+                                    <li class="price">$199</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="block-27">
+                            <ul>
+                                <!-- Hiển thị nút trang trước nếu có -->
+                                <li th:if="${quizPage.hasPrevious()}">
+                                    <a th:href="@{/search-quizzes(page=${quizPage.number - 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&lt;</a>
+                                </li>
+
+                                <!-- Hiển thị số trang -->
+                                <li th:each="i : ${#numbers.sequence(0, quizPage.totalPages - 1)}">
+                                    <a th:href="@{/search-quizzes(page=${i}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}"
+                                       th:classappend="${i} == ${quizPage.number} ? 'active' : ''">
+                                        <span th:text="${i + 1}">1</span>
+                                    </a>
+                                </li>
+
+                                <!-- Hiển thị nút trang tiếp theo nếu có -->
+                                <li th:if="${quizPage.hasNext()}">
+                                    <a th:href="@{/search-quizzes(page=${quizPage.number + 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&gt;</a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="footer :: footer"></div>
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.stellar.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/scrollax.min.js}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<script th:src="@{/js/google-map.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
