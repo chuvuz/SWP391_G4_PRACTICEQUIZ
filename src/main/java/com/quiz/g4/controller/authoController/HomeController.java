@@ -1,7 +1,6 @@
 package com.quiz.g4.controller.authoController;
 
 import com.quiz.g4.entity.Blog;
-import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.*;
@@ -46,8 +45,8 @@ public class HomeController {
         model.addAttribute("subjects", subjects);
 
 
-        // Lấy danh sách quiz
-        List<Quiz> quizzes = quizService.getAllQuizzes();
+        // Lấy danh sách subject
+        List<Subject> quizzes = quizService.getAllQuizzes();
         model.addAttribute("quizzes", quizzes);
 
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)

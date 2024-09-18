@@ -20,10 +20,6 @@ public class Question {
     @Column(name = "question_id")
     private Integer questionId;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
-
     @Column(name = "question_content", nullable = false)
     private String content;
 
@@ -32,5 +28,11 @@ public class Question {
     private QuestionType questionType;  // Sử dụng enum cho kiểu câu hỏi
 
     @OneToMany(mappedBy = "question")
+<<<<<<< Updated upstream
     private Set<AnswerOption> answerOptions;  // Các lựa chọn trả lời cho câu hỏi này
+=======
+    private Set<QuizQuestion> quizQuestions;  // Các lựa chọn trả lời cho câu hỏi này
+
+
+>>>>>>> Stashed changes
 }

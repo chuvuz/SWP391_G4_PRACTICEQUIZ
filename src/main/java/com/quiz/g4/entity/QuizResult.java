@@ -25,7 +25,7 @@ public class QuizResult {
 
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;  // Bài kiểm tra mà học sinh đã làm
+    private Subject subject;  // Bài kiểm tra mà học sinh đã làm
 
     @Column(name = "total_score", nullable = false)
     private Double totalScore;  // Điểm tổng của học sinh

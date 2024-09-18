@@ -9,8 +9,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+<<<<<<< Updated upstream
     <groupId>com.ffood</groupId>
     <artifactId>g1</artifactId>
+=======
+    <groupId>com.subject</groupId>
+    <artifactId>g4</artifactId>
+>>>>>>> Stashed changes
     <version>0.0.1-SNAPSHOT</version>
     <name>g1</name>
     <description>FPTU Capstone Project SEP490 G1</description>
@@ -152,6 +157,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>6.4.4.Final</version>
         </dependency>
     </dependencies>
 

@@ -17,6 +17,27 @@
     <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+<<<<<<< Updated upstream:src/main/resources/templates/expert.html
+=======
+    <a th:href="@{/profile/{userId}(userId=${user.userId})}"/>
+    <style>
+        .center-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .form-field {
+            margin: 10px 0;
+            width: 300px; /* Set a fixed width for all form fields */
+        }
+        .form-field input,
+        .form-field textarea {
+            width: 100%; /* Ensure the input and textarea take up the full width of the form-field */
+        }
+    </style>
+>>>>>>> Stashed changes:src/main/resources/templates/profile.html
 </head>
 <body>
 <div th:replace="header :: header"></div>
@@ -34,7 +55,7 @@
     </div>
 </section>
 
-<section class="ftco-section bg-light">
+<section class="ftco-section bg-light form-field">
     <div class="container">
         <div class="row">
             <div th:each="experts : ${experts}" class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">

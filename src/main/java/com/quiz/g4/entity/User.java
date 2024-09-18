@@ -58,7 +58,7 @@ public class User implements UserDetails {
 	private Boolean isActive = true;
 
 	@OneToMany(mappedBy = "createdBy")
-	private Set<Quiz> quizzes;
+	private Set<Subject> subjects;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
