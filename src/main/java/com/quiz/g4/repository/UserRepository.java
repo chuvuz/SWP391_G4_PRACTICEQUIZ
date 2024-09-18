@@ -14,6 +14,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer>, CrudRepository<User, Integer> {
     User findByEmail(String email);
 
+    User findById(int id);
+
     List<User> findByRoleRoleId(int roleId);
 
     Page<User> findByRoleRoleId(int roleId, Pageable pageable);

@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz,Integer> {
     @Query("SELECT q FROM Quiz q WHERE (:quizName IS NULL OR q.quizName LIKE %:quizName%)" +
@@ -22,5 +24,8 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
             "JOIN FETCH qu.answerOptions " +
             "WHERE q.quizId = :quizId")
     Quiz findQuizWithQuestionsAndAnswers(@Param("quizId") Integer quizId);
+
+    @Query("SELECT q FROM Quiz q WHERE q.createdBy = :autherId")
+    List<Quiz> findQuizByAuther(@Param("autherId") Integer autherId);
 
 }
