@@ -49,7 +49,7 @@ public class AuthController {
         return "auth/register"; // Trả về template Thymeleaf tương ứng
     }
 
-    /*@PostMapping("/register")
+    @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, Model model) {
         try {
             userService.saveUser(user); // Lưu người dùng mới vào cơ sở dữ liệu
@@ -59,7 +59,7 @@ public class AuthController {
             model.addAttribute("errorMessage", "Đã có lỗi xảy ra trong quá trình đăng ký.");
             return "auth/register"; // Trả về trang đăng ký nếu có lỗi
         }
-    }*/
+    }
 
 
 }

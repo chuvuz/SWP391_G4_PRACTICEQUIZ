@@ -17,5 +17,7 @@ public interface UserService extends UserDetailsService {
     void changePassword(String email, String newPassword);
 
     Page<User> getAllExpert(int page, int size);
+
+    void saveUser(User user);
 }
 
