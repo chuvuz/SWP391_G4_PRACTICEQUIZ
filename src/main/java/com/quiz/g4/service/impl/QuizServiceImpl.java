@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class QuizServiceImpl implements QuizService {
@@ -22,6 +21,9 @@ public class QuizServiceImpl implements QuizService {
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }
+
+    @Override
+    public List<Quiz> findQuizByAuther(Integer autherId){return quizRepository.findQuizByAuther(autherId);}
 
     @Override
     public Page<Quiz> getAllQuizzes(int page, int size) {

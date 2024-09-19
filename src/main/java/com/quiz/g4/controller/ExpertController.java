@@ -41,16 +41,17 @@ public class ExpertController {
     @GetMapping("/expert_detail")
     public String getExpertDetails(Model model,
                                    @RequestParam(value = "page", defaultValue = "0") int page,
-                                   @RequestParam(value = "size", defaultValue = "10") int size){
+                                   @RequestParam(value = "size", defaultValue = "10") int size,
+                                   @RequestParam(value = "id") int id){
         // Lấy danh sách các subject và expert để hiển thị
-        List<Subject> subjects = subjectService.getAllSubjects();
-        List<User> experts = userService.findByRoleId(3); // Expert có role_id = 3
-        model.addAttribute("subjects", subjects);
-        model.addAttribute("experts", experts);
+        User expert = userService.findById(id);
+        Subject subject = expert.getSubject();
+        model.addAttribute("subject", subject);
+        model.addAttribute("expert", expert);
 
         // Lấy danh sách quiz
-        Page<Quiz> quizPage = quizService.getAllQuizzes(page, size);
-        model.addAttribute("quizPage", quizPage);
+        List<Quiz> quizs = quizService.findQuizByAuther(expert.getUserId());
+        model.addAttribute("quizs", quizs);
         return "expert_details";
     }
 

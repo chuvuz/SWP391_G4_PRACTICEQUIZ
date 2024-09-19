@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public interface QuizService {
@@ -16,6 +15,7 @@ public interface QuizService {
 
     Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
 
+    List<Quiz> findQuizByAuther(Integer autherId);
 
     Quiz getQuizWithQuestionsAndAnswers(Integer quizId);
 }

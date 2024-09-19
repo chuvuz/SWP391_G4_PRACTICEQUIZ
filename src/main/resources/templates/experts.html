@@ -43,7 +43,11 @@
                         <div class="img align-self-stretch" th:style="|background-image: url('${experts.profileImage}')|"></div>
                     </div>
                     <div class="text pt-3">
+<<<<<<< Updated upstream
                         <a th:href="@{/expert_detail/${expertId}(experId=${experts.userId})}"><h3 th:text="${experts.fullName}"></h3></a>
+=======
+                        <a th:href="@{/expert_detail(id=${experts.userId})}"><h3 th:text="${experts.fullName}"></h3></a>
+>>>>>>> Stashed changes
                         <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
                         <div class="faded">
                             <p th:text ="${experts.description}"></p>

@@ -41,10 +41,9 @@
             <div class="col-md-4 ftco-animate d-flex align-items-center align-items-stretch">
                 <div class="staff-2 w-100">
                     <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch d-flex align-items-end" th:style="|background-image: url('images/teacher-1.jpg')|">
+                        <div class="img align-self-stretch d-flex align-items-end" th:style="|background-image: url('${expert.profileImage}')|">
                             <div class="text mb-4 text-md-center">
-                                <h3>Stephen Wilson</h3>
-                                <span class="position mb-2">Business</span>
+                                <h3 th:text="${expert.fullName}"></h3>
                             </div>
                         </div>
                     </div>
@@ -53,80 +52,15 @@
             <div class="col-md-8 d-flex align-items-center">
                 <div class="staff-detail w-100 pl-md-5">
                     <h3>About</h3>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    <h3>Education</h3>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-                    <h3>Experience</h3>
-                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+                    <p th:text="${expert.description}"></p>
+                    <h3>Subject</h3>
+                    <p th:text="${subject.subjectName}"></p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 sidebar">
-                <div class="sidebar-box bg-white ftco-animate">
-                </div>
-
-            </div>
-
-            <div class="col-lg-9">
-                <div class="row">
-                    <div th:if="${#lists.isEmpty(quizPage.content)}">
-                        No quizzes found
-                    </div>
-                    <!-- Lặp qua danh sách quiz và hiển thị -->
-                    <div th:each="quiz : ${quizPage.content}" class="col-md-6 d-flex align-items-stretch ftco-animate">
-                        <div class="project-wrap">
-                            <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
-                                <span class="price" th:text="${quiz.subject.subjectName}">Software</span>
-                            </a>
-                            <div class="text p-4">
-                                <h3><a href="#" th:text="${quiz.quizName}">Design for the web with adobe photoshop</a></h3>
-                                <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
-                                <ul class="d-flex justify-content-between">
-                                    <li><span class="flaticon-shower"></span>2300</li>
-                                    <li class="price">$199</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-                <div class="row mt-5">
-                    <div class="col">
-                        <div class="block-27">
-                            <ul>
-                                <!-- Hiển thị nút trang trước nếu có -->
-                                <li th:if="${quizPage.hasPrevious()}">
-                                    <a th:href="@{/search-quizzes(page=${quizPage.number - 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&lt;</a>
-                                </li>
-
-                                <!-- Hiển thị số trang -->
-                                <li th:each="i : ${#numbers.sequence(0, quizPage.totalPages - 1)}">
-                                    <a th:href="@{/search-quizzes(page=${i}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}"
-                                       th:classappend="${i} == ${quizPage.number} ? 'active' : ''">
-                                        <span th:text="${i + 1}">1</span>
-                                    </a>
-                                </li>
-
-                                <!-- Hiển thị nút trang tiếp theo nếu có -->
-                                <li th:if="${quizPage.hasNext()}">
-                                    <a th:href="@{/search-quizzes(page=${quizPage.number + 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&gt;</a>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <div th:replace="footer :: footer"></div>
 
