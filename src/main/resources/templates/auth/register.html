@@ -69,6 +69,19 @@
         .text-center a:hover {
             text-decoration: underline;
         }
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
@@ -76,15 +89,11 @@
     <h3 class="text-center">Đăng Ký</h3>
     <form th:action="@{/register}" method="post">
         <!-- Thông báo thành công hoặc lỗi -->
-        <div th:if="${successMessage}" class="alert alert-success">
-            <span th:text="${successMessage}"></span>
-        </div>
         <div th:if="${errorMessage}" class="alert alert-danger">
             <span th:text="${errorMessage}"></span>
         </div>
-        <!-- Form đăng ký -->
         <div class="form-group">
-            <input type="text" name="fullname" class="form-control" placeholder="Họ và Tên" required>
+            <input type="text" name="fullName" class="form-control" placeholder="Họ và Tên" required>
         </div>
         <div class="form-group">
             <input type="email" name="email" class="form-control" placeholder="Email" required>

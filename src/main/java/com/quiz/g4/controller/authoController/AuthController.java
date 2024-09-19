@@ -37,12 +37,14 @@ public class AuthController {
 
     @PostMapping("/login")
     public String loginSubmit() {
-            return "auth/login";
+        return "auth/login";
     }
+
     @GetMapping("/resetpassword")
     public String resetPassword() {
         return "auth/resetpassword";
     }
+
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("user", new User()); // Gửi đối tượng rỗng để Thymeleaf có thể binding dữ liệu
@@ -50,7 +52,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, Model model) {
+    /*public String registerUser(@ModelAttribute("user") User user, Model model) {
         try {
             userService.saveUser(user); // Lưu người dùng mới vào cơ sở dữ liệu
             model.addAttribute("successMessage", "Đăng ký thành công!");
@@ -59,7 +61,28 @@ public class AuthController {
             model.addAttribute("errorMessage", "Đã có lỗi xảy ra trong quá trình đăng ký.");
             return "auth/register"; // Trả về trang đăng ký nếu có lỗi
         }
+    } */
+    public String registerUser(@ModelAttribute("user") User user, @RequestParam("confirmPassword") String confirmPassword, Model model) {
+        // Kiểm tra xem mật khẩu và xác nhận mật khẩu có khớp không
+        if (!user.getPassword().equals(confirmPassword)) {
+            model.addAttribute("errorMessage", "Mật khẩu và xác nhận mật khẩu không khớp!");
+            return "auth/register"; // Trả về trang đăng ký nếu mật khẩu không khớp
+        }
+
+        // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
+        if (userService.findByEmail(user.getEmail()) != null) {
+            model.addAttribute("errorMessage", "Email đã được sử dụng!");
+            return "auth/register"; // Trả về trang đăng ký nếu email đã tồn tại
+        }
+
+        try {
+            userService.saveUser(user); // Lưu người dùng mới vào cơ sở dữ liệu
+            model.addAttribute("successMessage", "Đăng ký thành công!");
+            return "auth/login"; // Sau khi đăng ký thành công, chuyển đến trang đăng nhập
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Đã có lỗi xảy ra trong quá trình đăng ký.");
+            return "auth/register"; // Trả về trang đăng ký nếu có lỗi
+        }
+
     }
-
-
 }
