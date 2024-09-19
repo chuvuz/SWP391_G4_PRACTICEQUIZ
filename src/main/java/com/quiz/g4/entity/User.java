@@ -33,9 +33,9 @@ public class User implements UserDetails {
 //	@JoinColumn(name = "subject_id")
 //	private Subject subject;
 
-	@ManyToOne
-	@JoinColumn(name = "quiz_id")
-	private Quiz quiz;
+//	@ManyToOne
+//	@JoinColumn(name = "quiz_id")
+//	private Quiz quiz;
 
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
@@ -62,7 +62,7 @@ public class User implements UserDetails {
 	private Boolean isActive = true;
 
 	@OneToMany(mappedBy = "createdBy")
-	private Set<Subject> subjects;
+	private Set<Quiz> quizzes;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
