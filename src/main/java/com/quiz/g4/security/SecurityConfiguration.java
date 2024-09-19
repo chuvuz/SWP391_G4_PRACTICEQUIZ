@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register/**", "/login","/quiz-list","/search-quizzes/**", "/expert", "/home", "/css/**", "/js/**", "/images/**","/blog-detail/**", "/about/**","/resetpassword/**", "/expert_detail/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
+                .antMatchers("/", "/register/**", "/login","/quiz-list","/search-quizzes/**", "/expert", "/home", "/css/**", "/js/**", "/images/**","/blog-detail/**", "/about/**","/resetpassword/**", "/expert_detail/**","/blogs/","/blog-list").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 .antMatchers("/manage_expert").hasRole("ADMIN")
                 .antMatchers("/profile/**","/quiz-detail/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
                 .anyRequest().authenticated()
