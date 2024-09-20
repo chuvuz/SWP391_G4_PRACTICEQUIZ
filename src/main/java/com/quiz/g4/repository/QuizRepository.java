@@ -25,7 +25,7 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
             "WHERE q.quizId = :quizId")
     Quiz findQuizWithQuestionsAndAnswers(@Param("quizId") Integer quizId);
 
-    @Query("SELECT q FROM Quiz q WHERE q.createdBy = :autherId")
+    @Query("SELECT q FROM Quiz q WHERE q.createdBy.userId = :autherId")
     List<Quiz> findQuizByAuther(@Param("autherId") Integer autherId);
 
 }
