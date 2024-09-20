@@ -1,6 +1,8 @@
 package com.quiz.g4.service.impl;
 
+import com.quiz.g4.entity.Role;
 import com.quiz.g4.entity.User;
+import com.quiz.g4.repository.RoleRepository;
 import com.quiz.g4.repository.UserRepository;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @Override
@@ -45,9 +50,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
+        user.setFullName(user.getFullName());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEmail(user.getEmail());
+
+
+        Role role = roleRepository.findRoleByRoleId(1);
+        if (role == null) {
+            throw new IllegalArgumentException("Invalid role");
+        } else {
+            user.setRole(role);
+        }
+        user.setSubject(user.getSubject());
         userRepository.save(user);
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
