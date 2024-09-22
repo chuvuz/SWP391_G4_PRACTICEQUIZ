@@ -59,19 +59,24 @@ public class AuthController {
         if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
             model.addAttribute("fullNameError", "Họ và tên không được để trống!");
             hasError = true;
+        } else if (!user.getFullName().matches("^[A-Za-z_]+$")) {
+            model.addAttribute("fullNameError", "Họ và tên chỉ được phép chứa chữ và dấu gạch dưới!");
+            hasError = true;
         }
+
 
         // Kiểm tra Email
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
             model.addAttribute("emailError", "Email không được để trống!");
             hasError = true;
-        } else if (!user.getEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            model.addAttribute("emailError", "Email không hợp lệ!");
+        } else if (!user.getEmail().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+            model.addAttribute("emailError", "Email phải có định dạng hợp lệ (ví dụ: example@example.com)!");
             hasError = true;
         } else if (userService.findByEmail(user.getEmail()) != null) {
             model.addAttribute("emailError", "Email đã được sử dụng!");
             hasError = true;
         }
+
 
         // Kiểm tra Mật Khẩu
         if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
