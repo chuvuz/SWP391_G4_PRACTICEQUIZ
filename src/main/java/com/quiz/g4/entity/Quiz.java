@@ -1,9 +1,7 @@
 package com.quiz.g4.entity;
-
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -20,24 +18,17 @@ public class Quiz {
     @Column(name = "quiz_id")
     private Integer quizId;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
-    private Subject subject;
+    @Column(name = "quiz_name", nullable = false)
+    private String quizName;
 
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;
 
-    @Column(name = "quiz_name", nullable = false)
-    private String quizName;
+    @OneToMany(mappedBy = "quiz")
+    private Set<Lesson> lessons;  // Liên kết với các bài học
 
-    @Column(name = "quiz_image")  // Trường bổ sung cho ảnh bài kiểm tra
-    private String quizImage;
-
-    @Column(name = "created_date", nullable = false)
-    private LocalDate createdDate = LocalDate.now();
-
-    @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Question> questions;
-
+    @ManyToOne
+    @JoinColumn(name = "subject_id", nullable = false)  // Liên kết với bảng Subject
+    private Subject subject;
 }

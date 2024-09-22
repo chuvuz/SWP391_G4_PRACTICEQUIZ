@@ -1,6 +1,5 @@
 package com.quiz.g4.controller;
 
-import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.QuizService;
@@ -50,8 +49,7 @@ public class ExpertController {
         model.addAttribute("expert", expert);
 
         // Lấy danh sách quiz
-        List<Quiz> quizzess = quizService.findQuizByAuther(expert.getUserId());
-        model.addAttribute("quizzess", quizzess);
+
         return "expert_details";
     }
 

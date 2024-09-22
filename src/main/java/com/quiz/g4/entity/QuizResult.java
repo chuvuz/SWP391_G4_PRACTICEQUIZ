@@ -2,9 +2,12 @@ package com.quiz.g4.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import lombok.*;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,15 +24,15 @@ public class QuizResult {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;  // Học sinh làm bài kiểm tra
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;  // Bài kiểm tra mà học sinh đã làm
+    private Quiz quiz;
 
-    @Column(name = "total_score", nullable = false)
-    private Double totalScore;  // Điểm tổng của học sinh
+    @Column(name = "score", nullable = false)
+    private Double score;  // Điểm số của học sinh
 
     @Column(name = "completed_at", nullable = false)
-    private LocalDate completedAt = LocalDate.now();
+    private LocalDateTime completedAt;  // Thời gian hoàn thành
 }
