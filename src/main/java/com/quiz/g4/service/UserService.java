@@ -22,5 +22,7 @@ public interface UserService extends UserDetailsService {
     Page<User> getAllExpert(int page, int size);
 
     void saveUser(User user);
+
+ boolean isValidPassword(String password);
 }
 

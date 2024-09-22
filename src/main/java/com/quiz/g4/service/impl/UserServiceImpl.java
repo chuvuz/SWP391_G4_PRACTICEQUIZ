@@ -51,20 +51,30 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        user.setFullName(user.getFullName());
+
+
+        // Encode the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Set other fields like fullName và email
+        user.setFullName(user.getFullName());
         user.setEmail(user.getEmail());
 
-
+        // Kiểm tra role người dùng
         Role role = roleRepository.findRoleByRoleId(1);
         if (role == null) {
             throw new IllegalArgumentException("Invalid role");
         } else {
             user.setRole(role);
         }
+
+        // Đảm bảo subject vẫn giữ nguyên
         user.setSubject(user.getSubject());
+
+        // Lưu người dùng vào cơ sở dữ liệu
         userRepository.save(user);
     }
+
 
 
 
@@ -96,7 +106,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private boolean isValidPassword(String password) {
+    public boolean isValidPassword(String password) {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,}$");
     }
 
