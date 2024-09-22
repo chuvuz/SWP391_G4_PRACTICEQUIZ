@@ -1,5 +1,6 @@
 package com.quiz.g4.controller;
 
+import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.QuizService;
@@ -50,8 +51,8 @@ public class QuizController {
         model.addAttribute("experts", experts);
 
         // Lấy danh sách quiz
-//        Page<Quiz> quizPage = quizService.getAllQuizzes(page, size);
-//        model.addAttribute("quizPage", quizPage);
+        Page<Quiz> quizPage = quizService.getAllQuizzess(page, size);
+        model.addAttribute("quizPage", quizPage);
 
         return "quiz/quiz-list"; // Trả về view quiz-list
     }
@@ -84,8 +85,8 @@ public class QuizController {
         model.addAttribute("quizName", quizName);
 
         // Tìm kiếm quiz dựa trên các tiêu chí
-//        Page<Quiz> quizPage = quizService.searchQuizzes(quizName, subjectId, expertId, page, size);
-//        model.addAttribute("quizPage", quizPage);
+        Page<Quiz> quizPage = quizService.searchQuizzes(quizName, subjectId, expertId, page, size);
+        model.addAttribute("quizPage", quizPage);
 
         return "quiz/quiz-list"; // Trả về view quiz-list cùng với kết quả tìm kiếm
     }
@@ -102,15 +103,15 @@ public class QuizController {
         }
 
         // Lấy quiz với các câu hỏi và lựa chọn trả lời
-//        Quiz quiz = quizService.getQuizWithQuestionsAndAnswers(quizId);
+       Quiz quiz = quizService.getQuizWithQuestionsAndAnswers(quizId);
 
         // Kiểm tra xem quiz có tồn tại không
-//        if (quiz == null) {
-//            return "error/404"; // Trả về trang lỗi nếu quiz không tồn tại
-//        }
-//
-//        // Thêm quiz vào model để render ra view
-//        model.addAttribute("quiz", quiz);
+        if (quiz == null) {
+            return "error/404"; // Trả về trang lỗi nếu quiz không tồn tại
+        }
+
+        // Thêm quiz vào model để render ra view
+        model.addAttribute("quiz", quiz);
 
         return "quiz/quiz-detail";  // Tên của view Thymeleaf để hiển thị chi tiết quiz
     }
