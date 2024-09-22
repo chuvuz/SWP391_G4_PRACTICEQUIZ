@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.List;
 
@@ -38,20 +40,18 @@ public class ExpertController {
         return "experts";
     }
 
-    @GetMapping("/expert_detail")
+    @GetMapping("/expert_detail/{expertId}")
     public String getExpertDetails(Model model,
-                                   @RequestParam(value = "page", defaultValue = "0") int page,
-                                   @RequestParam(value = "size", defaultValue = "10") int size,
-                                   @RequestParam(value = "id") int id){
+                                   @PathVariable("expertId") Integer userId){
         // Lấy danh sách các subject và expert để hiển thị
-        User expert = userService.findById(id);
+        User expert = userService.findUserByUserId(userId);
         Subject subject = expert.getSubject();
         model.addAttribute("subject", subject);
         model.addAttribute("expert", expert);
 
         // Lấy danh sách quiz
-        List<Quiz> quizs = quizService.findQuizByAuther(expert.getUserId());
-        model.addAttribute("quizs", quizs);
+        List<Quiz> quizzess = quizService.findQuizByAuther(expert.getUserId());
+        model.addAttribute("quizzess", quizzess);
         return "expert_details";
     }
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
@@ -43,8 +43,7 @@
                         <div class="img align-self-stretch" th:style="|background-image: url('${experts.profileImage}')|"></div>
                     </div>
                     <div class="text pt-3">
-                        <a th:href="@{/expert_detail/${expertId}(experId=${experts.userId})}"><h3 th:text="${experts.fullName}"></h3></a>
-                        <a th:href="@{/expert_detail/(${id}=${experts.userId})}"><h3 th:text="${experts.fullName}"></h3></a>
+                        <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"><h3 th:text="${experts.fullName}"></h3></a>
                         <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
                         <div class="faded">
                             <p th:text ="${experts.description}"></p>

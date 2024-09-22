@@ -17,18 +17,24 @@ public class QuizServiceImpl implements QuizService {
     @Autowired
     private QuizRepository quizRepository;
 
+
     @Override
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }
 
     @Override
+    public Page<Quiz> getAllQuizzess(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return quizRepository.findAll(pageable);
+    }
+
+    @Override
     public List<Quiz> findQuizByAuther(Integer autherId){return quizRepository.findQuizByAuther(autherId);}
 
     @Override
-    public Page<Quiz> getAllQuizzes(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return quizRepository.findAll(pageable);
+    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
+        return null;
     }
 
     @Override
@@ -36,12 +42,4 @@ public class QuizServiceImpl implements QuizService {
         Pageable pageable = PageRequest.of(page, size);
         return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
     }
-
-
-    @Override
-    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
-        return quizRepository.findQuizWithQuestionsAndAnswers(quizId);
-    }
-
-
 }

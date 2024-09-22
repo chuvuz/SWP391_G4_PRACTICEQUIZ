@@ -15,11 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Controller
 public class QuizController {
@@ -53,7 +51,7 @@ public class QuizController {
         model.addAttribute("experts", experts);
 
         // Lấy danh sách quiz
-        Page<Quiz> quizPage = quizService.getAllQuizzes(page, size);
+        Page<Quiz> quizPage = quizService.getAllQuizzess(page, size);
         model.addAttribute("quizPage", quizPage);
 
         return "quiz/quiz-list"; // Trả về view quiz-list
@@ -105,7 +103,7 @@ public class QuizController {
         }
 
         // Lấy quiz với các câu hỏi và lựa chọn trả lời
-        Quiz quiz = quizService.getQuizWithQuestionsAndAnswers(quizId);
+       Quiz quiz = quizService.getQuizWithQuestionsAndAnswers(quizId);
 
         // Kiểm tra xem quiz có tồn tại không
         if (quiz == null) {

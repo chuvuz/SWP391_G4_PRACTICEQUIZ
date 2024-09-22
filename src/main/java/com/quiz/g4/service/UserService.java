@@ -5,13 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
 
    User findByEmail(String email);
 
-    User findById(int userId);
+    User findUserByUserId(Integer userId);
 
     List<User> findByRoleId(int roleId);
 
