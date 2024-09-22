@@ -1,6 +1,4 @@
 package com.quiz.g4.entity;
-
-import com.quiz.g4.enums.QuestionType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,27 +10,23 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "questions")
-public class Question {
+@Table(name = "question_bank")
+public class QuestionBank {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     private Integer questionId;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
-
     @Column(name = "question_content", nullable = false)
-    private String content;
+    private String questionContent;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "question_type", nullable = false)
-    private QuestionType questionType;  // Sử dụng enum cho kiểu câu hỏi
+    private String questionType;
 
     @OneToMany(mappedBy = "question")
-    private Set<AnswerOption> answerOptions;  // Các lựa chọn trả lời cho câu hỏi này
+    private Set<AnswerOption> answerOptions;  // Liên kết với câu trả lời
 
-
+    @ManyToMany(mappedBy = "questionBanks")
+    private Set<Lesson> lessons;  // Liên kết với các bài học (nhiều-nhiều)
 }

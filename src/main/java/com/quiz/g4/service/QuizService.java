@@ -11,11 +11,11 @@ public interface QuizService {
 
     List<Quiz> getAllQuizzes();
 
-    Page<Quiz> getAllQuizzes(int page, int size);
+    Page<Quiz> getAllQuizzess(int page, int size);
 
-    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
-
-    List<Quiz> findQuizByAuther(Integer autherId);
+    List<Quiz> findQuizByAuther(Integer userId);
 
     Quiz getQuizWithQuestionsAndAnswers(Integer quizId);
+
+    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
 }

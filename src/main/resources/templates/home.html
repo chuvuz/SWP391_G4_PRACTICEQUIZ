@@ -27,22 +27,43 @@
 
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" th:style="|background-image: url('@{/images/bg_1.jpg}')|">
 
-    <div class="overlay"></div>
+
+
+<section class="ftco-section bg-light">
     <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
-            <div class="col-md-7 ftco-animate">
-                <span class="subheading">Welcome to StudyLab</span>
-                <h1 class="mb-4">We Are Online Platform For Make Learn</h1>
-                <p class="caps">Far far away, behind the word mountains, far from the countries Vokalia and
-                    Consonantia</p>
+        <div class="row justify-content-center pb-4">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+                <span class="subheading">Start Learning Today</span>
+                <h2 class="mb-4">Pick Your Quizz</h2>
+            </div>
+        </div>
+        <div class="row" id="quiz-container">
+            <div th:each="quiz : ${quizzes}" class="col-md-3 ftco-animate">
+                <div class="project-wrap">
+                    <!-- Ảnh của quiz -->
+                    <a class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
+                        <!-- Tên subject -->
+                        <span class="price" th:text="${quiz.subject.subjectName}"></span>
+                    </a>
+                    <div class="text p-4">
+                        <!-- Tên của quiz -->
+                        <h3><a href="#" th:text="${quiz.quizName}">Design for the web with adobe photoshop</a></h3>
+                        <!-- Người tạo quiz -->
+                        <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
+                        <ul class="d-flex justify-content-between">
+                            <li><a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="btn btn-secondary py-2 px-3">Take Quiz</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-center mt-5">
+                <a th:href="@{/quiz-list}" class="btn btn-secondary">See All Quiz</a>
             </div>
         </div>
     </div>
-</div>
-
-
+</section>
 
 <section class="ftco-section">
     <div class="container">
@@ -69,230 +90,7 @@
 </section>
 
 
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row justify-content-center pb-4">
-            <div class="col-md-12 heading-section text-center ftco-animate">
-                <span class="subheading">Start Learning Today</span>
-                <h2 class="mb-4">Pick Your Quizz</h2>
-            </div>
-        </div>
-        <div class="row" id="quiz-container">
-            <div th:each="quiz : ${quizzes}" class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <!-- Ảnh của quiz -->
-                    <a class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
-                        <!-- Tên subject -->
-                        <span class="price" th:text="${quiz.subject.subjectName}"></span>
-                    </a>
-                    <div class="text p-4">
-                        <!-- Tên của quiz -->
-                        <h3><a href="#" th:text="${quiz.quizName}">Design for the web with adobe photoshop</a></h3>
-                        <!-- Người tạo quiz -->
-                        <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
-                        <ul class="d-flex justify-content-between">
-                            <li><a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"  class="btn btn-secondary py-2 px-3">Take Quiz</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_4.jpg);">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 d-flex align-items-center">
-                    <div class="icon"><span class="flaticon-online"></span></div>
-                    <div class="text">
-                        <strong class="number" data-number="400">0</strong>
-                        <span>Online Courses</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 d-flex align-items-center">
-                    <div class="icon"><span class="flaticon-graduated"></span></div>
-                    <div class="text">
-                        <strong class="number" data-number="4500">0</strong>
-                        <span>Students Enrolled</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 d-flex align-items-center">
-                    <div class="icon"><span class="flaticon-instructor"></span></div>
-                    <div class="text">
-                        <strong class="number" data-number="1200">0</strong>
-                        <span>Experts Instructors</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
-                <div class="block-18 d-flex align-items-center">
-                    <div class="icon"><span class="flaticon-tools"></span></div>
-                    <div class="text">
-                        <strong class="number" data-number="300">0</strong>
-                        <span>Hours Content</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-about img">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-12 about-intro">
-                <div class="row">
-                    <div class="col-md-6 d-flex">
-                        <div class="d-flex about-wrap">
-                            <div class="img d-flex align-items-center justify-content-center"
-                                 style="background-image:url(images/about-1.jpg);">
-                            </div>
-                            <div class="img-2 d-flex align-items-center justify-content-center"
-                                 style="background-image:url(images/about.jpg);">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 pl-md-5 py-5">
-                        <div class="row justify-content-start pb-3">
-                            <div class="col-md-12 heading-section ftco-animate">
-                                <span class="subheading">Enhanced Your Skills</span>
-                                <h2 class="mb-4">Learn Anything You Want Today</h2>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                    Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-                                    right at the coast of the Semantics, a large language ocean. A small river named
-                                    Duden flows by their place and supplies it with the necessary regelialia.</p>
-                                <p><a href="#" class="btn btn-primary">Get in touch with us</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="ftco-section testimony-section bg-light">
-    <div class="overlay" style="background-image: url(images/bg_2.jpg);"></div>
-    <div class="container">
-        <div class="row pb-4">
-            <div class="col-md-7 heading-section ftco-animate">
-                <span class="subheading">Testimonial</span>
-                <h2 class="mb-4">What Are Students Says</h2>
-            </div>
-        </div>
-    </div>
-    <div class="container container-2">
-        <div class="row ftco-animate">
-            <div class="col-md-12">
-                <div class="carousel-testimony owl-carousel">
-                    <div th:each="user : ${experts}" class="item">
-                        <div class="testimony-wrap py-4">
-                            <div class="text">
-                                <p class="star">
-<!--                                    <span class="fa fa-star"></span>-->
-<!--                                    <span class="fa fa-star"></span>-->
-<!--                                    <span class="fa fa-star"></span>-->
-<!--                                    <span class="fa fa-star"></span>-->
-<!--                                    <span class="fa fa-star"></span>-->
-                                </p>
-                                <p class="mb-4" th:text="${user.description}"></p>
-                                <div class="d-flex align-items-center">
-                                    <!-- Thay đổi từ style thành img tag và thêm class "user-img img" -->
-                                    <div class="user-img">
-                                        <img th:src="@{${user.profileImage}}" alt="Profile Image" class="img-fluid" />
-                                    </div>
-                                    <div class="pl-3">
-                                        <p class="name" th:text="${user.fullName}">Roger Scott</p>
-                                        <span class="position">Expert</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="ftco-section services-section">
-    <div class="container">
-        <div class="row d-flex">
-            <div class="col-md-6 heading-section pr-md-5 ftco-animate d-flex align-items-center">
-                <div class="w-100 mb-4 mb-md-0">
-                    <span class="subheading">Welcome to StudyLab</span>
-                    <h2 class="mb-4">We Are QuizLab An Online Quiz Center</h2>
-                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
-                        It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                        there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
-                        Semantics, a large language ocean.</p>
-                    <div class="d-flex video-image align-items-center mt-md-4">
-                        <a href="#" class="video img d-flex align-items-center justify-content-center"
-                           style="background-image: url(images/about.jpg);">
-                            <span class="fa fa-play-circle"></span>
-                        </a>
-                        <h4 class="ml-4">Learn anything from QuizLab, Watch video</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                        <div class="services">
-                            <div class="icon d-flex align-items-center justify-content-center"><span
-                                    class="flaticon-tools"></span></div>
-                            <div class="media-body">
-                                <h3 class="heading mb-3">Top Quality Content</h3>
-                                <p>A small river named Duden flows by their place and supplies</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                        <div class="services">
-                            <div class="icon icon-2 d-flex align-items-center justify-content-center"><span
-                                    class="flaticon-instructor"></span></div>
-                            <div class="media-body">
-                                <h3 class="heading mb-3">Highly Skilled Instructor</h3>
-                                <p>A small river named Duden flows by their place and supplies</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                        <div class="services">
-                            <div class="icon icon-3 d-flex align-items-center justify-content-center"><span
-                                    class="flaticon-quiz"></span></div>
-                            <div class="media-body">
-                                <h3 class="heading mb-3">World Class &amp; Quiz</h3>
-                                <p>A small river named Duden flows by their place and supplies</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
-                        <div class="services">
-                            <div class="icon icon-4 d-flex align-items-center justify-content-center"><span
-                                    class="flaticon-browser"></span></div>
-                            <div class="media-body">
-                                <h3 class="heading mb-3">Get Certified</h3>
-                                <p>A small river named Duden flows by their place and supplies</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 
 <section class="ftco-section bg-light">
@@ -379,15 +177,16 @@
             }
         });
 
-        // Lấy tất cả các phần tử .col-md-4 (quiz items)
-        const quizItems = document.querySelectorAll('#quiz-container .col-md-4');
+        // Lấy tất cả các phần tử .col-md-3 (quiz items)
+        const quizItems = document.querySelectorAll('#quiz-container .col-md-3');
 
-        // Ẩn tất cả các phần tử từ phần tử thứ 7 trở đi (index 6)
+// Ẩn tất cả các phần tử từ phần tử thứ 9 trở đi (index 8)
         quizItems.forEach((item, index) => {
-            if (index >= 6) {
-                item.style.display = 'none'; // Ẩn các phần tử sau quiz thứ 6
+            if (index >= 8) {
+                item.style.display = 'none'; // Ẩn các phần tử sau quiz thứ 8
             }
         });
+
 
         // Lấy tất cả các phần tử subject-item
         const subjects = document.querySelectorAll('.subject-item');

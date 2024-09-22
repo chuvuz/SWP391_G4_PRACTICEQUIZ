@@ -1,16 +1,13 @@
 package com.quiz.g4.entity;
-
 import lombok.*;
 
 import javax.persistence.*;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "answer_options")
 public class AnswerOption {
 
     @Id
@@ -20,11 +17,11 @@ public class AnswerOption {
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
+    private QuestionBank question;
 
     @Column(name = "option_content", nullable = false)
-    private String content;  // Nội dung lựa chọn trả lời
+    private String content;
 
     @Column(name = "is_correct", nullable = false)
-    private Boolean isCorrect;  // Xác định đây có phải đáp án đúng không
+    private Boolean isCorrect;  // Đánh dấu đáp án đúng
 }

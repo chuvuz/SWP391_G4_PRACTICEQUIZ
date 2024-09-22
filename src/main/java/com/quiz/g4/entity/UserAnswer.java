@@ -1,9 +1,8 @@
 package com.quiz.g4.entity;
-
 import lombok.*;
 
 import javax.persistence.*;
-
+import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,16 +18,17 @@ public class UserAnswer {
     private Integer answerId;
 
     @ManyToOne
-    @JoinColumn(name = "result_id", nullable = false)
-    private QuizResult quizResult;
+    @JoinColumn(name = "quiz_result_id", nullable = false)
+    private QuizResult quizResult;  // Liên kết với kết quả quiz
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
+    private QuestionBank question;
 
-    @Column(name = "selected_option_ids")
-    private String selectedOptionIds;  // Lưu trữ ID của các lựa chọn mà học sinh đã chọn
+    @ManyToOne
+    @JoinColumn(name = "selected_option_id", nullable = false)
+    private AnswerOption selectedAnswer;  // Câu trả lời mà học sinh đã chọn
 
     @Column(name = "is_correct", nullable = false)
-    private Boolean isCorrect;  // Đánh dấu đúng/sai của câu trả lời
+    private Boolean isCorrect;  // Xác định đúng/sai
 }
