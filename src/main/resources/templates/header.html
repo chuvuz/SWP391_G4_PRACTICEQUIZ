@@ -25,7 +25,7 @@
           </li>
 
           <!-- Nếu đã đăng nhập thì hiển thị tên người dùng và nút logout -->
-          <li class="nav-item dropdown" th:if="${user != null}">
+          <li class="nav-item active dropdown" th:if="${user != null}">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span th:text="${user.fullName}">User</span>
