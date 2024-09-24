@@ -111,4 +111,42 @@ public class AuthController {
     }
 
 
+    // Xóa phương thức showResetPasswordForm nếu không cần thiết
+
+    @GetMapping("/reset-password")
+    public String showResetPasswordForm() {
+        return "auth/resetpassword"; // Trang nhập email để đặt lại mật khẩu
+    }
+
+    @PostMapping("/reset-password")
+    public String handleResetPassword(@RequestParam("email") String email, Model model) {
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            model.addAttribute("errorMessage", "Email không tồn tại trong hệ thống!");
+            return "auth/resetpassword"; // Quay lại trang nhập email
+        }
+
+        // Nếu email tồn tại, chuyển đến trang nhập mật khẩu mới
+        model.addAttribute("email", email); // Gửi email đến trang thay đổi mật khẩu
+        return "auth/change-password"; // Chuyển đến trang nhập mật khẩu mới
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("email") String email,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Model model) {
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("errorMessage", "Mật khẩu không khớp!");
+            return "auth/change-password"; // Quay lại trang thay đổi mật khẩu
+        }
+
+        // Cập nhật mật khẩu mới
+        userService.changePassword(email, newPassword);
+        model.addAttribute("successMessage", "Mật khẩu đã được thay đổi thành công!");
+        return "auth/login"; // Chuyển hướng đến trang đăng nhập
+    }
+
+
 }
