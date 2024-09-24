@@ -77,31 +77,22 @@
                 <h2 class="mb-4">Pick Your Quizz</h2>
             </div>
         </div>
-        <div class="row" id="subject-container">
-            <div th:each="subject : ${quizzes}" class="col-md-4 ftco-animate">
+        <div class="row" id="quiz-container">
+            <div th:each="quiz : ${quizzes}" class="col-md-4 ftco-animate">
                 <div class="project-wrap">
-<<<<<<< Updated upstream
                     <!-- Ảnh của quiz -->
                     <a href="#" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
-=======
-                    <!-- Ảnh của subject -->
-                    <a class="img" th:style="|background-image: url('@{' + ${subject.quizImage} + '}')|">
->>>>>>> Stashed changes
                         <!-- Tên subject -->
-                        <span class="price" th:text="${subject.subject.subjectName}"></span>
+                        <span class="price" th:text="${quiz.subject.subjectName}"></span>
                     </a>
                     <div class="text p-4">
-                        <!-- Tên của subject -->
-                        <h3><a href="#" th:text="${subject.quizName}">Design for the web with adobe photoshop</a></h3>
-                        <!-- Người tạo subject -->
-                        <p class="advisor">Advisor <span th:text="${subject.createdBy.fullName}">Tony Garret</span></p>
+                        <!-- Tên của quiz -->
+                        <h3><a href="#" th:text="${quiz.quizName}">Design for the web with adobe photoshop</a></h3>
+                        <!-- Người tạo quiz -->
+                        <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
                         <ul class="d-flex justify-content-between">
-<<<<<<< Updated upstream
                             <li><span class="flaticon-shower"></span>2300</li>
                             <li class="price">$199</li>
-=======
-                            <li><a th:href="@{/subject-detail/{quizId}(quizId=${subject.quizId})}"  class="btn btn-secondary py-2 px-3">Take Quiz</a></li>
->>>>>>> Stashed changes
                         </ul>
                     </div>
                 </div>
@@ -281,7 +272,7 @@
                     <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
                         <div class="services">
                             <div class="icon icon-3 d-flex align-items-center justify-content-center"><span
-                                    class="flaticon-subject"></span></div>
+                                    class="flaticon-quiz"></span></div>
                             <div class="media-body">
                                 <h3 class="heading mb-3">World Class &amp; Quiz</h3>
                                 <p>A small river named Duden flows by their place and supplies</p>
@@ -459,13 +450,13 @@
             }
         });
 
-        // Lấy tất cả các phần tử .col-md-4 (subject items)
-        const quizItems = document.querySelectorAll('#subject-container .col-md-4');
+        // Lấy tất cả các phần tử .col-md-4 (quiz items)
+        const quizItems = document.querySelectorAll('#quiz-container .col-md-4');
 
         // Ẩn tất cả các phần tử từ phần tử thứ 7 trở đi (index 6)
         quizItems.forEach((item, index) => {
             if (index >= 6) {
-                item.style.display = 'none'; // Ẩn các phần tử sau subject thứ 6
+                item.style.display = 'none'; // Ẩn các phần tử sau quiz thứ 6
             }
         });
 

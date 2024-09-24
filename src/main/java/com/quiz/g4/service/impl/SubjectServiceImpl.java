@@ -1,5 +1,6 @@
 package com.quiz.g4.service.impl;
 
+import com.quiz.g4.entity.Subject;
 import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
