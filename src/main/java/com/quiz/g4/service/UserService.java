@@ -4,6 +4,7 @@ import com.quiz.g4.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
@@ -21,5 +22,13 @@ public interface UserService extends UserDetailsService {
     Page<User> getAllExpert(int page, int size);
 
     void saveUser(User user);
+
+   boolean isValidPassword(String password);
+
+    void sendResetPasswordEmail(String email, HttpServletRequest request);
+
+    void updatePasswordReset(String token, String password);
+
+    boolean isResetTokenValid(String token);
 }
 

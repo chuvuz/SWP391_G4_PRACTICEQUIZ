@@ -69,18 +69,10 @@
         .text-center a:hover {
             text-decoration: underline;
         }
-        .alert {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
+        .error-message {
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -88,21 +80,23 @@
 <div class="register-container">
     <h3 class="text-center">Đăng Ký</h3>
     <form th:action="@{/register}" method="post">
-        <!-- Thông báo thành công hoặc lỗi -->
-        <div th:if="${errorMessage}" class="alert alert-danger">
-            <span th:text="${errorMessage}"></span>
+        <div class="form-group">
+            <input type="text" name="fullName" class="form-control" placeholder="Họ và Tên"
+            th:value ="${user.fullName}" >
+            <span class="error-message" th:if="${fullNameError}" th:text="${fullNameError}"></span>
         </div>
         <div class="form-group">
-            <input type="text" name="fullName" class="form-control" placeholder="Họ và Tên" required>
+            <input type="email" name="email" class="form-control" placeholder="Email"
+                   th:value="${user.email}" >
+            <span class="error-message" th:if="${emailError}" th:text="${emailError}"></span>
         </div>
         <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email" required>
+            <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" >
+            <span class="error-message" th:if="${passwordError}" th:text="${passwordError}"></span>
         </div>
         <div class="form-group">
-            <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" required>
-        </div>
-        <div class="form-group">
-            <input type="password" name="confirmPassword" class="form-control" placeholder="Nhập Lại Mật Khẩu" required>
+            <input type="password" name="confirmPassword" class="form-control" placeholder="Nhập Lại Mật Khẩu" >
+            <span class="error-message" th:if="${confirmPasswordError}" th:text="${confirmPasswordError}"></span>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Đăng Ký</button>
