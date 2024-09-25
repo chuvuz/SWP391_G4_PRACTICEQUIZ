@@ -62,6 +62,29 @@
 </section>
 
 
+<section class="ftco-section bg-light ftco-no-pt">
+    <div class="container">
+        <div class="row pb-4">
+            <div class="col-md-12 heading-section ftco-animate">
+                <h2 class="mb-4" th:text="'Course By ' + ${expert.fullName}"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div th:each="quiz : ${quizzess}" class="col-md-4 ftco-animate">
+                <div class="project-wrap">
+                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
+                        <span class="price" th:text="${quiz.subject.subjectName}">Software</span>
+                    </a>
+                    <div class="text p-4">
+                        <h3><a href="#" th:text="${quiz.quizName}"></a></h3>
+                        <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}"></span></p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
 <div th:replace="footer :: footer"></div>
 
 
