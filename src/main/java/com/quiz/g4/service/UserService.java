@@ -23,7 +23,7 @@ public interface UserService extends UserDetailsService {
 
     void saveUser(User user);
 
- boolean isValidPassword(String password);
+   boolean isValidPassword(String password);
 
     void sendResetPasswordEmail(String email, HttpServletRequest request);
 

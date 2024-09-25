@@ -38,11 +38,12 @@ public class AuthController {
         return "auth/login";
     }
 
-    @GetMapping("/resetpassword")
-    public String resetPassword() {
-        return "forgot-password";
-    }
 
+    @GetMapping("/register")
+    public String registerForm(Model model) {
+        model.addAttribute("user", new User());  // Add an empty User object to the model
+        return "auth/register";
+    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, @RequestParam("confirmPassword") String confirmPassword, Model model) {
