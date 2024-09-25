@@ -4,6 +4,7 @@ import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.QuizService;
+import com.quiz.g4.service.SubjectService;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,13 +26,38 @@ public class ExpertController {
     @Autowired
     private QuizService quizService;
 
+    @Autowired
+    private SubjectService subjectService;
 
     @GetMapping("/expert")
     public String getExpertlist(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                                @RequestParam(value = "size", defaultValue = "8") int size){
+        // Lấy danh sách các subject để hiển thị
+        List<Subject> subjects = subjectService.getAllSubjects();
+        model.addAttribute("subjects", subjects);
+
         page = Math.max(page, 0);
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
         Page<User> expertPage = userService.getAllExpert(page, size);
+        // Đưa danh sách này vào model
+        model.addAttribute("expertPage", expertPage);
+        return "experts";
+    }
+
+    @GetMapping("/search_expert")
+    public String searchExpert(@RequestParam(value = "expertName", required = false) String expertName,
+                               @RequestParam(value = "subjectId", required = false) Integer subjectId,
+                               @RequestParam(value = "page", defaultValue = "0") int page,
+                               @RequestParam(value = "size", defaultValue = "8") int size,
+                               Model model
+                               ){
+        // Lấy danh sách các subject để hiển thị
+        List<Subject> subjects = subjectService.getAllSubjects();
+        model.addAttribute("subjects", subjects);
+
+        page = Math.max(page, 0);
+        // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
+        Page<User> expertPage = userService.searchExpert(expertName, subjectId, 3, page, size);
         // Đưa danh sách này vào model
         model.addAttribute("expertPage", expertPage);
         return "experts";

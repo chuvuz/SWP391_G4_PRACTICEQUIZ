@@ -18,185 +18,31 @@
     <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
     <style>
-
-
         .center-form {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .center-form img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-
-        .form-field {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-field label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-        }
-
-        .form-field input[type="text"],
-        .form-field textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .content {
-            flex: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
         }
-        .form-field button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50; /* Green background */
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .form-field {
+            margin: 10px 0;
+            width: 300px; /* Set a fixed width for all form fields */
         }
-
-        .form-field button:hover {
-            background-color: #45a049; /* Darker green on hover */
-        }
-
-        .upload-form {
-            margin-bottom: 20px;
-        }
-
-        .upload-form input[type="file"] {
-            display: none;
-        }
-
-        .upload-form label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff; /* Blue background */
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .upload-form label:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+        .form-field input,
+        .form-field textarea {
+            width: 100%; /* Ensure the input and textarea take up the full width of the form-field */
         }
     </style>
 </head>
 <body>
-<!--<div th:replace="header :: header"></div>-->
-<!--<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">-->
-<!--    <div class="overlay"></div>-->
-<!--    <div class="container">-->
-<!--        <div class="row no-gutters slider-text align-items-end justify-content-center">-->
-<!--            <div class="col-md-9 ftco-animate pb-5 text-center">-->
-<!--                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span>-->
-<!--                    <span> Profile <i class="fa fa-chevron-right"></i></span></p>-->
-<!--                <h1 class="mb-0 bread">Edit Profile</h1>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
-<!--<section class="ftco-section bg-light">-->
-<!--    <div class="container">-->
-<!--        <img th:src="@{'profile/images/' + ${user.profileImage}}" alt="Profile Image"/>-->
-<!--        <form action="#" th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">-->
-<!--            <input type="file" name="image" accept="image/*"/>-->
-<!--            <button type="submit">Upload New Profile Image</button>-->
-<!--        </form>-->
-<!--        <br>-->
-
-<!--    </div>-->
-
-<!--    <div class="container">-->
-<!--        <form th:action="@{/profile/edit}" th:object="${user}" method="post">-->
-<!--            <div class="form-field">-->
-<!--                <label for="fullName">Full Name:</label>-->
-<!--                <input type="text" id="fullName" th:field="*{fullName}"/>-->
-<!--            </div>-->
-<!--            <div class="form-field">-->
-<!--                <label for="description">Description:</label>-->
-<!--                <textarea id="description" th:field="*{description}"></textarea>-->
-<!--            </div>-->
-<!--            <div class="form-field">-->
-<!--                <button type="submit">Save</button>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</section>-->
-<!--<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">-->
-<!--    <div class="overlay"></div>-->
-<!--    <div class="container">-->
-<!--        <div class="row no-gutters slider-text align-items-end justify-content-center">-->
-<!--            <div class="col-md-9 ftco-animate pb-5 text-center">-->
-<!--                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span>-->
-<!--                    <span>Profile <i class="fa fa-chevron-right"></i></span></p>-->
-<!--                <h1 class="mb-0 bread">Edit Profile</h1>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
-
-<!--<section class="ftco-section bg-light">-->
-<!--    <div class="container">-->
-<!--        <img th:src="@{'profile/images/' + ${user.profileImage}}" alt="Profile Image"/>-->
-<!--        <form action="#" th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">-->
-<!--            <input type="file" name="image" accept="image/*"/>-->
-<!--            <button type="submit">Upload New Profile Image</button>-->
-<!--        </form>-->
-<!--        <br>-->
-
-<!--    </div>-->
-<!--    <div class="container">-->
-
-<!--        <form th:action="@{/profile/edit}" th:object="${user}" method="post">-->
-<!--            <div class="form-field">-->
-<!--                <label for="fullName">Full Name:</label>-->
-<!--                <input type="text" id="fullName" th:field="*{fullName}"/>-->
-<!--            </div>-->
-<!--            <div class="form-field">-->
-<!--                <label for="description">Description:</label>-->
-<!--                <textarea id="description" th:field="*{description}"></textarea>-->
-<!--            </div>-->
-<!--            <div class="form-field">-->
-<!--                <button type="submit">Save</button>-->
-<!--            </div>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</section>-->
-<!--<div id="ftco-loader" class="show fullscreen">-->
-<!--    <svg class="circular" width="48px" height="48px">-->
-<!--        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>-->
-<!--        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"-->
-<!--                stroke="#F96D00"/>-->
-<!--    </svg>-->
-<!--</div>-->
 <div th:replace="header :: header"></div>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center">
             <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Profile<i class="fa fa-chevron-right"></i></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span> Profile <i class="fa fa-chevron-right"></i></span></p>
                 <h1 class="mb-0 bread">Edit Profile</h1>
             </div>
         </div>
@@ -204,39 +50,37 @@
 </section>
 
 
-<div class="content">
-    <div class="center-form">
-        <img th:src="@{'profile/images/' + ${user.profileImage}}" alt="Profile Image"/>
-        <form class="upload-form" th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" id="image" accept="image/*"/>
-            <label for="image">Choose New Profile Image</label>
-            <button type="submit">Upload New Profile Image</button>
-        </form>
-        <form th:action="@{/profile/edit}" th:object="${user}" method="post">
-            <div class="form-field">
-                <label for="fullName">Full Name:</label>
-                <input type="text" id="fullName" th:field="*{fullName}"/>
-            </div>
-            <div class="form-field">
-                <label for="description">Description:</label>
-                <textarea id="description" th:field="*{description}"></textarea>
-            </div>
-            <div class="form-field">
-                <button type="submit">Save</button>
-            </div>
-        </form>
+<div class="center-form">
+    <img th:src="@{'/profile/images/' + ${user.profileImage}}" alt="Profile Image"/>
+    <div class="form-field">
+    <form action="#" th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*"/>
+        <button type="submit">Upload New Profile Image</button>
+
+    </form>
+    <br>
     </div>
+    <form th:action="@{/profile/edit}" th:object="${user}" method="post">
+        <div class="form-field">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" th:field="*{fullName}" />
+        </div>
+        <div class="form-field">
+            <label for="description">Description:</label>
+            <textarea id="description" th:field="*{description}"></textarea>
+        </div>
+        <div class="form-field">
+            <button type="submit">Save</button>
+        </div>
+    </form>
 </div>
-
-
 <footer class="ftco-footer ftco-no-pt">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md pt-5">
                 <div class="ftco-footer-widget pt-md-5 mb-4">
                     <h2 class="ftco-heading-2">About</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there
-                        live the blind texts.</p>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
                         <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
@@ -252,7 +96,6 @@
                         <li><a href="#" class="py-2 d-block">Legal Help</a></li>
                         <li><a href="#" class="py-2 d-block">Services</a></li>
                         <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
-                        <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
                         <li><a href="#" class="py-2 d-block">Call Us</a></li>
                     </ul>
                 </div>
@@ -275,12 +118,9 @@
                     <h2 class="ftco-heading-2">Have a Questions?</h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
-                            </li>
-                            <li><a href="#"><span class="icon fa fa-phone"></span><span
-                                    class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a>
-                            </li>
+                            <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                            <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+                            <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -290,21 +130,15 @@
             <div class="col-md-12 text-center">
 
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                    All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by
-                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
         </div>
     </div>
 </footer>
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
-</div>
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
