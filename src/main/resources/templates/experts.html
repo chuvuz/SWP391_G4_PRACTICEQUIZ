@@ -35,40 +35,6 @@
 </section>
 
 <section class="ftco-section bg-light">
-    <form action="#" th:action="@{/search_expert}" method="GET" class="search-form">
-        <div class="row">
-            <div class="form-group col-lg-3">
-                </div>
-
-            <!-- Search by Expert Name -->
-            <div class="form-group col-lg-3">
-                <span class="icon fa fa-search"></span>
-                <label>
-                    <input type="text" name="expertName" class="form-control"
-                           placeholder="Search by quiz name"
-                           th:value="${expertName != null} ? ${expertName} : ''">
-                </label>
-            </div>
-
-            <!-- Search by Subject -->
-            <div class="form-group col-lg-3">
-                <label>
-                    <select name="subjectId" class="form-control">
-                        <option value="">-- Select Subject --</option>
-                        <option th:each="subject : ${subjects}"
-                                th:value="${subject.subjectId}"
-                                th:text="${subject.subjectName}"
-                                th:selected="${subject.subjectId} == ${selectedSubjectId}">
-                        </option>
-                    </select>
-                </label>
-            </div>
-
-            <div class="form-group col-lg-3">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </div>
-    </form>
     <div class="container">
         <div class="row">
             <div th:each="experts : ${expertPage}" class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
