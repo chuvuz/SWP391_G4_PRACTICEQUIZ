@@ -1,4 +1,4 @@
-package com.quiz.g4.controller.authoController;
+    package com.quiz.g4.controller.authoController;
 
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
@@ -53,8 +53,8 @@ public class AuthController {
         if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
             model.addAttribute("fullNameError", "Họ và tên không được để trống!");
             hasError = true;
-        } else if (!user.getFullName().matches("^[A-Za-z_]+$")) {
-            model.addAttribute("fullNameError", "Họ và tên chỉ được phép chứa chữ và dấu gạch dưới!");
+        } else if (!user.getFullName().matches("^[A-Za-zÀ-ỹ]+(?:\\s[A-Za-zÀ-ỹ]+)*$")) {
+            model.addAttribute("fullNameError", "Tên không hợp lệ. Tên chỉ chứa chữ cái và một khoảng cách giữa các từ.");
             hasError = true;
         }
 
