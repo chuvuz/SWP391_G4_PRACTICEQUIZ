@@ -3,18 +3,16 @@
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -40,15 +38,11 @@ public class AuthController {
         return "auth/login";
     }
 
-    @GetMapping("/resetpassword")
-    public String resetPassword() {
-        return "auth/resetpassword";
-    }
 
     @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User()); // Gửi đối tượng rỗng để Thymeleaf có thể binding dữ liệu
-        return "auth/register"; // Trả về template Thymeleaf tương ứng
+    public String registerForm(Model model) {
+        model.addAttribute("user", new User());  // Add an empty User object to the model
+        return "auth/register";
     }
 
     @PostMapping("/register")
@@ -109,6 +103,55 @@ public class AuthController {
             return "auth/register";
         }
     }
+
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordForm() {
+        return "auth/forgot-password";
+    }
+
+    //thực hiện quá trình reset
+    @PostMapping("/forgot-password")
+    public String processForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        try {
+            userService.sendResetPasswordEmail(email, request);
+            redirectAttributes.addFlashAttribute("successMessage", "Chúng tôi đã gửi Email về cho bạn");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Chúng tôi không thấy có Email người dùng ");
+        }
+        return "redirect:/forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        if (!userService.isResetTokenValid(token)) {
+            model.addAttribute("errorMessage", "Mã thông báo đặt lại không hợp lệ hoặc đã hết hạn.");
+            return "auth/reset-password";
+        }
+
+        model.addAttribute("token", token);
+        return "auth/reset-password";
+    }
+
+    @PostMapping("/reset-password")
+    public String processResetPassword(@RequestParam("token") String token,
+                                       @RequestParam("password") String password,
+                                       RedirectAttributes redirectAttributes) {
+        if (password.length() < 6) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Mật Khẩu phải dài ít nhất 6 ký tự.");
+            return "redirect:/reset-password?token=" + token;
+        }
+
+        try {
+            userService.updatePasswordReset(token, password);
+            redirectAttributes.addFlashAttribute("successMessage", "Đặt lại Mật Khẩu thành công.");
+            return "redirect:/login";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error: " + e.getMessage());
+            return "redirect:/reset-password?token=" + token;
+        }
+    }
+
 
 
 }
