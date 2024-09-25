@@ -3,18 +3,16 @@ package com.quiz.g4.controller.authoController;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -42,14 +40,9 @@ public class AuthController {
 
     @GetMapping("/resetpassword")
     public String resetPassword() {
-        return "auth/resetpassword";
+        return "forgot-password";
     }
 
-    @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User()); // Gửi đối tượng rỗng để Thymeleaf có thể binding dữ liệu
-        return "auth/register"; // Trả về template Thymeleaf tương ứng
-    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, @RequestParam("confirmPassword") String confirmPassword, Model model) {
@@ -111,42 +104,53 @@ public class AuthController {
     }
 
 
-    // Xóa phương thức showResetPasswordForm nếu không cần thiết
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordForm() {
+        return "auth/forgot-password";
+    }
+
+    //thực hiện quá trình reset
+    @PostMapping("/forgot-password")
+    public String processForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        try {
+            userService.sendResetPasswordEmail(email, request);
+            redirectAttributes.addFlashAttribute("successMessage", "Chúng tôi đã gửi Email về cho bạn");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Chúng tôi không thấy có Email người dùng ");
+        }
+        return "redirect:/forgot-password";
+    }
 
     @GetMapping("/reset-password")
-    public String showResetPasswordForm() {
-        return "auth/resetpassword"; // Trang nhập email để đặt lại mật khẩu
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        if (!userService.isResetTokenValid(token)) {
+            model.addAttribute("errorMessage", "Mã thông báo đặt lại không hợp lệ hoặc đã hết hạn.");
+            return "auth/reset-password";
+        }
+
+        model.addAttribute("token", token);
+        return "auth/reset-password";
     }
 
     @PostMapping("/reset-password")
-    public String handleResetPassword(@RequestParam("email") String email, Model model) {
-        User user = userService.findByEmail(email);
-
-        if (user == null) {
-            model.addAttribute("errorMessage", "Email không tồn tại trong hệ thống!");
-            return "auth/resetpassword"; // Quay lại trang nhập email
+    public String processResetPassword(@RequestParam("token") String token,
+                                       @RequestParam("password") String password,
+                                       RedirectAttributes redirectAttributes) {
+        if (password.length() < 6) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Mật Khẩu phải dài ít nhất 6 ký tự.");
+            return "redirect:/reset-password?token=" + token;
         }
 
-        // Nếu email tồn tại, chuyển đến trang nhập mật khẩu mới
-        model.addAttribute("email", email); // Gửi email đến trang thay đổi mật khẩu
-        return "auth/change-password"; // Chuyển đến trang nhập mật khẩu mới
-    }
-
-    @PostMapping("/change-password")
-    public String changePassword(@RequestParam("email") String email,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword,
-                                 Model model) {
-        if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("errorMessage", "Mật khẩu không khớp!");
-            return "auth/change-password"; // Quay lại trang thay đổi mật khẩu
+        try {
+            userService.updatePasswordReset(token, password);
+            redirectAttributes.addFlashAttribute("successMessage", "Đặt lại Mật Khẩu thành công.");
+            return "redirect:/login";
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error: " + e.getMessage());
+            return "redirect:/reset-password?token=" + token;
         }
-
-        // Cập nhật mật khẩu mới
-        userService.changePassword(email, newPassword);
-        model.addAttribute("successMessage", "Mật khẩu đã được thay đổi thành công!");
-        return "auth/login"; // Chuyển hướng đến trang đăng nhập
     }
+
 
 
 }
