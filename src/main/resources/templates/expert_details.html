@@ -21,19 +21,7 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<!-- END nav -->
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end justify-content-center">
-            <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Expert Details<i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Expert Detail</h1>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="ftco-section bg-light">
     <div class="container">
@@ -80,6 +68,7 @@
                         <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}"></span></p>
                     </div>
             </div>
+        </div>
         </div>
     </div>
 </section>
