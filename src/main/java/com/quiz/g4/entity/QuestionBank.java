@@ -24,9 +24,9 @@ public class QuestionBank {
     @Column(name = "question_type", nullable = false)
     private String questionType;
 
-    @OneToMany(mappedBy = "question")
-    private Set<AnswerOption> answerOptions;  // Liên kết với câu trả lời
+    @OneToMany(mappedBy = "questionBank")
+    private Set<AnswerOption> answerOptions; // Liên kết với câu trả lời
 
     @ManyToMany(mappedBy = "questionBanks")
-    private Set<Lesson> lessons;  // Liên kết với các bài học (nhiều-nhiều)
+    private Set<Lesson> lessons; // Liên kết với các bài học (nhiều-nhiều)
 }

@@ -8,6 +8,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
+@Table(name = "answer_option")
 public class AnswerOption {
 
     @Id
@@ -17,11 +18,11 @@ public class AnswerOption {
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
-    private QuestionBank question;
+    private QuestionBank questionBank; // Thay đổi tên biến để phù hợp với mappedBy
 
     @Column(name = "option_content", nullable = false)
     private String content;
 
     @Column(name = "is_correct", nullable = false)
-    private Boolean isCorrect;  // Đánh dấu đáp án đúng
+    private Boolean isCorrect; // Đánh dấu đáp án đúng
 }
