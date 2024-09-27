@@ -126,7 +126,7 @@
                             <h3 class="heading"><a href="#" th:text="${blog.title}">I'm not creative, Should I take this course?</a></h3>
                             <!-- Nội dung ngắn của bài viết -->
                             <p th:text="${blog.content}">Far far away, behind the word mountains...</p>
-                            <p><a th:href="@{/blog-detail/{blogId}(blogId=${blog.blogId})}" class="btn btn-secondary py-2 px-3">Read more</a></p>
+                            <p><a th:href="@{/blogs/{id}(id=${blog.blogId})}" class="btn btn-secondary py-2 px-3">Read more</a></p>
                         </div>
                     </div>
                 </div>
