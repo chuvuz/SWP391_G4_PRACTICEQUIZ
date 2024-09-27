@@ -30,5 +30,7 @@ public interface UserService extends UserDetailsService {
     void updatePasswordReset(String token, String password);
 
     boolean isResetTokenValid(String token);
+
+    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
 }
 
