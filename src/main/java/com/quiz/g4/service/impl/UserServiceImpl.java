@@ -65,6 +65,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.searchExpert(expertName, subjectId, roleId, pageable);
+    }
+
+    @Override
     public void saveUser(User user) {
 
 
