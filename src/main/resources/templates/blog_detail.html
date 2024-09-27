@@ -86,8 +86,8 @@
 
                     <form action="#" th:action="@{/feedback}" method="post" class="p-5 bg-light">
                         <input type="hidden" name="blog_id" th:value="${blog.blogId}">
-                        <input type="hidden" name="user_id" th:value="${user.userId}">
-                        <input type="hidden" th:if="${user != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="hidden" th:if="${user != null}" name="user_id" th:value="${user.userId}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
                         <div class="form-group">
                             <label for="message">Message</label>
@@ -118,7 +118,7 @@
                                 <img style="height: 80px;width: 80px" src="/images/about.jpg" alt="">
                             </a>
                             <div class="text">
-                                <h3 class="heading blog-title"><a th:href="@{/blogs/{id}(id=${blog.blogId})}"><span th:text="${blog_recent.getTitle()}"></span></a></h3>
+                                <h3 class="heading blog-title"><a th:href="@{/blogs/{id}(id=${blog_recent.blogId})}"><span th:text="${blog_recent.getTitle()}"></span></a></h3>
                                 <div class="meta">
                                     <div><a href="#"><span class="fa fa-calendar" th:text="${blog_recent.getCreatedDate()}"></span></a></div>
                                     <div><a href="#"><span class="fa fa-user" th:text="${blog_recent.getCreatedBy().fullName}"></span> </a></div>
