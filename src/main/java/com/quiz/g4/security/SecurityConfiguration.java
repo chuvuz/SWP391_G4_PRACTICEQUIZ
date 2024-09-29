@@ -19,6 +19,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LoginRedirectHandler loginRedirectHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -47,12 +50,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         ,"/blogs/**","/blog-list","/quiz-detail/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 .antMatchers("/manage_expert").hasRole("ADMIN")
                 .antMatchers("/profile/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
+                //Role cho Admin
+                .antMatchers("/manage-expert").hasRole("ADMIN")
+                //Role cho Expert
+                //Role cho Customer
+                //Role cho Marketing
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/home", true)
+                .successHandler(loginRedirectHandler)  // Sử dụng success handler để xử lý chuyển hướng
                 .failureHandler((request, response, exception) -> response.sendRedirect("/login?error=true"))
                 .permitAll()
                 .and()
@@ -61,5 +69,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout")
                 .permitAll();
     }
+
 
 }
