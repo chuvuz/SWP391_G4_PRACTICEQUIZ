@@ -2963,7 +2963,83 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 	font-weight: 400;
 }
 .edit-profile{
-	padding:30px;
+    display: flex; /* Use Flexbox */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center elements horizontally */
+    margin-top: 20px; /* Add space between header and body */
+}
+.center-form {
+    max-width: 500px; /* Set a maximum width for the form */
+    padding: 20px; /* Add some padding around the form */
+    background-color: #f9f9f9; /* Add a light gray background */
+    border: 1px solid #ddd; /* Add a light gray border */
+    border-radius: 10px; /* Add a rounded corner effect */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.center-form img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.form-field {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.form-field input[type="text"],
+.form-field textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-field button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50; /* Green background */
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-field button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.upload-form {
+    margin-bottom: 20px;
+}
+
+.upload-form input[type="file"] {
+    display: none;
+}
+
+.upload-form label {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Blue background */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-form label:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
 .edit-profile .form-group {
 	margin-bottom: 15px;
