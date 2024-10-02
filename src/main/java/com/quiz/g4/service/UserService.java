@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
-   User findByEmail(String email);
+    User findByEmail(String email);
 
     User findUserByUserId(Integer userId);
 
@@ -23,13 +23,19 @@ public interface UserService extends UserDetailsService {
 
     void saveUser(User user);
 
-   boolean isValidPassword(String password);
+    boolean isValidPassword(String password);
 
     void sendResetPasswordEmail(String email, HttpServletRequest request);
 
     void updatePasswordReset(String token, String password);
 
     boolean isResetTokenValid(String token);
+
+    List<User> findByRole(String role);
+
+    List<User> findAllExceptGuest();
+
+    void updateUserStatus(Long userId, boolean active);
 
     Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
 }

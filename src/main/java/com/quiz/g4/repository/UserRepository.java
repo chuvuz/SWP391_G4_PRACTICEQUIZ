@@ -26,6 +26,10 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
             " AND (:roleId IS NULL OR u.role.roleId = :roleId)")
     Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, Pageable pageable);
 
+    List<User> findByRole(String role);
+
+    @Query("SELECT u FROM User u WHERE u.role != 'guest'")
+    List<User> findAllExceptRole(String role);
 
 }
 

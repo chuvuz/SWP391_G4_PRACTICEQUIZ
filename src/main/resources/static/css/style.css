@@ -2968,6 +2968,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 .edit-profile .form-group {
 	margin-bottom: 15px;
 }
+.profile-img {
+    max-width: fit-content;
+    max-height: fit-content;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 1rem;
+    object-fit: cover;
+}
+
 /* My Account */
 .account-form{
 	display:flex;
