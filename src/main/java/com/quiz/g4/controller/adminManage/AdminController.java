@@ -6,7 +6,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import com.quiz.g4.entity.Quiz;
+import com.quiz.g4.entity.Subject;
+import com.quiz.g4.entity.User;
+import com.quiz.g4.service.QuizService;
+import com.quiz.g4.service.SubjectService;
+import com.quiz.g4.service.UserService;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
