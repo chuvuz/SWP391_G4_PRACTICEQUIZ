@@ -1,159 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
+    <!-- META ============================================= -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template" />
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template" />
+    <meta property="og:description" content="EduChamp : Education HTML Template" />
+    <meta property="og:image" content="" />
+    <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>EduChamp : Education HTML Template </title>
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}" />
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/typography.css}" />
+
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
 </head>
 <body>
 <div th:replace="header :: header"></div>
 <!-- END nav -->
 
 
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 sidebar">
-                <div class="sidebar-box bg-white ftco-animate">
-                    <form action="#" th:action="@{/search-quizzes}" method="GET" class="search-form">
-
-                        <!-- Search by Quiz Name -->
-                        <div class="form-group">
-                            <span class="icon fa fa-search"></span>
-                            <input type="text" name="quizName" class="form-control"
-                                   placeholder="Search by quiz name"
-                                   th:value="${quizName != null} ? ${quizName} : ''">
-                        </div>
-
-
-
-                        <!-- Search by Subject -->
-                        <div class="form-group">
-                            <select name="subjectId" class="form-control">
-                                <option value="">-- Select Subject --</option>
-                                <option th:each="subject : ${subjects}"
-                                        th:value="${subject.subjectId}"
-                                        th:text="${subject.subjectName}"
-                                        th:selected="${subject.subjectId} == ${selectedSubjectId}">
-                                </option>
-                            </select>
-                        </div>
-
-                        <!-- Search by Expert -->
-                        <div class="form-group">
-                            <select name="expertId" class="form-control">
-                                <option value="">-- Select Expert --</option>
-                                <option th:each="expert : ${experts}"
-                                        th:value="${expert.userId}"
-                                        th:text="${expert.fullName}"
-                                        th:selected="${expert.userId} == ${selectedExpertId}">
-                                </option>
-                            </select>
-                        </div>
-
-
-
-
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-
-                </div>
-
-
-
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Our Courses</h1>
             </div>
-
-            <div class="col-lg-9">
+        </div>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>Our Courses</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <div class="content-block">
+        <!-- About Us -->
+        <div class="section-area section-sp1">
+            <div class="container">
                 <div class="row">
-                    <!-- Hidden input cho userId -->
-
-                    <div th:if="${#lists.isEmpty(quizPage.content)}">
-                        No quizzes found
-                    </div>
-                    <!-- Lặp qua danh sách quiz và hiển thị -->
-                    <div th:each="quiz : ${quizPage.content}" class="col-md-6 d-flex align-items-stretch ftco-animate">
-                        <div class="project-wrap">
-                            <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
-                                <span class="price" th:text="${quiz.subject.subjectName}">Software</span>
-                            </a>
-                            <div class="text p-4">
-                                <h3><a href="#" th:text="${quiz.quizName}">Design for the web with adobe photoshop</a></h3>
-                                <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}">Tony Garret</span></p>
-                                <ul class="d-flex justify-content-between">
-                                    <li><span class="flaticon-shower"></span>2300</li>
-                                    <li class="price">$199</li>
-                                </ul>
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                        <div class="widget courses-search-bx placeani">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Search Courses</label>
+                                    <input name="dzName" type="text" required class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget widget_archive">
+                            <h5 class="widget-title style-1">All Courses</h5>
+                            <ul>
+                                <li class="active"><a href="#">General</a></li>
+                                <li><a href="#">IT & Software</a></li>
+                                <li><a href="#">Photography</a></li>
+                                <li><a href="#">Programming Language</a></li>
+                                <li><a href="#">Technology</a></li>
+                            </ul>
+                        </div>
+                        <div class="widget">
+                            <a href="#"><img src="assets/images/adv/adv.jpg" alt=""/></a>
+                        </div>
+                        <div class="widget recent-posts-entry widget-courses">
+                            <h5 class="widget-title style-1">Recent Courses</h5>
+                            <div class="widget-post-bx">
+                                <div class="widget-post clearfix">
+                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic1.jpg" width="200" height="143" alt=""> </div>
+                                    <div class="ttr-post-info">
+                                        <div class="ttr-post-header">
+                                            <h6 class="post-title"><a href="#">Introduction EduChamp</a></h6>
+                                        </div>
+                                        <div class="ttr-post-meta">
+                                            <ul>
+                                                <li class="price">
+                                                    <del>$190</del>
+                                                    <h5>$120</h5>
+                                                </li>
+                                                <li class="review">03 Review</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-post clearfix">
+                                    <div class="ttr-post-media"> <img src="assets/images/blog/recent-blog/pic3.jpg" width="200" height="160" alt=""> </div>
+                                    <div class="ttr-post-info">
+                                        <div class="ttr-post-header">
+                                            <h6 class="post-title"><a href="#">English For Tommorow</a></h6>
+                                        </div>
+                                        <div class="ttr-post-meta">
+                                            <ul>
+                                                <li class="price">
+                                                    <h5 class="free">Free</h5>
+                                                </li>
+                                                <li class="review">07 Review</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-9 col-md-8 col-sm-12">
+                                <div class="row">
+                                    <!-- Lặp qua danh sách quiz và hiển thị từng quiz -->
+                                    <div th:each="quiz : ${quizPage.content}" class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                        <div class="cours-bx">
+                                            <div class="action-box">
+                                                <!-- Hiển thị hình ảnh quiz -->
+                                                <img th:src="${quiz.quizImage}" alt="Quiz Image">
+                                                <!-- Link tới chi tiết quiz -->
+                                                <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="btn">Read More</a>
+                                            </div>
+                                            <div class="info-bx text-center">
+                                                <!-- Hiển thị tên quiz -->
+                                                <h5><a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" th:text="${quiz.quizName}">Quiz Name</a></h5>
+                                                <!-- Hiển thị tên môn học của quiz -->
+                                                <span th:text="${quiz.subject.subjectName}">Subject Name</span>
+                                            </div>
+                                            <div class="cours-more-info">
+                                                <div class="review">
+                                                    <!-- Hiển thị số lượng review -->
+                                                    <span >3 Review</span>
+                                                    <!-- Hiển thị số sao đánh giá -->
+                                                    <ul class="cours-star">
+                                                        <li>
+                                                            <i class="fa fa-star"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="price">
+                                                    <!-- Hiển thị giá quiz (giá cũ nếu có) -->
+                                                    <del ></del>
+                                                    <!-- Hiển thị giá mới -->
+                                                    <h5 >$120</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
+                                <!-- Pagination -->
+                                <div class="col-lg-12 m-b20">
+                                    <div class="pagination-bx rounded-sm gray clearfix">
+                                        <ul class="pagination">
+                                            <!-- Nút trang trước (nếu có) -->
+                                            <li class="previous" th:if="${quizPage.hasPrevious()}">
+                                                <a th:href="@{/quiz-list(page=${quizPage.number - 1}, size=${quizPage.size})}">
+                                                    <i class="ti-arrow-left"></i> Prev
+                                                </a>
+                                            </li>
 
-                </div>
-                <div class="row mt-5">
-                    <div class="col">
-                        <div class="block-27">
-                            <ul>
-                                <!-- Hiển thị nút trang trước nếu có -->
-                                <li th:if="${quizPage.hasPrevious()}">
-                                    <a th:href="@{/search-quizzes(page=${quizPage.number - 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&lt;</a>
-                                </li>
+                                            <!-- Hiển thị số trang -->
+                                            <li th:each="i : ${#numbers.sequence(0, quizPage.totalPages - 1)}">
+                                                <a th:href="@{/quiz-list(page=${i}, size=${quizPage.size})}"
+                                                   th:classappend="${i} == ${quizPage.number} ? 'active' : ''">
+                                                    <span th:text="${i + 1}">1</span>
+                                                </a>
+                                            </li>
 
-                                <!-- Hiển thị số trang -->
-                                <li th:each="i : ${#numbers.sequence(0, quizPage.totalPages - 1)}">
-                                    <a th:href="@{/search-quizzes(page=${i}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}"
-                                       th:classappend="${i} == ${quizPage.number} ? 'active' : ''">
-                                        <span th:text="${i + 1}">1</span>
-                                    </a>
-                                </li>
-
-                                <!-- Hiển thị nút trang tiếp theo nếu có -->
-                                <li th:if="${quizPage.hasNext()}">
-                                    <a th:href="@{/search-quizzes(page=${quizPage.number + 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">&gt;</a>
-                                </li>
-                            </ul>
+                                            <!-- Nút trang tiếp theo (nếu có) -->
+                                            <li class="next" th:if="${quizPage.hasNext()}">
+                                                <a th:href="@{/quiz-list(page=${quizPage.number + 1}, size=${quizPage.size})}">
+                                                    Next <i class="ti-arrow-right"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</section>
+    </div>
+    <!-- contact area END -->
 
+</div>
 
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
+<div th:replace="footer :: footer"></div>
+<!-- External JavaScripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
+<script th:src="@{/vendors/switcher/switcher.js}"></script>
 
 </body>
 </html>

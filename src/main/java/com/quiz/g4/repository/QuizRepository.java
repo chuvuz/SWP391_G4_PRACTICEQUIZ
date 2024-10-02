@@ -21,4 +21,11 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
             " AND (:subjectId IS NULL OR q.subject.subjectId = :subjectId)" +
             " AND (:expertId IS NULL OR q.createdBy.userId = :expertId)")
     Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, Pageable pageable);
+
+
+    @Query("SELECT q FROM Quiz q ORDER BY q.createdDate desc ")
+    List<Quiz> findQuizRecent();
+
+
+
 }

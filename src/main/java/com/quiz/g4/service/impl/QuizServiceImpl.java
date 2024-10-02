@@ -20,7 +20,7 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public List<Quiz> getAllQuizzes() {
-        return quizRepository.findAll();
+        return quizRepository.findQuizRecent();
     }
 
     @Override

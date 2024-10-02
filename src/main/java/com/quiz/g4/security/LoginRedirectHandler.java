@@ -23,7 +23,7 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            response.sendRedirect("/manage-expert");
+            response.sendRedirect("/home");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_EXPERT"))) {
             // Lấy thông tin user từ Authentication
             String email = authentication.getName();
@@ -57,9 +57,9 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
                 response.sendRedirect("/quiz-list");  // Không có subject, về trang chung
             }
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MARKETING"))) {
-            response.sendRedirect("/quiz-list");
+            response.sendRedirect("/home");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
-            response.sendRedirect("/quiz-list");
+            response.sendRedirect("/home");
         } else {
             response.sendRedirect("/home");
         }

@@ -38,18 +38,17 @@ public class HomeController {
             User user = userService.findByEmail(email);
             model.addAttribute("user", user);
         }
-
-        // Tạo một danh sách subject từ service
-        List<Subject> subjects = subjectService.getAllSubjects();
-
-        // Đưa danh sách subject vào model
-        model.addAttribute("subjects", subjects);
-
-
+//
+//        // Tạo một danh sách subject từ service
+//        List<Subject> subjects = subjectService.getAllSubjects();
+//
+//        // Đưa danh sách subject vào model
+//        model.addAttribute("subjects", subjects);
+//
+//
         // Lấy danh sách quiz
         List<Quiz> quizzes = quizService.getAllQuizzes();
         model.addAttribute("quizzes", quizzes);
-        
 
         List<Blog> blogs = blogService.findAllBlogs();
         model.addAttribute("blogs", blogs);
