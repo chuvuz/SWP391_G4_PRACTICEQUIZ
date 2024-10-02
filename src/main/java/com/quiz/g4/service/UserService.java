@@ -38,5 +38,6 @@ public interface UserService extends UserDetailsService {
     void updateUserStatus(Long userId, boolean active);
 
     Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
+    void createUser(User user);
 }
 

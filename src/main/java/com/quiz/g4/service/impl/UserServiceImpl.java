@@ -191,8 +191,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         resetTokenRepository.delete(resetToken);
     }
-    @Autowired
-    private UserRepository userRepository;
+
 
     @Override
     public List<User> findByRole(String role) {
@@ -207,7 +206,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserStatus(Long userId, boolean active) {
         User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
-        user.setActive(active);
+        user.setIsActive(active);
+        userRepository.save(user);
+    }
+    @Override
+    public void createUser(User user) {
+        user.setIsActive(true);  // Default to active
         userRepository.save(user);
     }
 }
