@@ -446,44 +446,29 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 heading-bx left">
-                            <h2 class="title-head">Recent <span>Quizzes</span></h2>
-                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                            <h2 class="title-head">Popular <span>Quizzes</span></h2>
+                            <p>Explore our wide range of quizzes across various subjects</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                            <div th:each="quiz : ${quizzes}">
-                                <div class="item">
-                                    <div class="cours-bx">
-                                        <div class="action-box">
-                                            <!-- Sử dụng một ảnh mẫu cho từng quiz -->
-                                            <img th:src="@{quiz.quizImage}" alt="Quiz Image">
-                                            <!-- Link đến trang chi tiết của quiz -->
-                                            <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}">Read More</a>
-
-                                        </div>
-                                        <div class="info-bx text-center">
-                                            <!-- Hiển thị tên quiz -->
-                                            <h5><a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" th:text="${quiz.quizName}"></a></h5>
-                                            <!-- Hiển thị subject_id tương ứng -->
-                                            <span th:text="${quiz.subject.subjectName}">Subject</span>
-                                        </div>
-                                        <div class="cours-more-info">
-                                            <div class="review">
-                                                <span>3 Review</span>
-                                                <ul class="cours-star">
-                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                    <li class="active"><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                    <li><i class="fa fa-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <div class="price">
-                                                <del>$190</del>
-                                                <h5>$120</h5>
-                                            </div>
-                                        </div>
+                            <div th:each="quiz : ${quizzes}" class="item">
+                                <div class="cours-bx">
+                                    <div class="action-box">
+                                        <img th:src="${quiz.quizImage}" alt="Quiz Image">
+                                        <a href="#" class="btn">Read More</a>
+                                    </div>
+                                    <div class="info-bx text-center">
+                                        <h5><a th:text="${quiz.quizName}" href="#"></a></h5>
+                                        <span th:text="${quiz.subject.subjectName}">Subject</span> <!-- Assuming subject has a subjectName field -->
+                                    </div>
+                                    <div class="cours-more-info">
+<!--                                        <div class="created-by">-->
+<!--                                            <span th:text="'Created by: ' + ${quiz.createdBy.fullName}">Creator</span> &lt;!&ndash; Assuming User entity has a fullName field &ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                        <div class="created-date">-->
+<!--                                            <span th:text="${quiz.createdDate}">Created Date</span>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -491,6 +476,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- Popular Courses END -->
 
 
