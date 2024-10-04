@@ -25,6 +25,9 @@ public class Quiz {
     @Column(name = "quiz_image")
     private String quizImage;
 
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     private User createdBy;

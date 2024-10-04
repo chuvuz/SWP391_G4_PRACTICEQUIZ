@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz,Integer> {
@@ -26,6 +27,6 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
     @Query("SELECT q FROM Quiz q ORDER BY q.createdDate desc ")
     List<Quiz> findQuizRecent();
 
-
-
+    @Query("SELECT q FROM Quiz q JOIN FETCH q.lessons WHERE q.quizId = :quizId")
+    Quiz findQuizWithLessons(@Param("quizId") Integer quizId);
 }

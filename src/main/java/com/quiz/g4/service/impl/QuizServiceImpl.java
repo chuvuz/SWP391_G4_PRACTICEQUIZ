@@ -42,4 +42,9 @@ public class QuizServiceImpl implements QuizService {
         Pageable pageable = PageRequest.of(page, size);
         return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
     }
+
+    @Override
+    public Quiz getQuizWithLesson(Integer quizId) {
+        return quizRepository.findQuizWithLessons(quizId);
+    }
 }

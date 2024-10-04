@@ -102,8 +102,8 @@ public class QuizController {
             model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
         }
 
-        // Lấy quiz với các câu hỏi và lựa chọn trả lời
-       Quiz quiz = quizService.getQuizWithQuestionsAndAnswers(quizId);
+        // Lấy quiz với các bài học
+        Quiz quiz = quizService.getQuizWithLesson(quizId);
 
         // Kiểm tra xem quiz có tồn tại không
         if (quiz == null) {
