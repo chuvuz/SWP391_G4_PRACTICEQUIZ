@@ -192,5 +192,27 @@ public class UserServiceImpl implements UserService {
         resetTokenRepository.delete(resetToken);
     }
 
+
+    @Override
+    public List<User> findByRole(String role) {
+        return userRepository.findByRole(role);
+    }
+
+    @Override
+    public List<User> findAllExceptGuest() {
+        return userRepository.findAllExceptRole("guest");
+    }
+
+    @Override
+    public void updateUserStatus(Long userId, boolean active) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+        user.setIsActive(active);
+        userRepository.save(user);
+    }
+    @Override
+    public void createUser(User user) {
+        user.setIsActive(true);  // Default to active
+        userRepository.save(user);
+    }
 }
 

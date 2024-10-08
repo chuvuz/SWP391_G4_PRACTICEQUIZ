@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,118 +43,34 @@
     <!-- STYLESHEETS ============================================= -->
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
-    <a th:href="@{/profile/{userId}(userId=${user.userId})}"/>
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            margin: 0;-->
-<!--            padding: 0;-->
-<!--            box-sizing: border-box;-->
-<!--            background-color: black;-->
-<!--            color: white;-->
-<!--        }-->
-
-<!--        header, footer {-->
-<!--            padding: 1rem;-->
-<!--            background-color: #333;-->
-<!--            color: white;-->
-<!--        }-->
-
-<!--        .ftco-section {-->
-<!--            padding: 2rem 0;-->
-<!--            background-color: black;-->
-<!--            color: white;-->
-<!--        }-->
-
-<!--        .container {-->
-<!--            max-width: 900px;-->
-<!--            margin: 0 auto;-->
-<!--            padding: 0 15px;-->
-<!--        }-->
-
-<!--        .profile-header, .profile-details {-->
-<!--            text-align: center;-->
-<!--            margin-bottom: 2rem;-->
-<!--            background-color: #222;-->
-<!--            padding: 1rem;-->
-<!--            border-radius: 10px;-->
-<!--            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);-->
-<!--        }-->
-
-<!--        .profile-img {-->
-<!--            max-width: 150px;-->
-<!--            border-radius: 50%;-->
-<!--            display: block;-->
-<!--            margin: 0 auto 1rem;-->
-<!--        }-->
-
-<!--        .upload-form {-->
-<!--            text-align: center;-->
-<!--            margin-bottom: 1rem;-->
-<!--        }-->
-
-<!--        .upload-form button, .profile-details button {-->
-<!--            padding: 10px 20px;-->
-<!--            background-color: #007bff;-->
-<!--            color: white;-->
-<!--            border: none;-->
-<!--            border-radius: 5px;-->
-<!--            cursor: pointer;-->
-<!--            margin-top: 10px;-->
-<!--        }-->
-
-<!--        .profile-details p {-->
-<!--            font-size: 1.1rem;-->
-<!--            margin: 0.5rem 0;-->
-<!--            color: white;-->
-<!--        }-->
-
-<!--        .profile-link {-->
-<!--            color: #007bff;-->
-<!--            text-decoration: none;-->
-<!--            display: block;-->
-<!--            margin: 0.5rem 0;-->
-<!--        }-->
-
-
-<!--    </style>-->
 </head>
 <body>
 <div th:replace="header :: header"></div>
-<!-- END nav -->
 
+<section class="ftco-section bg-light">
+    <div class="container">
+        <h1>Create New User</h1>
+        <form th:action="@{/admin/users/create}" th:object="${user}" method="post">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" th:field="*{fullName}" required/>
 
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{email}" required/>
 
-<div class="profile-bx">
-    <div class="profile-content-bx">
-        <img class="user-profile-thumb" th:src="@{'profile/images/' + ${user.profileImage}}" alt="Profile Image"/>
-        <form action="#" th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" accept="image/*"/>
-            <button type="submit">Upload New Profile Image</button>
+            <label for="role">Role:</label>
+            <select id="role" th:field="*{role}" required>
+                <option value="marketing">Marketing</option>
+                <option value="expert">Expert</option>
+            </select>
+
+            <button type="submit">Create User</button>
         </form>
-        <br>
-
     </div>
-    <div class="profile-content-bx">
-
-        <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
-        <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
-        <p><strong>Description</strong> <span th:text="${user.description}"></span> </p>
-        <a th:href="@{/profile/edit}">Edit Profile</a><br>
-        Want to change password? <a th:href="@{/profile/change-password}">Change Password</a>
-    </div>
-</div>
-
-
+</section>
 
 <div th:replace="footer :: footer"></div>
-
-
-
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
 <script th:src="@{/js/popper.min.js}"></script>
@@ -171,6 +87,5 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script th:src="@{/js/google-map.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-
 </body>
 </html>
