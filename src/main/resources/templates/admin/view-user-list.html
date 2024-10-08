@@ -45,6 +45,7 @@
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
 </head>
 <body>
+<div class="page-wraper">
 <div th:replace="header :: header"></div>
 
 <section class="ftco-section bg-light">
@@ -73,17 +74,17 @@
             </thead>
             <tbody>
             <tr th:each="user : ${users}">
-                <td th:text="${user.fullName}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.role}"></td>
-                <td th:text="${user.active ? 'Active' : 'Inactive'}"></td>
-                <td>
-                    <form th:action="@{/admin/users/status}" method="post">
-                        <input type="hidden" name="userId" th:value="${user.id}">
-                        <input type="hidden" name="active" th:value="${!user.active}">
-                        <button type="submit" th:text="${user.active ? 'Deactivate' : 'Activate'}"></button>
-                    </form>
-                </td>
+                <td th:text="${user.getFullName()}"></td>
+                <td th:text="${user.getEmail()}"></td>
+                <td th:text="${user.getRole().getRoleName()}"></td>
+                <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
+<!--                <td>-->
+<!--                    <form th:action="@{/admin/users/status}" method="post">-->
+<!--                        <input type="hidden" name="userId" th:value="${user.id}">-->
+<!--                        <input type="hidden" name="active" th:value="${!user.active}">-->
+<!--                        <button type="submit" th:text="${user.active ? 'Deactivate' : 'Activate'}"></button>-->
+<!--                    </form>-->
+<!--                </td>-->
             </tr>
             </tbody>
         </table>
@@ -91,6 +92,7 @@
 </section>
 
 <div th:replace="footer :: footer"></div>
+</div>
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 <script th:src="@{/js/jquery.min.js}"></script>

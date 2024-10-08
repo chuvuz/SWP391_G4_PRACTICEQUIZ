@@ -29,7 +29,7 @@ public class AdminController {
             users = userService.findAllExceptGuest();
         }
         model.addAttribute("users", users);
-        return "admin/userList";
+        return "admin/view-user-list";
     }
 
     @PostMapping("/users/status")
