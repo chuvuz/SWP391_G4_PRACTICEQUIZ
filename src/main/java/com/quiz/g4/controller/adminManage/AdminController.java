@@ -33,7 +33,7 @@ public class AdminController {
     }
 
     @PostMapping("/users/status")
-    public String updateUserStatus(@RequestParam Long userId, @RequestParam boolean active) {
+    public String updateUserStatus(@RequestParam Integer userId, @RequestParam boolean active) {
         userService.updateUserStatus(userId, active);
         return "redirect:/admin/users";
     }

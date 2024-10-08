@@ -204,8 +204,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserStatus(Long userId, boolean active) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException());
+    public void updateUserStatus(Integer userId, boolean active) {
+        User user = userRepository.findUserByUserId(userId);
         user.setIsActive(active);
         userRepository.save(user);
     }

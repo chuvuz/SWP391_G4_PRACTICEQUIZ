@@ -35,7 +35,7 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAllExceptGuest();
 
-    void updateUserStatus(Long userId, boolean active);
+    void updateUserStatus(Integer userId, boolean active);
 
     Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
     void createUser(User user);
