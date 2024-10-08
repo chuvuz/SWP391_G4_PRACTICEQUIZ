@@ -1,110 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Ký</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .register-container {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 300px;
-        }
-        h3 {
-            color: #007bff;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .form-control {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #ddd;
-            border-radius: 30px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-        .form-control:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-        .form-control::placeholder {
-            color: #aaa;
-        }
-        .btn-primary {
-            width: 100%;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 30px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .text-center {
-            margin-top: 20px;
-        }
-        .text-center a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .text-center a:hover {
-            text-decoration: underline;
-        }
-        .error-message {
-            color: #ff0000;
-            font-size: 12px;
-            margin-top: 5px;
-        }
-    </style>
+    <!-- META ============================================= -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>Register</title>
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}">
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/typography.css}">
+
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}">
+
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}">
 </head>
-<body>
-<div class="register-container">
-    <h3 class="text-center">Đăng Ký</h3>
-    <form th:action="@{/register}" method="post">
-        <div class="form-group">
-            <input type="text" name="fullName" class="form-control" placeholder="Họ và Tên"
-            th:value ="${user.fullName}" >
-            <span class="error-message" th:if="${fullNameError}" th:text="${fullNameError}"></span>
+<body id="bg">
+<div class="page-wraper">
+    <div id="loading-icon-bx"></div>
+    <div class="account-form">
+        <div class="account-head">
+            <a th:href="@{/}" ><img alt="EduChamp"></a>
         </div>
-        <div class="form-group">
-            <input type="email" name="email" class="form-control" placeholder="Email"
-                   th:value="${user.email}" >
-            <span class="error-message" th:if="${emailError}" th:text="${emailError}"></span>
+        <div class="account-form-inner">
+            <div class="account-container">
+                <div class="heading-bx left">
+                    <h2 class="title-head">Create your <span>Account</span></h2>
+                    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
+                </div>
+                <form th:action="@{/register}" method="post" class="contact-bx">
+                    <!-- Full Name input -->
+                    <div class="row placeani">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Full Name</label>
+                                    <input name="fullName" type="text" class="form-control" th:value="${user.fullName}">
+                                    <span class="error-message" th:if="${fullNameError}" th:text="${fullNameError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Email</label>
+                                    <input name="email" type="email" class="form-control" th:value="${user.email}">
+                                    <span class="error-message" th:if="${emailError}" th:text="${emailError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Password</label>
+                                    <input name="password" type="password" class="form-control">
+                                    <span class="error-message" th:if="${passwordError}" th:text="${passwordError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Confirm Password</label>
+                                    <input name="confirmPassword" type="password" class="form-control">
+                                    <span class="error-message" th:if="${confirmPasswordError}" th:text="${confirmPasswordError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit button -->
+                        <div class="col-lg-12 m-b30">
+                            <button name="submit" type="submit" value="Submit" class="btn button-md">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <input type="password" name="password" class="form-control" placeholder="Mật Khẩu" >
-            <span class="error-message" th:if="${passwordError}" th:text="${passwordError}"></span>
-        </div>
-        <div class="form-group">
-            <input type="password" name="confirmPassword" class="form-control" placeholder="Nhập Lại Mật Khẩu" >
-            <span class="error-message" th:if="${confirmPasswordError}" th:text="${confirmPasswordError}"></span>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Đăng Ký</button>
-        </div>
-    </form>
-    <div class="text-center">
-        <p>Đã có tài khoản? <a th:href="@{/login}">Đăng nhập</a></p>
     </div>
 </div>
+
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+
 </body>
 </html>
