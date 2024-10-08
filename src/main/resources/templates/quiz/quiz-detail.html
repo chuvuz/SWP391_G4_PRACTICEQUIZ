@@ -147,7 +147,7 @@
                                                     <span th:text="${lesson.lessonName}">Lesson Name</span>
                                                 </div>
                                                 <div class="course-buy-now text-center">
-                                                    <a href="#" class="btn radius-xl text-uppercase">Start Quiz</a>
+                                                    <a th:href="@{/lesson-detail/{lessonId}(lessonId=${lesson.lessonId})}" class="btn radius-xl text-uppercase">Take</a>
                                                 </div>
                                             </li>
                                         </ul>
@@ -157,14 +157,14 @@
 
                             <!-- Instructor Information -->
                             <div class="" id="instructor">
-                                <h4>Instructor</h4>
+                                <h4>Expert</h4>
                                 <div class="instructor-bx">
                                     <div class="instructor-author">
-                                        <img src="assets/images/testimonials/pic1.jpg" alt="">
+                                        <img th:src="${quiz.createdBy.profileImage}" alt="">
                                     </div>
                                     <div class="instructor-info">
-                                        <h6>Instructor Name</h6>
-                                        <span>Professor</span>
+                                        <h6 th:text="${quiz.createdBy.fullName}">Expert Name</h6>
+                                        <span th:text="${quiz.subject.subjectName}">Professor</span>
                                     </div>
                                 </div>
                             </div>

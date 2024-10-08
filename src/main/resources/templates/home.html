@@ -404,10 +404,10 @@
                                 <div class="cours-bx">
                                     <div class="action-box">
                                         <img th:src="${quiz.quizImage}" alt="Quiz Image">
-                                        <a href="#" class="btn">Read More</a>
+                                        <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"  class="btn">Read More</a>
                                     </div>
                                     <div class="info-bx text-center">
-                                        <h5><a th:text="${quiz.quizName}" href="#"></a></h5>
+                                        <h5><a th:text="${quiz.quizName}" th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" ></a></h5>
                                         <span th:text="${quiz.subject.subjectName}">Subject</span> <!-- Assuming subject has a subjectName field -->
                                     </div>
                                     <div class="cours-more-info">

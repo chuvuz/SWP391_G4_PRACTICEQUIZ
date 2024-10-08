@@ -1,8 +1,10 @@
 package com.quiz.g4.controller;
 
+import com.quiz.g4.entity.Lesson;
 import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
+import com.quiz.g4.service.LessonService;
 import com.quiz.g4.service.QuizService;
 import com.quiz.g4.service.SubjectService;
 import com.quiz.g4.service.UserService;
@@ -30,6 +32,9 @@ public class QuizController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private LessonService lessonService;
 
     // Endpoint: /quiz-list
     @GetMapping("/quiz-list")
@@ -117,7 +122,29 @@ public class QuizController {
     }
 
 
+    @GetMapping("/lesson-detail/{lessonId}")
+    public String getLessonDetail(@PathVariable("lessonId") Integer lessonId, Model model) {
+        // Lấy thông tin người dùng đã đăng nhập
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
 
+        // Lấy thông tin bài học và các câu hỏi
+        Lesson lesson = lessonService.getLessonWithQuestions(lessonId);
+
+        // Kiểm tra xem lesson có tồn tại không
+        if (lesson == null) {
+            return "error/404"; // Trả về trang lỗi nếu lesson không tồn tại
+        }
+
+        // Thêm bài học và câu hỏi vào model để render ra view
+        model.addAttribute("lesson", lesson);
+
+        return "quiz/lesson-detail";  // Tên của view Thymeleaf để hiển thị chi tiết bài học và câu hỏi
+    }
 
 
 }

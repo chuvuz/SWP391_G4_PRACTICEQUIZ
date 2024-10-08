@@ -33,10 +33,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
-    public String loginSubmit() {
-        return "auth/login";
-    }
+
 
 
     @GetMapping("/register")
