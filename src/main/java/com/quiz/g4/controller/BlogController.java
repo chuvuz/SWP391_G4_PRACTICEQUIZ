@@ -8,6 +8,9 @@ import com.quiz.g4.repository.BlogRepository;
 import com.quiz.g4.repository.UserRepository;
 import com.quiz.g4.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class BlogController {
@@ -41,17 +42,34 @@ public class BlogController {
     private UserRepository userRepository;
 
     @GetMapping("/blog-list")
-    public String getAllBlogs(Model model) {
+    public String getAllBlogs(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "3") int size,
+            Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
             String email = authentication.getName();
             User user = userService.findByEmail(email);
             model.addAttribute("user", user);
         }
-        List<Blog> blogs = blogService.getAllBlogs();
-        model.addAttribute("blogs", blogs);
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Blog> blogPage = blogService.getAllBlogsPage(pageable);
+        model.addAttribute("blogPage", blogPage);
+
+        // Tạo một Map để lưu số lượng feedback cho từng blog
+        Map<Integer, Long> feedbackCounts = new HashMap<>();
+        for (Blog blog : blogPage.getContent()) {
+            long count = feedbackService.getFeedbackCountByBlogId(blog.getBlogId());
+            feedbackCounts.put(blog.getBlogId(), count);
+        }
+
+        // Thêm map này vào model
+        model.addAttribute("feedbackCounts", feedbackCounts);
+
         return "blog"; // tên của view (file Thymeleaf)
     }
+
 
     @GetMapping("/blogs/{id}")
     public String getBlogDetail(@PathVariable("id") Integer blogId, Model model) {

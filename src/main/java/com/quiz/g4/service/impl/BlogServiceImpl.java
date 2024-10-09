@@ -4,6 +4,8 @@ import com.quiz.g4.entity.Blog;
 import com.quiz.g4.repository.BlogRepository;
 import com.quiz.g4.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +31,10 @@ public class BlogServiceImpl implements BlogService {
     public Optional<Blog> getBlogById(Integer blogId) {
         return blogRepository.findById(blogId);
 
+    }
+
+    @Override
+    public Page<Blog> getAllBlogsPage(Pageable pageable) {
+        return blogRepository.findAll(pageable);
     }
 }

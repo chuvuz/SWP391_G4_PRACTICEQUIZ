@@ -10,4 +10,6 @@ public interface FeedbackService {
     List<Feedback> getFeedbackByBlogId(Integer blogId);
 
     void saveFeedback(Feedback feedback);
+
+    long getFeedbackCountByBlogId(Integer blogId);
 }

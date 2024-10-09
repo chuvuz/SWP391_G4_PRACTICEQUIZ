@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-    <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
+    <!-- META ============================================= -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
-    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png"/>
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>EduChamp : Education HTML Template </title>
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.min.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/assets.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/typography.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/shortcodes/shortcodes.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link class="skin" rel="stylesheet" type="text/css" th:href="@{/css/color/color-1.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/layers.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/settings.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/navigation.css}">
 
     <style>
         .blog-list {
             display: flex;
-            flex-direction: column; /* Sắp xếp các bài theo chiều dọc */
-            gap: 15px; /* Khoảng cách giữa các bài viết */
+            flex-direction: column;
+            gap: 15px;
         }
 
         .blog-item {
@@ -31,7 +57,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Thêm CSS cho phần thông báo khi không có kết quả */
         #no-results {
             display: none;
             color: red;
@@ -39,126 +64,147 @@
         }
     </style>
 </head>
-<body>
-<!-- Import header.html -->
-<div th:replace="header :: header"></div>
 
-<!-- END nav -->
+<body id="bg">
+<div class="page-wraper">
+    <div id="loading-icon-bx"></div>
 
-<section class="hero-wrap hero-wrap-2" th:style="'background-image: url(/images/bg_2.jpg);'">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end justify-content-center">
-            <div class="col-md-9 ftco-animate pb-5 text-center">
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span class="mr-2"><a href="index.html">Blog <i class="fa fa-chevron-right"></i></a></span> <span>Blog Single <i class="fa fa-chevron-right"></i></span></p>
-                <h1 class="mb-0 bread">Our Blog</h1>
+    <!-- Header Top ==== -->
+    <div th:replace="header :: header"></div>
+    <!-- header END ==== -->
+
+    <!-- Content -->
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="page-banner ovbl-dark" style="background-image:url(/images/banner1.png);">
+            <div class="container">
+                <div class="page-banner-entry">
+                    <h1 class="text-white">Blog Details</h1>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-
-<section class="ftco-section ftco-no-pt ftco-no-pb" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 ftco-animate py-md-5 mt-md-5">
-                <h2 class="mb-3" ><span th:text="${blog.getTitle()}"></span></h2>
-                <p th:text="${blog.getContent()}"></p>
-                <p>
-                    <img src="/images/about.jpg" alt="" class="img-fluid">
-                </p>
-                <div class="pt-5 mt-5">
-                    <h3 class="mb-5" style="font-size: 20px; font-weight: bold;">6 Comments</h3>
-                    <ul class="comment-list">
-                        <li class="comment" th:each="feedback : ${list_feedback}">
-                            <div class="vcard bio">
-                                <img src="images/person_1.jpg" alt="Image placeholder">
-                            </div>
-                            <div class="comment-body">
-                                <h3 th:text="${feedback.user.fullName}"></h3>
-                                <div class="meta"> <span th:text="${feedback.getCreatedAt()}"></span></div>
-                                <p th:text="${feedback.getComments()}"></p>
-                                <p><a href="#" class="reply">Reply</a></p>
-                            </div>
-                        </li>
-
-                    </ul>
-                    <!-- END comment-list -->
-
-                    <form action="#" th:action="@{/feedback}" method="post" class="p-5 bg-light">
-                        <input type="hidden" name="blog_id" th:value="${blog.blogId}">
-                        <input type="hidden" th:if="${user != null}" name="user_id" th:value="${user.userId}">
-                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea name="comments" id="message" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
-                        </div>
-                    </form>
-                </div>
+        <!-- Breadcrumb row -->
+        <div class="breadcrumb-row">
+            <div class="container">
+                <ul class="list-inline">
+                    <li><a href="#">Home</a></li>
+                    <li>Blog Details</li>
+                </ul>
             </div>
+        </div>
+        <!-- Breadcrumb row END -->
 
-            <div class="col-lg-4 sidebar ftco-animate pl-md-4 py-md-5">
-                <div class="sidebar-box mt-md-5 bg-light">
-                    <form action="#" class="search-form">
-                        <div class="form-group">
-                            <span class="icon fa fa-search"></span>
-                            <input type="text" class="form-control" id="search-input" placeholder="Search...">
-                        </div>
-                    </form>
-                </div>
-
-                <div class="sidebar-box ftco-animate">
-                    <h3> Blog</h3>
-                    <div class="block-21 mb-4 d-flex blog-list">
-                        <div class="blog-item" th:each="blog_recent : ${blogs}">
-                            <a class="blog-img mr-4">
-                                <img style="height: 80px;width: 80px" src="/images/about.jpg" alt="">
-                            </a>
-                            <div class="text">
-                                <h3 class="heading blog-title"><a th:href="@{/blogs/{id}(id=${blog_recent.blogId})}"><span th:text="${blog_recent.getTitle()}"></span></a></h3>
-                                <div class="meta">
-                                    <div><a href="#"><span class="fa fa-calendar" th:text="${blog_recent.getCreatedDate()}"></span></a></div>
-                                    <div><a href="#"><span class="fa fa-user" th:text="${blog_recent.getCreatedBy().fullName}"></span> </a></div>
-                                    <div><a href="#"><span class="fa fa-comment"></span> 19</a></div>
+        <div class="content-block">
+            <div class="section-area section-sp1">
+                <div class="container">
+                    <div class="row">
+                        <!-- Left part start -->
+                        <div class="col-lg-8 col-xl-8">
+                            <!-- blog start -->
+                            <div class="recent-news blog-lg">
+                                <div class="action-box blog-lg">
+                                    <img src="assets/images/blog/default/thum1.jpg" alt="">
+                                </div>
+                                <div class="info-bx">
+                                    <ul class="media-post">
+                                        <li><a href="#"><i class="fa fa-calendar"></i><span th:text="${blog.createdDate}"></span></a></li>
+                                        <li><a href="#"><i class="fa fa-comments-o"></i><span th:text="${list_feedback.size()} + ' comments'"></span></a></li>
+                                    </ul>
+                                    <h5 class="post-title"><a href="#"><span th:text="${blog.getTitle()}"></span></a></h5>
+                                    <p><span th:text="${blog.content}"></span></p>
+                                    <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                    <h6>SHARE </h6>
+                                    <ul class="list-inline contact-social-bx">
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-google-plus"></i></a></li>
+                                    </ul>
+                                    <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
+                                </div>
+                                <!-- Form -->
+                                <div class="comment-respond" id="respond">
+                                    <h4 class="comment-reply-title" id="reply-title">Leave a Reply <small> <a style="display:none;" href="#" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>
+                                    <form class="comment-form" id="commentform" method="post">
+                                        <p class="comment-form-author">
+                                            <label for="author">Name <span class="required">*</span></label>
+                                            <input type="text" value="" name="Author"  placeholder="Author" id="author">
+                                        </p>
+                                        <p class="comment-form-email">
+                                            <label for="email">Email <span class="required">*</span></label>
+                                            <input type="text" value="" placeholder="Email" name="email" id="email">
+                                        </p>
+                                        <p class="comment-form-url">
+                                            <label for="url">Website</label>
+                                            <input type="text"  value=""  placeholder="Website"  name="url" id="url">
+                                        </p>
+                                        <p class="comment-form-comment">
+                                            <label for="comment">Comment</label>
+                                            <textarea rows="8" name="comment" placeholder="Comment" id="comment"></textarea>
+                                        </p>
+                                        <p class="form-submit">
+                                            <input type="submit" value="Submit Comment" class="submit" id="submit" name="submit">
+                                        </p>
+                                    </form>
                                 </div>
                             </div>
+                            <!-- blog END -->
                         </div>
+
+                        <!-- Left part END -->
+
+                        <!-- Side bar start -->
+                        <div class="col-lg-4 col-xl-4">
+                            <aside class="side-bar sticky-top">
+                                <div class="widget">
+                                    <h6 class="widget-title">Search</h6>
+                                    <div class="search-bx style-1">
+                                        <input id="search-input" class="form-control" placeholder="Enter your keywords..." type="text">
+                                    </div>
+                                </div>
+
+                                <div class="widget recent-posts-entry">
+                                    <h6 class="widget-title">Recent Posts</h6>
+                                    <div class="widget-post-bx blog-list">
+                                        <div class="widget-post clearfix blog-item" th:each="blog_recent : ${blogs}">
+                                            <div class="ttr-post-media">
+                                                <img th:src="${blog_recent.getImage()}" width="200" height="143" alt="">
+                                            </div>
+                                            <div class="ttr-post-info">
+                                                <div class="ttr-post-header">
+                                                    <h6 class="post-title">
+                                                        <a th:href="@{/blogs/{id}(id=${blog_recent.blogId})}">
+                                                            <span th:text="${blog_recent.getTitle()}"></span>
+                                                        </a>
+                                                    </h6>
+                                                </div>
+                                                <ul class="media-post">
+                                                    <li><a href="#"><i class="fa fa-calendar"></i><span th:text="${blog_recent.createdDate}"></span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="no-results">Không có kết quả phù hợp</div>
+                            </aside>
+                        </div>
+                        <!-- Side bar END -->
                     </div>
                 </div>
-
-                <!-- Phần thông báo không có kết quả -->
-                <div id="no-results">Không có kết quả phù hợp</div>
-
             </div>
-
         </div>
     </div>
-</section>
+    <!-- Content END -->
 
-<div th:replace="footer :: footer"></div>
+    <!-- Footer ==== -->
+    <div th:replace="footer :: footer"></div>
+    <!-- Footer END ==== -->
 
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+    <!-- scroll top button -->
+    <button class="back-to-top fa fa-chevron-up"></button>
+</div>
 
-
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script th:src="@{/js/main.js}"></script>
-
-<!-- JavaScript để xử lý chức năng tìm kiếm -->
 <script>
     document.getElementById('search-input').addEventListener('input', function () {
         const searchTerm = this.value.toLowerCase();
@@ -166,24 +212,47 @@
         let found = false;
 
         blogs.forEach(function (blog) {
-            const title = blog.querySelector('.blog-title').textContent.toLowerCase();
+            const title = blog.querySelector('.post-title').textContent.toLowerCase();
             if (title.includes(searchTerm)) {
                 blog.style.display = 'flex';  // Hiển thị các blog khớp
-                found = true; // Có kết quả khớp
+                found = true;
             } else {
                 blog.style.display = 'none';  // Ẩn các blog không khớp
             }
         });
 
-        // Hiển thị hoặc ẩn thông báo "không có kết quả"
         const noResults = document.getElementById('no-results');
-        if (!found) {
-            noResults.style.display = 'block'; // Hiển thị thông báo
-        } else {
-            noResults.style.display = 'none'; // Ẩn thông báo
-        }
+        noResults.style.display = found ? 'none' : 'block';
     });
 </script>
+
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
+<script th:src="@{/vendors/switcher/switcher.js}"></script>
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
 
 </body>
 </html>

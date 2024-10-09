@@ -23,5 +23,10 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackRepository.save(feedback);
     }
 
+    @Override
+    public long getFeedbackCountByBlogId(Integer blogId) {
+        return feedbackRepository.countFeedbackByBlogId(blogId);
+    }
+
 
 }
