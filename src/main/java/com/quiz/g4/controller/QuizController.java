@@ -34,10 +34,13 @@ public class QuizController {
     private LessonService lessonService;
 
     @Autowired
-    private QuestionBankService questionBankService;
+    private AnswerOptionService answerOptionService;
 
     @Autowired
     private LessonResultService lessonResultService;
+
+    @Autowired
+    private UserAnswerService userAnswerService;
 
 
     // Endpoint: /quiz-list
@@ -158,7 +161,7 @@ public class QuizController {
         String email = authentication.getName();
         User user = userService.findByEmail(email);
 
-        // Extract lessonId from the formData (you might pass this in a hidden input in the form)
+        // Extract lessonId from the formData
         Integer lessonId = Integer.parseInt(formData.get("lessonId"));
         Lesson lesson = lessonService.getLessonWithQuestions(lessonId);
 
@@ -171,32 +174,47 @@ public class QuizController {
         double totalQuestions = lesson.getQuestionBanks().size();
         double correctAnswers = 0;
 
-        // Iterate through the questions and check the answers
-        for (QuestionBank question : lesson.getQuestionBanks()) {
-            String selectedOptionId = formData.get(String.valueOf(question.getQuestionId()));
-            if (selectedOptionId != null) {
-                boolean isCorrect = questionBankService.checkCorrectAnswer(question.getQuestionId(), Integer.parseInt(selectedOptionId));
-                if (isCorrect) {
-                    correctAnswers++;
-                }
-            }
-        }
-
-        // Calculate score (percentage)
-        double score = (correctAnswers / totalQuestions) * 100;
-
-        // Save lesson result
+        // Save the lesson result first
         LessonResult lessonResult = new LessonResult();
         lessonResult.setUser(user);
         lessonResult.setLesson(lesson);
-        lessonResult.setScore(score);
+        lessonResult.setScore(0.0);  // Temporary, will update after calculation
         lessonResult.setCompletedAt(LocalDateTime.now());
 
-        lessonResultService.saveLessonResult(lessonResult);
+        lessonResultService.saveLessonResult(lessonResult);  // Save result to generate the resultId
+
+        // Now, iterate through each question and save the user's answers
+        for (QuestionBank question : lesson.getQuestionBanks()) {
+            String selectedOptionId = formData.get(String.valueOf(question.getQuestionId()));
+            if (selectedOptionId != null) {
+                AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionId));  // Fetch the selected option
+
+                // Check if the selected answer is correct
+                boolean isCorrect = selectedAnswer.getIsCorrect();
+                if (isCorrect) {
+                    correctAnswers++;
+                }
+
+                // Save the user answer
+                UserAnswer userAnswer = new UserAnswer();
+                userAnswer.setLessonResult(lessonResult);
+                userAnswer.setQuestion(question);
+                userAnswer.setSelectedAnswer(selectedAnswer);
+                userAnswer.setIsCorrect(isCorrect);
+
+                userAnswerService.saveUserAnswer(userAnswer);  // Save each answer to user_answers table
+            }
+        }
+
+        // Calculate the score and update the lesson result
+        double score = (correctAnswers / totalQuestions) * 100;
+        lessonResult.setScore(score);
+        lessonResultService.saveLessonResult(lessonResult);  // Update the result with the final score
 
         // Redirect to the lesson result page, passing the result ID
         return "redirect:/lesson-result/" + lessonResult.getResultId();
     }
+
 
     // Show the lesson result after submission
     @GetMapping("/lesson-result/{resultId}")
