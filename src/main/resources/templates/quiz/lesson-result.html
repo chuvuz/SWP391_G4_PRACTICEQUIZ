@@ -1,40 +1,190 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
+    <!-- META ============================================= -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+
+    <!-- DESCRIPTION -->
+    <meta name="description" content="Lesson Result" />
+
+    <!-- OG -->
+    <meta property="og:title" content="Lesson Result" />
+    <meta property="og:description" content="Lesson Result" />
+    <meta property="og:image" content="" />
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+
+    <!-- PAGE TITLE HERE ============================================= -->
     <title>Lesson Result</title>
-    <link rel="stylesheet" href="/css/style.css" /> <!-- Link your custom styles here -->
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}">
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/typography.css}">
+
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}">
+
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}">
+
+    <style>
+        /* Custom styles for result page layout */
+        .result-box {
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .result-box h5 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .result-info p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .score-info h3 {
+            font-size: 24px;
+            color: #28a745;
+        }
+
+        .score-info .fail-message {
+            color: red;
+            font-weight: bold;
+        }
+
+        .score-info .pass-message {
+            color: green;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .submit-btn a {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .submit-btn a:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
-<body>
 
-<div class="container">
-    <h1 class="result-title">Lesson Result</h1>
+<body id="bg">
+<div class="page-wraper">
+    <div id="loading-icon-bx"></div>
 
-    <!-- Display Lesson Information -->
-    <div class="lesson-info">
-        <h2 th:text="'Lesson: ' + ${lessonResult.lesson.lessonName}">Lesson Name</h2>
-        <p><strong>Date Completed:</strong> <span th:text="${lessonResult.completedAt}">Completion Date</span></p>
+    <!-- HEADER INCLUDED HERE -->
+    <div th:replace="header :: header"></div> <!-- Header has been defined elsewhere -->
+
+    <!-- Content -->
+    <div class="page-content bg-white">
+        <!-- inner page banner -->
+        <div class="page-banner ovbl-dark" style="background-image:url('assets/images/banner/banner2.jpg');">
+            <div class="container">
+                <div class="page-banner-entry">
+                    <h1 class="text-white">Lesson Result</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb row -->
+        <div class="breadcrumb-row">
+            <div class="container">
+                <ul class="list-inline">
+                    <li><a href="#">Home</a></li>
+                    <li>Lesson Result</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Content Block -->
+        <div class="content-block">
+            <!-- Lesson Result Section -->
+            <div class="section-area section-sp1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="result-box">
+                                <!-- Display Lesson Information -->
+                                <div class="result-info">
+                                    <h5>Lesson: <span th:text="${lessonResult.lesson.lessonName}">Lesson Name</span></h5>
+                                    <p><strong>Date Completed:</strong> <span th:text="${lessonResult.completedAt}">Completion Date</span></p>
+                                </div>
+
+                                <!-- Display Score -->
+                                <div class="score-info">
+                                    <h3>Your Score: <span th:text="${lessonResult.score}">0</span>%</h3>
+                                    <p th:if="${lessonResult.score >= 70}" class="pass-message">Congratulations! You passed the lesson.</p>
+                                    <p th:if="${lessonResult.score < 70}" class="fail-message">Unfortunately, you did not pass. Please try again.</p>
+                                </div>
+
+                                <!-- Display User Info -->
+                                <div class="result-info">
+                                    <h5>Student Information</h5>
+                                    <p><strong>Name:</strong> <span th:text="${lessonResult.user.fullName}">User Full Name</span></p>
+                                    <p><strong>Email:</strong> <span th:text="${lessonResult.user.email}">User Email</span></p>
+                                </div>
+
+                                <!-- Button to go back to lesson list -->
+                                <div class="submit-btn">
+                                    <a href="/quiz-list">Back to Lessons</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Display Score -->
-    <div class="score-info">
-        <h3>Your Score: <span th:text="${lessonResult.score}">0</span>%</h3>
-        <p th:if="${lessonResult.score >= 70}" class="pass-message">Congratulations! You passed the lesson.</p>
-        <p th:if="${lessonResult.score < 70}" class="fail-message">Unfortunately, you did not pass. Please try again.</p>
-    </div>
-
-    <!-- Display User Info -->
-    <div class="user-info">
-        <h4>Student Information</h4>
-        <p><strong>Name:</strong> <span th:text="${lessonResult.user.fullName}">User Full Name</span></p>
-        <p><strong>Email:</strong> <span th:text="${lessonResult.user.email}">User Email</span></p>
-    </div>
-
-    <!-- Button to go back to lesson list -->
-    <div class="actions">
-        <a href="/quiz-list" class="btn btn-primary">Back to Lessons</a>
-    </div>
+    <!-- Footer Included -->
+    <div th:replace="footer :: footer"></div> <!-- Footer defined elsewhere -->
 </div>
 
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/jquery.scroller.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
 </body>
+
 </html>
