@@ -18,8 +18,8 @@ public class UserAnswer {
     private Integer answerId;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_result_id", nullable = false)
-    private QuizResult quizResult;  // Liên kết với kết quả quiz
+    @JoinColumn(name = "result_id", nullable = false)
+    private LessonResult lessonResult;  // Liên kết với kết quả lesson
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)

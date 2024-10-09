@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson Result</title>
+    <link rel="stylesheet" href="/css/style.css" /> <!-- Link your custom styles here -->
+</head>
+<body>
+
+<div class="container">
+    <h1 class="result-title">Lesson Result</h1>
+
+    <!-- Display Lesson Information -->
+    <div class="lesson-info">
+        <h2 th:text="'Lesson: ' + ${lessonResult.lesson.lessonName}">Lesson Name</h2>
+        <p><strong>Date Completed:</strong> <span th:text="${lessonResult.completedAt}">Completion Date</span></p>
+    </div>
+
+    <!-- Display Score -->
+    <div class="score-info">
+        <h3>Your Score: <span th:text="${lessonResult.score}">0</span>%</h3>
+        <p th:if="${lessonResult.score >= 70}" class="pass-message">Congratulations! You passed the lesson.</p>
+        <p th:if="${lessonResult.score < 70}" class="fail-message">Unfortunately, you did not pass. Please try again.</p>
+    </div>
+
+    <!-- Display User Info -->
+    <div class="user-info">
+        <h4>Student Information</h4>
+        <p><strong>Name:</strong> <span th:text="${lessonResult.user.fullName}">User Full Name</span></p>
+        <p><strong>Email:</strong> <span th:text="${lessonResult.user.email}">User Email</span></p>
+    </div>
+
+    <!-- Button to go back to lesson list -->
+    <div class="actions">
+        <a href="/quiz-list" class="btn btn-primary">Back to Lessons</a>
+    </div>
+</div>
+
+</body>
+</html>

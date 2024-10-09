@@ -148,21 +148,27 @@
               <!-- List Questions -->
               <div class="m-b30" id="curriculum">
                 <h4 th:text="${lesson.lessonName}">Lesson Name</h4>
-                <div th:each="question : ${lesson.questionBanks}" class="question-box">
-                  <h5 th:text="${question.questionContent}">Question</h5>
-                  <div class="answer-options">
-                    <label th:each="option : ${question.answerOptions}">
-                      <input type="radio" th:name="${question.questionId}" th:value="${option.optionId}" />
-                      <span th:text="${option.content}">Option</span>
-                    </label>
-                  </div>
-                </div>
+                <form th:action="@{/lesson-submit}" method="post">
+                  <!-- Hidden input to pass the lessonId -->
+                  <input type="hidden" name="lessonId" th:value="${lesson.lessonId}" />
 
-                <!-- Submit button -->
-                <div class="submit-btn">
-                  <button type="submit">Submit Answers</button>
-                </div>
+                  <div th:each="question : ${lesson.questionBanks}" class="question-box">
+                    <h5 th:text="${question.questionContent}">Question</h5>
+                    <div class="answer-options">
+                      <label th:each="option : ${question.answerOptions}">
+                        <input type="radio" th:name="${question.questionId}" th:value="${option.optionId}" />
+                        <span th:text="${option.content}">Option</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Submit button -->
+                  <div class="submit-btn">
+                    <button type="submit">Submit Answers</button>
+                  </div>
+                </form>
               </div>
+
 
             </div>
           </div>

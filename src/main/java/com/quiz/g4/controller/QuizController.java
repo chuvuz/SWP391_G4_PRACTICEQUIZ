@@ -1,13 +1,7 @@
 package com.quiz.g4.controller;
 
-import com.quiz.g4.entity.Lesson;
-import com.quiz.g4.entity.Quiz;
-import com.quiz.g4.entity.Subject;
-import com.quiz.g4.entity.User;
-import com.quiz.g4.service.LessonService;
-import com.quiz.g4.service.QuizService;
-import com.quiz.g4.service.SubjectService;
-import com.quiz.g4.service.UserService;
+import com.quiz.g4.entity.*;
+import com.quiz.g4.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -16,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Controller
@@ -35,6 +32,13 @@ public class QuizController {
 
     @Autowired
     private LessonService lessonService;
+
+    @Autowired
+    private QuestionBankService questionBankService;
+
+    @Autowired
+    private LessonResultService lessonResultService;
+
 
     // Endpoint: /quiz-list
     @GetMapping("/quiz-list")
@@ -144,6 +148,71 @@ public class QuizController {
         model.addAttribute("lesson", lesson);
 
         return "quiz/lesson-detail";  // Tên của view Thymeleaf để hiển thị chi tiết bài học và câu hỏi
+    }
+
+    // Handle lesson answers submission
+    @PostMapping("/lesson-submit")
+    public String submitLessonAnswers(@RequestParam Map<String, String> formData, Model model) {
+        // Get the currently authenticated user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userService.findByEmail(email);
+
+        // Extract lessonId from the formData (you might pass this in a hidden input in the form)
+        Integer lessonId = Integer.parseInt(formData.get("lessonId"));
+        Lesson lesson = lessonService.getLessonWithQuestions(lessonId);
+
+        // If lesson not found, return error
+        if (lesson == null) {
+            return "error/404";
+        }
+
+        // Initialize variables to track score
+        double totalQuestions = lesson.getQuestionBanks().size();
+        double correctAnswers = 0;
+
+        // Iterate through the questions and check the answers
+        for (QuestionBank question : lesson.getQuestionBanks()) {
+            String selectedOptionId = formData.get(String.valueOf(question.getQuestionId()));
+            if (selectedOptionId != null) {
+                boolean isCorrect = questionBankService.checkCorrectAnswer(question.getQuestionId(), Integer.parseInt(selectedOptionId));
+                if (isCorrect) {
+                    correctAnswers++;
+                }
+            }
+        }
+
+        // Calculate score (percentage)
+        double score = (correctAnswers / totalQuestions) * 100;
+
+        // Save lesson result
+        LessonResult lessonResult = new LessonResult();
+        lessonResult.setUser(user);
+        lessonResult.setLesson(lesson);
+        lessonResult.setScore(score);
+        lessonResult.setCompletedAt(LocalDateTime.now());
+
+        lessonResultService.saveLessonResult(lessonResult);
+
+        // Redirect to the lesson result page, passing the result ID
+        return "redirect:/lesson-result/" + lessonResult.getResultId();
+    }
+
+    // Show the lesson result after submission
+    @GetMapping("/lesson-result/{resultId}")
+    public String showLessonResult(@PathVariable("resultId") Integer resultId, Model model) {
+        // Fetch the lesson result using the resultId
+        LessonResult lessonResult = lessonResultService.findLessonResultById(resultId);
+
+        if (lessonResult == null) {
+            return "error/404";  // Return error page if result is not found
+        }
+
+        // Add the lesson result to the model
+        model.addAttribute("lessonResult", lessonResult);
+
+        // Return the view to display the result
+        return "quiz/lesson-result";
     }
 
 
