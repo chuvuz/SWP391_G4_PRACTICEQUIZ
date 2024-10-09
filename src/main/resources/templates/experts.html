@@ -2,121 +2,201 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
+    <!-- META ============================================= -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
+    <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png"/>
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>EduChamp : Education HTML Template </title>
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/assets.css}">
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/typography.css}">
+
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/shortcodes/shortcodes.css}">
+
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link class="skin" rel="stylesheet" type="text/css" th:href="@{/css/color/color-1.css}">
+
+    <!-- REVOLUTION SLIDER CSS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/layers.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/settings.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/navigation.css}">
+    <!-- REVOLUTION SLIDER END -->
 </head>
 <body>
+
 <div th:replace="header :: header"></div>
 <!-- END nav -->
 
-<section class="ftco-section bg-light">
-    <form action="#" th:action="@{/search_expert}" method="GET" class="search-form">
-        <div class="row">
-            <div class="form-group col-lg-3">
-            </div>
-
-            <!-- Search by Expert Name -->
-            <div class="form-group col-lg-3">
-                <span class="icon fa fa-search"></span>
-                <label>
-                    <input type="text" name="expertName" class="form-control"
-                           placeholder="Search by expert name"
-                           th:value="${expertName != null} ? ${expertName} : ''">
-                </label>
-            </div>
-
-            <!-- Search by Subject -->
-            <div class="form-group col-lg-3">
-                <label>
-                    <select name="subjectId" class="form-control">
-                        <option value="">-- Select Subject --</option>
-                        <option th:each="subject : ${subjects}"
-                                th:value="${subject.subjectId}"
-                                th:text="${subject.subjectName}"
-                                th:selected="${subject.subjectId} == ${selectedSubjectId}">
-                        </option>
-                    </select>
-                </label>
-            </div>
-
-            <div class="form-group col-lg-3">
-                <button type="submit" class="btn btn-primary">Search</button>
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Our Courses</h1>
             </div>
         </div>
-                </form>
-    <div class="container">
-        <div class="row">
-            <div th:each="experts : ${expertPage}" class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" th:style="|background-image: url('${experts.profileImage}')|"></div>
-                    </div>
-                    <div class="text pt-3">
-                        <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"><h3 th:text="${experts.fullName}"></h3></a>
-                        <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
-                        <div class="faded">
-                            <p th:text ="${experts.description}"></p>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>Our Courses</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <section class="ftco-section bg-light">
+        <form action="#" th:action="@{/search_expert}" method="GET" class="search-form">
+            <div class="row">
+                <div class="form-group col-lg-3">
+                </div>
+
+                <!-- Search by Expert Name -->
+                <div class="form-group col-lg-3">
+                    <span class="icon fa fa-search"></span>
+                    <label>
+                        <input type="text" name="expertName" class="form-control"
+                               placeholder="Search by expert name"
+                               th:value="${expertName != null} ? ${expertName} : ''">
+                    </label>
+                </div>
+
+                <!-- Search by Subject -->
+                <div class="form-group col-lg-3">
+                    <label>
+                        <select name="subjectId" class="form-control">
+                            <option value="">-- Select Subject --</option>
+                            <option th:each="subject : ${subjects}"
+                                    th:value="${subject.subjectId}"
+                                    th:text="${subject.subjectName}"
+                                    th:selected="${subject.subjectId} == ${selectedSubjectId}">
+                            </option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="form-group col-lg-3">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="container">
+            <div class="row">
+                <div th:each="experts : ${expertPage}"
+                     class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
+                    <div class="staff">
+                        <div class="img-wrap d-flex align-items-stretch">
+                            <div class="img align-self-stretch"
+                                 th:style="|background-image: url('${experts.profileImage}')|"></div>
+                        </div>
+                        <div class="text pt-3">
+                            <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"><h3
+                                    th:text="${experts.fullName}"></h3></a>
+                            <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
+                            <div class="faded">
+                                <p th:text="${experts.description}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div th:if="${expertPage.hasContent()}">
-            <div class="pagination" style="margin-top: 10px; display: flex; gap: 5px; align-items: center;">
+            <div th:if="${expertPage.hasContent()}">
+                <div class="pagination" style="margin-top: 10px; display: flex; gap: 5px; align-items: center;">
         <span th:if="${expertPage.hasPrevious()}">
-            <a th:href="@{/expert(page=${expertPage.number - 1}, size=${expertPage.size})}" class="page-link">&laquo;</a>
+            <a th:href="@{/expert(page=${expertPage.number - 1}, size=${expertPage.size})}"
+               class="page-link">&laquo;</a>
         </span>
-                <span th:each="i : ${#numbers.sequence(0, expertPage.totalPages - 1)}">
-            <a th:classappend="${i} == ${expertPage.number} ? 'active' : ''" th:href="@{/expert(page=${i}, size=${expertPage.size})}" class="page-link">
+                    <span th:each="i : ${#numbers.sequence(0, expertPage.totalPages - 1)}">
+            <a th:classappend="${i} == ${expertPage.number} ? 'active' : ''"
+               th:href="@{/expert(page=${i}, size=${expertPage.size})}" class="page-link">
                 <span th:text="${i + 1}">1</span>
             </a>
         </span>
-                <span th:if="${expertPage.hasNext()}">
-            <a th:href="@{/expert(page=${expertPage.number + 1}, size=${expertPage.size})}" class="page-link">&raquo;</a>
+                    <span th:if="${expertPage.hasNext()}">
+            <a th:href="@{/expert(page=${expertPage.number + 1}, size=${expertPage.size})}"
+               class="page-link">&raquo;</a>
         </span>
+                </div>
             </div>
         </div>
+    </section>
+
+
+    <div th:replace="footer :: footer"></div>
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen">
+        <svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                    stroke="#F96D00"/>
+        </svg>
     </div>
-</section>
 
-
-<div th:replace="footer :: footer"></div>
-
-
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
+</div>
+<!-- External JavaScripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
+<script th:src="@{/vendors/switcher/switcher.js}"></script>
+<!-- Revolution JavaScripts Files -->
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<!-- Slider revolution 5.0 Extensions -->
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+
 
 </body>
 </html>
