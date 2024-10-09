@@ -62,7 +62,7 @@
     <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
         <div class="container">
             <div class="page-banner-entry">
-                <h1 class="text-white">Our Courses</h1>
+                <h1 class="text-white">Our Experts</h1>
             </div>
         </div>
     </div>
@@ -71,100 +71,107 @@
         <div class="container">
             <ul class="list-inline">
                 <li><a href="#">Home</a></li>
-                <li>Our Courses</li>
+                <li>Experts</li>
             </ul>
         </div>
     </div>
     <!-- Breadcrumb row END -->
     <!-- inner page banner END -->
-    <section class="ftco-section bg-light">
-        <form action="#" th:action="@{/search_expert}" method="GET" class="search-form">
-            <div class="row">
-                <div class="form-group col-lg-3">
-                </div>
+    <div class="content-block">
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                        <div class="widget courses-search-bx placeani">
+                            <form action="#" th:action="@{/search_expert}" method="GET" class="search-form">
+                                <!-- Search by Expert Name -->
+                                <div class="form-group">
+                                    <span class="icon fa fa-search"></span>
+                                    <label>Search Expert</label>
+                                    <label>
+                                        <input type="text" name="expertName" class="form-control"
+                                               placeholder="Expert name"
+                                               th:value="${expertName != null} ? ${expertName} : ''">
+                                    </label>
+                                </div>
+                                <!-- Search by Subject -->
+                                <div class="form-group">
+                                    <label>Subject</label><br>
+                                    <label>
+                                        <select name="subjectId" class="form-control">
+                                            <option value="">-- Select Subject --</option>
+                                            <option th:each="subject : ${subjects}"
+                                                    th:value="${subject.subjectId}"
+                                                    th:text="${subject.subjectName}"
+                                                    th:selected="${subject.subjectId == selectedSubjectId}">
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
 
-                <!-- Search by Expert Name -->
-                <div class="form-group col-lg-3">
-                    <span class="icon fa fa-search"></span>
-                    <label>
-                        <input type="text" name="expertName" class="form-control"
-                               placeholder="Search by expert name"
-                               th:value="${expertName != null} ? ${expertName} : ''">
-                    </label>
-                </div>
-
-                <!-- Search by Subject -->
-                <div class="form-group col-lg-3">
-                    <label>
-                        <select name="subjectId" class="form-control">
-                            <option value="">-- Select Subject --</option>
-                            <option th:each="subject : ${subjects}"
-                                    th:value="${subject.subjectId}"
-                                    th:text="${subject.subjectName}"
-                                    th:selected="${subject.subjectId} == ${selectedSubjectId}">
-                            </option>
-                        </select>
-                    </label>
-                </div>
-
-                <div class="form-group col-lg-3">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </div>
-        </form>
-        <div class="container">
-            <div class="row">
-                <div th:each="experts : ${expertPage}"
-                     class="col-md-6 col-lg-3 ftco-animate d-flex align-items-stretch">
-                    <div class="staff">
-                        <div class="img-wrap d-flex align-items-stretch">
-                            <div class="img align-self-stretch"
-                                 th:style="|background-image: url('${experts.profileImage}')|"></div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="text pt-3">
-                            <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"><h3
-                                    th:text="${experts.fullName}"></h3></a>
-                            <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
-                            <div class="faded">
-                                <p th:text="${experts.description}"></p>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="row">
+                            <!-- Loop through experts -->
+                            <div th:each="experts : ${expertPage}"
+                                 class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                <div class="cours-bx">
+                                    <div class="action-box">
+                                        <img th:src="${experts.profileImage}">
+                                        <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"
+                                           class="btn">Read More</a>
+                                    </div>
+                                    <div class="info-bx text-center">
+                                        <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"><h5
+                                                th:text="${experts.fullName}"></h5></a>
+                                        <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
+                                    </div>
+                                    <div class="cours-more-info">
+                                        <div class="text-center">
+                                            <p th:text="${#strings.substring(experts.description, 0, 100)} + '...'"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="col-lg-12 m-b20">
+                            <div class="pagination-bx rounded-sm gray clearfix">
+                                <ul class="pagination">
+                                    <div th:if="${expertPage.hasContent()}">
+                                        <!-- Previous Page Link -->
+                                        <li th:if="${expertPage.hasPrevious()}">
+                                                    <a th:href="@{/expert(page=${expertPage.number - 1}, size=${expertPage.size})}"><i class="ti-arrow-left"></i> Prev</a>
+                                                </li>
+                                        <!-- Page Numbers -->
+                                        <li th:each="i : ${#numbers.sequence(0, expertPage.totalPages - 1)}">
+                                                    <a th:classappend="${i} == ${expertPage.number} ? 'active' : ''"
+                                                       th:href="@{/expert(page=${i}, size=${expertPage.size})}">
+                                                    <span th:text="${i + 1}">1</span>
+                                                    </a>
+                                                </li>
+                                        <!-- Next Page Link -->
+                                        <li th:if="${expertPage.hasNext()}">
+                                                    <a th:href="@{/expert(page=${expertPage.number + 1}, size=${expertPage.size})}">Next <i class="ti-arrow-right"></i></a>
+                                                </li>
+                                    </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div th:if="${expertPage.hasContent()}">
-                <div class="pagination" style="margin-top: 10px; display: flex; gap: 5px; align-items: center;">
-        <span th:if="${expertPage.hasPrevious()}">
-            <a th:href="@{/expert(page=${expertPage.number - 1}, size=${expertPage.size})}"
-               class="page-link">&laquo;</a>
-        </span>
-                    <span th:each="i : ${#numbers.sequence(0, expertPage.totalPages - 1)}">
-            <a th:classappend="${i} == ${expertPage.number} ? 'active' : ''"
-               th:href="@{/expert(page=${i}, size=${expertPage.size})}" class="page-link">
-                <span th:text="${i + 1}">1</span>
-            </a>
-        </span>
-                    <span th:if="${expertPage.hasNext()}">
-            <a th:href="@{/expert(page=${expertPage.number + 1}, size=${expertPage.size})}"
-               class="page-link">&raquo;</a>
-        </span>
-                </div>
-            </div>
         </div>
-    </section>
+    </div>
 
 
     <div th:replace="footer :: footer"></div>
-
-
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen">
-        <svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                    stroke="#F96D00"/>
-        </svg>
-    </div>
 
 </div>
 <!-- External JavaScripts -->
