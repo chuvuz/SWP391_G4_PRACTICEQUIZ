@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/profile/**","/lesson-detail/**","/lesson-submit/**","/lesson-result/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
                 //Role cho Admin
 
-                .antMatchers("/manage-expert","/manage-subject","/admin/**").hasRole("ADMIN")
+                .antMatchers("/manage-expert","/manage-subject","/admin/dashboard","/admin/users/create","admin/users").hasRole("ADMIN")
                 //Role cho Expert
                 //Role cho Customer
                 //Role cho Marketing

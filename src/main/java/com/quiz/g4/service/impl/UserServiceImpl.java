@@ -199,8 +199,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAllExceptGuest() {
-        return userRepository.findAllExceptRole("guest");
+    public List<User> findAllExceptAdminAndGuest() {
+        return userRepository.findAllExceptRoles("ROLE_ADMIN", "ROLE_GUEST");
     }
 
     @Override
@@ -209,9 +209,23 @@ public class UserServiceImpl implements UserService {
         user.setIsActive(active);
         userRepository.save(user);
     }
+
+    @Override
+    public long countTotalUsers() {
+        return userRepository.countTotalUsers();
+    }
+
+    @Override
+    public long countActiveUsers() {
+        return userRepository.countActiveUsers();
+    }
+
+    @Override
+    public long countInactiveUsers() {
+        return userRepository.countInactiveUsers();
+    }
     @Override
     public void createUser(User user) {
-        user.setIsActive(true);  // Default to active
         userRepository.save(user);
     }
 }

@@ -46,7 +46,7 @@
 </head>
 <body>
 <div th:replace="header :: header"></div>
-
+<div style="height: 300px"></div>
 <section class="ftco-section bg-light">
     <div class="container">
         <h1>Create New User</h1>
@@ -59,8 +59,8 @@
 
             <label for="role">Role:</label>
             <select id="role" th:field="*{role}" required>
-                <option value="marketing">Marketing</option>
-                <option value="expert">Expert</option>
+                <option value="ROLE_MARKETING">Marketing</option>
+                <option value="ROLE_EXPERT">Expert</option>
             </select>
 
             <button type="submit">Create User</button>

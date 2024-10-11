@@ -33,11 +33,15 @@ public interface UserService extends UserDetailsService {
 
     List<User> findByRole(String role);
 
-    List<User> findAllExceptGuest();
+
+    List<User> findAllExceptAdminAndGuest();
 
     void updateUserStatus(Integer userId, boolean active);
 
     Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
     void createUser(User user);
+    long countTotalUsers();
+    long countActiveUsers();
+    long countInactiveUsers();
 }
 
