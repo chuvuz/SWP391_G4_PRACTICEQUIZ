@@ -152,11 +152,19 @@
                   <!-- Hidden input to pass the lessonId -->
                   <input type="hidden" name="lessonId" th:value="${lesson.lessonId}" />
 
+                  <!-- Loop through each question in the lesson -->
                   <div th:each="question : ${lesson.questionBanks}" class="question-box">
                     <h5 th:text="${question.questionContent}">Question</h5>
                     <div class="answer-options">
                       <label th:each="option : ${question.answerOptions}">
-                        <input type="radio" th:name="${question.questionId}" th:value="${option.optionId}" />
+                        <!-- Render radio buttons for single-choice questions -->
+                        <input type="radio" th:if="${question.questionType == 'single'}"
+                               th:name="${question.questionId}"
+                               th:value="${option.optionId}" />
+                        <!-- Render checkboxes for multi-choice questions -->
+                        <input type="checkbox" th:if="${question.questionType == 'multi'}"
+                               th:name="${question.questionId}"
+                               th:value="${option.optionId}" />
                         <span th:text="${option.content}">Option</span>
                       </label>
                     </div>
@@ -168,6 +176,7 @@
                   </div>
                 </form>
               </div>
+
 
 
             </div>

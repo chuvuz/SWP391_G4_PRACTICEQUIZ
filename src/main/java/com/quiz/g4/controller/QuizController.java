@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Controller
 public class QuizController {
@@ -47,7 +45,7 @@ public class QuizController {
     @GetMapping("/quiz-list")
     public String quizList(Model model,
                            @RequestParam(value = "page", defaultValue = "0") int page,
-                           @RequestParam(value = "size", defaultValue = "10") int size) {
+                           @RequestParam(value = "size", defaultValue = "9") int size) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
@@ -76,7 +74,7 @@ public class QuizController {
                                 @RequestParam(value = "subjectId", required = false) Integer subjectId,
                                 @RequestParam(value = "expertId", required = false) Integer expertId,
                                 @RequestParam(value = "page", defaultValue = "0") int page,
-                                @RequestParam(value = "size", defaultValue = "10") int size) {
+                                @RequestParam(value = "size", defaultValue = "9") int size) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
@@ -185,24 +183,69 @@ public class QuizController {
 
         // Now, iterate through each question and save the user's answers
         for (QuestionBank question : lesson.getQuestionBanks()) {
-            String selectedOptionId = formData.get(String.valueOf(question.getQuestionId()));
-            if (selectedOptionId != null) {
-                AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionId));  // Fetch the selected option
+            String[] selectedOptionIds = formData.get(String.valueOf(question.getQuestionId())).split(","); // splitting comma-separated values for multi-choice
 
-                // Check if the selected answer is correct
-                boolean isCorrect = selectedAnswer.getIsCorrect();
-                if (isCorrect) {
-                    correctAnswers++;
+            if (selectedOptionIds != null) {
+                // Handle single-choice questions
+                if ("single".equals(question.getQuestionType())) {
+                    AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionIds[0]));
+
+                    // Check if the selected answer is correct
+                    boolean isCorrect = selectedAnswer.getIsCorrect();
+                    if (isCorrect) {
+                        correctAnswers++;
+                    }
+
+                    // Save the user answer
+                    UserAnswer userAnswer = new UserAnswer();
+                    userAnswer.setLessonResult(lessonResult);
+                    userAnswer.setQuestion(question);
+                    userAnswer.setSelectedAnswer(selectedAnswer);
+                    userAnswer.setIsCorrect(isCorrect);
+
+                    userAnswerService.saveUserAnswer(userAnswer);
+
+                } else if ("multi".equals(question.getQuestionType())) {
+                    // Handle multi-choice questions
+
+                    // Get the correct options for the current multi-choice question
+                    List<AnswerOption> correctOptions = answerOptionService.findCorrectOptionsByQuestionId(question.getQuestionId());
+
+                    // Convert selectedOptionIds array to a Set for easy comparison
+                    Set<String> selectedOptionsSet = new HashSet<>(Arrays.asList(selectedOptionIds));
+
+                    // Check if all correct options are selected and no extra incorrect options are selected
+                    boolean allCorrect = true;
+                    for (AnswerOption correctOption : correctOptions) {
+                        if (!selectedOptionsSet.contains(String.valueOf(correctOption.getOptionId()))) {
+                            allCorrect = false;  // Missing a correct option
+                            break;
+                        }
+                    }
+
+                    // If the user selected any options that are not correct, mark the answer as incorrect
+                    if (selectedOptionsSet.size() != correctOptions.size()) {
+                        allCorrect = false;  // User selected extra/incorrect options
+                    }
+
+                    // If all selected options are correct and no extra ones were selected, mark the question as correct
+                    if (allCorrect) {
+                        correctAnswers++;
+                    }
+
+                    // Save each selected answer
+                    for (String selectedOptionId : selectedOptionsSet) {
+                        AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionId));
+
+                        UserAnswer userAnswer = new UserAnswer();
+                        userAnswer.setLessonResult(lessonResult);
+                        userAnswer.setQuestion(question);
+                        userAnswer.setSelectedAnswer(selectedAnswer);
+                        userAnswer.setIsCorrect(correctOptions.contains(selectedAnswer));
+
+                        userAnswerService.saveUserAnswer(userAnswer);
+                    }
                 }
-
-                // Save the user answer
-                UserAnswer userAnswer = new UserAnswer();
-                userAnswer.setLessonResult(lessonResult);
-                userAnswer.setQuestion(question);
-                userAnswer.setSelectedAnswer(selectedAnswer);
-                userAnswer.setIsCorrect(isCorrect);
-
-                userAnswerService.saveUserAnswer(userAnswer);  // Save each answer to user_answers table
             }
         }
 
@@ -214,6 +257,8 @@ public class QuizController {
         // Redirect to the lesson result page, passing the result ID
         return "redirect:/lesson-result/" + lessonResult.getResultId();
     }
+
+
 
 
     // Show the lesson result after submission
