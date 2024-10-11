@@ -6,6 +6,8 @@ import com.quiz.g4.service.AnswerOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnswerOptionServiceImpl implements AnswerOptionService {
 
@@ -16,5 +18,10 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     public AnswerOption findById(Integer optionId) {
         return answerOptionRepository.findById(optionId)
                 .orElseThrow(() -> new RuntimeException("Answer option not found"));
+    }
+
+    @Override
+    public List<AnswerOption> findCorrectOptionsByQuestionId(Integer questionId) {
+        return answerOptionRepository.findCorrectOptionsByQuestionId(questionId);
     }
 }
