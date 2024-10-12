@@ -209,7 +209,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAllExceptAdminAndGuest() {
-        return userRepository.findAllExceptRoles("ROLE_ADMIN", "ROLE_GUEST");
+        return userRepository.findAllExceptRoles();
     }
 
     @Override

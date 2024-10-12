@@ -23,7 +23,7 @@ public class Subject {
     private String subjectName;
 
     @Column(name = "is_active")
-    private boolean isActive = true;
+    private Boolean isActive = true;
 
     @OneToMany(mappedBy = "subject")
     private Set<User> users;
@@ -31,13 +31,13 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private Set<Quiz> quizzes;
 
-    // Getter cho isActive
-    public boolean isActive() {
-        return isActive;
-    }
-
-    // Setter cho isActive
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
-    }
+//    // Getter cho isActive
+//    public boolean isActive() {
+//        return isActive;
+//    }
+//
+//    // Setter cho isActive
+//    public void setActive(boolean isActive) {
+//        this.isActive = isActive;
+//    }
 }

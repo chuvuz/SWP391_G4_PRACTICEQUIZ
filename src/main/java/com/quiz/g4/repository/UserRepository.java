@@ -28,8 +28,8 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 
     List<User> findByRole(String role);
 
-    @Query("SELECT u FROM User u WHERE u.role NOT IN ('ADMIN', 'GUEST')")
-    List<User> findAllExceptRoles(String... roles);
+    @Query("SELECT u FROM User u WHERE u.role != 'ROLE_ADMIN'")
+    List<User> findAllExceptRoles();
 
     @Query("SELECT COUNT(u) FROM User u")
     long countTotalUsers();

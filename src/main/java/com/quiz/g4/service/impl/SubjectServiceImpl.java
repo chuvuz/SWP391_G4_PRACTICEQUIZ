@@ -72,7 +72,7 @@ public class SubjectServiceImpl implements SubjectService {
 
             // Cập nhật thông tin subject
             subject.setSubjectName(subjectName);
-            subject.setActive(isActive);
+            subject.setIsActive(isActive);
 
             // Lưu subject đã cập nhật vào cơ sở dữ liệu
             subjectRepository.save(subject);
