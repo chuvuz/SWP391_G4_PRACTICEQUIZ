@@ -2,7 +2,7 @@ package com.quiz.g4.controller.adminManage;
 
 import com.quiz.g4.dto.UserDTO;
 import com.quiz.g4.entity.Role;
-import com.quiz.g4.service.EmailService;
+import com.quiz.g4.service.*;
 import com.quiz.g4.utils.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
-import com.quiz.g4.service.QuizService;
-import com.quiz.g4.service.SubjectService;
-import com.quiz.g4.service.UserService;
 
 import java.util.List;
 
@@ -28,6 +25,8 @@ public class AdminController {
     private EmailService emailService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleService roleService;
     @GetMapping("/users")
     public String viewUserList(@RequestParam(required = false) String role, Model model) {
         List<User> users;
@@ -47,31 +46,27 @@ public class AdminController {
     }
     @GetMapping("/users/create")
     public String showCreateUserForm(Model model) {
+        List<Role> roles = roleService.findRolesForUserCreation();
+        model.addAttribute("roles", roles); // Add roles to the model
         model.addAttribute("user", new User());
         return "admin/create-user";
     }
 
     @PostMapping("/users/create")
-    public String createUser(@ModelAttribute UserDTO user) {
-        System.out.println(user.toString());
-        User user1=null;
-        user1.setFullName(user.getFullName());
-        user1.setEmail(user.getEmail());
-        Role role = null;
-        role.setRoleId(2);
-        role.setRoleName(user.getRoleName());
-        user1.setRole(role);
+    public String createUser(@ModelAttribute User user) {
+        System.out.println("Creating user with fullName: " + user.getFullName());
+        System.out.println("Creating user with email: " + user.getEmail());
+        System.out.println("Creating user with role: " + user.getRole().getRoleName());
         String rawPassword = PasswordGenerator.generatePassword();
         String encryptedPassword = passwordEncoder.encode(rawPassword);
-        user1.setPassword(encryptedPassword);
-        user1.setIsActive(true); // Set default status as active
 
-        userService.createUser(user1);
-
+        user.setPassword(encryptedPassword);
+        user.setIsActive(true); // Set default status as active
+        userService.createUser(user);
         // Send email to user with the raw password
         emailService.sendEmail(user.getEmail(), "Your New Account", "Your password is: " + rawPassword);
 
-        return "redirect:/";
+        return "redirect:/admin/users";
     }
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {

@@ -53,16 +53,17 @@
         <form th:action="@{/admin/users/create}" th:object="${user}" method="post">
             <label for="fullName">Full Name:</label>
             <input type="text" id="fullName" th:field="*{fullName}" required/>
-
+<br>
             <label for="email">Email:</label>
             <input type="email" id="email" th:field="*{email}" required/>
-
+<br>
             <label for="role">Role:</label>
             <select id="role" th:field="*{role}" required>
-                <option value="ROLE_MARKETING">Marketing</option>
-                <option value="ROLE_EXPERT">Expert</option>
+<!--                <option value="ROLE_MARKETING">Marketing</option>-->
+<!--                <option value="ROLE_EXPERT">Expert</option>-->
+                <option th:each="role : ${roles}" th:value="${role.roleName}" th:text="${role.getRoleName()}">Role</option>
             </select>
-
+<br>
             <button type="submit">Create User</button>
         </form>
     </div>

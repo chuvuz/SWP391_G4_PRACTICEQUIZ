@@ -1,5 +1,6 @@
 package com.quiz.g4.service;
 
+import com.quiz.g4.entity.Role;
 import com.quiz.g4.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -43,5 +44,6 @@ public interface UserService extends UserDetailsService {
     long countTotalUsers();
     long countActiveUsers();
     long countInactiveUsers();
+    List<Role> findRolesForUserCreation();
 }
 

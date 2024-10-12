@@ -1,5 +1,7 @@
 package com.quiz.g4.dto;
 
+import com.quiz.g4.entity.Role;
+
 public class UserDTO {
     private String fullName;
     private String roleName;
