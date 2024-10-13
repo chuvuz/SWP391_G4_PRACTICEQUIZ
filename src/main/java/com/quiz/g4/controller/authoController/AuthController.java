@@ -144,7 +144,7 @@ public class AuthController {
             redirectAttributes.addFlashAttribute("successMessage", "Đặt lại Mật Khẩu thành công.");
             return "redirect:/login";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Error: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage" + e.getMessage());
             return "redirect:/reset-password?token=" + token;
         }
     }

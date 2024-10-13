@@ -1,5 +1,6 @@
 package com.quiz.g4.entity;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -37,6 +38,12 @@ public class Quiz {
 
     @Column(name = "updated_date")
     private LocalDate updatedDate = LocalDate.now();
+
+    @Column(name = "is_active", nullable = false)
+    @ColumnDefault("1")
+    private Boolean isActive;
+
+
 
     @OneToMany(mappedBy = "quiz")
     private Set<Lesson> lessons;  // Liên kết với các bài học
