@@ -22,9 +22,6 @@ public class Subject {
     @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
-    @Column(name = "subject_image")  // Trường bổ sung cho ảnh môn học
-    private String subjectImage;
-
     @OneToMany(mappedBy = "subject")
     private Set<User> users;
 

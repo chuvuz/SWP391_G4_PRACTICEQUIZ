@@ -177,18 +177,27 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    //truyền vào string token và password sẽ nhập vào
     public void updatePasswordReset(String token, String password) {
-        //get thông tin của token đó
+        // Kiểm tra tính hợp lệ của mật khẩu
+        if (!isValidPassword(password)) {
+            throw new IllegalArgumentException("Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one digit, and no spaces.");
+        }
+
+        // Lấy thông tin token từ cơ sở dữ liệu
         ResetToken resetToken = resetTokenRepository.findByToken(token);
         if (resetToken == null || resetToken.isExpired()) {
             throw new IllegalArgumentException("Invalid or expired token.");
         }
 
+        // Lấy thông tin người dùng từ token và mã hóa mật khẩu mới
         User user = resetToken.getUser();
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(password));
+
+        // Lưu thông tin người dùng đã cập nhật mật khẩu
         userRepository.save(user);
+
+        // Xóa token sau khi đã sử dụng
         resetTokenRepository.delete(resetToken);
     }
 
