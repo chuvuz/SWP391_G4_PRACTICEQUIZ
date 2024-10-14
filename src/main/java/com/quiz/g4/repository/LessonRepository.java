@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson,Integer> {
-    @Query("SELECT l FROM Lesson l LEFT JOIN FETCH l.questionBanks qb LEFT JOIN FETCH qb.answerOptions WHERE l.id = :lessonId")
+    @Query("SELECT l FROM Lesson l " +
+            "LEFT JOIN FETCH l.questionBanks qb " +
+            "LEFT JOIN FETCH qb.answerOptions " +
+            "WHERE l.lessonId = :lessonId")
     Lesson findLessonWithQuestionsById(@Param("lessonId") Integer lessonId);
 
 }
