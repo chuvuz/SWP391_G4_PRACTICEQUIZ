@@ -1,6 +1,7 @@
 package com.quiz.g4.controller;
 
 import com.quiz.g4.entity.*;
+import com.quiz.g4.repository.AnswerOptionRepository;
 import com.quiz.g4.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class QuizController {
@@ -39,6 +42,11 @@ public class QuizController {
 
     @Autowired
     private UserAnswerService userAnswerService;
+
+
+    @Autowired
+    private AnswerOptionRepository answerOptionRepository;
+
 
 
     // Endpoint: /quiz-list
@@ -153,112 +161,101 @@ public class QuizController {
 
     // Handle lesson answers submission
     @PostMapping("/lesson-submit")
-    public String submitLessonAnswers(@RequestParam Map<String, String> formData, Model model) {
-        // Get the currently authenticated user
+    public String submitLessonAnswers(@RequestParam Integer lessonId,
+                                      HttpServletRequest request,
+                                      Model model) {
+        // Lấy thông tin người dùng đã đăng nhập
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         User user = userService.findByEmail(email);
 
-        // Extract lessonId from the formData
-        Integer lessonId = Integer.parseInt(formData.get("lessonId"));
+        // Kiểm tra lesson
         Lesson lesson = lessonService.getLessonWithQuestions(lessonId);
-
-        // If lesson not found, return error
         if (lesson == null) {
             return "error/404";
         }
 
-        // Initialize variables to track score
         double totalQuestions = lesson.getQuestionBanks().size();
         double correctAnswers = 0;
 
-        // Save the lesson result first
+        // Tạo kết quả cho bài học
         LessonResult lessonResult = new LessonResult();
         lessonResult.setUser(user);
         lessonResult.setLesson(lesson);
-        lessonResult.setScore(0.0);  // Temporary, will update after calculation
+        lessonResult.setScore(0.0);
         lessonResult.setCompletedAt(LocalDateTime.now());
+        lessonResultService.saveLessonResult(lessonResult);
 
-        lessonResultService.saveLessonResult(lessonResult);  // Save result to generate the resultId
-
-        // Now, iterate through each question and save the user's answers
+        // Xử lý từng câu hỏi và đáp án đã chọn
         for (QuestionBank question : lesson.getQuestionBanks()) {
-            String[] selectedOptionIds = formData.get(String.valueOf(question.getQuestionId())).split(","); // splitting comma-separated values for multi-choice
+            String paramName = "question_" + question.getQuestionId();
+            String[] selectedOptionIds = request.getParameterValues(paramName);
 
-            if (selectedOptionIds != null) {
-                // Handle single-choice questions
-                if ("single".equals(question.getQuestionType())) {
-                    AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionIds[0]));
+            if (selectedOptionIds == null || selectedOptionIds.length == 0) {
+                System.out.println("No answer selected for question: " + question.getQuestionId());
+                continue;
+            }
 
-                    // Check if the selected answer is correct
-                    boolean isCorrect = selectedAnswer.getIsCorrect();
-                    if (isCorrect) {
-                        correctAnswers++;
-                    }
+            // Tìm tất cả các đáp án đã chọn
+            List<Integer> optionIds = Arrays.stream(selectedOptionIds)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
 
-                    // Save the user answer
-                    UserAnswer userAnswer = new UserAnswer();
-                    userAnswer.setLessonResult(lessonResult);
-                    userAnswer.setQuestion(question);
-                    userAnswer.setSelectedAnswer(selectedAnswer);
-                    userAnswer.setIsCorrect(isCorrect);
+            List<AnswerOption> selectedAnswers = answerOptionRepository.findAllById(optionIds);
 
-                    userAnswerService.saveUserAnswer(userAnswer);
+            if ("single".equals(question.getQuestionType())) {
+                AnswerOption selectedAnswer = selectedAnswers.get(0);
+                boolean isCorrect = selectedAnswer.getIsCorrect();
+                if (isCorrect) correctAnswers++;
 
-                } else if ("multi".equals(question.getQuestionType())) {
-                    // Handle multi-choice questions
+                saveUserAnswer(lessonResult, question, selectedAnswer, isCorrect);
 
-                    // Get the correct options for the current multi-choice question
-                    List<AnswerOption> correctOptions = answerOptionService.findCorrectOptionsByQuestionId(question.getQuestionId());
+            } else if ("multi".equals(question.getQuestionType())) {
+                List<AnswerOption> correctOptions = answerOptionRepository
+                        .findCorrectOptionsByQuestionId(question.getQuestionId());
 
-                    // Convert selectedOptionIds array to a Set for easy comparison
-                    Set<String> selectedOptionsSet = new HashSet<>(Arrays.asList(selectedOptionIds));
+                Set<Integer> correctOptionIds = correctOptions.stream()
+                        .map(AnswerOption::getOptionId)
+                        .collect(Collectors.toSet());
 
-                    // Check if all correct options are selected and no extra incorrect options are selected
-                    boolean allCorrect = true;
-                    for (AnswerOption correctOption : correctOptions) {
-                        if (!selectedOptionsSet.contains(String.valueOf(correctOption.getOptionId()))) {
-                            allCorrect = false;  // Missing a correct option
-                            break;
-                        }
-                    }
+                Set<Integer> selectedOptionSet = new HashSet<>(optionIds);
 
-                    // If the user selected any options that are not correct, mark the answer as incorrect
-                    if (selectedOptionsSet.size() != correctOptions.size()) {
-                        allCorrect = false;  // User selected extra/incorrect options
-                    }
+                boolean allCorrect = selectedOptionSet.equals(correctOptionIds);
 
-                    // If all selected options are correct and no extra ones were selected, mark the question as correct
-                    if (allCorrect) {
-                        correctAnswers++;
-                    }
+                if (allCorrect) correctAnswers++;
 
-                    // Save each selected answer
-                    for (String selectedOptionId : selectedOptionsSet) {
-                        AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionId));
-
-                        UserAnswer userAnswer = new UserAnswer();
-                        userAnswer.setLessonResult(lessonResult);
-                        userAnswer.setQuestion(question);
-                        userAnswer.setSelectedAnswer(selectedAnswer);
-                        userAnswer.setIsCorrect(correctOptions.contains(selectedAnswer));
-
-                        userAnswerService.saveUserAnswer(userAnswer);
-                    }
+                // Lưu từng đáp án đã chọn
+                for (AnswerOption answer : selectedAnswers) {
+                    boolean isCorrect = correctOptionIds.contains(answer.getOptionId());
+                    saveUserAnswer(lessonResult, question, answer, isCorrect);
                 }
             }
         }
 
-        // Calculate the score and update the lesson result
+        // Tính điểm và lưu kết quả
         double score = (correctAnswers / totalQuestions) * 100;
         lessonResult.setScore(score);
-        lessonResultService.saveLessonResult(lessonResult);  // Update the result with the final score
+        lessonResultService.saveLessonResult(lessonResult);
 
-        // Redirect to the lesson result page, passing the result ID
+        // Chuyển hướng đến trang kết quả
         return "redirect:/lesson-result/" + lessonResult.getResultId();
     }
 
+// Phương thức saveUserAnswer giữ nguyên không thay đổi
 
+    private void saveUserAnswer(LessonResult lessonResult, QuestionBank question,
+                                AnswerOption answerOption, boolean isCorrect) {
+        UserAnswer userAnswer = new UserAnswer();
+        userAnswer.setLessonResult(lessonResult);
+        userAnswer.setQuestion(question);
+        userAnswer.setSelectedAnswer(answerOption);
+        userAnswer.setIsCorrect(isCorrect);
+
+        System.out.println("Saving answer for question " + question.getQuestionId() +
+                " with option " + answerOption.getOptionId() + " - Correct: " + isCorrect);
+
+        userAnswerService.saveUserAnswer(userAnswer);
+    }
 
 
     // Show the lesson result after submission
