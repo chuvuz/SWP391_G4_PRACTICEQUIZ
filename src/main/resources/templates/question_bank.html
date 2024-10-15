@@ -1,13 +1,228 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- META ============================================= -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
+
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template"/>
+
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>EduChamp : Education HTML Template </title>
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}"/>
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/typography.css}"/>
+
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}"/>
+
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
 </head>
 <body>
+<div th:replace="header :: header"></div>
+<!-- END nav -->
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Question Bank</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>Question Bank</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <div class="content-block">
+        <!-- About Us -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                        <div class="widget courses-search-bx placeani">
+                            <form th:action="@{/search-quizzes}" method="get"> <!-- Form that submits to /search-quizzes -->
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <label>Search Courses</label>
+                                        <input name="quizName" type="text" class="form-control" th:value="${quizName}"> <!-- Input field for quizName -->
+                                    </div>
+                                </div>
+
+                                <!-- Dropdown for Subject -->
+                                <div class="form-group">
+                                    <label>Subject</label>s
+                                    <select name="subjectId" class="form-control">
+                                        <option value="">All Subjects</option>
+                                        <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"
+                                                th:selected="${subject.subjectId == selectedSubjectId}">Subject Name</option> <!-- Pre-select selected subject -->
+                                    </select>
+                                </div>
+
+                                <!-- Dropdown for Expert -->
+                                <div class="form-group">
+                                    <label>Expert</label>
+                                    <select name="expertId" class="form-control">
+                                        <option value="">All Experts</option>
+                                        <option th:each="expert : ${experts}" th:value="${expert.userId}" th:text="${expert.fullName}"
+                                                th:selected="${expert.userId == selectedExpertId}">Expert Name</option> <!-- Pre-select selected expert -->
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="row">
+                            <!-- Loop through quizzes -->
+                            <div th:each="quiz : ${quizPage.content}" class="col-md-6 col-lg-4 col-sm-6 m-b30">
+                                <div class="cours-bx">
+                                    <div class="action-box">
+                                        <img th:src="${quiz.quizImage}" alt="Quiz Image"> <!-- Dynamic image -->
+                                        <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="btn">Read More</a>
+                                    </div>
+                                    <div class="info-bx text-center">
+                                        <h5><a th:text="${quiz.quizName}" th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"></a></h5> <!-- Dynamic quiz name -->
+                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> <!-- Dynamic subject name -->
+                                    </div>
+                                    <div class="cours-more-info">
+                                        <div class="review">
+                                            <span>3 Review</span>
+                                            <ul class="cours-star">
+                                                <li class="active"><i class="fa fa-star"></i></li>
+                                                <li class="active"><i class="fa fa-star"></i></li>
+                                                <li class="active"><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                        <div class="price">
+                                            <del>$190</del>
+                                            <h5>$120</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pagination -->
+                            <div class="col-lg-12 m-b20">
+                                <div class="pagination-bx rounded-sm gray clearfix">
+                                    <ul class="pagination">
+                                        <!-- Previous Page Link -->
+                                        <li th:classappend="${quizPage.hasPrevious()} ? 'previous' : 'previous disabled'">
+                                            <a th:href="@{/search-quizzes(page=${quizPage.number - 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">
+                                                <i class="ti-arrow-left"></i> Prev
+                                            </a>
+                                        </li>
+
+                                        <!-- Page Numbers -->
+                                        <li th:each="pageNum : ${#numbers.sequence(0, quizPage.totalPages - 1)}"
+                                            th:classappend="${pageNum == quizPage.number} ? 'active'">
+                                            <a th:href="@{/search-quizzes(page=${pageNum}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}"
+                                               th:text="${pageNum + 1}">1</a>
+                                        </li>
+
+                                        <!-- Next Page Link -->
+                                        <li th:classappend="${quizPage.hasNext()} ? 'next' : 'next disabled'">
+                                            <a th:href="@{/search-quizzes(page=${quizPage.number + 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">
+                                                Next <i class="ti-arrow-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact area END -->
+
+</div>
+
+
 <div th:each="question : ${question}">
     <th5 th:text="${question.questionContent}"></th5>
-    <button onclick="showAnswers(${question.questionId})">show answer</button>
+    <!--
+        nút hiển thị các lựa chọn đáp án
+        <button onclick="showAnswers(${question.questionId})">show answer</button>
+    -->
 </div>
+
+<div th:replace="footer :: footer"></div>
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
 </body>
+<!--<script>
+    function showAnswers(questionId) {
+    const answerList = document.getElementById(`answers${questionId}`);
+
+    // Kiểm tra xem câu trả lời đã được tải chưa
+    if (answerList.style.display === 'none' || answerList.style.display === '') {
+        fetch(`/questions/${questionId}/answers`)
+            .then(response => response.json())
+            .then(answers => {
+                answerList.innerHTML = '';
+                answers.forEach(answer => {
+                    const li = document.createElement('li');
+                    li.innerText = `${answer.content} - Correct: ${answer.correct}`;
+                    answerList.appendChild(li);
+                });
+                answerList.style.display = 'block';
+            });
+    } else {
+        // Ẩn danh sách câu trả lời nếu nó đang hiển thị
+        answerList.style.display = 'none';
+    }
+}
+</script>-->
 </html>
