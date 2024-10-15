@@ -1,10 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>Manage Subjects</title>
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+    }
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    @media only screen and (max-width: 600px) {
+      .modal-content {
+        width: 95%;
+      }
+    }
+    img {
+      width: 100px; /* Kích thước hình ảnh trong bảng */
+      height: auto;
+    }
+  </style>
 </head>
 <body>
-<h1>xin chào admin </h1>
+<h1>Welcome Admin</h1>
+
+<button onclick="openModal('createModal')">Create New Subject</button>
+
+<h2>Subject List</h2>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="subject : ${subjects}">
+    <td th:text="${subject.subjectId}"></td>
+    <td th:text="${subject.subjectName}"></td>
+    <td>
+      <span th:text="${subject.active ? 'Active' : 'Inactive'}"></span>
+    </td>
+    <td>
+      <!-- Chuyển hướng đến trang edit với subjectId -->
+      <a th:href="@{/edit-subject/{subjectId}(subjectId=${subject.subjectId})}">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Create Modal -->
+<div id="createModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('createModal')">&times;</span>
+    <h2>Create New Subject</h2>
+    <form th:action="@{/create-subject}" method="post">
+      <label for="createName">Subject Name:</label>
+      <input type="text" id="createName" name="subjectName" required>
+
+      <label for="createStatus">Subject Status:</label>
+      <select id="createStatus" name="isActive">
+        <option value="true">Active</option>
+        <option value="false">Inactive</option>
+      </select>
+
+      <button type="submit">Create Subject</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+  }
+
+  // Close modal when clicking outside of it
+  window.onclick = function(event) {
+    if (event.target.className === 'modal') {
+      event.target.style.display = "none";
+    }
+  }
+</script>
 </body>
 </html>

@@ -39,11 +39,11 @@ public class HomeController {
             model.addAttribute("user", user);
         }
 //
-//        // Tạo một danh sách subject từ service
-//        List<Subject> subjects = subjectService.getAllSubjects();
+        // Tạo một danh sách subject từ service
+        List<Subject> subjects = subjectService.getAllSubjects();
 //
 //        // Đưa danh sách subject vào model
-//        model.addAttribute("subjects", subjects);
+        model.addAttribute("subjects", subjects);
 //
 //
         // Lấy danh sách quiz
