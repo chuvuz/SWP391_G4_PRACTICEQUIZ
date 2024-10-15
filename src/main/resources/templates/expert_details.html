@@ -3,100 +3,303 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>StudyLab - Free Bootstrap 4 Template by Colorlib</title>
+    <!-- META ============================================= -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
+    <meta name="format-detection" content="telephone=no">
 
-    <link rel="stylesheet" th:href="@{/css/animate.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/owl.theme.default.min.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap-datepicker.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/jquery.timepicker.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/flaticon.css}" type="text/css">
-    <link rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png"/>
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>EduChamp : Education HTML Template </title>
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/assets.css}">
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/typography.css}">
+
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/shortcodes/shortcodes.css}">
+
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link class="skin" rel="stylesheet" type="text/css" th:href="@{/css/color/color-1.css}">
+
+    <!-- REVOLUTION SLIDER CSS ============================================= -->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/layers.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/settings.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/navigation.css}">
+    <!-- REVOLUTION SLIDER END -->
 </head>
 <body>
 <div th:replace="header :: header"></div>
 <!-- END nav -->
 
-<section class="ftco-section bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 ftco-animate d-flex align-items-center align-items-stretch">
-                <div class="staff-2 w-100">
-                    <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch d-flex align-items-end" th:style="|background-image: url('${expert.profileImage}')|">
-                            <div class="text mb-4 text-md-center">
-                                <h3 th:text="${expert.fullName}"></h3>
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Expert Profile</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>Expert Profile</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <div class="content-block">
+        <!-- About Us -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                        <div class="profile-bx text-center">
+                            <div class="user-profile-thumb">
+                                <img th:src="${expert.profileImage}"/>
+                            </div>
+                            <div class="profile-info">
+                                <h4 th:text="${expert.fullName}"></h4>
+                                <span>mark.example@info.com</span>
+                            </div>
+                            <div class="profile-tabnav">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#courses"><i
+                                                class="ti-book"></i>Courses</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#edit-profile"><i
+                                                class="ti-pencil-alt"></i>Edit Profile</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-sm-12 m-b30">
+                        <div class="profile-content-bx">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="courses">
+                                    <div class="profile-head">
+                                        <h3>My Courses</h3>
+                                        <!--<div class="feature-filters style1 ml-auto">
+                                            <ul class="filters" data-toggle="buttons">
+                                                <li data-filter="" class="btn active">
+                                                    <input type="radio">
+                                                    <a href="#"><span>All</span></a>
+                                                </li>
+                                                <li data-filter="publish" class="btn">
+                                                    <input type="radio">
+                                                    <a href="#"><span>Publish</span></a>
+                                                </li>
+                                                <li data-filter="pending" class="btn">
+                                                    <input type="radio">
+                                                    <a href="#"><span>Pending</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>-->
+                                    </div>
+                                    <div class="courses-filter">
+                                        <div class="clearfix">
+                                            <ul id="masonry" class="ttr-gallery-listing magnific-image row">
+                                                <div th:each="quiz : ${quizzess}">
+                                                    <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
+                                                        <div class="cours-bx">
+                                                            <div class="action-box">
+                                                                <img src="${quiz.quizImage}" alt="">
+                                                                <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"
+                                                                   class="btn">Read More</a>
+                                                            </div>
+                                                            <div class="info-bx text-center">
+                                                                <h5 th:text="${quiz.quizName}">
+                                                                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"></a>
+                                                                </h5>
+                                                                <span th:text="${quiz.subject.subjectName}"></span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="edit-profile">
+                                    <div class="profile-head">
+                                        <h3>Edit Profile</h3>
+                                    </div>
+                                    <form class="edit-profile">
+                                        <div class="">
+                                            <div class="form-group row">
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+                                                    <h3>1. Personal Details</h3>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full
+                                                    Name</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="Mark Andre">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Occupation</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="CTO">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Company
+                                                    Name</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="EduChamp">
+                                                    <span class="help">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone
+                                                    No.</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="+120 012345 6789">
+                                                </div>
+                                            </div>
+
+                                            <div class="seperator"></div>
+
+                                            <div class="form-group row">
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+                                                    <h3>2. Address</h3>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text"
+                                                           value="5-S2-20 Dummy City, UK">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">City</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="US">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">State</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="California">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Postcode</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="000702">
+                                                </div>
+                                            </div>
+
+                                            <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
+
+                                            <div class="form-group row">
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
+                                                    <h3 class="m-form__section">3. Social Links</h3>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Linkedin</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="www.linkedin.com">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Facebook</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="www.facebook.com">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Twitter</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="www.twitter.com">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Instagram</label>
+                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                    <input class="form-control" type="text" value="www.instagram.com">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="">
+                                                <div class="row">
+                                                    <div class="col-12 col-sm-3 col-md-3 col-lg-2">
+                                                    </div>
+                                                    <div class="col-12 col-sm-9 col-md-9 col-lg-7">
+                                                        <button type="reset" class="btn">Save changes</button>
+                                                        <button type="reset" class="btn-secondry">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 d-flex align-items-center">
-                <div class="staff-detail w-100 pl-md-5">
-                    <h3>About</h3>
-                    <p th:text="${expert.description}"></p>
-                    <h3>Subject</h3>
-                    <p th:text="${subject.subjectName}"></p>
-                </div>
-            </div>
         </div>
     </div>
-</section>
-
-
-<section class="ftco-section bg-light ftco-no-pt">
-    <div class="container">
-        <div class="row pb-4">
-            <div class="col-md-12 heading-section ftco-animate">
-                <h2 class="mb-4" th:text="'Course By ' + ${expert.fullName}"></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div th:each="quiz : ${quizzess}" class="col-md-4 ftco-animate">
-                <div class="project-wrap">
-                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="img" th:style="|background-image: url('@{' + ${quiz.quizImage} + '}')|">
-                        <span class="price" th:text="${quiz.subject.subjectName}">Software</span>
-                    </a>
-                    <div class="text p-4">
-                        <h3><a href="#" th:text="${quiz.quizName}"></a></h3>
-                        <p class="advisor">Advisor <span th:text="${quiz.createdBy.fullName}"></span></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
+    <!-- contact area END -->
+</div>
 
 <div th:replace="footer :: footer"></div>
 
-
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
+<!-- External JavaScripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/jquery.scroller.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
 
 </body>
 </html>
