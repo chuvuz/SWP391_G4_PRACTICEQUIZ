@@ -22,9 +22,22 @@ public class Subject {
     @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
+    @Column(name = "is_active")
+    private boolean isActive = true;
+
     @OneToMany(mappedBy = "subject")
     private Set<User> users;
 
     @OneToMany(mappedBy = "subject")
     private Set<Quiz> quizzes;
+
+    // Getter cho isActive
+    public boolean isActive() {
+        return isActive;
+    }
+
+    // Setter cho isActive
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
+    }
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Subject</title>
+</head>
+<body>
+<h1>Edit Subject</h1>
+
+<form th:action="@{/edit-subject}" method="post">
+  <input type="hidden" name="subjectId" th:value="${subject.subjectId}">
+  <label for="editName">Subject Name:</label>
+  <input type="text" id="editName" name="subjectName" th:value="${subject.subjectName}" required>
+
+  <label for="editStatus">Subject Status:</label>
+  <select id="editStatus" name="isActive">
+    <option th:value="true" th:selected="${subject.active}">Active</option>
+    <option th:value="false" th:selected="${!subject.active}">Inactive</option>
+  </select>
+
+  <button type="submit">Update Subject</button>
+</form>
+
+<a href="/manage-subject">Back to Subject List</a>
+</body>
+</html>
