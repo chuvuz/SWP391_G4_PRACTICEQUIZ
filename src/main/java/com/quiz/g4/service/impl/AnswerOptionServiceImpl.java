@@ -24,4 +24,9 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     public List<AnswerOption> findCorrectOptionsByQuestionId(Integer questionId) {
         return answerOptionRepository.findCorrectOptionsByQuestionId(questionId);
     }
+
+    @Override
+    public List<AnswerOption> findByQuestionId(Integer questionId){
+        return answerOptionRepository.findByQuestionId(questionId);
+    }
 }

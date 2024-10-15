@@ -11,4 +11,6 @@ public interface AnswerOptionService {
     AnswerOption findById(Integer optionId);
 
     List<AnswerOption> findCorrectOptionsByQuestionId(Integer questionId);
+
+    List<AnswerOption> findByQuestionId(Integer questionId);
 }
