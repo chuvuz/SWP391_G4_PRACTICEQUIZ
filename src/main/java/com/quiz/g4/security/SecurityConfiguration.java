@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/manage-expert","/manage-subject","/admin/dashboard","/admin/users/create","admin/users").hasRole("ADMIN")
                 //Role cho Expert
+                .antMatchers("/expert/**").hasAnyRole("EXPERT")
                 //Role cho Customer
                 //Role cho Marketing
                 .anyRequest().authenticated()

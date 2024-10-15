@@ -47,4 +47,8 @@ public class QuizServiceImpl implements QuizService {
     public Quiz getQuizWithLesson(Integer quizId) {
         return quizRepository.findQuizWithLessons(quizId);
     }
+
+
+
+
 }
