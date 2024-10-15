@@ -29,4 +29,6 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
 
     @Query("SELECT q FROM Quiz q JOIN FETCH q.lessons WHERE q.quizId = :quizId")
     Quiz findQuizWithLessons(@Param("quizId") Integer quizId);
+
+
 }

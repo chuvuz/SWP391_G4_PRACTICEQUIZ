@@ -35,19 +35,7 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
             if (user.getSubject() != null) {
                 switch (user.getSubject().getSubjectId()) {
                     case 1:
-                        response.sendRedirect("/quiz-list/it");  // IT quizzes
-                        break;
-                    case 2:
-                        response.sendRedirect("/quiz-list/economics");  // Economics quizzes
-                        break;
-                    case 3:
-                        response.sendRedirect("/quiz-list/tourism");  // Tourism quizzes
-                        break;
-                    case 4:
-                        response.sendRedirect("/quiz-list/design");  // Graphic Design quizzes
-                        break;
-                    case 5:
-                        response.sendRedirect("/quiz-list/language");  // International Language quizzes
+                        response.sendRedirect("/expert/expert_dashboard");  // IT quizzes
                         break;
                     default:
                         response.sendRedirect("/quiz-list");  // Default page if no subject_id found

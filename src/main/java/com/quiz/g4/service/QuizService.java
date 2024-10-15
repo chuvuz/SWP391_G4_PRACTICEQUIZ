@@ -20,4 +20,7 @@ public interface QuizService {
     Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
 
     Quiz getQuizWithLesson(Integer quizId);
+
+
+
 }
