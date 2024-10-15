@@ -148,35 +148,35 @@
               <!-- List Questions -->
               <div class="m-b30" id="curriculum">
                 <h4 th:text="${lesson.lessonName}">Lesson Name</h4>
+
                 <form th:action="@{/lesson-submit}" method="post">
+                  <!-- Hidden input để truyền lessonId -->
                   <input type="hidden" name="lessonId" th:value="${lesson.lessonId}" />
 
-                  <!-- Hiển thị danh sách câu hỏi -->
+                  <!-- Lặp qua từng câu hỏi trong lesson -->
                   <div th:each="question : ${lesson.questionBanks}" class="question-box">
                     <h5 th:text="${question.questionContent}">Question</h5>
-
-                    <!-- Thêm thông báo cho câu hỏi single-choice -->
-                    <div th:if="${question.questionType == 'single'}">
-                      <p>Chọn 1 đáp án đúng</p>
-                    </div>
-
-                    <!-- Thêm thông báo cho câu hỏi multi-choice -->
-                    <div th:if="${question.questionType == 'multi'}">
-                      <p>Chọn nhiều đáp án đúng</p>
-                    </div>
-
-                    <!-- Hiển thị các lựa chọn đáp án -->
                     <div class="answer-options">
-                      <label th:each="option : ${question.answerOptions}">
-                        <!-- Sử dụng checkbox cho tất cả các câu hỏi multi, với tên dạng mảng -->
-                        <input type="checkbox"
-                               th:name="${'question_' + question.questionId + '[]'}" th:value="${option.optionId}" />
-                        <span th:text="${option.content}">Option</span>
-                      </label>
+                      <div th:each="option : ${question.answerOptions}">
+                        <!-- For single-choice questions -->
+                        <label th:if="${question.questionType == 'single'}">
+                          <input type="radio"
+                                 th:name="${'question_' + question.questionId}"
+                                 th:value="${option.optionId}" />
+                          <span th:text="${option.content}">Option</span>
+                        </label>
+                        <!-- For multi-choice questions -->
+                        <label th:if="${question.questionType == 'multi'}">
+                          <input type="checkbox"
+                                 th:name="${'question_' + question.questionId}"
+                                 th:value="${option.optionId}" />
+                          <span th:text="${option.content}">Option</span>
+                        </label>
+                      </div>
                     </div>
                   </div>
 
-                  <!-- Nút submit form -->
+                  <!-- Nút submit -->
                   <div class="submit-btn">
                     <button type="submit">Submit Answers</button>
                   </div>

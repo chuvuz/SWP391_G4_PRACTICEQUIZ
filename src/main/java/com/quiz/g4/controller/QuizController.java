@@ -1,6 +1,7 @@
 package com.quiz.g4.controller;
 
 import com.quiz.g4.entity.*;
+import com.quiz.g4.repository.AnswerOptionRepository;
 import com.quiz.g4.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -40,6 +42,9 @@ public class QuizController {
 
     @Autowired
     private UserAnswerService userAnswerService;
+
+    @Autowired
+    private AnswerOptionRepository answerOptionRepository;
 
 
     // Endpoint: /quiz-list
@@ -154,124 +159,87 @@ public class QuizController {
 
     // Handle lesson answers submission
     @PostMapping("/lesson-submit")
-    public String submitLessonAnswers(@RequestParam("lessonId") Integer lessonId, @RequestParam Map<String, Object> formData, Model model) {
+    public String submitLessonAnswers(@RequestParam Integer lessonId,
+                                      HttpServletRequest request,
+                                      Model model) {
+        // Lấy thông tin người dùng đã đăng nhập
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         User user = userService.findByEmail(email);
 
-        // Lấy lessonId từ @RequestParam
+        // Kiểm tra lesson
         Lesson lesson = lessonService.getLessonWithQuestions(lessonId);
-
         if (lesson == null) {
             return "error/404";
         }
 
-        // In ra tổng số câu hỏi trong bài học
         double totalQuestions = lesson.getQuestionBanks().size();
-        System.out.println("Tổng số câu hỏi: " + totalQuestions);
+        double correctAnswers = 0;
 
-        double totalScore = 0;
-        int correctCount = 0;  // Đếm số câu trả lời đúng
-        int incorrectCount = 0;  // Đếm số câu trả lời sai
-
+        // Tạo kết quả cho bài học
         LessonResult lessonResult = new LessonResult();
         lessonResult.setUser(user);
         lessonResult.setLesson(lesson);
+        lessonResult.setScore(0.0);
         lessonResult.setCompletedAt(LocalDateTime.now());
-        lessonResult.setScore(0.0);  // Khởi tạo điểm ban đầu
         lessonResultService.saveLessonResult(lessonResult);
 
+        // Xử lý từng câu hỏi và đáp án đã chọn
         for (QuestionBank question : lesson.getQuestionBanks()) {
-            Object answerObj = formData.get("question_" + question.getQuestionId());
-            String[] selectedOptionIds;
+            String paramName = "question_" + question.getQuestionId();
+            String[] selectedOptionIds = request.getParameterValues(paramName);
 
-            if (answerObj instanceof String[]) {
-                selectedOptionIds = (String[]) answerObj;
-            } else if (answerObj instanceof String) {
-                selectedOptionIds = new String[]{(String) answerObj};
-            } else {
-                selectedOptionIds = new String[0];
+            if (selectedOptionIds == null || selectedOptionIds.length == 0) {
+                System.out.println("No answer selected for question: " + question.getQuestionId());
+                continue;
             }
 
-            if (selectedOptionIds.length > 0) {
-                if ("single".equals(question.getQuestionType())) {
-                    double result = processSingleChoiceQuestion(question, selectedOptionIds[0], lessonResult);
-                    totalScore += result;
-                    if (result > 0) {
-                        correctCount++;  // Nếu đúng, tăng số câu đúng
-                    } else {
-                        incorrectCount++;  // Nếu sai, tăng số câu sai
-                    }
-                } else if ("multi".equals(question.getQuestionType())) {
-                    double result = processMultiChoiceQuestion(question, selectedOptionIds, lessonResult);
-                    totalScore += result;
-                    if (result > 0) {
-                        correctCount++;  // Nếu đúng, tăng số câu đúng
-                    } else {
-                        incorrectCount++;  // Nếu sai, tăng số câu sai
-                    }
+            // Tìm tất cả các đáp án đã chọn
+            List<Integer> optionIds = Arrays.stream(selectedOptionIds)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+            List<AnswerOption> selectedAnswers = answerOptionRepository.findAllById(optionIds);
+
+            if ("single".equals(question.getQuestionType())) {
+                AnswerOption selectedAnswer = selectedAnswers.get(0);
+                boolean isCorrect = selectedAnswer.getIsCorrect();
+                if (isCorrect) correctAnswers++;
+
+                saveUserAnswer(lessonResult, question, selectedAnswer, isCorrect);
+
+            } else if ("multi".equals(question.getQuestionType())) {
+                List<AnswerOption> correctOptions = answerOptionRepository
+                        .findCorrectOptionsByQuestionId(question.getQuestionId());
+
+                Set<Integer> correctOptionIds = correctOptions.stream()
+                        .map(AnswerOption::getOptionId)
+                        .collect(Collectors.toSet());
+
+                Set<Integer> selectedOptionSet = new HashSet<>(optionIds);
+
+                boolean allCorrect = selectedOptionSet.equals(correctOptionIds);
+
+                if (allCorrect) correctAnswers++;
+
+                // Lưu từng đáp án đã chọn
+                for (AnswerOption answer : selectedAnswers) {
+                    boolean isCorrect = correctOptionIds.contains(answer.getOptionId());
+                    saveUserAnswer(lessonResult, question, answer, isCorrect);
                 }
-            } else {
-                processUnansweredQuestion(question, lessonResult);
-                incorrectCount++;  // Nếu không trả lời câu hỏi, tính là sai
             }
         }
 
-        // Tính tổng điểm phần trăm
-        double finalScore = (totalScore / totalQuestions) * 100;
-        lessonResult.setScore(finalScore);
+        // Tính điểm và lưu kết quả
+        double score = (correctAnswers / totalQuestions) * 100;
+        lessonResult.setScore(score);
         lessonResultService.saveLessonResult(lessonResult);
 
-        // In ra số câu đúng, số câu sai và tổng điểm
-        System.out.println("Số câu đúng: " + correctCount);
-        System.out.println("Số câu sai: " + incorrectCount);
-        System.out.println("Tổng điểm (phần trăm): " + finalScore);
-
+        // Chuyển hướng đến trang kết quả
         return "redirect:/lesson-result/" + lessonResult.getResultId();
     }
 
-
-
-    private double processSingleChoiceQuestion(QuestionBank question, String selectedOptionId, LessonResult lessonResult) {
-        AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionId));
-        boolean isCorrect = selectedAnswer != null && selectedAnswer.getIsCorrect();
-
-        saveUserAnswer(lessonResult, question, selectedAnswer, isCorrect);
-
-        return isCorrect ? 1.0 : 0.0;
-    }
-
-    private double processMultiChoiceQuestion(QuestionBank question, String[] selectedOptionIds, LessonResult lessonResult) {
-        // Lấy danh sách đáp án đúng cho câu hỏi multi-choice hiện tại
-        List<AnswerOption> correctOptions = answerOptionService.findCorrectOptionsByQuestionId(question.getQuestionId());
-
-        // Chuyển selectedOptionIds thành Set để dễ so sánh
-        Set<String> selectedOptionsSet = new HashSet<>(Arrays.asList(selectedOptionIds));
-
-        // Chuyển correctOptions thành Set để so sánh
-        Set<String> correctOptionIds = correctOptions.stream()
-                .map(option -> String.valueOf(option.getOptionId()))
-                .collect(Collectors.toSet());
-
-        // So sánh xem người dùng có chọn đúng tất cả đáp án mà không chọn thừa đáp án sai
-        boolean allCorrect = selectedOptionsSet.equals(correctOptionIds);
-
-        // Lưu mỗi đáp án mà người dùng đã chọn
-        for (String selectedOptionId : selectedOptionsSet) {
-            AnswerOption selectedAnswer = answerOptionService.findById(Integer.parseInt(selectedOptionId));
-            boolean isCorrect = correctOptionIds.contains(selectedOptionId);  // Kiểm tra xem đáp án đã chọn có đúng không
-            saveUserAnswer(lessonResult, question, selectedAnswer, isCorrect);
-        }
-
-        // Trả về 1.0 nếu tất cả các đáp án đều đúng, ngược lại trả về 0.0
-        return allCorrect ? 1.0 : 0.0;
-    }
-
-
-    private void processUnansweredQuestion(QuestionBank question, LessonResult lessonResult) {
-        // For unanswered questions, we might want to save a null answer or handle it differently
-        saveUserAnswer(lessonResult, question, null, false);
-    }
+// Phương thức saveUserAnswer giữ nguyên không thay đổi
 
     private void saveUserAnswer(LessonResult lessonResult, QuestionBank question, AnswerOption answerOption, boolean isCorrect) {
         UserAnswer userAnswer = new UserAnswer();
@@ -281,8 +249,6 @@ public class QuizController {
         userAnswer.setIsCorrect(isCorrect);
         userAnswerService.saveUserAnswer(userAnswer);
     }
-
-
 
 
     // Show the lesson result after submission
