@@ -45,6 +45,30 @@
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
 </head>
+<style>
+    #questions {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #questions td, #customers th {
+      border: 2px solid #ddd;
+      padding: 8px;
+    }
+
+    #questions tr:nth-child(even){background-color: #f2f2f2;}
+
+    #questions tr:hover {background-color: #ddd;}
+
+    #questions th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #4D3378;
+      color: white;
+    }
+</style>
 <body>
 <div th:replace="header :: header"></div>
 <!-- END nav -->
@@ -75,91 +99,68 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                         <div class="widget courses-search-bx placeani">
-                            <form th:action="@{/search-quizzes}" method="get"> <!-- Form that submits to /search-quizzes -->
+                            <form th:action="@{/search_questions}" method="get">
+                                <!-- Form that submits to /search-quizzes -->
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <label>Search Courses</label>
-                                        <input name="quizName" type="text" class="form-control" th:value="${quizName}"> <!-- Input field for quizName -->
+                                        <label>Question Content</label>
+                                        <input name="questionContent" type="text" class="form-control" th:value="${questionContent}">
+                                        <!-- Input field for quizName -->
                                     </div>
                                 </div>
 
                                 <!-- Dropdown for Subject -->
                                 <div class="form-group">
-                                    <label>Subject</label>s
-                                    <select name="subjectId" class="form-control">
-                                        <option value="">All Subjects</option>
-                                        <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"
-                                                th:selected="${subject.subjectId == selectedSubjectId}">Subject Name</option> <!-- Pre-select selected subject -->
+                                    <label>Question Type</label>s
+                                    <select name="questionType" class="form-control">
+                                        <option value="">All Type</option>
+                                        <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
+                                        <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
+                                        <option value="NUMERIC">NUMERIC</option>
                                     </select>
                                 </div>
 
-                                <!-- Dropdown for Expert -->
                                 <div class="form-group">
-                                    <label>Expert</label>
-                                    <select name="expertId" class="form-control">
-                                        <option value="">All Experts</option>
-                                        <option th:each="expert : ${experts}" th:value="${expert.userId}" th:text="${expert.fullName}"
-                                                th:selected="${expert.userId == selectedExpertId}">Expert Name</option> <!-- Pre-select selected expert -->
-                                    </select>
+                                    <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
+
                             </form>
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-8 col-sm-12">
                         <div class="row">
                             <!-- Loop through quizzes -->
-                            <div th:each="quiz : ${quizPage.content}" class="col-md-6 col-lg-4 col-sm-6 m-b30">
-                                <div class="cours-bx">
-                                    <div class="action-box">
-                                        <img th:src="${quiz.quizImage}" alt="Quiz Image"> <!-- Dynamic image -->
-                                        <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" class="btn">Read More</a>
-                                    </div>
-                                    <div class="info-bx text-center">
-                                        <h5><a th:text="${quiz.quizName}" th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"></a></h5> <!-- Dynamic quiz name -->
-                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> <!-- Dynamic subject name -->
-                                    </div>
-                                    <div class="cours-more-info">
-                                        <div class="review">
-                                            <span>3 Review</span>
-                                            <ul class="cours-star">
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price">
-                                            <del>$190</del>
-                                            <h5>$120</h5>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <table id="questions">
+                                <tr>
+                                    <th>Question ID</th>
+                                    <th>Content</th>
+                                    <th>Type</th>
+                                </tr>
+                                <tr th:each="question : ${questionPage.content}">
+                                    <td th:text="${question.questionId}"></td>
+                                    <td th:text="${question.questionContent}"></td>
+                                    <td th:text="${question.questionType}"></td>
+                                </tr>
+                            </table>
                             <!-- Pagination -->
                             <div class="col-lg-12 m-b20">
                                 <div class="pagination-bx rounded-sm gray clearfix">
                                     <ul class="pagination">
-                                        <!-- Previous Page Link -->
-                                        <li th:classappend="${quizPage.hasPrevious()} ? 'previous' : 'previous disabled'">
-                                            <a th:href="@{/search-quizzes(page=${quizPage.number - 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">
-                                                <i class="ti-arrow-left"></i> Prev
-                                            </a>
+                                        <!-- Previous button -->
+                                        <li th:classappend="${questionPage.hasPrevious()} ? '': 'disabled'" class="page-item">
+                                            <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}" class="page-link">Previous</a>
                                         </li>
 
-                                        <!-- Page Numbers -->
-                                        <li th:each="pageNum : ${#numbers.sequence(0, quizPage.totalPages - 1)}"
-                                            th:classappend="${pageNum == quizPage.number} ? 'active'">
-                                            <a th:href="@{/search-quizzes(page=${pageNum}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}"
-                                               th:text="${pageNum + 1}">1</a>
+                                        <!-- Page numbers -->
+                                        <li th:each="i : ${#numbers.sequence(1, questionPage.totalPages)}"
+                                            th:classappend="${questionPage.number + 1 == i} ? 'active' : ''" class="page-item">
+                                            <a th:href="@{/questions(page=${i - 1}, size=${questionPage.size})}" class="page-link"
+                                               th:text="${i}">1</a>
                                         </li>
 
-                                        <!-- Next Page Link -->
-                                        <li th:classappend="${quizPage.hasNext()} ? 'next' : 'next disabled'">
-                                            <a th:href="@{/search-quizzes(page=${quizPage.number + 1}, size=${quizPage.size}, quizName=${quizName}, subjectId=${selectedSubjectId}, expertId=${selectedExpertId})}">
-                                                Next <i class="ti-arrow-right"></i>
-                                            </a>
+                                        <!-- Next button -->
+                                        <li th:classappend="${questionPage.hasNext()} ? '' : 'disabled'" class="page-item">
+                                            <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}" class="page-link">Next</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -177,13 +178,11 @@
 </div>
 
 
-<div th:each="question : ${question}">
+<!--<div th:each="question : ${questionPage.content}">
     <th5 th:text="${question.questionContent}"></th5>
-    <!--
         nút hiển thị các lựa chọn đáp án
         <button onclick="showAnswers(${question.questionId})">show answer</button>
-    -->
-</div>
+</div>-->
 
 <div th:replace="footer :: footer"></div>
 <!-- External JavaScripts -->

@@ -6,6 +6,8 @@ import com.quiz.g4.repository.AnswerOptionRepository;
 import com.quiz.g4.repository.QuestionBankRepository;
 import com.quiz.g4.service.QuestionBankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,8 +29,13 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     }
 
     @Override
-    public List<QuestionBank> allQuestions(){
-        return questionBankRepository.findAll();
+    public Page<QuestionBank> allQuestions(Pageable pages){
+        return questionBankRepository.findAll(pages);
+    }
+
+    @Override
+    public Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType){
+        return questionBankRepository.searchQuestion(questionContent, questionType, pages);
     }
 
 }
