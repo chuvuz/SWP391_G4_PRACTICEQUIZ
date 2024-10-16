@@ -15,6 +15,11 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     private AnswerOptionRepository answerOptionRepository;
 
     @Override
+    public void save(AnswerOption answer) {
+        answerOptionRepository.save(answer);
+    }
+
+    @Override
     public AnswerOption findById(Integer optionId) {
         return answerOptionRepository.findById(optionId)
                 .orElseThrow(() -> new RuntimeException("Answer option not found"));

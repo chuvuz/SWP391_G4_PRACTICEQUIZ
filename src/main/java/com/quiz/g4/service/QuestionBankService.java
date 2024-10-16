@@ -10,6 +10,11 @@ import java.util.List;
 @Service
 public interface QuestionBankService {
 
+/*
+    QuestionBank createQuestion(QuestionRequest questionRequest);
+*/
+    void save(QuestionBank question);
+
     Page<QuestionBank> allQuestions(Pageable pages);
 
     Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType);

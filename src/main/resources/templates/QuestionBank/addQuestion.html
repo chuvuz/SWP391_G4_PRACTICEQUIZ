@@ -2,9 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Question</title>
 </head>
 <body>
+<h1>Create New Question</h1>
 
+<form action="/questions/create" method="post">
+
+    <label for="questionContent">Question Content:</label>
+    <input type="text" id="questionContent" name="questionContent"><br><br>
+
+    <label for="questionType">Question Type:</label>
+    <select id="questionType" name="questionType">
+        <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
+        <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
+        <option value="NUMERIC">NUMERIC</option>
+    </select><br><br>
+
+    <h3>Answers:</h3>
+    <div id="answers">
+        <div class="answer" id="answer1">
+            <label for="answer1Content">Answer 1:</label>
+            <input type="text" id="answer1Content" name="answerOptions[0].content">
+            <label for="isCorrect1">Is Correct:</label>
+            <input type="checkbox" id="isCorrect1" name="answerOptions[0].isCorrect">
+            <button type="button" onclick="removeAnswer('answer1')">Remove</button><br><br>
+        </div>
+    </div>
+
+    <button type="button" onclick="addAnswer()">Add another answer</button><br><br>
+
+    <input type="submit" value="Submit">
+</form>
+
+<script>
+    let answerCount = 1;
+
+    function addAnswer() {
+        answerCount++;
+        const newAnswer = `
+            <div class="answer" id="answer${answerCount}">
+                <label for="answer${answerCount}Content">Answer ${answerCount}:</label>
+                <input type="text" id="answer${answerCount}Content" name="answerOptions[${answerCount}].content">
+                <label for="isCorrect${answerCount}">Is Correct:</label>
+                <input type="checkbox" id="isCorrect${answerCount}" name="answerOptions[${answerCount}].isCorrect">
+                <button type="button" onclick="removeAnswer('answer${answerCount}')">Remove</button><br><br>
+            </div>
+        `;
+        document.getElementById('answers').insertAdjacentHTML('beforeend', newAnswer);
+    }
+
+    function removeAnswer(answerId) {
+        const answerElement = document.getElementById(answerId);
+        answerElement.remove();
+    }
+</script>
 </body>
 </html>

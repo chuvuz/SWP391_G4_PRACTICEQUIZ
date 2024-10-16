@@ -1,5 +1,7 @@
 package com.quiz.g4.controller.questionBank;
 
+import com.quiz.g4.dto.AnswerOptionForm;
+import com.quiz.g4.dto.QuestionForm;
 import com.quiz.g4.entity.AnswerOption;
 import com.quiz.g4.entity.QuestionBank;
 import com.quiz.g4.service.AnswerOptionService;
@@ -11,10 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,8 +23,10 @@ public class QuestionController {
     @Autowired
     private QuestionBankService questionBankService;
 
+    @Autowired
+    private AnswerOptionService answerOptionService;
 
-    @GetMapping("/questions")
+    @GetMapping("/questionlist")
     public String questions (
             @RequestParam(defaultValue = "0") int page,  // Default to first page
             @RequestParam(defaultValue = "15") int size,  // Default page size of 5
@@ -35,7 +36,7 @@ public class QuestionController {
         Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
 
         model.addAttribute("questionPage", questionPage);
-        return "/question_bank";
+        return "/QuestionBank/question_bank";
     }
 
     @GetMapping("/search_questions")
@@ -60,7 +61,33 @@ public class QuestionController {
         }
 
 
-        return "/question_bank";
+        return "/QuestionBank/question_bank";
+    }
+
+    @GetMapping("/add_Question")
+    public String addQuestion(){
+        return "/QuestionBank/addQuestion";
+    }
+
+    @PostMapping("/questions/create")
+    public String createQuestion(@ModelAttribute QuestionForm questionForm) {
+
+        // Tạo QuestionBank
+        QuestionBank questionBank = new QuestionBank();
+        questionBank.setQuestionContent(questionForm.getQuestionContent());
+        questionBank.setQuestionType(questionForm.getQuestionType());
+        questionBankService.save(questionBank);
+
+        // Tạo AnswerOption từ form
+        for (AnswerOptionForm answerOptionForm : questionForm.getAnswerOptions()) {
+            AnswerOption answerOption = new AnswerOption();
+            answerOption.setQuestionBank(questionBank);
+            answerOption.setContent(answerOptionForm.getContent());
+            answerOption.setIsCorrect(answerOptionForm.getCorrect());
+            answerOptionService.save(answerOption);
+        }
+
+        return "redirect:/questionlist";  // Chuyển hướng sau khi lưu xong
     }
 
 }

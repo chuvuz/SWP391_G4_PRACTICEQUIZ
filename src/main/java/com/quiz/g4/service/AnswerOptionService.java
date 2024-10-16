@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 public interface AnswerOptionService {
 
+    void save(AnswerOption answer);
+
     AnswerOption findById(Integer optionId);
 
     List<AnswerOption> findCorrectOptionsByQuestionId(Integer questionId);
