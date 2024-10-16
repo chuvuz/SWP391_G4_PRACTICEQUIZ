@@ -25,4 +25,6 @@ public class AnswerOption {
 
     @Column(name = "is_correct", nullable = false)
     private Boolean isCorrect; // Đánh dấu đáp án đúng
+
+
 }

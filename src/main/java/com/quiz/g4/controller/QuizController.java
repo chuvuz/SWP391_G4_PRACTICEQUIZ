@@ -227,6 +227,29 @@ public class QuizController {
                     boolean isCorrect = correctOptionIds.contains(answer.getOptionId());
                     saveUserAnswer(lessonResult, question, answer, isCorrect);
                 }
+            } else if ("numeric".equals(question.getQuestionType())) {
+                // Lấy đáp án người dùng nhập
+                String userInput = request.getParameter(paramName);
+
+                try {
+                    // Chuyển sang kiểu số
+                    double userAnswer = Double.parseDouble(userInput);
+
+                    // Tìm đáp án đúng từ cơ sở dữ liệu
+                    AnswerOption correctAnswer = answerOptionRepository
+                            .findCorrectOptionByQuestionId(question.getQuestionId());
+
+                    // So sánh đáp án
+                    boolean isCorrect = (Double.parseDouble(correctAnswer.getContent()) == userAnswer);
+
+                    if (isCorrect) correctAnswers++;
+
+                    // Lưu kết quả của người dùng
+                    saveUserAnswer(lessonResult, question, correctAnswer, isCorrect);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid numeric input for question: " + question.getQuestionId());
+                    // Xử lý trường hợp người dùng nhập sai định dạng số
+                }
             }
         }
 
