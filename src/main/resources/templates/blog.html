@@ -72,7 +72,7 @@
                         <div class="post action-card col-lg-4 col-md-6 col-sm-12 col-xs-12 m-b40" th:each="blog : ${blogPage}">
                             <div class="recent-news">
                                 <div class="action-box">
-                                    <img src="/images/banner1.png" alt="">
+                                    <img th:src="${blog.image}" alt="">
                                 </div>
                                 <div class="info-bx">
                                     <ul class="media-post">
