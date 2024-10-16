@@ -69,8 +69,14 @@ public class QuestionController {
         return "/QuestionBank/addQuestion";
     }
 
-    @PostMapping("/questions/create")
-    public String createQuestion(@ModelAttribute QuestionForm questionForm) {
+    @PostMapping("/createQuestions")
+    public String createQuestion (Model model, QuestionForm questionForm) {
+
+        // Kiểm tra xem câu hỏi đã tồn tại chưa
+        if (questionBankService.existsByQuestionContent(questionForm.getQuestionContent())) {
+            model.addAttribute("error", "Question already exists!"); // Thêm thông báo lỗi
+            return "/QuestionBank/addQuestion"; // Trở về trang thêm câu hỏi
+        }
 
         // Tạo QuestionBank
         QuestionBank questionBank = new QuestionBank();
@@ -78,16 +84,23 @@ public class QuestionController {
         questionBank.setQuestionType(questionForm.getQuestionType());
         questionBankService.save(questionBank);
 
-        // Tạo AnswerOption từ form
+        /*// Tạo AnswerOption từ form
         for (AnswerOptionForm answerOptionForm : questionForm.getAnswerOptions()) {
             AnswerOption answerOption = new AnswerOption();
             answerOption.setQuestionBank(questionBank);
             answerOption.setContent(answerOptionForm.getContent());
             answerOption.setIsCorrect(answerOptionForm.getCorrect());
             answerOptionService.save(answerOption);
-        }
+        }*/
 
         return "redirect:/questionlist";  // Chuyển hướng sau khi lưu xong
+    }
+
+    @GetMapping("/updateQuestion/{id}")
+    public String viewQuestion(@PathVariable Integer id, Model model) {
+        QuestionBank question = questionBankService.findById(id);
+        model.addAttribute("question", question);
+        return "/QuestionBank/UpdateQuestion"; // Trang hiển thị thông tin câu hỏi
     }
 
 }

@@ -7,20 +7,10 @@ public class QuestionForm {
 
     private String questionContent;
     private String questionType;
-    private List<AnswerOptionForm> answerOptions;
 
-    public QuestionForm(String questionContent, String questionType, List<AnswerOptionForm> answerOptions) {
+    public QuestionForm(String questionContent, String questionType) {
         this.questionContent = questionContent;
         this.questionType = questionType;
-        this.answerOptions = answerOptions;
-    }
-
-    public List<AnswerOptionForm> getAnswerOptions() {
-        return answerOptions;
-    }
-
-    public void setAnswerOptions(List<AnswerOptionForm> answerOptions) {
-        this.answerOptions = answerOptions;
     }
 
     public String getQuestionType() {

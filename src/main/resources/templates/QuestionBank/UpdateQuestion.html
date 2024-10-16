@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Question</title>
 </head>
 <body>
+<h1>Question Details</h1>
+
+<div>
+    <h3>Question Content:</h3>
+    <p th:text="${question.questionContent}"></p>
+
+    <h3>Question Type:</h3>
+    <p th:text="${question.questionType}"></p>
+
+    <h3>Answer Options:</h3>
+    <ul>
+        <li th:each="answer : ${question.answerOptions}">
+            <p th:text="${answer.content}">Answer Content</p>
+            <p>
+                <span th:if="${answer.isCorrect}">Correct Answer</span>
+                <span th:if="${!answer.isCorrect}">Incorrect Answer</span>
+            </p>
+        </li>
+    </ul>
+</div>
+
+<a href="/questionlist">Back to Question List</a>
 
 </body>
 </html>

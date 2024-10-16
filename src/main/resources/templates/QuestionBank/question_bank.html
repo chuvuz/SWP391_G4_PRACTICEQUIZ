@@ -143,6 +143,9 @@
                                     <td th:text="${question.questionId}"></td>
                                     <td th:text="${question.questionContent}"></td>
                                     <td th:text="${question.questionType}"></td>
+                                    <td>
+                                        <a th:href="@{/updateQuestion/{id}(id=${question.questionId})}">View</a>
+                                    </td>
                                 </tr>
                             </table>
                             <!-- Pagination -->
@@ -151,19 +154,19 @@
                                     <ul class="pagination">
                                         <!-- Previous button -->
                                         <li th:classappend="${questionPage.hasPrevious()} ? '': 'disabled'" class="page-item">
-                                            <a th:href="@{/questions(page=${questionPage.number - 1}, size=${questionPage.size})}" class="page-link">Previous</a>
+                                            <a th:href="@{/questionlist(page=${questionPage.number - 1}, size=${questionPage.size})}" class="page-link">Previous</a>
                                         </li>
 
                                         <!-- Page numbers -->
                                         <li th:each="i : ${#numbers.sequence(1, questionPage.totalPages)}"
                                             th:classappend="${questionPage.number + 1 == i} ? 'active' : ''" class="page-item">
-                                            <a th:href="@{/questions(page=${i - 1}, size=${questionPage.size})}" class="page-link"
+                                            <a th:href="@{/questionlist(page=${i - 1}, size=${questionPage.size})}" class="page-link"
                                                th:text="${i}">1</a>
                                         </li>
 
                                         <!-- Next button -->
                                         <li th:classappend="${questionPage.hasNext()} ? '' : 'disabled'" class="page-item">
-                                            <a th:href="@{/questions(page=${questionPage.number + 1}, size=${questionPage.size})}" class="page-link">Next</a>
+                                            <a th:href="@{/questionlist(page=${questionPage.number + 1}, size=${questionPage.size})}" class="page-link">Next</a>
                                         </li>
                                     </ul>
                                 </div>

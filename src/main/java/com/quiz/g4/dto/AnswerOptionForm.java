@@ -5,6 +5,9 @@ public class AnswerOptionForm {
     private String content;
     private Boolean isCorrect;
 
+    public AnswerOptionForm() {
+    }
+
     public AnswerOptionForm(String content, Boolean isCorrect) {
         this.content = content;
         this.isCorrect = isCorrect;

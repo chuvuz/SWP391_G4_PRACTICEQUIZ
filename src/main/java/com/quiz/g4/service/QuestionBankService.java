@@ -13,6 +13,10 @@ public interface QuestionBankService {
 /*
     QuestionBank createQuestion(QuestionRequest questionRequest);
 */
+    QuestionBank findById(Integer id);
+
+    boolean existsByQuestionContent(String questionContent);
+
     void save(QuestionBank question);
 
     Page<QuestionBank> allQuestions(Pageable pages);

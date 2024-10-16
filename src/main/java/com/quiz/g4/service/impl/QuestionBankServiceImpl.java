@@ -1,6 +1,5 @@
 package com.quiz.g4.service.impl;
 
-import com.quiz.g4.entity.AnswerOption;
 import com.quiz.g4.entity.QuestionBank;
 import com.quiz.g4.repository.AnswerOptionRepository;
 import com.quiz.g4.repository.QuestionBankRepository;
@@ -11,10 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,11 +22,20 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     @Autowired
     private QuestionBankRepository questionBankRepository;
 
+    public QuestionBank findById(Integer id) {
+        return questionBankRepository.findByQuestionId(id);
+    }
+
     @Override
     public boolean checkCorrectAnswer(Integer questionId, Integer selectedOptionId) {
         return answerOptionRepository.findById(selectedOptionId)
                 .map(option -> option.getQuestionBank().getQuestionId().equals(questionId) && option.getIsCorrect())
                 .orElse(false);
+    }
+
+    @Override
+    public boolean existsByQuestionContent(String questionContent) {
+        return questionBankRepository.existsByQuestionContent(questionContent);
     }
 
     @Override

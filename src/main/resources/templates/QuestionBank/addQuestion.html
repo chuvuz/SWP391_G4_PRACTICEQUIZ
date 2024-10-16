@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +8,12 @@
 <body>
 <h1>Create New Question</h1>
 
-<form action="/questions/create" method="post">
+<!-- Hiển thị thông báo lỗi -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/createQuestions}" method="post">
 
     <label for="questionContent">Question Content:</label>
     <input type="text" id="questionContent" name="questionContent"><br><br>
@@ -20,23 +25,26 @@
         <option value="NUMERIC">NUMERIC</option>
     </select><br><br>
 
-    <h3>Answers:</h3>
+    <!--<h3>Answers:</h3>
     <div id="answers">
         <div class="answer" id="answer1">
             <label for="answer1Content">Answer 1:</label>
             <input type="text" id="answer1Content" name="answerOptions[0].content">
+            &lt;!&ndash; Hidden field to ensure false is sent when unchecked &ndash;&gt;
+            <input type="hidden" name="answerOptions[0].isCorrect" th:value="false">
             <label for="isCorrect1">Is Correct:</label>
-            <input type="checkbox" id="isCorrect1" name="answerOptions[0].isCorrect">
+            <input type="checkbox" id="isCorrect1" name="answerOptions[0].isCorrect" th:value="true">
             <button type="button" onclick="removeAnswer('answer1')">Remove</button><br><br>
         </div>
     </div>
 
-    <button type="button" onclick="addAnswer()">Add another answer</button><br><br>
+    <button type="button" onclick="addAnswer()">Add another answer</button><br><br>-->
 
     <input type="submit" value="Submit">
 </form>
+<a th:href="@{/questionlist}">Back</a>
 
-<script>
+<!--<script>
     let answerCount = 1;
 
     function addAnswer() {
@@ -45,8 +53,10 @@
             <div class="answer" id="answer${answerCount}">
                 <label for="answer${answerCount}Content">Answer ${answerCount}:</label>
                 <input type="text" id="answer${answerCount}Content" name="answerOptions[${answerCount}].content">
+                &lt;!&ndash; Hidden field to ensure false is sent when unchecked &ndash;&gt;
+                <input type="hidden" name="answerOptions[${answerCount}].isCorrect" value="false">
                 <label for="isCorrect${answerCount}">Is Correct:</label>
-                <input type="checkbox" id="isCorrect${answerCount}" name="answerOptions[${answerCount}].isCorrect">
+                <input type="checkbox" id="isCorrect${answerCount}" name="answerOptions[${answerCount}].isCorrect" value="true">
                 <button type="button" onclick="removeAnswer('answer${answerCount}')">Remove</button><br><br>
             </div>
         `;
@@ -57,6 +67,6 @@
         const answerElement = document.getElementById(answerId);
         answerElement.remove();
     }
-</script>
+</script>-->
 </body>
 </html>
