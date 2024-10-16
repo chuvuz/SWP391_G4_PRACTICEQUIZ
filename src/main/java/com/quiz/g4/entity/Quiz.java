@@ -44,7 +44,6 @@ public class Quiz {
     private Boolean isActive;
 
 
-
     @OneToMany(mappedBy = "quiz")
     private Set<Lesson> lessons;  // Liên kết với các bài học
 

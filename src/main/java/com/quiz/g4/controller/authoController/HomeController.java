@@ -11,7 +11,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,28 +33,42 @@ public class HomeController {
     private BlogService blogService;
 
     @GetMapping({"/", "/home"})
-    public String home(Model model) {
+    public String home(Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated()
+                && !authentication.getName().equals("anonymousUser")) {
             String email = authentication.getName();
             User user = userService.findByEmail(email);
+
+            if (!user.isActive()) {
+                // Logout người dùng nếu không hoạt động
+                request.getSession().invalidate();
+                SecurityContextHolder.clearContext();
+
+                // Gửi thông báo lỗi và chuyển hướng tới trang login
+                redirectAttributes.addFlashAttribute("errorMessage", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.");
+                return "redirect:/login";
+            }
+
+            // Nếu người dùng hoạt động, thêm thông tin vào model
             model.addAttribute("user", user);
         }
-//
-        // Tạo một danh sách subject từ service
+
+        // Tạo danh sách subjects từ service
         List<Subject> subjects = subjectService.getAllSubjects();
-//
-//        // Đưa danh sách subject vào model
         model.addAttribute("subjects", subjects);
-//
-//
-        // Lấy danh sách quiz
+
+        // Lấy danh sách quizzes từ service
         List<Quiz> quizzes = quizService.getAllQuizzes();
         model.addAttribute("quizzes", quizzes);
 
+        // Lấy danh sách blogs từ service
         List<Blog> blogs = blogService.findAllBlogs();
         model.addAttribute("blogs", blogs);
+
         return "home";
     }
+
 
 }

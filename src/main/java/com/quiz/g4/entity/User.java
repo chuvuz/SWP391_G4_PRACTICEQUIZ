@@ -94,4 +94,10 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return isActive;
 	}
+
+
+
+	public boolean isActive() {
+		return isActive;
+	}
 }

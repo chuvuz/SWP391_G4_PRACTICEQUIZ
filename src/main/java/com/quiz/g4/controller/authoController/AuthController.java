@@ -4,6 +4,7 @@ import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +24,28 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginForm(Authentication authentication, Model model, HttpSession session) {
-        // Authentication đến từ Spring Security, chứa thông tin về người dùng hiện tại nếu họ đã đăng nhập
-        if (authentication != null && authentication.isAuthenticated()) {
-            // Nếu người dùng đã đăng nhập, chuyển hướng họ tới trang chủ
+        if (authentication != null && authentication.isAuthenticated()
+                && !authentication.getName().equals("anonymousUser")) {
+            // Nếu đã đăng nhập, kiểm tra trạng thái của user
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+
+            if (!user.isActive()) {
+                // Logout nếu tài khoản bị vô hiệu hóa
+                session.invalidate();
+                SecurityContextHolder.clearContext();
+
+                // Chuyển hướng về trang đăng nhập với thông báo lỗi
+                model.addAttribute("errorMessage", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.");
+                return "auth/login"; // Trả về trang đăng nhập cùng với thông báo
+            }
+
+            // Nếu tài khoản hoạt động, chuyển hướng về trang chủ
             return "redirect:/home";
-        } else {
-            // Trả về tên của template Thymeleaf "auth/login" để hiển thị trang đăng nhập
-            return "auth/login";
         }
+
+        // Nếu chưa đăng nhập, hiển thị trang đăng nhập
+        return "auth/login";
     }
 
 
