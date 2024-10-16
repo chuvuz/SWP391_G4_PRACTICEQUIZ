@@ -14,8 +14,8 @@
 
   <label for="editStatus">Subject Status:</label>
   <select id="editStatus" name="isActive">
-    <option th:value="true" th:selected="${subject.active}">Active</option>
-    <option th:value="false" th:selected="${!subject.active}">Inactive</option>
+    <option th:value="true" th:selected="${subject.isActive}">Active</option>
+    <option th:value="false" th:selected="${!subject.isActive}">Inactive</option>
   </select>
 
   <button type="submit">Update Subject</button>

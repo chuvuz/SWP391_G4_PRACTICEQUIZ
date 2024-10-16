@@ -61,7 +61,7 @@
     <td th:text="${subject.subjectId}"></td>
     <td th:text="${subject.subjectName}"></td>
     <td>
-      <span th:text="${subject.active ? 'Active' : 'Inactive'}"></span>
+      <span th:text="${subject.isActive ? 'Active' : 'Inactive'}"></span>
     </td>
     <td>
       <!-- Chuyển hướng đến trang edit với subjectId -->
