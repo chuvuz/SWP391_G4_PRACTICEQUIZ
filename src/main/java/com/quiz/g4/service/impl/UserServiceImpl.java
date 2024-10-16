@@ -237,5 +237,9 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         userRepository.save(user);
     }
+    @Override
+    public List<Role> findRolesForUserCreation() {
+        return roleRepository.findRolesForUserCreation();
+    }
 }
 
