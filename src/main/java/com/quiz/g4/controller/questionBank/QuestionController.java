@@ -96,12 +96,48 @@ public class QuestionController {
         return "redirect:/questionlist";  // Chuyển hướng sau khi lưu xong
     }
 
-    @GetMapping("/updateQuestion/{id}")
+    @GetMapping("/question/{id}")
     public String viewQuestion(@PathVariable Integer id, Model model) {
         QuestionBank question = questionBankService.findById(id);
         model.addAttribute("question", question);
         return "/QuestionBank/UpdateQuestion"; // Trang hiển thị thông tin câu hỏi
     }
+
+    @PostMapping("/question/update")
+    public String updateQuestion(Model model,
+                                 @RequestParam("id") Integer id,
+                                 @RequestParam("questionContent")  String questionContent,
+                                 @RequestParam("questionType") String questionType
+    ) {
+        // Tìm câu hỏi hiện tại
+        QuestionBank questionBank = questionBankService.findById(id);
+
+        if (questionBank == null) {
+            return "redirect:/questionlist"; // Hoặc hiển thị thông báo không tìm thấy
+        }
+
+        // Cập nhật thông tin câu hỏi
+        questionBank.setQuestionContent(questionContent);
+        questionBank.setQuestionType(questionType);
+        questionBankService.save(questionBank);
+
+        /*//Cập nhật các câu trả lời
+        for (AnswerOptionForm answerOptionForm : questionForm.getAnswerOptions()) {
+            // Kiểm tra xem câu trả lời đã tồn tại chưa, nếu chưa thì thêm mới
+            AnswerOption answerOption = answerOptionService.findByContentAndQuestion(questionBank, answerOptionForm.getContent());
+            if (answerOption == null) {
+                answerOption = new AnswerOption();
+                answerOption.setQuestionBank(questionBank);
+            }
+            answerOption.setContent(answerOptionForm.getContent());
+            answerOption.setIsCorrect(answerOptionForm.getCorrect());
+            answerOptionService.save(answerOption);
+        }*/
+
+        return "redirect:/questionlist";  // Chuyển hướng sau khi cập nhật xong
+    }
+
+
 
 }
 

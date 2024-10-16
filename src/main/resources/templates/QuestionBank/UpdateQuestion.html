@@ -9,12 +9,22 @@
 <h1>Question Details</h1>
 
 <div>
-    <h3>Question Content:</h3>
-    <p th:text="${question.questionContent}"></p>
+    <form th:action="@{/question/update}" method="post">
 
-    <h3>Question Type:</h3>
-    <p th:text="${question.questionType}"></p>
+        <input type="hidden" th:value="${question.questionId}" name="id"/>
 
+        <label for="questionContent">Question Content:</label>
+        <input type="text" id="questionContent" name="questionContent" th:value="${question.questionContent}"><br><br>
+
+        <label for="questionType">Question Type:</label>
+        <select id="questionType" name="questionType">
+            <option value="SINGLE_CHOICE" th:selected="${question.questionType == 'SINGLE_CHOICE'}">SINGLE_CHOICE</option>
+            <option value="MULTIPLE_CHOICE" th:selected="${question.questionType == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE</option>
+            <option value="NUMERIC" th:selected="${question.questionType == 'NUMERIC'}">NUMERIC</option>
+        </select><br><br>
+
+        <input type="submit" value="Update">
+    </form>
     <h3>Answer Options:</h3>
     <ul>
         <li th:each="answer : ${question.answerOptions}">
