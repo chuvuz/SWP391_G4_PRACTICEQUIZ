@@ -6,4 +6,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface LessonService {
     Lesson getLessonWithQuestions(Integer lessonId);
+
+    Lesson getLessonById(Object lessonId);
 }

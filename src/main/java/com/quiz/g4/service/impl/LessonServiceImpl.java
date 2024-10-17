@@ -17,4 +17,15 @@ public class LessonServiceImpl implements LessonService {
     public Lesson getLessonWithQuestions(Integer lessonId) {
         return lessonRepository.findLessonWithQuestionsById(lessonId);
     }
+
+    @Override
+    public Lesson getLessonById(Object lessonId) {
+        // Kiểm tra và chuyển đổi lessonId về kiểu Integer nếu cần thiết
+        if (lessonId instanceof Integer) {
+            return lessonRepository.findById((Integer) lessonId)
+                    .orElse(null); // Trả về bài học hoặc null nếu không tìm thấy
+        }
+        return null;
+    }
+
 }

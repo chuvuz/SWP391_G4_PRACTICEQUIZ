@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         ,"/about/**","/forgot-password/**", "/reset-password/**","/expert_detail/**", "/search_expert/**"
                         ,"/blogs/**","/blog-list","/quiz-detail/**","/blogs/**","/blog-list", "/QuestionBank/question_bank", "/questions", "/answers/**", "/search_questions", "/questionlist", "/add_Question", "/QuestionBank/addQuestion", "/create", "/questions/create", "/createQuestions", "/question/**", "/QuestionBank/UpdateQuestion", "/updateQuestion/**", "/question/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 .antMatchers("/manage_expert").hasRole("ADMIN")
-                .antMatchers("/profile/**","/lesson-detail/**","/lesson-submit/**","/lesson-result/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
+                .antMatchers("/profile/**","/lesson-detail/**","/lesson-submit/**","/lesson-result/**","/quiz-review/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
                 //Role cho Admin
 
                 .antMatchers("/manage-expert","/manage-subject","/edit-subject/**","/admin/dashboard","/admin/users/create","admin/users").hasRole("ADMIN")

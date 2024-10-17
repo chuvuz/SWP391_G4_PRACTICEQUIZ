@@ -36,4 +36,8 @@ public class LessonResult {
 
     @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;  // Thời gian hoàn thành
+
+    public Integer getLessonId() {
+        return this.lesson != null ? this.lesson.getLessonId() : null;
+    }
 }
