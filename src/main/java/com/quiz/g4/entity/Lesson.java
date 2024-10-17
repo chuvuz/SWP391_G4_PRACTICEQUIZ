@@ -3,6 +3,7 @@ package com.quiz.g4.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
@@ -25,6 +26,12 @@ public class Lesson {
 
     @Column(name = "lesson_name", nullable = false)
     private String lessonName;
+
+    @Column(name = "created_date")
+    private LocalDate createdDate = LocalDate.now();
+
+    @Column(name = "updated_date")
+    private LocalDate updatedDate = LocalDate.now();
 
     @ManyToMany
     @JoinTable(

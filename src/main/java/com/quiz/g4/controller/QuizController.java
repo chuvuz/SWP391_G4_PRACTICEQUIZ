@@ -248,7 +248,6 @@ public class QuizController {
                     saveUserAnswer(lessonResult, question, correctAnswer, isCorrect);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid numeric input for question: " + question.getQuestionId());
-                    // Xử lý trường hợp người dùng nhập sai định dạng số
                 }
             }
         }

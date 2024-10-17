@@ -20,13 +20,13 @@ public class QuizServiceImpl implements QuizService {
 
     @Override
     public List<Quiz> getAllQuizzes() {
-        return quizRepository.findQuizRecent();
+        return quizRepository.findQuizRecentAndIsActive();
     }
 
     @Override
     public Page<Quiz> getAllQuizzess(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return quizRepository.findAll(pageable);
+        return quizRepository.findAllActiveQuizzes(pageable);
     }
 
     @Override
