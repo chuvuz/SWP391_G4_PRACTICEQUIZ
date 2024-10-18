@@ -20,9 +20,12 @@ public class Lesson {
     @Column(name = "lesson_id")
     private Integer lessonId;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
+//    @ManyToOne
+//    @JoinColumn(name = "quiz_id", nullable = false)
+//    private Quiz quiz;
+
+    @OneToMany(mappedBy = "lessons")
+    private Set<Quiz> quiz;
 
     @Column(name = "lesson_name", nullable = false)
     private String lessonName;
@@ -33,11 +36,18 @@ public class Lesson {
     @Column(name = "updated_date")
     private LocalDate updatedDate = LocalDate.now();
 
-    @ManyToMany
-    @JoinTable(
-            name = "lesson_questions",
-            joinColumns = @JoinColumn(name = "lesson_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
-    )
+    @Column(name = "subject_id")
+    private Subject subject;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "lesson_questions",
+//            joinColumns = @JoinColumn(name = "lesson_id"),
+//            inverseJoinColumns = @JoinColumn(name = "question_id")
+//    )
+//    private Set<QuestionBank> questionBanks;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
+
+    @OneToMany(mappedBy = "lessons")
     private Set<QuestionBank> questionBanks;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
+    
 }

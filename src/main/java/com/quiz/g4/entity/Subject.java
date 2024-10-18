@@ -31,6 +31,13 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private Set<Quiz> quizzes;
 
+    @OneToMany(mappedBy = "subject")
+    private Set<Lesson> lessons;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
+
+    @OneToMany(mappedBy = "subject")
+    private Set<QuestionBank> questionBanks;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
+
+
 //    // Getter cho isActive
 //    public boolean isActive() {
 //        return isActive;
