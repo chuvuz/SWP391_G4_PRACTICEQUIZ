@@ -19,7 +19,7 @@ public class UserAnswer {
 
     @ManyToOne
     @JoinColumn(name = "result_id", nullable = false)
-    private LessonResult lessonResult;  // Liên kết với kết quả lesson
+    private QuizResult quizResult;  // Liên kết với kết quả lesson
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
