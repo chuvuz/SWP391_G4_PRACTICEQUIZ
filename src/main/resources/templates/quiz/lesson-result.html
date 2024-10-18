@@ -142,8 +142,9 @@
                                 <!-- Display Score -->
                                 <div class="score-info">
                                     <h3>Your Score: <span th:text="${lessonResult.score}">0</span>%</h3>
-                                    <p th:if="${lessonResult.score >= 70}" class="pass-message">Congratulations! You passed the lesson.</p>
-                                    <p th:if="${lessonResult.score < 70}" class="fail-message">Unfortunately, you did not pass. Please try again.</p>
+                                    <p th:if="${lessonResult.score >= 70}" class="success-message">Great job! You've successfully completed the lesson.</p>
+                                    <p th:if="${lessonResult.score < 70}" class="encouragement-message">Keep practicing, you'll get there next time. Don't give up!</p>
+
                                 </div>
 
                                 <!-- Display User Info -->
