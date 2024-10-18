@@ -38,7 +38,7 @@ public class QuestionController {
         return "/QuestionBank/question_bank";
     }
 
-    @GetMapping("/search_questions")
+    /*@GetMapping("/search_questions")
     public String search_questions (
             @RequestParam(value = "questionContent", required = false) String questionContent,
             @RequestParam(value = "questionType", required = false) String questionType,
@@ -61,7 +61,7 @@ public class QuestionController {
 
 
         return "/QuestionBank/question_bank";
-    }
+    }*/
 
     @GetMapping("/add_Question")
     public String addQuestion(){

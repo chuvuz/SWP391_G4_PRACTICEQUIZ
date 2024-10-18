@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
 <head>
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link th:href="@{/expert/error-404.html}" rel="icon" type="image/x-icon" />
-    <link th:href="@{/expert/images/favicon.png}" rel="shortcut icon" type="image/x-icon" />
+    <link th:href="@{/expert/error-404.html}" rel="icon" type="image/x-icon"/>
+    <link th:href="@{/expert/images/favicon.png}" rel="shortcut icon" type="image/x-icon"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
     <title>EduChamp : Education HTML Template </title>
@@ -78,7 +78,8 @@
                     <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
+                            class="fa fa-angle-down"></i></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="../courses.html">Our Courses</a></li>
@@ -170,7 +171,10 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
+                                                                                                                  src="assets/images/testimonials/pic3.jpg"
+                                                                                                                  width="32"
+                                                                                                                  height="32"></span></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="user-profile.html">My profile</a></li>
@@ -217,7 +221,8 @@
             <form class="ttr-search-form">
                 <div class="ttr-search-input-wrapper">
                     <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
+                    </button>
                 </div>
                 <span class="ttr-search-close ttr-search-toggle">
 						<i class="ti-close"></i>
@@ -278,13 +283,16 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="mailbox.html" class="ttr-material-button"><span class="ttr-label">Mail Box</span></a>
+                            <a href="mailbox.html" class="ttr-material-button"><span
+                                    class="ttr-label">Mail Box</span></a>
                         </li>
                         <li>
-                            <a href="mailbox-compose.html" class="ttr-material-button"><span class="ttr-label">Compose</span></a>
+                            <a href="mailbox-compose.html" class="ttr-material-button"><span
+                                    class="ttr-label">Compose</span></a>
                         </li>
                         <li>
-                            <a href="mailbox-read.html" class="ttr-material-button"><span class="ttr-label">Mail Read</span></a>
+                            <a href="mailbox-read.html" class="ttr-material-button"><span
+                                    class="ttr-label">Mail Read</span></a>
                         </li>
                     </ul>
                 </li>
@@ -329,7 +337,8 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="user-profile.html" class="ttr-material-button"><span class="ttr-label">User Profile</span></a>
+                            <a href="user-profile.html" class="ttr-material-button"><span
+                                    class="ttr-label">User Profile</span></a>
                         </li>
                         <li>
                             <a href="teacher-profile.html" class="ttr-material-button"><span class="ttr-label">Teacher Profile</span></a>
@@ -356,7 +365,45 @@
             </ul>
         </div>
         <div class="row">
-            <h4>Search</h4>
+            <div class="widget courses-search-bx placeani col-lg-3 col-md-4 col-sm-12 m-b30">
+                <div class="form-group">
+                    <h4>Search</h4>
+                </div>
+                <form th:action="@{/search_questions}" method="get">
+                    <!-- Form that submits to /search-quizzes -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label>Question Content</label>
+                            <input name="questionContent" type="text" class="form-control"
+                                   th:value="${questionContent}">
+                            <!-- Input field for quizName -->
+                        </div>
+                    </div>
+
+                    <!-- Dropdown for Subject -->
+                    <div class="form-group">
+                        <label>Question Type</label>s
+                        <select name="questionType" class="form-control">
+                            <option value="">All Type</option>
+                            <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
+                            <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
+                            <option value="NUMERIC">NUMERIC</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="widget courses-search-bx placeani col-lg-3 col-md-4 col-sm-12 m-b30">
+                <div class="form-group">
+                    <h4>Create</h4>
+                </div>
+
+            </div>
+
             <!-- Your Profile Views Chart -->
             <table class="table table-striped">
                 <thead>
@@ -387,13 +434,15 @@
             <!-- Phân trang -->
             <div class="pagination">
                 <!-- Trang trước -->
-                <a th:href="@{/expert/expert_manage_question(page=${currentPage - 1})}" th:if="${currentPage > 0}">Trang trước</a>
+                <a th:href="@{/expert/expert_manage_question(page=${currentPage - 1})}" th:if="${currentPage > 0}">Trang
+                    trước</a>
 
                 <!-- Hiển thị số trang hiện tại và tổng số trang -->
                 <span>Trang [[${currentPage + 1}]] trên [[${totalPages}]]</span>
 
                 <!-- Trang sau -->
-                <a th:href="@{/expert/expert_manage_question(page=${currentPage + 1})}" th:if="${currentPage + 1 < totalPages}">Trang sau</a>
+                <a th:href="@{/expert/expert_manage_question(page=${currentPage + 1})}"
+                   th:if="${currentPage + 1 < totalPages}">Trang sau</a>
             </div>
             <!-- Your Profile Views Chart END-->
         </div>
