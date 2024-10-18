@@ -254,6 +254,7 @@ public class QuizController {
 
         // Tính điểm và lưu kết quả
         double score = (correctAnswers / totalQuestions) * 100;
+        score = Math.round(score * 100.0) / 100.0; // Làm tròn đến 2 chữ số sau dấu thập phân
         lessonResult.setScore(score);
         lessonResultService.saveLessonResult(lessonResult);
 
