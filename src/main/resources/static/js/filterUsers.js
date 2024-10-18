@@ -13,3 +13,4 @@ function filterUsers() {
             rows[i].style.display = 'none';
         }
     }
+}
