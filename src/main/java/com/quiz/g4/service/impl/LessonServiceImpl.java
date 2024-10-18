@@ -5,7 +5,11 @@ import com.quiz.g4.entity.Lesson;
 import com.quiz.g4.repository.LessonRepository;
 import com.quiz.g4.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class LessonServiceImpl implements LessonService {
@@ -26,6 +30,17 @@ public class LessonServiceImpl implements LessonService {
                     .orElse(null); // Trả về bài học hoặc null nếu không tìm thấy
         }
         return null;
+    }
+
+    @Override
+    public List<Lesson> getAllLessons() {
+        return lessonRepository.findAll();
+
+    }
+
+    @Override
+    public Page<Lesson> getLessons(Pageable pageable) {
+        return lessonRepository.findAll(pageable);
     }
 
 }

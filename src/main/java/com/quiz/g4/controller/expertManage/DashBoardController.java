@@ -1,13 +1,17 @@
 package com.quiz.g4.controller.expertManage;
 
+import com.quiz.g4.entity.Lesson;
 import com.quiz.g4.entity.QuestionBank;
 import com.quiz.g4.entity.Quiz;
 import com.quiz.g4.entity.User;
+import com.quiz.g4.service.LessonService;
 import com.quiz.g4.service.QuestionService;
 import com.quiz.g4.service.QuizService;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +30,8 @@ public class DashBoardController {
     private QuizService quizService;
     @Autowired
     private QuestionService questionService;
+    @Autowired
+    private LessonService lessonService;
 
     @GetMapping("/expert/expert_dashboard")
     public String getDoashboard(){
@@ -43,6 +49,15 @@ public class DashBoardController {
             model.addAttribute("user", user);
             List<Quiz> quizzes = quizService.findQuizByAuther(user.getUserId());
             model.addAttribute("quizzes", quizzes);
+
+            // Thêm logic để load lesson và question banks nếu cần thiết
+            quizzes.forEach(quiz -> {
+                quiz.getLessons().forEach(lesson -> {
+                    // Đảm bảo lesson có chứa danh sách câu hỏi (questionBanks)
+                    lesson.getQuestionBanks();  // Tải danh sách câu hỏi
+                });
+            });
+
             return "/quiz/expert_quizz";
         }
 
@@ -60,6 +75,18 @@ public class DashBoardController {
         model.addAttribute("totalPages", questionPage.getTotalPages());
 
         return "expert_manage_question";
+    }
+    @GetMapping("/expert/expert_manage_lesson")
+    public String getAllLessons(@RequestParam(defaultValue = "0") int page, Model model) {
+        int pageSize = 10; // 10 lessons per page
+        Pageable pageable = PageRequest.of(page, pageSize);
+
+        Page<Lesson> lessonPage = lessonService.getLessons(pageable);
+        model.addAttribute("lessons", lessonPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", lessonPage.getTotalPages());
+
+        return "expert_manage_lesson"; // Trả về trang HTML chứa danh sách lesson
     }
 
 }
