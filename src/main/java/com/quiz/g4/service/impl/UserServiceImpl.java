@@ -241,5 +241,14 @@ public class UserServiceImpl implements UserService {
     public List<Role> findRolesForUserCreation() {
         return roleRepository.findRolesForUserCreation();
     }
+    @Override
+    public void changeUserStatus(User user) {
+        if (user.isActive()) {
+            user.setIsActive(false);
+        } else {
+            user.setIsActive(true);
+        }
+        userRepository.save(user);
+    }
 }
 

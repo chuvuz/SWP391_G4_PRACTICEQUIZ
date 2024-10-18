@@ -17,6 +17,7 @@ public interface UserService extends UserDetailsService {
     List<User> findByRoleId(int roleId);
 
     User updateUser(String email, User updatedUser);
+    void changeUserStatus(User user);
 
     void changePassword(String email, String newPassword);
 
