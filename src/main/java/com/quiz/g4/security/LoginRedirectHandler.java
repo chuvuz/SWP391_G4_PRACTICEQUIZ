@@ -23,7 +23,11 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            response.sendRedirect("/home");
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            if (user.isActive() && user.getRole().getRoleName().equalsIgnoreCase("ROLE_ADMIN")){
+                response.sendRedirect("/admin/dashboard");
+            }
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_EXPERT"))) {
             // Lấy thông tin user từ Authentication
             String email = authentication.getName();
