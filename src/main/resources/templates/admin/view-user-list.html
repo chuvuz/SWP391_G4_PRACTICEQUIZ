@@ -43,6 +43,8 @@
     <!-- STYLESHEETS ============================================= -->
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+
+    <script th:src="@{/js/filterUsers.js}"></script>
 </head>
 <body>
 <div class="page-wraper">
@@ -61,7 +63,7 @@
 <!--            </select>-->
 <!--            <button type="submit">Filter</button>-->
 <!--        </form>-->
-
+        <input type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Search by full name">
         <table>
             <thead>
             <tr>
@@ -78,6 +80,12 @@
                 <td th:text="${user.getEmail()}"></td>
                 <td th:text="${user.getRole().getRoleName()}"></td>
                 <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
+                <td>
+                    <form th:action="@{/admin/users/update-status}" method="post">
+                        <input type="hidden" name="userId" th:value="${user.userId}">
+                        <button type="submit" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></button>
+                    </form>
+                </td>
 <!--                <td>-->
 <!--                    <form th:action="@{/admin/users/status}" method="post">-->
 <!--                        <input type="hidden" name="userId" th:value="${user.id}">-->

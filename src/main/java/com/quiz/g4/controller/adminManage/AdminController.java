@@ -39,10 +39,11 @@ public class AdminController {
         return "admin/view-user-list";
     }
 
-    @PostMapping("/users/status")
-    public String updateUserStatus(@RequestParam Integer userId, @RequestParam boolean active) {
-        userService.updateUserStatus(userId, active);
-        return "redirect:/";
+    @PostMapping("/users/update-status")
+    public String updateUserStatus(@RequestParam Integer userId) {
+        User user = userService.findUserByUserId(userId);
+        userService.changeUserStatus(user);
+        return "redirect:/admin/users";
     }
     @GetMapping("/users/create")
     public String showCreateUserForm(Model model) {
