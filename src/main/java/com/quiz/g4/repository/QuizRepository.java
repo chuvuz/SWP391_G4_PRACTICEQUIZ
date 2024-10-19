@@ -39,4 +39,6 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
     @Query("SELECT q FROM Quiz q WHERE q.isActive = true")
     Page<Quiz> findAllActiveQuizzes(Pageable pageable);
 
+    @Query("SELECT q FROM Quiz q JOIN q.lesson l WHERE l.lessonId = :lessonId")
+    List<Quiz> findQuizzesByLessonId(@Param("lessonId") Integer lessonId);
 }

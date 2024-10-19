@@ -21,4 +21,8 @@ public interface SubjectService {
     void updateSubject(int subjectId, String subjectName, boolean isActive);
 
     Page<Subject> getAllSubject(int page, int size);
+
+    Page<Subject> searchSubject(String subjectName, int page, int size);
+
+    Subject getSubjectById(Integer subjectId);
 }

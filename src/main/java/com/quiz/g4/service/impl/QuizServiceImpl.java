@@ -32,6 +32,11 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<Quiz> findQuizByAuther(Integer autherId){return quizRepository.findQuizByAuther(autherId);}
 
+    @Override
+    public List<Quiz> getQuizzesByLessonId(Integer lessonId) {
+        return quizRepository.findQuizzesByLessonId(lessonId);
+    }
+
 //    @Override
 //    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
 //        return null;

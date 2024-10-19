@@ -43,4 +43,10 @@ public class LessonServiceImpl implements LessonService {
         return lessonRepository.findAll(pageable);
     }
 
+    @Override
+    public Lesson getLessonById(Integer lessonId) {
+        return lessonRepository.findById(lessonId).orElseThrow(null);
+    }
+
+
 }

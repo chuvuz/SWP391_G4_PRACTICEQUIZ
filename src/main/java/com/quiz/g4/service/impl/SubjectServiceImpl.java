@@ -35,8 +35,6 @@ public class SubjectServiceImpl implements SubjectService {
 
 
 
-
-
     @Override
     public void createSubject(String subjectName, boolean isActive) {
         Subject newSubject = Subject.builder()
@@ -89,6 +87,17 @@ public class SubjectServiceImpl implements SubjectService {
     public Page<Subject> getAllSubject(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return subjectRepository.findAllActiveSubject(pageable);
+    }
+
+    @Override
+    public Page<Subject> searchSubject(String subjectName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+     return subjectRepository.searchSubject(subjectName,  pageable);
+    }
+
+    @Override
+    public Subject getSubjectById(Integer subjectId) {
+        return subjectRepository.findBySubjectId(subjectId);
     }
 
 

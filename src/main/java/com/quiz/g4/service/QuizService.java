@@ -15,6 +15,8 @@ public interface QuizService {
 
     List<Quiz> findQuizByAuther(Integer userId);
 
+    List<Quiz> getQuizzesByLessonId(Integer lessonId);
+
 //    Quiz getQuizWithQuestionsAndAnswers(Integer quizId);
 //
 //    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);

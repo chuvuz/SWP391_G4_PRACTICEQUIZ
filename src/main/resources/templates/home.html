@@ -403,12 +403,11 @@
                             <div th:each="subjects : ${subjects}" class="item">
                                 <div class="cours-bx">
                                     <div class="action-box">
-                                        <img th:src="${subjects.subjectImage}" alt="Quiz Image">
-                                        <a href="" class="btn">Read More</a>
+                                        <img th:src="${subjects.subjectImage}" alt="Quiz Image"> <!-- Dynamic image -->
+                                        <a th:href="@{/subject-detail/{subjectId}(subjectId=${subjects.subjectId})}" class="btn">Read More</a>
                                     </div>
                                     <div class="info-bx text-center">
-                                        <h5><a th:text="${subjects.subjectName}" href="" ></a></h5>
-<!--                                        <span th:text="${quiz.subject.subjectName}">Subject</span> &lt;!&ndash; Assuming subject has a subjectName field &ndash;&gt;-->
+                                        <h5><a th:href="@{/subject-detail/{subjectId}(subjectId=${subjects.subjectId})}" th:text="${subjects.subjectName}"></a></h5>
                                     </div>
                                     <div class="cours-more-info">
 <!--                                        <div class="created-by">-->

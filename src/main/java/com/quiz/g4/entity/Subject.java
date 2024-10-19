@@ -31,18 +31,10 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private Set<Quiz> quizzes;
 
-    @OneToMany(mappedBy = "subject")
-    private Set<Lesson> lessons; // One subject contains one or more lessons
+    @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+    private Set<Lesson> lessons;
+    // One subject contains one or more lessons
 }
 
 
-//    // Getter cho isActive
-//    public boolean isActive() {
-//        return isActive;
-//    }
-//
-//    // Setter cho isActive
-//    public void setActive(boolean isActive) {
-//        this.isActive = isActive;
-//    }
 

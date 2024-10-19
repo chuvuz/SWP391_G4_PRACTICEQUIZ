@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register/**", "/login","/quiz-list","/subject-list/**","/search-quizzes/**","/search-subject", "/expert/**"
+                .antMatchers("/", "/register/**", "/login","/quiz-list","/subject-list/**","/search-quizzes/**","/search-subject", "/expert/**","/subject-detail/**","/lesson-detail/*"
                         ,"/home", "/css/**", "/js/**", "/vendors/**", "/images/**","/blog-detail/**"
                         ,"/about/**","/forgot-password/**", "/reset-password/**","/expert_detail/**", "/search_expert/**"
                         ,"/blogs/**","/blog-list","/quiz-detail/**","/blogs/**","/blog-list", "/QuestionBank/question_bank", "/questions", "/answers/**", "/search_questions", "/questionlist", "/add_Question", "/QuestionBank/addQuestion", "/create", "/questions/create", "/createQuestions", "/question/**", "/QuestionBank/UpdateQuestion", "/updateQuestion/**", "/question/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
