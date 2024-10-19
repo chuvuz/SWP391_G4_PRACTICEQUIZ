@@ -49,5 +49,5 @@ public class Lesson {
 
     @OneToMany(mappedBy = "lessons")
     private Set<QuestionBank> questionBanks;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
-
+    
 }
