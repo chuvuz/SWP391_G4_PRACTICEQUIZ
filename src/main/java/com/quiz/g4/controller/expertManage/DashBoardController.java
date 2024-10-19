@@ -50,12 +50,12 @@ public class DashBoardController {
             model.addAttribute("quizzes", quizzes);
 
             // Thêm logic để load lesson và question banks nếu cần thiết
-            quizzes.forEach(quiz -> {
-                quiz.getLessons().forEach(lesson -> {
-                    // Đảm bảo lesson có chứa danh sách câu hỏi (questionBanks)
-                    lesson.getQuestionBanks();  // Tải danh sách câu hỏi
-                });
-            });
+//            quizzes.forEach(quiz -> {
+//                quiz.getLessons().forEach(lesson -> {
+//                    // Đảm bảo lesson có chứa danh sách câu hỏi (questionBanks)
+//                    lesson.getQuestionBanks();  // Tải danh sách câu hỏi
+//                });
+//            });
 
             return "/quiz/expert_quizz";
         }

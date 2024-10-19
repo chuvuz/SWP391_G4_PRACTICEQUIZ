@@ -9,11 +9,11 @@ import java.util.List;
 
 @Service
 public interface LessonService {
-    Lesson getLessonWithQuestions(Integer lessonId);
-
-    Lesson getLessonById(Object lessonId);
-
-    List<Lesson> getAllLessons();
+//    Lesson getLessonWithQuestions(Integer lessonId);
+//
+//    Lesson getLessonById(Object lessonId);
+//
+//    List<Lesson> getAllLessons();
 
     Page<Lesson> getLessons(Pageable pageable);
 }

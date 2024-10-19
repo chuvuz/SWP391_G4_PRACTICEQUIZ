@@ -15,11 +15,11 @@ public interface QuizService {
 
     List<Quiz> findQuizByAuther(Integer userId);
 
-    Quiz getQuizWithQuestionsAndAnswers(Integer quizId);
-
-    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
-
-    Quiz getQuizWithLesson(Integer quizId);
+//    Quiz getQuizWithQuestionsAndAnswers(Integer quizId);
+//
+//    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
+//
+//    Quiz getQuizWithLesson(Integer quizId);
 
 
 

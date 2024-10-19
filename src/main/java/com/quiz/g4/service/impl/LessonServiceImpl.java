@@ -17,26 +17,26 @@ public class LessonServiceImpl implements LessonService {
 
     @Autowired
     private LessonRepository lessonRepository;
-    @Override
-    public Lesson getLessonWithQuestions(Integer lessonId) {
-        return lessonRepository.findLessonWithQuestionsById(lessonId);
-    }
+//    @Override
+//    public Lesson getLessonWithQuestions(Integer lessonId) {
+//        return lessonRepository.findLessonWithQuestionsById(lessonId);
+//    }
 
-    @Override
-    public Lesson getLessonById(Object lessonId) {
-        // Kiểm tra và chuyển đổi lessonId về kiểu Integer nếu cần thiết
-        if (lessonId instanceof Integer) {
-            return lessonRepository.findById((Integer) lessonId)
-                    .orElse(null); // Trả về bài học hoặc null nếu không tìm thấy
-        }
-        return null;
-    }
-
-    @Override
-    public List<Lesson> getAllLessons() {
-        return lessonRepository.findAll();
-
-    }
+//    @Override
+//    public Lesson getLessonById(Object lessonId) {
+//        // Kiểm tra và chuyển đổi lessonId về kiểu Integer nếu cần thiết
+//        if (lessonId instanceof Integer) {
+//            return lessonRepository.findById((Integer) lessonId)
+//                    .orElse(null); // Trả về bài học hoặc null nếu không tìm thấy
+//        }
+//        return null;
+//    }
+//
+//    @Override
+//    public List<Lesson> getAllLessons() {
+//        return lessonRepository.findAll();
+//
+//    }
 
     @Override
     public Page<Lesson> getLessons(Pageable pageable) {

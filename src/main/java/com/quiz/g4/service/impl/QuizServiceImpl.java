@@ -32,21 +32,21 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public List<Quiz> findQuizByAuther(Integer autherId){return quizRepository.findQuizByAuther(autherId);}
 
-    @Override
-    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
-        return null;
-    }
+//    @Override
+//    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
+//    }
 
-    @Override
-    public Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
-    }
-
-    @Override
-    public Quiz getQuizWithLesson(Integer quizId) {
-        return quizRepository.findQuizWithLessons(quizId);
-    }
+//    @Override
+//    public Quiz getQuizWithLesson(Integer quizId) {
+//        return quizRepository.findQuizWithLessons(quizId);
+//    }
 
 
 
