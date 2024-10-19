@@ -394,21 +394,21 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 heading-bx left">
-                            <h2 class="title-head">Popular <span>Quizzes</span></h2>
+                            <h2 class="title-head">Popular <span>Subject</span></h2>
                             <p>Explore our wide range of quizzes across various subjects</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                            <div th:each="quiz : ${quizzes}" class="item">
+                            <div th:each="subjects : ${subjects}" class="item">
                                 <div class="cours-bx">
                                     <div class="action-box">
-                                        <img th:src="${quiz.quizImage}" alt="Quiz Image">
-                                        <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"  class="btn">Read More</a>
+                                        <img th:src="${subjects.subjectImage}" alt="Quiz Image">
+                                        <a href="" class="btn">Read More</a>
                                     </div>
                                     <div class="info-bx text-center">
-                                        <h5><a th:text="${quiz.quizName}" th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" ></a></h5>
-                                        <span th:text="${quiz.subject.subjectName}">Subject</span> <!-- Assuming subject has a subjectName field -->
+                                        <h5><a th:text="${subjects.subjectName}" href="" ></a></h5>
+<!--                                        <span th:text="${quiz.subject.subjectName}">Subject</span> &lt;!&ndash; Assuming subject has a subjectName field &ndash;&gt;-->
                                     </div>
                                     <div class="cours-more-info">
 <!--                                        <div class="created-by">-->

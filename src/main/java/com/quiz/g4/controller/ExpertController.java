@@ -57,9 +57,9 @@ public class ExpertController {
 
         page = Math.max(page, 0);
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
-        Page<User> expertPage = userService.searchExpert(expertName, subjectId, 3, page, size);
-        // Đưa danh sách này vào model
-        model.addAttribute("expertPage", expertPage);
+//        Page<User> expertPage = userService.searchExpert(expertName, subjectId, 3, page, size);
+//        // Đưa danh sách này vào model
+//        model.addAttribute("expertPage", expertPage);
         return "experts";
     }
 
@@ -69,8 +69,8 @@ public class ExpertController {
                                    @PathVariable("expertId") Integer userId){
         // Lấy danh sách các subject và expert để hiển thị
         User expert = userService.findUserByUserId(userId);
-        Subject subject = expert.getSubject();
-        model.addAttribute("subject", subject);
+//        Subject subject = expert.getSubject();
+//        model.addAttribute("subject", subject);
         model.addAttribute("expert", expert);
 
         // Lấy danh sách quiz

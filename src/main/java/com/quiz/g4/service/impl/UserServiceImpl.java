@@ -64,11 +64,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByRoleRoleId(3, pageable);
     }
 
-    @Override
-    public Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
-        return userRepository.searchExpert(expertName, subjectId, roleId, pageable);
-    }
+//    @Override
+//    public Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size){
+//        Pageable pageable = PageRequest.of(page, size);
+//        return userRepository.searchExpert(expertName, subjectId, roleId, pageable);
+//    }
 
     @Override
     public void saveUser(User user) {
@@ -88,9 +88,6 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setRole(role);
         }
-
-        // Đảm bảo subject vẫn giữ nguyên
-        user.setSubject(user.getSubject());
 
         // Lưu người dùng vào cơ sở dữ liệu
         userRepository.save(user);

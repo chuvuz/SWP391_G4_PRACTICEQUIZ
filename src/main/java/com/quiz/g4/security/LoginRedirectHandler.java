@@ -36,18 +36,7 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
             User user = userService.findByEmail(email);
 
             // Kiểm tra subject_id và điều hướng tới trang phù hợp
-            if (user.getSubject() != null) {
-                switch (user.getSubject().getSubjectId()) {
-                    case 1:
-                        response.sendRedirect("/expert/expert_dashboard");  // IT quizzes
-                        break;
-                    default:
-                        response.sendRedirect("/quiz-list");  // Default page if no subject_id found
-                        break;
-                }
-            } else {
-                response.sendRedirect("/quiz-list");  // Không có subject, về trang chung
-            }
+
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MARKETING"))) {
             response.sendRedirect("/home");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {

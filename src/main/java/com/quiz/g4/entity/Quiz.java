@@ -23,9 +23,6 @@ public class Quiz {
     @Column(name = "quiz_name", nullable = false)
     private String quizName;
 
-    @Column(name = "quiz_image")
-    private String quizImage;
-
     @Column(name = "description")
     private String description;
 

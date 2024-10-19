@@ -21,10 +21,10 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 
     Page<User> findByRoleRoleId(int roleId, Pageable pageable);
 
-    @Query("SELECT u FROM User u WHERE (:expertName IS NULL OR u.fullName LIKE %:expertName%)" +
-            " AND (:subjectId IS NULL OR u.subject.subjectId = :subjectId)" +
-            " AND (:roleId IS NULL OR u.role.roleId = :roleId)")
-    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, Pageable pageable);
+//    @Query("SELECT u FROM User u WHERE (:expertName IS NULL OR u.fullName LIKE %:expertName%)" +
+//            " AND (:subjectId IS NULL OR u.subject.subjectId = :subjectId)" +
+//            " AND (:roleId IS NULL OR u.role.roleId = :roleId)")
+//    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, Pageable pageable);
 
     List<User> findByRole(String role);
 

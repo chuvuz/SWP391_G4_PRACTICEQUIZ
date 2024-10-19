@@ -26,8 +26,8 @@ public class QuizResult {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "lesson_id", nullable = false)
-    private Lesson lesson;
+    @JoinColumn(name = "quiz_id", nullable = false)
+    private Quiz quiz;
 
     @Column(name = "score", nullable = false)
     private Double score;  // Điểm số của học sinh

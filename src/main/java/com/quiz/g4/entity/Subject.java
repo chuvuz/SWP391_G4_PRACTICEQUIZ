@@ -22,11 +22,11 @@ public class Subject {
     @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
+    @Column(name = "subject_image")
+    private String subjectImage;
+
     @Column(name = "is_active")
     private Boolean isActive = true;
-
-    @OneToMany(mappedBy = "subject")
-    private Set<User> users;
 
     @OneToMany(mappedBy = "subject")
     private Set<Quiz> quizzes;
