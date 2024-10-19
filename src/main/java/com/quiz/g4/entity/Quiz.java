@@ -43,15 +43,19 @@ public class Quiz {
     @ColumnDefault("1")
     private Boolean isActive;
 
-
-//    @OneToMany(mappedBy = "quiz")
-//    private Set<Lesson> lessons;  // Liên kết với các bài học
-
     @ManyToOne
     @JoinColumn(name = "lesson_id", nullable = false)
     private Lesson lesson;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)  // Liên kết với bảng Subject
+    @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
+
+    @ManyToMany
+    @JoinTable(
+            name = "quiz_questions",
+            joinColumns = @JoinColumn(name = "quiz_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id")
+    )
+    private Set<QuestionBank> questions;
 }

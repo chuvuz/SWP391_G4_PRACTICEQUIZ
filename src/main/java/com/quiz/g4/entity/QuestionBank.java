@@ -24,15 +24,17 @@ public class QuestionBank {
     @Column(name = "question_type", nullable = false)
     private String questionType;
 
-    @Column(name = "subject_id")
-    private Subject subject;
+    @Column(name = "subject_id", nullable = false)
+    private Integer subjectId;
 
-    @Column(name = "lesson_id")
+    @ManyToOne
+    @JoinColumn(name = "lesson_id", nullable = false)
     private Lesson lesson;
 
     @OneToMany(mappedBy = "questionBank")
-    private Set<AnswerOption> answerOptions; // Liên kết với câu trả lời
+    private Set<AnswerOption> answerOptions;
 
-//    @ManyToMany(mappedBy = "questionBanks")
-//    private Set<Lesson> lessons; // Liên kết với các bài học (nhiều-nhiều)
+    @ManyToMany(mappedBy = "questions")
+    private Set<Quiz> quizzes;
 }
+

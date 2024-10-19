@@ -32,10 +32,8 @@ public class Subject {
     private Set<Quiz> quizzes;
 
     @OneToMany(mappedBy = "subject")
-    private Set<Lesson> lessons;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
-
-    @OneToMany(mappedBy = "subject")
-    private Set<QuestionBank> questionBanks;  // Liên kết nhiều-nhiều với câu hỏi trong ngân hàng
+    private Set<Lesson> lessons; // One subject contains one or more lessons
+}
 
 
 //    // Getter cho isActive
@@ -47,4 +45,4 @@ public class Subject {
 //    public void setActive(boolean isActive) {
 //        this.isActive = isActive;
 //    }
-}
+
