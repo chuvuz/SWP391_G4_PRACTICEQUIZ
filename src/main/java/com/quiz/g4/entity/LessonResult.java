@@ -3,9 +3,11 @@ package com.quiz.g4.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,8 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "quiz_results")
-public class QuizResult {
+@Table(name = "lesson_results")
+public class LessonResult {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +28,8 @@ public class QuizResult {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
+    @JoinColumn(name = "lesson_id", nullable = false)
+    private Lesson lesson;
 
     @Column(name = "score", nullable = false)
     private Double score;  // Điểm số của học sinh
@@ -35,7 +37,7 @@ public class QuizResult {
     @Column(name = "completed_at", nullable = false)
     private LocalDateTime completedAt;  // Thời gian hoàn thành
 
-//    public Integer getLessonId() {
-//        return this.lesson != null ? this.lesson.getLessonId() : null;
-//    }
+    public Integer getLessonId() {
+        return this.lesson != null ? this.lesson.getLessonId() : null;
+    }
 }

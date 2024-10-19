@@ -44,12 +44,8 @@ public class Quiz {
     private Boolean isActive;
 
 
-//    @OneToMany(mappedBy = "quiz")
-//    private Set<Lesson> lessons;  // Liên kết với các bài học
-
-    @ManyToOne
-    @JoinColumn(name = "lesson_id", nullable = false)
-    private Lesson lesson;
+    @OneToMany(mappedBy = "quiz")
+    private Set<Lesson> lessons;  // Liên kết với các bài học
 
     @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)  // Liên kết với bảng Subject
