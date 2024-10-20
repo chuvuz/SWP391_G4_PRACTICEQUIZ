@@ -37,6 +37,17 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.findQuizzesByLessonId(lessonId);
     }
 
+    @Override
+    public Quiz getQuizById(Integer quizId) {
+        return quizRepository.findById(quizId)
+                .orElseThrow(() -> new RuntimeException("Quiz not found with id: " + quizId));
+    }
+
+    @Override
+    public Quiz getQuizWithQuestions(Integer quizId) {
+        return quizRepository.findById(quizId).orElseThrow(null);
+    }
+
 //    @Override
 //    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
 //        return null;

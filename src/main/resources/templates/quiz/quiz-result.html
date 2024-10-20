@@ -10,11 +10,11 @@
     <meta name="robots" content="" />
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="Lesson Result" />
+    <meta name="description" content="Quiz Result" />
 
     <!-- OG -->
-    <meta property="og:title" content="Lesson Result" />
-    <meta property="og:description" content="Lesson Result" />
+    <meta property="og:title" content="Quiz Result" />
+    <meta property="og:description" content="Quiz Result" />
     <meta property="og:image" content="" />
     <meta name="format-detection" content="telephone=no">
 
@@ -23,7 +23,7 @@
     <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
 
     <!-- PAGE TITLE HERE ============================================= -->
-    <title>Lesson Result</title>
+    <title>Quiz Result</title>
 
     <!-- MOBILE SPECIFIC ============================================= -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,7 +110,7 @@
         <div class="page-banner ovbl-dark" style="background-image:url('assets/images/banner/banner2.jpg');">
             <div class="container">
                 <div class="page-banner-entry">
-                    <h1 class="text-white">Lesson Result</h1>
+                    <h1 class="text-white">Quiz Result</h1>
                 </div>
             </div>
         </div>
@@ -120,44 +120,43 @@
             <div class="container">
                 <ul class="list-inline">
                     <li><a href="#">Home</a></li>
-                    <li>Lesson Result</li>
+                    <li>Quiz Result</li>
                 </ul>
             </div>
         </div>
 
         <!-- Content Block -->
         <div class="content-block">
-            <!-- Lesson Result Section -->
+            <!-- Quiz Result Section -->
             <div class="section-area section-sp1">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="result-box">
-                                <!-- Display Lesson Information -->
+                                <!-- Display Quiz Information -->
                                 <div class="result-info">
-                                    <h5>Lesson: <span th:text="${lessonResult.lesson.lessonName}">Lesson Name</span></h5>
-                                    <p><strong>Date Completed:</strong> <span th:text="${lessonResult.completedAt}">Completion Date</span></p>
+                                    <h5>Quiz: <span th:text="${quizResult.quiz.quizName}">Quiz Name</span></h5>
+                                    <p><strong>Date Completed:</strong> <span th:text="${quizResult.completedAt}">Completion Date</span></p>
                                 </div>
 
                                 <!-- Display Score -->
                                 <div class="score-info">
-                                    <h3>Your Score: <span th:text="${lessonResult.score}">0</span>%</h3>
-                                    <p th:if="${lessonResult.score >= 70}" class="success-message">Great job! You've successfully completed the lesson.</p>
-                                    <p th:if="${lessonResult.score < 70}" class="encouragement-message">Keep practicing, you'll get there next time. Don't give up!</p>
-
+                                    <h3>Your Score: <span th:text="${quizResult.score}">0</span>%</h3>
+                                    <p th:if="${quizResult.score >= 70}" class="pass-message">Great job! You've successfully completed the quiz.</p>
+                                    <p th:if="${quizResult.score < 70}" class="fail-message">Keep practicing, you'll get there next time. Don't give up!</p>
                                 </div>
 
                                 <!-- Display User Info -->
                                 <div class="result-info">
                                     <h5>Student Information</h5>
-                                    <p><strong>Name:</strong> <span th:text="${lessonResult.user.fullName}">User Full Name</span></p>
-                                    <p><strong>Email:</strong> <span th:text="${lessonResult.user.email}">User Email</span></p>
+                                    <p><strong>Name:</strong> <span th:text="${quizResult.user.fullName}">User Full Name</span></p>
+                                    <p><strong>Email:</strong> <span th:text="${quizResult.user.email}">User Email</span></p>
                                 </div>
 
-                                <!-- Button to go back to lesson list -->
+                                <!-- Button to go back to quiz list or review answers -->
                                 <div class="submit-btn">
-                                    <a href="/quiz-list">Back to Lessons</a>
-                                    <a href="/quiz_review">Review answer Lessons</a>
+                                    <a href="/quiz-list">Back to Quizzes</a>
+                                    <a href="/quiz_review">Review Your Answers</a>
                                 </div>
                             </div>
                         </div>

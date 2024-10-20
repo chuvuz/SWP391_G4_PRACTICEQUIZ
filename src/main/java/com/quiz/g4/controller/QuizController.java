@@ -157,8 +157,8 @@ public class QuizController {
 //    }
 //
 //    // Handle lesson answers submission
-//    @PostMapping("/lesson-submit")
-//    public String submitLessonAnswers(@RequestParam Integer lessonId,
+//    @PostMapping("/quiz-submit")
+//    public String submitQuizAnswers(@RequestParam Integer lessonId,
 //                                      HttpServletRequest request,
 //                                      Model model) {
 //        // Lấy thông tin người dùng đã đăng nhập
