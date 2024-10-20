@@ -29,9 +29,6 @@ public class User implements UserDetails {
 	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
 
-	@ManyToOne
-	@JoinColumn(name = "subject_id")
-	private Subject subject;
 
 	@Column(name = "full_name", nullable = false)
 	private String fullName;

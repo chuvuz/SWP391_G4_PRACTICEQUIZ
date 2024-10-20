@@ -59,10 +59,6 @@ public class HomeController {
         List<Subject> subjects = subjectService.getAllSubjects();
         model.addAttribute("subjects", subjects);
 
-        // Lấy danh sách quizzes từ service
-        List<Quiz> quizzes = quizService.getAllQuizzes();
-        model.addAttribute("quizzes", quizzes);
-
         // Lấy danh sách blogs từ service
         List<Blog> blogs = blogService.findAllBlogs();
         model.addAttribute("blogs", blogs);

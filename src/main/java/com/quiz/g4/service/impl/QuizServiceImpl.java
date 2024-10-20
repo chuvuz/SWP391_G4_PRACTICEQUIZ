@@ -33,20 +33,36 @@ public class QuizServiceImpl implements QuizService {
     public List<Quiz> findQuizByAuther(Integer autherId){return quizRepository.findQuizByAuther(autherId);}
 
     @Override
-    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
-        return null;
+    public List<Quiz> getQuizzesByLessonId(Integer lessonId) {
+        return quizRepository.findQuizzesByLessonId(lessonId);
     }
 
     @Override
-    public Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
+    public Quiz getQuizById(Integer quizId) {
+        return quizRepository.findById(quizId)
+                .orElseThrow(() -> new RuntimeException("Quiz not found with id: " + quizId));
     }
 
     @Override
-    public Quiz getQuizWithLesson(Integer quizId) {
-        return quizRepository.findQuizWithLessons(quizId);
+    public Quiz getQuizWithQuestions(Integer quizId) {
+        return quizRepository.findById(quizId).orElseThrow(null);
     }
+
+//    @Override
+//    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
+//        return null;
+//    }
+//
+//    @Override
+//    public Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size) {
+//        Pageable pageable = PageRequest.of(page, size);
+//        return quizRepository.searchQuizzes(quizName, subjectId, expertId, pageable);
+//    }
+
+//    @Override
+//    public Quiz getQuizWithLesson(Integer quizId) {
+//        return quizRepository.findQuizWithLessons(quizId);
+//    }
 
 
 

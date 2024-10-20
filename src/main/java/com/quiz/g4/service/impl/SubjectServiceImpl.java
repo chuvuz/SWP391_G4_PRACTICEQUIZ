@@ -4,6 +4,9 @@ import com.quiz.g4.entity.Subject;
 import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +32,6 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
     }
-
-
 
 
 
@@ -82,6 +83,22 @@ public class SubjectServiceImpl implements SubjectService {
         }
     }
 
+    @Override
+    public Page<Subject> getAllSubject(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return subjectRepository.findAllActiveSubject(pageable);
+    }
+
+    @Override
+    public Page<Subject> searchSubject(String subjectName, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+     return subjectRepository.searchSubject(subjectName,  pageable);
+    }
+
+    @Override
+    public Subject getSubjectById(Integer subjectId) {
+        return subjectRepository.findBySubjectId(subjectId);
+    }
 
 
 }

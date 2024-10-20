@@ -40,7 +40,7 @@ public interface UserService extends UserDetailsService {
 
     void updateUserStatus(Integer userId, boolean active);
 
-    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
+//    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
     void createUser(User user);
     long countTotalUsers();
     long countActiveUsers();

@@ -1,182 +1,210 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>Lesson Detail</title>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; Hiển thị tên và mô tả của Lesson (nếu cần thiết) &ndash;&gt;-->
+<!--<h1 th:text="${lesson.lessonName}">Lesson Name</h1>-->
+
+<!--&lt;!&ndash; Hiển thị danh sách các quiz &ndash;&gt;-->
+<!--<h2>Quizzes for this Lesson</h2>-->
+<!--<ul>-->
+<!--    <li th:each="quiz : ${quizzes}">-->
+<!--        &lt;!&ndash; Hiển thị tên của mỗi quiz và link đến chi tiết của quiz &ndash;&gt;-->
+<!--        <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" th:text="${quiz.quizName}">Quiz Name</a>-->
+<!--    </li>-->
+<!--</ul>-->
+
+<!--&lt;!&ndash; Nếu không có quiz nào, hiển thị thông báo &ndash;&gt;-->
+<!--<p th:if="${#lists.isEmpty(quizzes)}">No quizzes available for this lesson.</p>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content=""/>
-    <meta name="author" content=""/>
-    <meta name="robots" content=""/>
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="Lesson Details"/>
+    <meta name="description" content="EduChamp : Education HTML Template" />
 
     <!-- OG -->
-    <meta property="og:title" content="Lesson Details"/>
-    <meta property="og:description" content="Lesson Details"/>
-    <meta property="og:image" content=""/>
+    <meta property="og:title" content="EduChamp : Education HTML Template" />
+    <meta property="og:description" content="EduChamp : Education HTML Template" />
+    <meta property="og:image" content="" />
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
-    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
 
     <!-- PAGE TITLE HERE ============================================= -->
-    <title th:text="${lesson.lessonName}">Lesson Details</title>
+    <title>Subject Detail</title>
 
     <!-- MOBILE SPECIFIC ============================================= -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- All PLUGINS CSS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/assets.css}">
+    <link rel="stylesheet" th:href="@{/css/assets.css}" />
 
     <!-- TYPOGRAPHY ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/typography.css}">
+    <link rel="stylesheet" th:href="@{/css/typography.css}" />
 
     <!-- SHORTCODES ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}">
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
 
     <!-- STYLESHEETS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}">
-
-
-    <style>
-        /* Tăng kích thước tiêu đề chính */
-        h1, h2, h3 {
-            font-size: 2rem; /* Bạn có thể điều chỉnh giá trị này theo ý muốn */
-        }
-
-        /* Tăng kích thước chữ cho câu hỏi */
-        .question-box h5 {
-            font-size: 1.5rem;
-        }
-
-        /* Tăng kích thước chữ cho các lựa chọn đáp án */
-        .answer-options label {
-            font-size: 1.2rem;
-        }
-
-
-        .question-box {
-            margin-bottom: 50px; /* Tạo khoảng cách giữa các câu hỏi */
-        }
-
-        .question-box h5 {
-            margin-bottom: 10px; /* Tạo khoảng cách giữa tiêu đề câu hỏi và các đáp án */
-        }
-
-        .answer-options label {
-            display: block; /* Đảm bảo mỗi lựa chọn đáp án nằm trên dòng riêng */
-            margin-bottom: 5px; /* Tạo khoảng cách giữa các lựa chọn đáp án */
-        }
-    </style>
-
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
 </head>
+<body>
+<div th:replace="header :: header"></div>
 
-<body id="bg">
-<div class="page-wraper">
-    <div id="loading-icon-bx"></div>
+<div class="page-content bg-white">
 
-    <!-- HEADER INCLUDED HERE -->
-    <div th:replace="header :: header"></div> <!-- Header đã được định nghĩa trước -->
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li th:text="${lesson.lessonName}">Subject Detail</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
 
+    <!-- Content -->
     <!-- Content -->
     <div class="page-content bg-white">
         <!-- inner page banner -->
-        <div class="page-banner ovbl-dark" style="background-image:url('assets/images/banner/banner2.jpg');">
+        <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner2.jpg);">
             <div class="container">
                 <div class="page-banner-entry">
-                    <h1 class="text-white" th:text="${lesson.lessonName}">Lesson Title</h1>
+                    <h1 class="text-white" th:text="${lesson.lessonName}">Lesson Name</h1>
                 </div>
             </div>
         </div>
-
         <!-- Breadcrumb row -->
         <div class="breadcrumb-row">
             <div class="container">
                 <ul class="list-inline">
                     <li><a href="#">Home</a></li>
-                    <li>Lesson Details</li>
+                    <li th:text="${lesson.lessonName}">Courses Details</li>
                 </ul>
             </div>
         </div>
-
-        <!-- Content Block -->
+        <!-- Breadcrumb row END -->
+        <!-- inner page banner END -->
         <div class="content-block">
-            <!-- Lesson Details Section -->
+            <!-- About Us -->
             <div class="section-area section-sp1">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="courses-post">
-                                <div class="ttr-post-media media-effect">
-
+                    <div class="row d-flex flex-row-reverse">
+                        <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                            <div class="course-detail-bx">
+                                <div class="course-price">
+                                    <del>$190</del>
+                                    <h4 class="price">$120</h4>
                                 </div>
-                                <div class="ttr-post-info">
-                                    <div class="ttr-post-title">
-                                        <h2 th:text="${lesson.lessonName}">Lesson Name</h2>
-                                    </div>
-                                    <div class="ttr-post-text">
-
-                                    </div>
+                                <div class="course-buy-now text-center">
+                                    <a href="#" class="btn radius-xl text-uppercase">Buy Now This Course</a>
                                 </div>
-                            </div>
-
-                            <!-- List Questions -->
-                            <div class="m-b30" id="curriculum">
-                                <h4 th:text="${lesson.lessonName}">Lesson Name</h4>
-
-                                <form th:action="@{/lesson-submit}" method="post">
-                                    <!-- Hidden input để truyền lessonId -->
-                                    <input type="hidden" name="lessonId" th:value="${lesson.lessonId}"/>
-
-                                    <!-- Lặp qua từng câu hỏi trong lesson -->
-                                    <div th:each="question : ${lesson.questionBanks}" class="question-box">
-                                        <h5 th:text="${question.questionContent}">Question</h5>
-                                        <div class="answer-options">
-                                            <div th:each="option : ${question.answerOptions}">
-                                                <!-- For single-choice questions -->
-                                                <label th:if="${question.questionType == 'single'}">
-                                                    <input type="radio"
-                                                           th:name="${'question_' + question.questionId}"
-                                                           th:value="${option.optionId}"/>
-                                                    <span th:text="${option.content}">Option</span>
-                                                </label>
-                                                <!-- For multi-choice questions -->
-                                                <label th:if="${question.questionType == 'multi'}">
-                                                    <input type="checkbox"
-                                                           th:name="${'question_' + question.questionId}"
-                                                           th:value="${option.optionId}"/>
-                                                    <span th:text="${option.content}">Option</span>
-                                                </label>
-
-                                                <!-- For numeric questions -->
-                                                <label th:if="${question.questionType == 'numeric'}">
-                                                    <input type="number"
-                                                           th:name="${'question_' + question.questionId}"/>
-                                                </label>
-                                            </div>
+                                <div class="teacher-bx">
+                                    <div class="teacher-info">
+                                        <div class="teacher-thumb">
+                                            <img src="assets/images/testimonials/pic1.jpg" alt=""/>
+                                        </div>
+                                        <div class="teacher-name">
+                                            <h5>Hinata Hyuga</h5>
+                                            <span>Science Teacher</span>
                                         </div>
                                     </div>
-
-                                    <!-- Nút submit -->
-                                    <div class="submit-btn">
-                                        <button type="submit">Submit Answers</button>
+                                </div>
+                                <div class="cours-more-info">
+                                    <div class="review">
+                                        <span>3 Reviews</span>
+                                        <ul class="cours-star">
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li class="active"><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        </ul>
                                     </div>
-                                </form>
+                                    <div class="price categories">
+                                        <span>Categories</span>
+                                        <h5 class="text-primary">Frontend</h5>
+                                    </div>
+                                </div>
+
                             </div>
+                        </div>
+
+                        <div class="col-lg-9 col-md-8 col-sm-12">
+                            <div class="courses-post">
+                                <div class="ttr-post-media media-effect">
+                                    <a href="#"><img src="assets/images/blog/default/thum1.jpg" alt=""></a>
+                                </div>
+                                <div class="ttr-post-info">
+                                    <div class="ttr-post-title ">
+                                        <h2 class="post-title">Nvidia and UE4 Technologies Practice</h2>
+                                    </div>
+                                    <div class="ttr-post-text">
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Curriculum Section with Quizzes -->
+                            <div class="m-b30" id="curriculum">
+                                <h4>Curriculum</h4>
+                                <ul class="curriculum-list">
+                                    <!-- Logic to display quizzes for the lesson -->
+                                    <li>
+                                        <h5>Quizzes for this Lesson</h5>
+                                        <ul>
+                                            <li th:each="quiz : ${quizzes}">
+                                                <div class="curriculum-list-box">
+<!--                                                    <span th:text="'Quiz ' + ${quiz.quizNumber} + '.'"></span>-->
+                                                    <!-- Display quiz name and link to quiz details -->
+                                                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}" th:text="${quiz.quizName}">Quiz Name</a>
+                                                </div>
+                                                <!-- Display quiz duration -->
+<!--                                                <span th:text="${quiz.duration} + ' minutes'">Quiz Duration</span>-->
+                                            </li>
+                                        </ul>
+                                        <!-- Display message if no quizzes are available -->
+                                        <p th:if="${#lists.isEmpty(quizzes)}">No quizzes available for this lesson.</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- Content END-->
     </div>
 
-    <!-- Footer Included -->
-    <div th:replace="footer :: footer"></div> <!-- Footer đã được định nghĩa trước -->
+    <!-- Content END-->
 </div>
+
+<div th:replace="footer :: footer"></div>
 
 <!-- External JavaScripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
@@ -191,10 +219,7 @@
 <script th:src="@{/vendors/masonry/masonry.js}"></script>
 <script th:src="@{/vendors/masonry/filter.js}"></script>
 <script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
-<script th:src="@{/js/jquery.scroller.js}"></script>
 <script th:src="@{/js/functions.js}"></script>
 <script th:src="@{/js/contact.js}"></script>
-
 </body>
-
 </html>

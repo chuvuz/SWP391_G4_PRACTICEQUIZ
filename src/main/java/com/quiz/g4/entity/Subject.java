@@ -22,27 +22,19 @@ public class Subject {
     @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
+    @Column(name = "subject_image")
+    private String subjectImage;
+
     @Column(name = "is_active")
     private Boolean isActive = true;
 
     @OneToMany(mappedBy = "subject")
-    private Set<User> users;
-
-    @OneToMany(mappedBy = "subject")
     private Set<Quiz> quizzes;
 
-    @OneToMany(mappedBy = "subject")
-    private Set<Lesson> lessons; // One subject contains one or more lessons
+    @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+    private Set<Lesson> lessons;
+    // One subject contains one or more lessons
 }
 
 
-//    // Getter cho isActive
-//    public boolean isActive() {
-//        return isActive;
-//    }
-//
-//    // Setter cho isActive
-//    public void setActive(boolean isActive) {
-//        this.isActive = isActive;
-//    }
 

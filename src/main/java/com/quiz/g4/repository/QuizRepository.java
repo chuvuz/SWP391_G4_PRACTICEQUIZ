@@ -29,14 +29,16 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
             "ORDER BY q.createdDate desc ")
     List<Quiz> findQuizRecentAndIsActive();
 
-    @Query("SELECT q FROM Quiz q " +
-            "JOIN FETCH q.lessons l " +
-            "WHERE q.quizId = :quizId " +
-            "ORDER BY l.createdDate ASC")
-    Quiz findQuizWithLessons(@Param("quizId") Integer quizId);
+//    @Query("SELECT q FROM Quiz q " +
+//            "JOIN FETCH q.lessons l " +
+//            "WHERE q.quizId = :quizId " +
+//            "ORDER BY l.createdDate ASC")
+//    Quiz findQuizWithLessons(@Param("quizId") Integer quizId);
 
 
     @Query("SELECT q FROM Quiz q WHERE q.isActive = true")
     Page<Quiz> findAllActiveQuizzes(Pageable pageable);
 
+    @Query("SELECT q FROM Quiz q JOIN q.lesson l WHERE l.lessonId = :lessonId")
+    List<Quiz> findQuizzesByLessonId(@Param("lessonId") Integer lessonId);
 }

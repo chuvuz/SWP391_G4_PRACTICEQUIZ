@@ -21,10 +21,6 @@ public class Lesson {
     private Integer lessonId;
 
     @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
-
-    @ManyToOne
     @JoinColumn(name = "subject_id", nullable = false)
     private Subject subject;
 
@@ -37,8 +33,7 @@ public class Lesson {
     @Column(name = "updated_date")
     private LocalDate updatedDate = LocalDate.now();
 
+    // One lesson can have many quizzes
     @OneToMany(mappedBy = "lesson")
     private Set<Quiz> quizzes;
 }
-
-
