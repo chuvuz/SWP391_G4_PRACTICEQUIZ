@@ -93,7 +93,8 @@ public class SubjectController {
 
     @GetMapping("/lesson-detail/{lessonId}")
     public String getLessonDetail(@PathVariable("lessonId") Integer lessonId, Model model) {
-        // Lấy danh sách quiz liên quan đến lesson bằng @Query join
+
+        // Lấy danh sách quiz
         List<Quiz> quizzes = quizService.getQuizzesByLessonId(lessonId);
         // Thêm danh sách quiz vào model
         model.addAttribute("quizzes", quizzes);
