@@ -5,6 +5,8 @@ import com.quiz.g4.entity.Role;
 import com.quiz.g4.service.*;
 import com.quiz.g4.utils.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,17 +29,38 @@ public class AdminController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private RoleService roleService;
+
+    //    @GetMapping("/users")
+//    public String viewUserList(@RequestParam(required = false) String role, Model model) {
+//        List<User> users;
+//        if (role != null) {
+//            users = userService.findByRole(role);
+//        } else {
+//            users = userService.findAllExceptAdminAndGuest();
+//        }
+//        List<Role> roles = roleService.findRolesForUserCreation();
+//        model.addAttribute("roles", roles);
+//        model.addAttribute("users", users);
+//        return "admin/view-user-list";
+//    }
     @GetMapping("/users")
-    public String viewUserList(@RequestParam(required = false) String role, Model model) {
-        List<User> users;
-        if (role != null) {
-            users = userService.findByRole(role);
+    public String viewUserList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String role,
+            Model model) {
+        Page<User> userPage;
+        if (role != null && !role.isEmpty()) {
+            userPage = userService.findByRole(role, PageRequest.of(page, size));
         } else {
-            users = userService.findAllExceptAdminAndGuest();
+            userPage = userService.findAllExceptAdminAndGuest(PageRequest.of(page, size));
         }
-        model.addAttribute("users", users);
+        List<Role> roles = roleService.findRolesForUserCreation();
+        model.addAttribute("roles", roles);
+        model.addAttribute("userPage", userPage);
         return "admin/view-user-list";
     }
+
 
     @PostMapping("/users/update-status")
     public String updateUserStatus(@RequestParam Integer userId) {
@@ -45,6 +68,7 @@ public class AdminController {
         userService.changeUserStatus(user);
         return "redirect:/admin/users";
     }
+
     @GetMapping("/users/create")
     public String showCreateUserForm(Model model) {
         List<Role> roles = roleService.findRolesForUserCreation();
@@ -69,6 +93,7 @@ public class AdminController {
 
         return "redirect:/admin/users";
     }
+
     @GetMapping("/dashboard")
     public String showDashboard(Model model) {
         model.addAttribute("totalUsers", userService.countTotalUsers());

@@ -3,6 +3,7 @@ package com.quiz.g4.service;
 import com.quiz.g4.entity.Role;
 import com.quiz.g4.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,8 @@ public interface UserService extends UserDetailsService {
     void changePassword(String email, String newPassword);
 
     Page<User> getAllExpert(int page, int size);
+//    Page<User> findByRole(String role, Pageable pageable);
+//    Page<User> findAllExceptAdminAndGuest(Pageable pageable);
 
     void saveUser(User user);
 
@@ -33,10 +36,10 @@ public interface UserService extends UserDetailsService {
 
     boolean isResetTokenValid(String token);
 
-    List<User> findByRole(String role);
+    Page<User> findByRole(String role, Pageable pageable);
 
 
-    List<User> findAllExceptAdminAndGuest();
+    Page<User> findAllExceptAdminAndGuest(Pageable pageable);
 
     void updateUserStatus(Integer userId, boolean active);
 

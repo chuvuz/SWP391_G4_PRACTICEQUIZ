@@ -128,6 +128,15 @@ public class UserServiceImpl implements UserService {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,}$");
     }
 
+//    @Override
+//    public Page<User> findByRole(String role, Pageable pageable) {
+//        return userRepository.findByRole(role, pageable);
+//    }
+//
+//    @Override
+//    public Page<User> findAllExceptAdminAndGuest(Pageable pageable) {
+//        return userRepository.findAllExceptRoles(pageable, "ROLE_ADMIN", "ROLE_GUEST");
+//    }
     @Override
     public void sendResetPasswordEmail(String email, HttpServletRequest request) {
         User user = userRepository.findByEmail(email);
@@ -199,14 +208,16 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    @Override
-    public List<User> findByRole(String role) {
-        return userRepository.findByRole(role);
-    }
 
     @Override
-    public List<User> findAllExceptAdminAndGuest() {
-        return userRepository.findAllExceptRoles();
+    public Page<User> findByRole(String role, Pageable pageable) {
+        return userRepository.findByRole(role, pageable);
+    }
+
+
+    @Override
+    public Page<User> findAllExceptAdminAndGuest(Pageable pageable) {
+        return userRepository.findAllExceptRoles(pageable);
     }
 
     @Override

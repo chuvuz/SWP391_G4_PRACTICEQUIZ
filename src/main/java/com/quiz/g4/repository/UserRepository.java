@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,10 +28,11 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 //            " AND (u.isActive = true)")
 //    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, Pageable pageable);
 
-    List<User> findByRole(String role);
+    @Query("SELECT u FROM User u WHERE u.role.roleName = :role")
+    Page<User> findByRole(@Param("role") String role, Pageable pageable);
 
     @Query("SELECT u FROM User u WHERE u.role.roleName != 'ROLE_ADMIN'")
-    List<User> findAllExceptRoles();
+    Page<User> findAllExceptRoles(Pageable pageable);
 
     @Query("SELECT COUNT(u) FROM User u")
     long countTotalUsers();
@@ -40,5 +42,10 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.isActive = false")
     long countInactiveUsers();
+//    @Query("SELECT u FROM User u WHERE u.role.roleName = :role")
+//    Page<User> findByRole(@Param("role") String role, Pageable pageable);
+//
+//    @Query("SELECT u FROM User u WHERE u.role.roleName NOT IN :roles")
+//    Page<User> findAllExceptRoles(Pageable pageable, String... roles);
 }
 
