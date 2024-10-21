@@ -1,4 +1,4 @@
-    package com.quiz.g4.controller.authoController;
+package com.quiz.g4.controller.authoController;
 
 import com.quiz.g4.entity.User;
 import com.quiz.g4.service.UserService;
@@ -26,30 +26,27 @@ public class AuthController {
     public String loginForm(Authentication authentication, Model model, HttpSession session) {
         if (authentication != null && authentication.isAuthenticated()
                 && !authentication.getName().equals("anonymousUser")) {
-            // Nếu đã đăng nhập, kiểm tra trạng thái của user
+            // If already logged in, check user status
             String email = authentication.getName();
             User user = userService.findByEmail(email);
 
             if (!user.isActive()) {
-                // Logout nếu tài khoản bị vô hiệu hóa
+                // Logout if the account is disabled
                 session.invalidate();
                 SecurityContextHolder.clearContext();
 
-                // Chuyển hướng về trang đăng nhập với thông báo lỗi
-                model.addAttribute("errorMessage", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.");
-                return "auth/login"; // Trả về trang đăng nhập cùng với thông báo
+                // Redirect to login page with error message
+                model.addAttribute("errorMessage", "Your account has been disabled. Please contact the administrator.");
+                return "auth/login"; // Return to login page with message
             }
 
-            // Nếu tài khoản hoạt động, chuyển hướng về trang chủ
+            // If account is active, redirect to home page
             return "redirect:/home";
         }
 
-        // Nếu chưa đăng nhập, hiển thị trang đăng nhập
+        // If not logged in, display login page
         return "auth/login";
     }
-
-
-
 
     @GetMapping("/register")
     public String registerForm(Model model) {
@@ -58,78 +55,84 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, @RequestParam("confirmPassword") String confirmPassword, Model model) {
+    public String registerUser(@ModelAttribute("user") User user,
+                               @RequestParam("confirmPassword") String confirmPassword,
+                               Model model, HttpSession session, RedirectAttributes redirectAttributes) {
         boolean hasError = false;
 
-        // Kiểm tra Họ và Tên
+        // Check Full Name
         if (user.getFullName() == null || user.getFullName().trim().isEmpty()) {
-            model.addAttribute("fullNameError", "Họ và tên không được để trống!");
+            model.addAttribute("fullNameError", "Full name cannot be empty!");
             hasError = true;
         } else if (!user.getFullName().matches("^[A-Za-zÀ-ỹ]+(?:\\s[A-Za-zÀ-ỹ]+)*$")) {
-            model.addAttribute("fullNameError", "Tên không hợp lệ. Tên chỉ chứa chữ cái và một khoảng cách giữa các từ.");
+            model.addAttribute("fullNameError", "Invalid name. Name can only contain letters and a space between words.");
             hasError = true;
         }
 
-
-        // Kiểm tra Email
+        // Check Email
         if (user.getEmail() == null || user.getEmail().trim().isEmpty()) {
-            model.addAttribute("emailError", "Email không được để trống!");
+            model.addAttribute("emailError", "Email cannot be empty!");
             hasError = true;
         } else if (!user.getEmail().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
-            model.addAttribute("emailError", "Email phải có định dạng hợp lệ (ví dụ: example@example.com)!");
+            model.addAttribute("emailError", "Email must be in a valid format (e.g., example@example.com)!");
             hasError = true;
         } else if (userService.findByEmail(user.getEmail()) != null) {
-            model.addAttribute("emailError", "Email đã được sử dụng!");
+            model.addAttribute("emailError", "Email has already been used!");
             hasError = true;
         }
 
-
-        // Kiểm tra Mật Khẩu
+        // Check Password
         if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
-            model.addAttribute("passwordError", "Mật khẩu không được để trống!");
+            model.addAttribute("passwordError", "Password cannot be empty!");
             hasError = true;
         } else if (!userService.isValidPassword(user.getPassword())) {
-            model.addAttribute("passwordError", "Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường và số, và không được chứa khoảng trắng!");
+            model.addAttribute("passwordError", "Password must contain at least 8 characters, including uppercase, lowercase letters, and numbers, and must not contain spaces!");
             hasError = true;
         }
 
-        // Kiểm tra Nhập Lại Mật Khẩu
+        // Check Confirm Password
         if (!user.getPassword().equals(confirmPassword)) {
-            model.addAttribute("confirmPasswordError", "Mật khẩu và xác nhận mật khẩu không khớp!");
+            model.addAttribute("confirmPasswordError", "Password and confirmation password do not match!");
             hasError = true;
         }
 
-        // Nếu có lỗi, quay lại trang đăng ký
+        // If there are errors, return to the registration page
         if (hasError) {
-            model.addAttribute("user", user); // Gửi lại dữ liệu đã nhập để hiển thị
+            model.addAttribute("user", user); // Return entered data to display
             return "auth/register";
         }
 
-        // Lưu người dùng nếu không có lỗi
+        // Save user if no errors
         try {
             userService.saveUser(user);
-            model.addAttribute("successMessage", "Đăng ký thành công!");
-            return "auth/login";
+
+            // Store email in session after successful registration
+            session.setAttribute("registeredEmail", user.getEmail());
+
+            // Add registration success message
+            redirectAttributes.addFlashAttribute("successMessage", "Registration successful! Please log in.");
+
+            // Redirect to login page
+            return "redirect:/login";
         } catch (Exception e) {
-            model.addAttribute("errorMessage", "Đã có lỗi xảy ra trong quá trình đăng ký.");
+            model.addAttribute("errorMessage", "An error occurred during registration.");
             return "auth/register";
         }
     }
-
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
         return "auth/forgot-password";
     }
 
-    //thực hiện quá trình reset
+    // Perform the reset process
     @PostMapping("/forgot-password")
     public String processForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
             userService.sendResetPasswordEmail(email, request);
-            redirectAttributes.addFlashAttribute("successMessage", "Chúng tôi đã gửi Email về cho bạn");
+            redirectAttributes.addFlashAttribute("successMessage", "We have sent an email to you.");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Chúng tôi không thấy có Email người dùng ");
+            redirectAttributes.addFlashAttribute("errorMessage", "We could not find a user with that email.");
         }
         return "redirect:/forgot-password";
     }
@@ -137,7 +140,7 @@ public class AuthController {
     @GetMapping("/reset-password")
     public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
         if (!userService.isResetTokenValid(token)) {
-            model.addAttribute("errorMessage", "Mã thông báo đặt lại không hợp lệ hoặc đã hết hạn.");
+            model.addAttribute("errorMessage", "The reset token is invalid or has expired.");
             return "auth/reset-password";
         }
 
@@ -150,20 +153,17 @@ public class AuthController {
                                        @RequestParam("password") String password,
                                        RedirectAttributes redirectAttributes) {
         if (password.length() < 6) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Mật Khẩu phải dài ít nhất 6 ký tự.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Password must be at least 6 characters long.");
             return "redirect:/reset-password?token=" + token;
         }
 
         try {
             userService.updatePasswordReset(token, password);
-            redirectAttributes.addFlashAttribute("successMessage", "Đặt lại Mật Khẩu thành công.");
+            redirectAttributes.addFlashAttribute("successMessage", "Password reset successful.");
             return "redirect:/login";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage" + e.getMessage());
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/reset-password?token=" + token;
         }
     }
-
-
-
 }

@@ -47,7 +47,7 @@ public class HomeController {
                 SecurityContextHolder.clearContext();
 
                 // Gửi thông báo lỗi và chuyển hướng tới trang login
-                redirectAttributes.addFlashAttribute("errorMessage", "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.");
+                redirectAttributes.addFlashAttribute("errorMessage", "Your account has been disabled. Please contact administrator.");
                 return "redirect:/login";
             }
 
