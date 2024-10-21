@@ -1,54 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Manage Subjects</title>
-  <style>
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-    }
-    .modal-content {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 500px;
-    }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    @media only screen and (max-width: 600px) {
-      .modal-content {
-        width: 95%;
-      }
-    }
-    img {
-      width: 100px; /* Kích thước hình ảnh trong bảng */
-      height: auto;
-    }
-  </style>
+  <!-- META ============================================= -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="robots" content="" />
+
+  <!-- DESCRIPTION -->
+  <meta name="description" content="EduChamp : Education HTML Template" />
+
+  <!-- OG -->
+  <meta property="og:title" content="EduChamp : Education HTML Template" />
+  <meta property="og:description" content="EduChamp : Education HTML Template" />
+  <meta property="og:image" content="" />
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- FAVICONS ICON ============================================= -->
+  <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+
+  <!-- PAGE TITLE HERE ============================================= -->
+  <title>EduChamp : Education HTML Template </title>
+
+  <!-- MOBILE SPECIFIC ============================================= -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--[if lt IE 9]>
+  <script th:src="@{/js/html5shiv.min.js}"></script>
+  <script th:src="@{/js/respond.min.js}"></script>
+  <![endif]-->
+
+  <!-- All PLUGINS CSS ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/assets.css}" />
+
+  <!-- TYPOGRAPHY ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/typography.css}" />
+
+  <!-- SHORTCODES ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+
+  <!-- STYLESHEETS ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
 </head>
 <body>
-<h1>Welcome Admin</h1>
+<div th:replace="header :: header"></div>
+<div class="page-content bg-white">
+  <!-- inner page banner -->
+  <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+    <div class="container">
+      <div class="page-banner-entry">
+        <h1 class="text-white">Subject List</h1>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumb row -->
+  <div class="breadcrumb-row">
+    <div class="container">
+      <ul class="list-inline">
+        <li><a href="admin/dashboard">Admin Dashboard</a></li>
+        <li>Subject List</li>
+      </ul>
+    </div>
+  </div>
 
-<button onclick="openModal('createModal')">Create New Subject</button>
+<button class="btn btn-primary mb-3" onclick="openModal('createModal')">Create New Subject</button>
 
-<h2>Subject List</h2>
-<table>
-  <thead>
+
+<table class="table table-striped table-bordered">
+  <thead class="thead-dark">
   <tr>
     <th>ID</th>
     <th>Name</th>
@@ -64,32 +86,73 @@
       <span th:text="${subject.isActive ? 'Active' : 'Inactive'}"></span>
     </td>
     <td>
-      <!-- Chuyển hướng đến trang edit với subjectId -->
-      <a th:href="@{/edit-subject/{subjectId}(subjectId=${subject.subjectId})}">Edit</a>
+      <a th:href="@{/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-warning btn-sm">Edit</a>
     </td>
   </tr>
   </tbody>
 </table>
 
 <!-- Create Modal -->
-<div id="createModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal('createModal')">&times;</span>
-    <h2>Create New Subject</h2>
-    <form th:action="@{/create-subject}" method="post">
-      <label for="createName">Subject Name:</label>
-      <input type="text" id="createName" name="subjectName" required>
-
-      <label for="createStatus">Subject Status:</label>
-      <select id="createStatus" name="isActive">
-        <option value="true">Active</option>
-        <option value="false">Inactive</option>
-      </select>
-
-      <button type="submit">Create Subject</button>
-    </form>
+<div id="createModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create New Subject</h5>
+        <button type="button" class="close" onclick="closeModal('createModal')" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form th:action="@{/create-subject}" method="post">
+          <div class="form-group">
+            <label for="createName">Subject Name:</label>
+            <input type="text" id="createName" name="subjectName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="createStatus">Subject Status:</label>
+            <select id="createStatus" name="isActive" class="form-control">
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-success">Create Subject</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
+
+  <div th:replace="footer :: footer"></div>
+</div>
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
+<script th:src="@{/vendors/switcher/switcher.js}"></script>
+<!-- Revolution JavaScripts Files -->
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<!-- Slider revolution 5.0 Extensions -->
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
 
 <script>
   function openModal(modalId) {

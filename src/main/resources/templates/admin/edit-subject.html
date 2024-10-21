@@ -1,26 +1,146 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:margin-top="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Edit Subject</title>
+  <!-- META ============================================= -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="robots" content="" />
+
+  <!-- DESCRIPTION -->
+  <meta name="description" content="EduChamp : Education HTML Template" />
+
+  <!-- OG -->
+  <meta property="og:title" content="EduChamp : Education HTML Template" />
+  <meta property="og:description" content="EduChamp : Education HTML Template" />
+  <meta property="og:image" content="" />
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- FAVICONS ICON ============================================= -->
+  <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
+  <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+
+  <!-- PAGE TITLE HERE ============================================= -->
+  <title>EduChamp : Education HTML Template </title>
+
+  <!-- MOBILE SPECIFIC ============================================= -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--[if lt IE 9]>
+  <script th:src="@{/js/html5shiv.min.js}"></script>
+  <script th:src="@{/js/respond.min.js}"></script>
+  <![endif]-->
+
+  <!-- All PLUGINS CSS ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/assets.css}" />
+
+  <!-- TYPOGRAPHY ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/typography.css}" />
+
+  <!-- SHORTCODES ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+
+  <!-- STYLESHEETS ============================================= -->
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
 </head>
 <body>
-<h1>Edit Subject</h1>
+<div th:replace="header :: header"></div>
+<div class="page-content bg-white">
+  <!-- inner page banner -->
+  <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+    <div class="container">
+      <div class="page-banner-entry" >
+        <h1 class="text-white">Subject List</h1>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumb row -->
+  <div class="breadcrumb-row">
+    <div class="container">
+      <ul class="list-inline">
+        <li><a href="admin/dashboard">Admin Dashboard</a></li>
+        <li><a href="/manage-subject">Subject List</a></li>
+        <li>Edit Subject</li>
+      </ul>
+    </div>
+  </div>
 
-<form th:action="@{/edit-subject}" method="post">
-  <input type="hidden" name="subjectId" th:value="${subject.subjectId}">
-  <label for="editName">Subject Name:</label>
-  <input type="text" id="editName" name="subjectName" th:value="${subject.subjectName}" required>
+  <form th:action="@{/edit-subject}" method="post" class="form-horizontal">
+    <div class="form-group">
+      <input type="hidden" name="subjectId" th:value="${subject.subjectId}">
 
-  <label for="editStatus">Subject Status:</label>
-  <select id="editStatus" name="isActive">
-    <option th:value="true" th:selected="${subject.isActive}">Active</option>
-    <option th:value="false" th:selected="${!subject.isActive}">Inactive</option>
-  </select>
+      <label for="editName" class="control-label">Subject Name:</label>
+      <input type="text" id="editName" name="subjectName" th:value="${subject.subjectName}" class="form-control" required>
+    </div>
 
-  <button type="submit">Update Subject</button>
-</form>
+    <div class="form-group">
+      <label class="control-label">Subject Status:</label><br>
+      <div class="form-check">
+        <input type="radio" id="active" name="isActive" value="true" th:checked="${subject.isActive}" class="form-check-input">
+        <label for="active" class="form-check-label">Active</label>
+      </div>
+      <div class="form-check">
+        <input type="radio" id="inactive" name="isActive" value="false" th:checked="${!subject.isActive}" class="form-check-input">
+        <label for="inactive" class="form-check-label">Inactive</label>
+      </div>
+    </div>
 
-<a href="/manage-subject">Back to Subject List</a>
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">Update Subject</button>
+      <a href="/manage-subject" class="btn btn-secondary">Back to Subject List</a>
+    </div>
+  </form>
+
+
+  <div th:replace="footer :: footer"></div>
+</div>
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/vendors/masonry/filter.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+<script th:src="@{/js/contact.js}"></script>
+<script th:src="@{/vendors/switcher/switcher.js}"></script>
+<!-- Revolution JavaScripts Files -->
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
+<!-- Slider revolution 5.0 Extensions -->
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
+<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+
+<script>
+  function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+  }
+
+  function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+  }
+
+  // Close modal when clicking outside of it
+  window.onclick = function(event) {
+    if (event.target.className === 'modal') {
+      event.target.style.display = "none";
+    }
+  }
+</script>
 </body>
 </html>
