@@ -3059,7 +3059,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#391800', end
 }
 
 .sidebar {
-    width: 200px;
+    width: 300px;
     background-color: #333;
     padding: 15px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
