@@ -138,11 +138,15 @@
                                     <th>Question ID</th>
                                     <th>Content</th>
                                     <th>Type</th>
+                                    <th>Lesson</th>
+                                    <th>Subject</th>
                                 </tr>
                                 <tr th:each="question : ${questionPage.content}">
                                     <td th:text="${question.questionId}"></td>
                                     <td th:text="${question.questionContent}"></td>
                                     <td th:text="${question.questionType}"></td>
+                                    <td th:text="${question.lesson.lessonName}"></td>
+                                    <td th:text="${question.subject.subjectName}"></td>
                                     <td>
                                         <a th:href="@{/question/{id}(id=${question.questionId})}">View</a>
                                     </td>
