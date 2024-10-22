@@ -24,8 +24,9 @@ public class QuestionBank {
     @Column(name = "question_type", nullable = false)
     private String questionType;
 
-    @Column(name = "subject_id", nullable = false)
-    private Integer subjectId;
+    @ManyToOne
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject;
 
     @ManyToOne
     @JoinColumn(name = "lesson_id", nullable = false)

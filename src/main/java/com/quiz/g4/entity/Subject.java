@@ -34,6 +34,9 @@ public class Subject {
     @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
     private Set<Lesson> lessons;
     // One subject contains one or more lessons
+
+    @OneToMany(mappedBy = "subject")
+    private Set<QuestionBank> questionBanks;
 }
 
 
