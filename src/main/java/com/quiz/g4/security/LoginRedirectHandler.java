@@ -36,7 +36,7 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
             User user = userService.findByEmail(email);
 
             // Kiểm tra subject_id và điều hướng tới trang phù hợp
-
+            response.sendRedirect("/expert/expert_dashboard");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MARKETING"))) {
             response.sendRedirect("/home");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
