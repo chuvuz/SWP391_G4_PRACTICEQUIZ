@@ -51,8 +51,8 @@
   <!-- inner page banner -->
   <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
     <div class="container">
-      <div class="page-banner-entry" >
-        <h1 class="text-white">Subject List</h1>
+      <div class="page-banner-entry">
+        <h1 class="text-white">Edit Subject</h1>
       </div>
     </div>
   </div>
@@ -68,9 +68,9 @@
   </div>
 
   <form th:action="@{/edit-subject}" method="post" class="form-horizontal">
-    <div class="form-group">
-      <input type="hidden" name="subjectId" th:value="${subject.subjectId}">
+    <input type="hidden" name="subjectId" th:value="${subject.subjectId}">
 
+    <div class="form-group">
       <label for="editName" class="control-label">Subject Name:</label>
       <input type="text" id="editName" name="subjectName" th:value="${subject.subjectName}" class="form-control" required>
     </div>
@@ -85,6 +85,12 @@
         <input type="radio" id="inactive" name="isActive" value="false" th:checked="${!subject.isActive}" class="form-check-input">
         <label for="inactive" class="form-check-label">Inactive</label>
       </div>
+    </div>
+
+    <div class="form-group">
+      <label for="editImageUrl">Image URL (optional):</label>
+      <input type="text" id="editImageUrl" name="imageUrl" class="form-control" placeholder="Enter image URL" required>
+      <small class="form-text text-muted">Leave empty if you don't want to change the image.</small>
     </div>
 
     <div class="form-group">
@@ -139,6 +145,17 @@
   window.onclick = function(event) {
     if (event.target.className === 'modal') {
       event.target.style.display = "none";
+    }
+  }
+
+  // Function to encode image to base64 string
+  function encodeImageToBase64(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById('encodedImage').value = e.target.result;
+      };
+      reader.readAsDataURL(input.files[0]);
     }
   }
 </script>

@@ -4,61 +4,87 @@ import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.UserService;
+import com.quiz.g4.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-
-import com.quiz.g4.service.SubjectService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
-import java.util.Optional;
 
 @Controller
 public class SubjectManagementController {
 
     @Autowired
     private SubjectService subjectService;
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private SubjectRepository subjectRepository;
+
+    // Đường dẫn để lưu trữ ảnh
+    private final Path imagePath = Paths.get("subject-images");
+
     @GetMapping("/manage-subject")
-    public String manageSubject(Model model, Principal principal) {
+    public String manageSubject(Model model, Principal principal,
+                                @RequestParam(value = "page", defaultValue = "0") int page,
+                                @RequestParam(value = "size", defaultValue = "9") int size) {
         // Lấy thông tin người dùng đã đăng nhập thông qua principal
         if (principal != null) {
-            // Sử dụng email từ principal để tìm kiếm người dùng
             User user = userService.findByEmail(principal.getName());
             model.addAttribute("user", user); // Truyền thông tin người dùng vào model
         }
-
+        Page<Subject> subjectsPage = subjectService.getAllSubjectNoCondition(page, size);
+        model.addAttribute("subjectsPage", subjectsPage);
         // Truyền danh sách các môn học vào model
-        model.addAttribute("subjects", subjectService.getAllSubjects());
+       // model.addAttribute("subjects", subjectService.getAllSubjects());
 
         // Trả về trang admin/manage-subject
         return "admin/manage-subject";
     }
 
-
-
     @PostMapping("/create-subject")
-    public String createSubject(@RequestParam String subjectName,
-                                @RequestParam boolean isActive) {
-        subjectService.createSubject(subjectName, isActive);
+    public String createSubject(@RequestParam("subjectName") String subjectName,
+                                @RequestParam("isActive") boolean isActive,
+                                @RequestParam("imageUrl") String imageUrl,  // Nhận URL ảnh từ form
+                                Model model, Principal principal) {
+        // Kiểm tra nếu URL ảnh trống
+        if (imageUrl == null || imageUrl.isEmpty()) {
+            model.addAttribute("error", "Image URL is required.");
+            return "redirect:/manage-subject";
+        }
+
+        // Kiểm tra người dùng
+        if (principal != null) {
+            User user = userService.findByEmail(principal.getName());
+            model.addAttribute("user", user);
+        }
+
+        // Tạo môn học mới với URL ảnh
+        subjectService.createSubjectWithImageUrl(subjectName, isActive, imageUrl);
         return "redirect:/manage-subject";
     }
+
 
     @GetMapping("/edit-subject/{subjectId}")
     public String editSubjectForm(Model model, @PathVariable Integer subjectId, Principal principal) {
         // Kiểm tra xem người dùng có đăng nhập hay không
         if (principal != null) {
-            // Lấy thông tin người dùng đã đăng nhập
             User user = userService.findByEmail(principal.getName());
             model.addAttribute("user", user);
         }
@@ -70,20 +96,29 @@ public class SubjectManagementController {
         return "admin/edit-subject";
     }
 
-
     @PostMapping("/edit-subject")
-    public String updateSubject(
-            @RequestParam("subjectId") int id,
-            @RequestParam("subjectName") String subjectName,
-            @RequestParam("isActive") boolean isActive
+    public String updateSubject(@RequestParam("subjectId") int id,
+                                @RequestParam("subjectName") String subjectName,
+                                @RequestParam("isActive") boolean isActive,
+                                @RequestParam(value = "imageUrl", required = false) String imageUrl  // Nhận URL ảnh từ form
     ) {
-        // Gọi đến phương thức updateSubject với các tham số mới
-        subjectService.updateSubject(id, subjectName, isActive);
-
-        // Chuyển hướng đến trang quản lý subject sau khi cập nhật thành công
+        // Nếu không có URL ảnh mới, giữ nguyên URL ảnh cũ
+        subjectService.updateSubjectWithImageUrl(id, subjectName, isActive, imageUrl);
         return "redirect:/manage-subject";
     }
 
 
+    @GetMapping("/subject/images/{filename:.+}")
+    public ResponseEntity<Resource> getSubjectImage(@PathVariable String filename) {
+        try {
+            Path file = imagePath.resolve(filename);
+            Resource resource = new UrlResource(file.toUri());
 
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

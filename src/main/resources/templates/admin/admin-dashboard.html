@@ -104,6 +104,7 @@
     <!-- REVOLUTION SLIDER END -->
 </head>
 <body>
+<<<<<<< Updated upstream
 <!--<div class="page-wraper">-->
 <!-- Header Top ==== -->
 <!--    <div th:replace="header :: header"></div>-->
@@ -130,6 +131,22 @@
                         <li class="nav-item" th:if="${#authentication.name == 'anonymousUser'}">
                             <a class="nav-link" th:href="@{/register}">Register</a>
                         </li>
+=======
+<div class="page-wraper">
+    <!-- Header Top ==== -->
+    <div th:replace="header :: header"></div>
+    <div style="height: 300px"></div>
+    <section class="dashboard-section">
+        <div class="sidebar">
+            <ul>
+                <li class="active"><a th:href="@{admin/dashboard}">Dashboard</a></li>
+                <li><a th:href="@{/profile}">Profile</a></li>
+                <li><a th:href="@{/admin/users}">View User List</a></li>
+                <li><a th:href="@{/admin/users/create}">Create New User</a></li>
+                <li><a th:href="@{/manage-subject}">Manage Subject</a></li>
+            </ul>
+        </div>
+>>>>>>> Stashed changes
 
                         <!-- Nếu user không phải là null, hiển thị dropdown -->
                         <li class="nav-item dropdown" th:if="${#authentication.name != 'anonymousUser'}">

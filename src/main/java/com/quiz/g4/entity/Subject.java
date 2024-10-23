@@ -22,6 +22,7 @@ public class Subject {
     @Column(name = "subject_name", nullable = false)
     private String subjectName;
 
+    @Lob
     @Column(name = "subject_image")
     private String subjectImage;
 
@@ -37,6 +38,8 @@ public class Subject {
 
     @OneToMany(mappedBy = "subject")
     private Set<QuestionBank> questionBanks;
+
+
 }
 
 

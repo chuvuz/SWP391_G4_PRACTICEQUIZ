@@ -3,13 +3,13 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
+@Builder
+@Table(name = "user_answers")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Builder
-@Table(name = "user_answers")
 public class UserAnswer {
 
     @Id
@@ -19,16 +19,17 @@ public class UserAnswer {
 
     @ManyToOne
     @JoinColumn(name = "result_id", nullable = false)
-    private QuizResult quizResult;  // Liên kết với kết quả lesson
+    private QuizResult quizResult;  // Link to quiz result
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
-    private QuestionBank question;
+    private QuestionBank question;  // Link to question bank
 
     @ManyToOne
     @JoinColumn(name = "selected_option_id", nullable = false)
-    private AnswerOption selectedAnswer;  // Câu trả lời mà học sinh đã chọn
+    private AnswerOption selectedAnswer;  // Student's selected answer
 
     @Column(name = "is_correct", nullable = false)
-    private Boolean isCorrect;  // Xác định đúng/sai
+    private Boolean isCorrect;  // Determines correct/incorrect
 }
+

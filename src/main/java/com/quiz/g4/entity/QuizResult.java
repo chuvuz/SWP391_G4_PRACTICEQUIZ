@@ -7,13 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Builder
+@Table(name = "quiz_results")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Builder
-@Table(name = "quiz_results")
 public class QuizResult {
 
     @Id
@@ -23,19 +23,16 @@ public class QuizResult {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private User user;  // Link to user
 
     @ManyToOne
     @JoinColumn(name = "quiz_id", nullable = false)
-    private Quiz quiz;
+    private Quiz quiz;  // Link to quiz
 
     @Column(name = "score", nullable = false)
-    private Double score;  // Điểm số của học sinh
+    private Double score;  // Student's score
 
     @Column(name = "completed_at", nullable = false)
-    private LocalDateTime completedAt;  // Thời gian hoàn thành
-
-//    public Integer getLessonId() {
-//        return this.lesson != null ? this.lesson.getLessonId() : null;
-//    }
+    private LocalDateTime completedAt;  // Completion time
 }
+

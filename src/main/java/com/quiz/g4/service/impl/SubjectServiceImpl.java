@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -18,9 +19,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Autowired
     private SubjectRepository subjectRepository;
-
-  // Đường dẫn thư mục nơi lưu trữ file upload
-    //private String uploadDir="user-images";
 
     @Override
     public List<Subject> getAllSubjects() {
@@ -33,8 +31,6 @@ public class SubjectServiceImpl implements SubjectService {
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
     }
 
-
-
     @Override
     public void createSubject(String subjectName, boolean isActive) {
         Subject newSubject = Subject.builder()
@@ -44,41 +40,16 @@ public class SubjectServiceImpl implements SubjectService {
         subjectRepository.save(newSubject);
     }
 
-//    @Override
-//    public void updateSubject(String subjectName) {
-//
-//    }
-
-//    @Override
-//    public void updateSubject(String subjectName) {
-//        Optional<Subject> optionalSubject = subjectRepository.findBySubjectName(subjectName);
-//
-//        if (optionalSubject.isPresent()) {
-//            Subject subject = optionalSubject.get();
-//            subject.setSubjectName(subjectName);
-//            subjectRepository.save(subject);
-//        } else {
-//            throw new NoSuchElementException("Subject with name " + subjectName + " not found.");
-//        }
-//    }
-
-
     @Override
     public void updateSubject(int subjectId, String subjectName, boolean isActive) {
-        // Tìm subject theo ID
         Optional<Subject> optionalSubject = subjectRepository.findById(subjectId);
 
         if (optionalSubject.isPresent()) {
             Subject subject = optionalSubject.get();
-
-            // Cập nhật thông tin subject
             subject.setSubjectName(subjectName);
             subject.setIsActive(isActive);
-
-            // Lưu subject đã cập nhật vào cơ sở dữ liệu
             subjectRepository.save(subject);
         } else {
-            // Có thể ném ra ngoại lệ nếu subject không tồn tại
             throw new NoSuchElementException("Subject with ID " + subjectId + " not found.");
         }
     }
@@ -92,7 +63,7 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Page<Subject> searchSubject(String subjectName, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-     return subjectRepository.searchSubject(subjectName,  pageable);
+        return subjectRepository.searchSubject(subjectName, pageable);
     }
 
     @Override
@@ -100,5 +71,52 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectRepository.findBySubjectId(subjectId);
     }
 
+    @Override
+    public void updateSubjectWithImage(int id, String subjectName, boolean isActive, MultipartFile imageFile) {
 
+    }
+
+    @Override
+    public void createSubjectWithImage(String subjectName, boolean isActive, MultipartFile imageFile) {
+
+    }
+
+    // Tạo môn học với chuỗi URL ảnh
+    @Override
+    public void createSubjectWithImageUrl(String subjectName, boolean isActive, String imageUrl) {
+        // Xử lý khi người dùng nhập URL ảnh
+        Subject newSubject = Subject.builder()
+                .subjectName(subjectName)
+                .isActive(isActive)
+                .subjectImage(imageUrl)  // Lưu URL ảnh thay vì file ảnh
+                .build();
+        subjectRepository.save(newSubject);
+    }
+
+    // Cập nhật môn học với chuỗi URL ảnh
+    @Override
+    public void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl) {
+        Optional<Subject> optionalSubject = subjectRepository.findById(id);
+
+        if (optionalSubject.isPresent()) {
+            Subject subject = optionalSubject.get();
+            subject.setSubjectName(subjectName);
+            subject.setIsActive(isActive);
+
+            // Nếu người dùng nhập URL ảnh mới, cập nhật URL ảnh
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                subject.setSubjectImage(imageUrl);  // Cập nhật URL ảnh
+            }
+
+            subjectRepository.save(subject);
+        } else {
+            throw new NoSuchElementException("Subject with ID " + id + " not found.");
+        }
+    }
+
+    @Override
+    public Page<Subject> getAllSubjectNoCondition(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return subjectRepository.findAll(pageable);
+    }
 }

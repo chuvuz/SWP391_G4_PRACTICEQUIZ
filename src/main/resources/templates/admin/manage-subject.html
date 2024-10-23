@@ -22,7 +22,7 @@
   <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
 
   <!-- PAGE TITLE HERE ============================================= -->
-  <title>EduChamp : Education HTML Template </title>
+  <title>EduChamp : Education HTML Template</title>
 
   <!-- MOBILE SPECIFIC ============================================= -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,6 +44,40 @@
   <!-- STYLESHEETS ============================================= -->
   <link rel="stylesheet" th:href="@{/css/style.css}" />
   <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+
+  <style>
+    /* Đảm bảo modal hiển thị giữa trang */
+    .modal {
+      display: none; /* Mặc định là ẩn */
+      justify-content: center; /* Canh giữa theo chiều ngang */
+      align-items: center;     /* Canh giữa theo chiều dọc */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;           /* Chiều cao toàn bộ trang */
+      background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ phía sau modal */
+      z-index: 1050; /* Đảm bảo modal nằm trên các thành phần khác */
+    }
+
+    .modal-dialog {
+      max-width: 500px;
+      width: 100%;
+      background-color: white;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close {
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 <div th:replace="header :: header"></div>
@@ -56,6 +90,7 @@
       </div>
     </div>
   </div>
+
   <!-- Breadcrumb row -->
   <div class="breadcrumb-row">
     <div class="container">
@@ -66,64 +101,98 @@
     </div>
   </div>
 
-<button class="btn btn-primary mb-3" onclick="openModal('createModal')">Create New Subject</button>
+  <!-- Button to trigger modal -->
+  <button class="btn btn-primary mb-3" onclick="openModal('createModal')">Create New Subject</button>
 
+  <!-- Table of subjects -->
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>STT</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Image</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="subject, iterStat : ${subjectsPage.content}">
+      <td th:text="${subjectsPage.number * subjectsPage.size + iterStat.index + 1}"></td>
+      <td th:text="${subject.subjectName}"></td>
+      <td>
+        <span th:text="${subject.isActive ? 'Active' : 'Inactive'}"></span>
+      </td>
+      <td><img th:src="${subject.subjectImage}" alt="Subject Image" style="width: 50px; height: 50px;"></td>
+      <td>
+        <a th:href="@{/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-warning btn-sm">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-<table class="table table-striped table-bordered">
-  <thead class="thead-dark">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="subject : ${subjects}">
-    <td th:text="${subject.subjectId}"></td>
-    <td th:text="${subject.subjectName}"></td>
-    <td>
-      <span th:text="${subject.isActive ? 'Active' : 'Inactive'}"></span>
-    </td>
-    <td>
-      <a th:href="@{/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-warning btn-sm">Edit</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
+  <!-- Pagination -->
+  <div class="col-lg-12 m-b20">
+    <div class="pagination-bx rounded-sm gray clearfix">
+      <ul class="pagination">
+        <!-- Previous Page Link -->
+        <li th:classappend="${subjectsPage.hasPrevious()} ? 'previous' : 'previous disabled'">
+          <a th:href="@{/manage-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size})}">
+            <i class="ti-arrow-left"></i> Prev
+          </a>
+        </li>
 
-<!-- Create Modal -->
-<div id="createModal" class="modal fade" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create New Subject</h5>
-        <button type="button" class="close" onclick="closeModal('createModal')" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form th:action="@{/create-subject}" method="post">
-          <div class="form-group">
-            <label for="createName">Subject Name:</label>
-            <input type="text" id="createName" name="subjectName" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="createStatus">Subject Status:</label>
-            <select id="createStatus" name="isActive" class="form-control">
-              <option value="true">Active</option>
-              <option value="false">Inactive</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-success">Create Subject</button>
-        </form>
+        <!-- Page Numbers -->
+        <li th:each="pageNum : ${#numbers.sequence(0, subjectsPage.totalPages - 1)}"
+            th:classappend="${pageNum == subjectsPage.number} ? 'active'">
+          <a th:href="@{/manage-subject(page=${pageNum}, size=${subjectsPage.size})}"
+             th:text="${pageNum + 1}"></a>
+        </li>
+
+        <!-- Next Page Link -->
+        <li th:classappend="${subjectsPage.hasNext()} ? 'next' : 'next disabled'">
+          <a th:href="@{/manage-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size})}">
+            Next <i class="ti-arrow-right"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Create Modal -->
+  <div id="createModal" class="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create New Subject</h5>
+          <span class="close" onclick="closeModal('createModal')">&times;</span>
+        </div>
+        <div class="modal-body">
+          <form th:action="@{/create-subject}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="createName">Subject Name:</label>
+              <input type="text" id="createName" name="subjectName" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="createStatus">Subject Status:</label>
+              <select id="createStatus" name="isActive" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="createImage">Image URL:</label>
+              <input type="text" id="createImage" name="imageUrl" class="form-control" placeholder="Enter Image URL" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create Subject</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <div th:replace="footer :: footer"></div>
 </div>
+
 <!-- External JavaScripts -->
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
@@ -140,10 +209,10 @@
 <script th:src="@{/js/functions.js}"></script>
 <script th:src="@{/js/contact.js}"></script>
 <script th:src="@{/vendors/switcher/switcher.js}"></script>
+
 <!-- Revolution JavaScripts Files -->
 <script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
-<!-- Slider revolution 5.0 Extensions -->
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
@@ -156,17 +225,17 @@
 
 <script>
   function openModal(modalId) {
-    document.getElementById(modalId).style.display = "block";
+    document.getElementById(modalId).style.display = "flex"; // Hiển thị modal
   }
 
   function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none";
+    document.getElementById(modalId).style.display = "none"; // Ẩn modal
   }
 
-  // Close modal when clicking outside of it
+  // Đóng modal nếu người dùng nhấn bên ngoài modal
   window.onclick = function(event) {
-    if (event.target.className === 'modal') {
-      event.target.style.display = "none";
+    if (event.target.classList.contains('modal')) {
+      closeModal('createModal');
     }
   }
 </script>

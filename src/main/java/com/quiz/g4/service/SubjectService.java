@@ -25,4 +25,16 @@ public interface SubjectService {
     Page<Subject> searchSubject(String subjectName, int page, int size);
 
     Subject getSubjectById(Integer subjectId);
+
+    void updateSubjectWithImage(int id, String subjectName, boolean isActive, MultipartFile imageFile);
+
+    void createSubjectWithImage(String subjectName, boolean isActive, MultipartFile imageFile);
+
+    // Tạo môn học với chuỗi URL ảnh
+    void createSubjectWithImageUrl(String subjectName, boolean isActive, String imageUrl);
+
+    // Cập nhật môn học với chuỗi URL ảnh
+    void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl);
+
+    Page<Subject> getAllSubjectNoCondition(int page, int size);
 }
