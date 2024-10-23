@@ -1,9 +1,13 @@
 package com.quiz.g4.controller.questionBank;
 
 import com.quiz.g4.entity.AnswerOption;
+import com.quiz.g4.entity.Lesson;
 import com.quiz.g4.entity.QuestionBank;
+import com.quiz.g4.entity.Subject;
 import com.quiz.g4.service.AnswerOptionService;
 import com.quiz.g4.service.QuestionBankService;
+import com.quiz.g4.service.impl.LessonServiceImpl;
+import com.quiz.g4.service.impl.SubjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +29,12 @@ public class QuestionController {
     @Autowired
     private AnswerOptionService answerOptionService;
 
+    @Autowired
+    private SubjectServiceImpl subjectService;
+
+    @Autowired
+    private LessonServiceImpl lessonService;
+
     @GetMapping("/questionlist")
     public String questions (
             @RequestParam(defaultValue = "0") int page,  // Default to first page
@@ -33,38 +43,45 @@ public class QuestionController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
+        List<Subject> subjects = subjectService.getAllSubjects();
+        List<Lesson> lessons = lessonService.getAllLessons();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("lessons", lessons);
 
         model.addAttribute("questionPage", questionPage);
         return "/QuestionBank/question_bank";
     }
 
-    /*@GetMapping("/search_questions")
+    @GetMapping("/search_questions")
     public String search_questions (
-            @RequestParam(value = "questionContent", required = false) String questionContent,
-            @RequestParam(value = "questionType", required = false) String questionType,
+            @RequestParam(required = false) String questionContent,
+            @RequestParam(required = false) String questionType,
+            @RequestParam(required = false) Integer subject,
+            @RequestParam(required = false) Integer lesson,
             @RequestParam(defaultValue = "0") int page,  // Default to first page
             @RequestParam(defaultValue = "15") int size,  // Default page size of 5
             Model model) {
-        if(questionContent.trim().isEmpty() && questionType.trim().isEmpty()){
+
             Pageable pageable = PageRequest.of(page, size);
-            Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
+            Page<QuestionBank> questionPage = questionBankService.searchQuestion(pageable, questionContent, questionType, subject, lesson);
             model.addAttribute("questionPage", questionPage);
             model.addAttribute("questionContent", questionContent);
             model.addAttribute("questionType", questionType);
-        }else {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<QuestionBank> questionPage = questionBankService.searchQuestion(pageable, questionContent, questionType);
-            model.addAttribute("questionPage", questionPage);
-            model.addAttribute("questionContent", questionContent);
-            model.addAttribute("questionType", questionType);
-        }
+            List<Subject> subjects = subjectService.getAllSubjects();
+            List<Lesson> lessons = lessonService.getAllLessons();
+            model.addAttribute("subjects", subjects);
+            model.addAttribute("lessons", lessons);
 
 
         return "/QuestionBank/question_bank";
-    }*/
+    }
 
     @GetMapping("/add_Question")
-    public String addQuestion(){
+    public String addQuestion(Model model){
+        List<Subject> subjects = subjectService.getAllSubjects();
+        List<Lesson> lessons = lessonService.getAllLessons();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("lessons", lessons);
         return "/QuestionBank/addQuestion";
     }
 
@@ -72,6 +89,8 @@ public class QuestionController {
     public String createQuestion (Model model,
                                   @RequestParam String questionContent,
                                   @RequestParam String questionType,
+                                  @RequestParam int subject,
+                                  @RequestParam int lesson,
                                   @RequestParam List<String> answerContent,
                                   @RequestParam List<Boolean> answerIsCorrect
     ) {
@@ -105,6 +124,8 @@ public class QuestionController {
         QuestionBank questionBank = new QuestionBank();
         questionBank.setQuestionContent(questionContent);
         questionBank.setQuestionType(questionType);
+        questionBank.setSubject(subjectService.findById(subject));
+        questionBank.setLesson(lessonService.getLessonById(lesson));
         questionBankService.save(questionBank);
 
 

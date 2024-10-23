@@ -68,29 +68,29 @@ public class DashBoardController {
         return "expert_manage_question";
     }
 
-    @GetMapping("/search_questions")
-    public String search_questions (
-            @RequestParam(value = "questionContent", required = false) String questionContent,
-            @RequestParam(value = "questionType", required = false) String questionType,
-            @RequestParam(defaultValue = "0") int page,  // Default to first page
-            @RequestParam(defaultValue = "15") int size,  // Default page size of 5
-            Model model) {
-        if(questionContent.trim().isEmpty() && questionType.trim().isEmpty()){
-            Pageable pageable = PageRequest.of(page, size);
-            Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
-            model.addAttribute("questions", questionPage.getContent());
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalPages", questionPage.getTotalPages());
-        }else {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<QuestionBank> questionPage = questionBankService.searchQuestion(pageable, questionContent, questionType);
-            model.addAttribute("questions", questionPage.getContent());
-            model.addAttribute("currentPage", page);
-            model.addAttribute("totalPages", questionPage.getTotalPages());
-        }
-
-        return "expert_manage_question";
-    }
+//    @GetMapping("/search_questions")
+//    public String search_questions (
+//            @RequestParam(value = "questionContent", required = false) String questionContent,
+//            @RequestParam(value = "questionType", required = false) String questionType,
+//            @RequestParam(defaultValue = "0") int page,  // Default to first page
+//            @RequestParam(defaultValue = "15") int size,  // Default page size of 5
+//            Model model) {
+//        if(questionContent.trim().isEmpty() && questionType.trim().isEmpty()){
+//            Pageable pageable = PageRequest.of(page, size);
+//            Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
+//            model.addAttribute("questions", questionPage.getContent());
+//            model.addAttribute("currentPage", page);
+//            model.addAttribute("totalPages", questionPage.getTotalPages());
+//        }else {
+//            Pageable pageable = PageRequest.of(page, size);
+//            Page<QuestionBank> questionPage = questionBankService.searchQuestion(pageable, questionContent, questionType);
+//            model.addAttribute("questions", questionPage.getContent());
+//            model.addAttribute("currentPage", page);
+//            model.addAttribute("totalPages", questionPage.getTotalPages());
+//        }
+//
+//        return "expert_manage_question";
+//    }
 
     @GetMapping("/expert/expert_manage_lesson")
     public String getAllLessons(@RequestParam(defaultValue = "0") int page, Model model) {

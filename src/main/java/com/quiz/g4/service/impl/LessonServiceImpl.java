@@ -48,5 +48,7 @@ public class LessonServiceImpl implements LessonService {
         return lessonRepository.findById(lessonId).orElseThrow(null);
     }
 
+    @Override
+    public List<Lesson> getAllLessons() {return lessonRepository.findAll();}
 
 }

@@ -17,6 +17,7 @@ public interface LessonService {
 
     Page<Lesson> getLessons(Pageable pageable);
 
+    List<Lesson> getAllLessons();
 
     Lesson getLessonById(Integer lessonId);
 }

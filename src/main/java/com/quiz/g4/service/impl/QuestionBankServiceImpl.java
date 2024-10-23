@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class QuestionBankServiceImpl implements QuestionBankService {
@@ -49,8 +47,8 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     }
 
     @Override
-    public Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType){
-        return questionBankRepository.searchQuestion(questionContent, questionType, pages);
+    public Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType, Integer subject, Integer lesson){
+        return questionBankRepository.searchQuestion(questionContent, questionType, subject, lesson, pages);
     }
 
     /*@Transactional

@@ -5,8 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public interface QuestionBankService {
 
@@ -21,7 +19,7 @@ public interface QuestionBankService {
 
     Page<QuestionBank> allQuestions(Pageable pages);
 
-    Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType);
+    Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType, Integer subject, Integer lesson);
 
     boolean checkCorrectAnswer(Integer questionId, Integer selectedOptionId);
 }
