@@ -463,7 +463,7 @@
                         <!-- Previous button -->
                         <li th:classappend="${questionPage.hasPrevious()} ? '': 'disabled'"
                             class="page-item">
-                            <a th:href="@{/questionlist(page=${questionPage.number - 1}, size=${questionPage.size})}"
+                            <a th:href="@{/expert/expert_manage_question(page=${questionPage.number - 1}, size=${questionPage.size})}"
                                class="page-link">Previous</a>
                         </li>
 
@@ -471,7 +471,7 @@
                         <li th:each="i : ${#numbers.sequence(1, questionPage.totalPages)}"
                             th:classappend="${questionPage.number + 1 == i} ? 'active' : ''"
                             class="page-item">
-                            <a th:href="@{/questionlist(page=${i - 1}, size=${questionPage.size})}"
+                            <a th:href="@{/expert/expert_manage_question(page=${i - 1}, size=${questionPage.size})}"
                                class="page-link"
                                th:text="${i}">1</a>
                         </li>
@@ -479,7 +479,7 @@
                         <!-- Next button -->
                         <li th:classappend="${questionPage.hasNext()} ? '' : 'disabled'"
                             class="page-item">
-                            <a th:href="@{/questionlist(page=${questionPage.number + 1}, size=${questionPage.size})}"
+                            <a th:href="@{/expert/expert_manage_question(page=${questionPage.number + 1}, size=${questionPage.size})}"
                                class="page-link">Next</a>
                         </li>
                     </ul>
