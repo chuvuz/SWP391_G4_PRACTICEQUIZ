@@ -73,7 +73,7 @@ public class QuestionController {
             model.addAttribute("lessons", lessons);
 
 
-        return "/QuestionBank/question_bank";
+        return "expert_manage_question";
     }
 
     @GetMapping("/add_Question")

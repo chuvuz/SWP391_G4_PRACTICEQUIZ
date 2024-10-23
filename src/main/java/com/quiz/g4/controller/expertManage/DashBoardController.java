@@ -1,10 +1,8 @@
 package com.quiz.g4.controller.expertManage;
 
-import com.quiz.g4.entity.Lesson;
-import com.quiz.g4.entity.QuestionBank;
-import com.quiz.g4.entity.Quiz;
-import com.quiz.g4.entity.User;
+import com.quiz.g4.entity.*;
 import com.quiz.g4.service.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,6 +29,8 @@ public class DashBoardController {
     private LessonService lessonService;
     @Autowired
     private QuestionBankService questionBankService;
+    @Autowired
+    private SubjectService subjectService;
 
     @GetMapping("/expert/expert_dashboard")
     public String getDoashboard(){
@@ -59,11 +59,17 @@ public class DashBoardController {
 
 
     @GetMapping("/expert/expert_manage_question")
-    public String getAllQuestionsPaged(@RequestParam(defaultValue = "0") int page, Model model) {
-        Page<QuestionBank> questionPage = questionService.getQuestionsPaged(page, 10);
-        model.addAttribute("questions", questionPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", questionPage.getTotalPages());
+    public String getAllQuestionsPaged(@RequestParam(defaultValue = "0") int page,  // Default to first page
+                                       @RequestParam(defaultValue = "15") int size,  // Default page size of 5
+                                       Model model){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
+        List<Subject> subjects = subjectService.getAllSubjects();
+        List<Lesson> lessons = lessonService.getAllLessons();
+        model.addAttribute("subjects", subjects);
+        model.addAttribute("lessons", lessons);
+
+        model.addAttribute("questionPage", questionPage);
 
         return "expert_manage_question";
     }

@@ -50,6 +50,69 @@
     <link th:href="@{/expert/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
 
 </head>
+<style>
+    /* Biểu tượng tìm kiếm */
+.search-icon {
+    position: fixed;
+    top: 66%;
+    right: 0px;
+    width: 40px; /* Chiều rộng nút */
+    height: 40px; /* Chiều cao nút */
+    background-color: var(--primary);
+    padding: 10px;
+    display: flex; /* Dùng flex để căn giữa biểu tượng */
+    cursor: pointer;
+    z-index: 999;
+    color: #fff;
+    font-size: 24px;
+}
+
+/* Modal nền */
+.modal {
+    display: none; /* Ẩn modal mặc định */
+    position: fixed; /* Cố định modal tại chỗ */
+    z-index: 1000; /* Đặt modal lên trên các phần tử khác */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+    display: none;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+/* Nội dung modal */
+.modal-content {
+    background-color: #fff; /* Màu nền modal */
+    padding: 20px;
+    border-radius: 8px; /* Bo góc modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+
+    /* Kích thước động */
+    width: 90%; /* Chiếm 90% chiều ngang màn hình */
+    max-width: 600px; /* Đặt kích thước tối đa */
+    max-height: 80vh; /* Đặt chiều cao tối đa 80% màn hình */
+    overflow-y: auto; /* Nếu nội dung quá nhiều thì có scroll dọc */
+}
+
+/* Nút đóng modal */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+</style>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
 <!-- header start -->
@@ -367,38 +430,6 @@
         <div class="row">
             <div class="widget courses-search-bx placeani col-lg-3 col-md-4 col-sm-12 m-b30">
                 <div class="form-group">
-                    <h4>Search</h4>
-                </div>
-                <form th:action="@{/search_questions}" method="get">
-                    <!-- Form that submits to /search-quizzes -->
-                    <div class="form-group">
-                        <div class="input-group">
-                            <label>Question Content</label>
-                            <input name="questionContent" type="text" class="form-control"
-                                   th:value="${questionContent}">
-                            <!-- Input field for quizName -->
-                        </div>
-                    </div>
-
-                    <!-- Dropdown for Subject -->
-                    <div class="form-group">
-                        <label>Question Type</label>s
-                        <select name="questionType" class="form-control">
-                            <option value="">All Type</option>
-                            <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
-                            <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
-                            <option value="NUMERIC">NUMERIC</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </div>
-
-                </form>
-            </div>
-            <div class="widget courses-search-bx placeani col-lg-3 col-md-4 col-sm-12 m-b30">
-                <div class="form-group">
                     <h4>Create</h4>
                 </div>
             </div>
@@ -407,49 +438,137 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Question</th>
+                    <th>Question ID</th>
+                    <th>Content</th>
                     <th>Type</th>
-                    <th>Answer</th>
+                    <th>Lesson</th>
+                    <th>Subject</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="question, stat : ${questions}">
-                    <td th:text="${stat.index + 1}"></td> <!-- Số thứ tự tăng dần -->
+                <tr th:each="question : ${questionPage.content}">
+                    <td th:text="${question.questionId}"></td>
                     <td th:text="${question.questionContent}"></td>
                     <td th:text="${question.questionType}"></td>
-                    <td>
-                        <ul>
-                            <li th:each="answer : ${question.answerOptions}"
-                                th:text="${answer.content + ' (Đúng: ' + answer.isCorrect + ')'}">
-                            </li>
-                        </ul>
-                    </td>
+                    <td th:text="${question.lesson.lessonName}"></td>
+                    <td th:text="${question.subject.subjectName}"></td>
                 </tr>
                 </tbody>
             </table>
 
-            <!-- Phân trang -->
-            <!-- Phân trang -->
-            <div class="pagination">
-                <!-- Trang trước -->
-                <a th:href="@{/expert/expert_manage_question(page=${currentPage - 1})}" th:if="${currentPage > 0}">Trang
-                    trước</a>
+            <!-- Pagination -->
+            <div class="col-lg-12 m-b20">
+                <div class="pagination-bx rounded-sm gray clearfix">
+                    <ul class="pagination">
+                        <!-- Previous button -->
+                        <li th:classappend="${questionPage.hasPrevious()} ? '': 'disabled'"
+                            class="page-item">
+                            <a th:href="@{/questionlist(page=${questionPage.number - 1}, size=${questionPage.size})}"
+                               class="page-link">Previous</a>
+                        </li>
 
-                <!-- Hiển thị số trang hiện tại và tổng số trang -->
-                <span>Trang [[${currentPage + 1}]] trên [[${totalPages}]]</span>
+                        <!-- Page numbers -->
+                        <li th:each="i : ${#numbers.sequence(1, questionPage.totalPages)}"
+                            th:classappend="${questionPage.number + 1 == i} ? 'active' : ''"
+                            class="page-item">
+                            <a th:href="@{/questionlist(page=${i - 1}, size=${questionPage.size})}"
+                               class="page-link"
+                               th:text="${i}">1</a>
+                        </li>
 
-                <!-- Trang sau -->
-                <a th:href="@{/expert/expert_manage_question(page=${currentPage + 1})}"
-                   th:if="${currentPage + 1 < totalPages}">Trang sau</a>
+                        <!-- Next button -->
+                        <li th:classappend="${questionPage.hasNext()} ? '' : 'disabled'"
+                            class="page-item">
+                            <a th:href="@{/questionlist(page=${questionPage.number + 1}, size=${questionPage.size})}"
+                               class="page-link">Next</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- Your Profile Views Chart END-->
         </div>
     </div>
 </main>
+
+<!-- Biểu tượng tìm kiếm -->
+<div id="search-icon" class="search-icon">
+    <i class="fa fa-search"></i>
+</div>
+
+<!-- Modal cho phần tìm kiếm -->
+<div id="search-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="form-group">
+            <h4>Search</h4>
+        </div>
+        <form th:action="@{/search_questions}" method="get">
+            <div class="form-group">
+                <label>Question Content</label>
+                <input name="questionContent" type="text" class="form-control" th:value="${questionContent}">
+            </div>
+            <div class="form-group">
+                <label>Question Type</label>
+                <select name="questionType" class="form-control">
+                    <option value="">All Types</option>
+                    <option value="SINGLE_CHOICE" th:selected="${questionType == 'SINGLE_CHOICE'}">SINGLE_CHOICE
+                    </option>
+                    <option value="MULTIPLE_CHOICE" th:selected="${questionType == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE
+                    </option>
+                    <option value="NUMERIC" th:selected="${questionType == 'NUMERIC'}">NUMERIC</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <select id="subject" name="subject" class="form-control">
+                    <option value="">-- Select Subject --</option>
+                    <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
+                            th:text="${subject.subjectName}"
+                            th:selected="${subject.subjectId == selectedSubjectId}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="lesson">Lesson:</label>
+                <select id="lesson" name="lesson" class="form-control">
+                    <option value="">-- Select Lesson --</option>
+                    <option th:each="lesson : ${lessons}" th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"
+                            th:selected="${lesson.lessonId == selectedLessonId}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="ttr-overlay"></div>
 
 <!-- External JavaScripts -->
+<script>
+    // Lấy các phần tử cần thiết
+var modal = document.getElementById("search-modal");
+var searchIcon = document.getElementById("search-icon");
+var closeBtn = document.getElementsByClassName("close")[0];
+
+// Khi người dùng click vào biểu tượng tìm kiếm
+searchIcon.onclick = function() {
+    modal.style.display = "flex";
+}
+
+// Khi người dùng click vào nút đóng
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Khi người dùng click ra ngoài modal
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
 <script th:src="@{/expert/js/jquery.min.js}"></script>
 <script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>
 <script th:src="@{/expert/vendors/bootstrap/js/bootstrap.min.js}"></script>
