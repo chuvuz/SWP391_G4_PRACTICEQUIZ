@@ -36,4 +36,5 @@ public class Lesson {
     // One lesson can have many quizzes
     @OneToMany(mappedBy = "lesson")
     private Set<Quiz> quizzes;
+
 }

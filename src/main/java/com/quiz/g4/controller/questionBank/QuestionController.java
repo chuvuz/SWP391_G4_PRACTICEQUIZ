@@ -52,31 +52,31 @@ public class QuestionController {
         return "/QuestionBank/question_bank";
     }
 
-    @GetMapping("/search_questions")
-    public String search_questions (
-            @RequestParam(required = false) String questionContent,
-            @RequestParam(required = false) String questionType,
-            @RequestParam(required = false) Integer subject,
-            @RequestParam(required = false) Integer lesson,
-            @RequestParam(defaultValue = "0") int page,  // Default to first page
-            @RequestParam(defaultValue = "15") int size,  // Default page size of 5
-            Model model) {
-
-            Pageable pageable = PageRequest.of(page, size);
-            Page<QuestionBank> questionPage = questionBankService.searchQuestion( questionContent, questionType, subject, lesson, pageable);
-            model.addAttribute("questionPage", questionPage);
-            model.addAttribute("questionContent", questionContent);
-            model.addAttribute("questionType", questionType);
-            model.addAttribute("selectedSubjectId", subject);
-            model.addAttribute("selectedLessonId", lesson);
-            List<Subject> subjects = subjectService.getAllSubjects();
-            List<Lesson> lessons = lessonService.getAllLessons();
-            model.addAttribute("subjects", subjects);
-            model.addAttribute("lessons", lessons);
-
-
-        return "expert_manage_question";
-    }
+//    @GetMapping("/search_questions")
+//    public String search_questions (
+//            @RequestParam(required = false) String questionContent,
+//            @RequestParam(required = false) String questionType,
+//            @RequestParam(required = false) Integer subject,
+//            @RequestParam(required = false) Integer lesson,
+//            @RequestParam(defaultValue = "0") int page,  // Default to first page
+//            @RequestParam(defaultValue = "15") int size,  // Default page size of 5
+//            Model model) {
+//
+//            Pageable pageable = PageRequest.of(page, size);
+//            Page<QuestionBank> questionPage = questionBankService.searchQuestion( questionContent, questionType, subject, lesson, pageable);
+//            model.addAttribute("questionPage", questionPage);
+//            model.addAttribute("questionContent", questionContent);
+//            model.addAttribute("questionType", questionType);
+//            model.addAttribute("selectedSubjectId", subject);
+//            model.addAttribute("selectedLessonId", lesson);
+//            List<Subject> subjects = subjectService.getAllSubjects();
+//            List<Lesson> lessons = lessonService.getAllLessons();
+//            model.addAttribute("subjects", subjects);
+//            model.addAttribute("lessons", lessons);
+//
+//
+//        return "expert_manage_question";
+//    }
 
     @GetMapping("/add_Question")
     public String addQuestion(Model model){

@@ -48,71 +48,8 @@
     <link th:href="@{/expert/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/dashboard.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
-
+    <script th:src="@{/js/filterQuestions.js}"></script>
 </head>
-<style>
-    /* Biểu tượng tìm kiếm */
-.search-icon {
-    position: fixed;
-    top: 66%;
-    right: 0px;
-    width: 40px; /* Chiều rộng nút */
-    height: 40px; /* Chiều cao nút */
-    background-color: var(--primary);
-    padding: 10px;
-    display: flex; /* Dùng flex để căn giữa biểu tượng */
-    cursor: pointer;
-    z-index: 999;
-    color: #fff;
-    font-size: 24px;
-}
-
-/* Modal nền */
-.modal {
-    display: none; /* Ẩn modal mặc định */
-    position: fixed; /* Cố định modal tại chỗ */
-    z-index: 1000; /* Đặt modal lên trên các phần tử khác */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
-    display: none;
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; /* Căn giữa theo chiều dọc */
-}
-
-/* Nội dung modal */
-.modal-content {
-    background-color: #fff; /* Màu nền modal */
-    padding: 20px;
-    border-radius: 8px; /* Bo góc modal */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
-
-    /* Kích thước động */
-    width: 90%; /* Chiếm 90% chiều ngang màn hình */
-    max-width: 600px; /* Đặt kích thước tối đa */
-    max-height: 80vh; /* Đặt chiều cao tối đa 80% màn hình */
-    overflow-y: auto; /* Nếu nội dung quá nhiều thì có scroll dọc */
-}
-
-/* Nút đóng modal */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-</style>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
 <!-- header start -->
@@ -428,13 +365,51 @@
             </ul>
         </div>
         <div class="row">
-            <div class="widget courses-search-bx placeani col-lg-3 col-md-4 col-sm-12 m-b30">
-                <div class="form-group">
-                    <h4>Create</h4>
-                </div>
-            </div>
+                    <!-- Filter by Type -->
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="typeFilter">Type</label>
+                        <select id="typeFilter" class="form-control" onchange="filterAll()">
+                            <option value="">All Types</option>
+                            <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
+                            <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
+                            <option value="NUMERIC">NUMERIC</option>
+                        </select>
+                    </div>
 
-            <!-- Your Profile Views Chart -->
+                    <!-- Filter by Lesson -->
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="lessonFilter">Lesson</label>
+                        <select id="lessonFilter" class="form-control" onchange="filterAll()">
+                            <option value="">-- All Lesson --</option>
+                            <option th:each="lesson : ${lessons}"
+                                    th:value="${lesson.lessonName}"
+                                    th:text="${lesson.lessonName}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Filter by Subject -->
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="subjectFilter">Subject</label>
+                        <select id="subjectFilter" class="form-control" onchange="filterAll()">
+                            <option value="">-- All Subject --</option>
+                            <option th:each="subject : ${subjects}"
+                                    th:value="${subject.subjectName}"
+                                    th:text="${subject.subjectName}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Search by Question Content -->
+                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="contentFilter">Search Content</label>
+                        <input type="text" id="contentFilter"
+                               class="form-control"
+                               placeholder="Search content..."
+                               onkeyup="filterAll()">
+                    </div>
+
+            <!-- Question Table -->
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -445,7 +420,7 @@
                     <th>Subject</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="questionTable">
                 <tr th:each="question : ${questionPage.content}">
                     <td th:text="${question.questionId}"></td>
                     <td th:text="${question.questionContent}"></td>
@@ -490,84 +465,50 @@
     </div>
 </main>
 
-<!-- Biểu tượng tìm kiếm -->
-<div id="search-icon" class="search-icon">
-    <i class="fa fa-search"></i>
-</div>
-
-<!-- Modal cho phần tìm kiếm -->
-<div id="search-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <div class="form-group">
-            <h4>Search</h4>
-        </div>
-        <form th:action="@{/search_questions}" method="get">
-            <div class="form-group">
-                <label>Question Content</label>
-                <input name="questionContent" type="text" class="form-control" th:value="${questionContent}">
-            </div>
-            <div class="form-group">
-                <label>Question Type</label>
-                <select name="questionType" class="form-control">
-                    <option value="">All Types</option>
-                    <option value="SINGLE_CHOICE" th:selected="${questionType == 'SINGLE_CHOICE'}">SINGLE_CHOICE
-                    </option>
-                    <option value="MULTIPLE_CHOICE" th:selected="${questionType == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE
-                    </option>
-                    <option value="NUMERIC" th:selected="${questionType == 'NUMERIC'}">NUMERIC</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject:</label>
-                <select id="subject" name="subject" class="form-control">
-                    <option value="">-- Select Subject --</option>
-                    <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
-                            th:text="${subject.subjectName}"
-                            th:selected="${selectedSubjectId == subject.subjectId}"></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="lesson">Lesson:</label>
-                <select id="lesson" name="lesson" class="form-control">
-                    <option value="">-- Select Lesson --</option>
-                    <option th:each="lesson : ${lessons}" th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"
-                            th:selected="${selectedLessonId == lesson.lessonId }"></option>
-                </select>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </form>
-    </div>
-</div>
-
 <div class="ttr-overlay"></div>
 
 <!-- External JavaScripts -->
 <script>
-    // Lấy các phần tử cần thiết
-var modal = document.getElementById("search-modal");
-var searchIcon = document.getElementById("search-icon");
-var closeBtn = document.getElementsByClassName("close")[0];
+    document.addEventListener('DOMContentLoaded', function () {
+    const typeFilter = document.getElementById('typeFilter');
+    const lessonFilter = document.getElementById('lessonFilter');
+    const subjectFilter = document.getElementById('subjectFilter');
+    const contentFilter = document.getElementById('contentFilter');
+    const questionTable = document.getElementById('questionTable');
+    const rows = questionTable.getElementsByTagName('tr');
 
-// Khi người dùng click vào biểu tượng tìm kiếm
-searchIcon.onclick = function() {
-    modal.style.display = "flex";
-}
+    function filterQuestions() {
+        const typeValue = typeFilter.value.toLowerCase();
+        const lessonValue = lessonFilter.value.toLowerCase();
+        const subjectValue = subjectFilter.value.toLowerCase();
+        const contentValue = contentFilter.value.toLowerCase();
 
-// Khi người dùng click vào nút đóng
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-}
+        console.log('Type:', typeValue, 'Lesson:', lessonValue, 'Subject:', subjectValue, 'Content:', contentValue);
 
-// Khi người dùng click ra ngoài modal
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+        for (let i = 0; i < rows.length; i++) {
+            const contentCell = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
+            const typeCell = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
+            const lessonCell = rows[i].getElementsByTagName('td')[3].textContent.toLowerCase();
+            const subjectCell = rows[i].getElementsByTagName('td')[4].textContent.toLowerCase();
+
+            console.log('Row', i, 'Content:', contentCell, 'Type:', typeCell, 'Lesson:', lessonCell, 'Subject:', subjectCell);
+
+            if ((typeValue === '' || typeCell === typeValue) &&
+                (lessonValue === '' || lessonCell === lessonValue) &&
+                (subjectValue === '' || subjectCell === subjectValue) &&
+                (contentValue === '' || contentCell.includes(contentValue))) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
     }
-}
 
+    typeFilter.addEventListener('change', filterQuestions);
+    lessonFilter.addEventListener('change', filterQuestions);
+    subjectFilter.addEventListener('change', filterQuestions);
+    contentFilter.addEventListener('input', filterQuestions);
+});
 </script>
 <script th:src="@{/expert/js/jquery.min.js}"></script>
 <script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>
