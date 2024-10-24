@@ -63,10 +63,12 @@ public class QuestionController {
             Model model) {
 
             Pageable pageable = PageRequest.of(page, size);
-            Page<QuestionBank> questionPage = questionBankService.searchQuestion(pageable, questionContent, questionType, subject, lesson);
+            Page<QuestionBank> questionPage = questionBankService.searchQuestion( questionContent, questionType, subject, lesson, pageable);
             model.addAttribute("questionPage", questionPage);
             model.addAttribute("questionContent", questionContent);
             model.addAttribute("questionType", questionType);
+            model.addAttribute("selectedSubjectId", subject);
+            model.addAttribute("selectedLessonId", lesson);
             List<Subject> subjects = subjectService.getAllSubjects();
             List<Lesson> lessons = lessonService.getAllLessons();
             model.addAttribute("subjects", subjects);
@@ -113,10 +115,10 @@ public class QuestionController {
         }
         if(setContent.size() < answerContent.size() || !correct){
             model.addAttribute("error", "đáp án bị trùng hoặc không có đáp án đúng vui lòng thử lại!");
-            return "/QuestionBank/addQuestion";
+            return "/addQuestion";
         } else if (questionBankService.existsByQuestionContent(questionContent)){
             model.addAttribute("error", "câu hỏi đã tồn tại!");
-            return "/QuestionBank/addQuestion";
+            return "/addQuestion";
         }
 
 

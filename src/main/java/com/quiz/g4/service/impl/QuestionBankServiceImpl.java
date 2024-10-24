@@ -1,8 +1,12 @@
 package com.quiz.g4.service.impl;
 
+import com.quiz.g4.entity.Lesson;
 import com.quiz.g4.entity.QuestionBank;
+import com.quiz.g4.entity.Subject;
 import com.quiz.g4.repository.AnswerOptionRepository;
+import com.quiz.g4.repository.LessonRepository;
 import com.quiz.g4.repository.QuestionBankRepository;
+import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.QuestionBankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,12 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Autowired
     private QuestionBankRepository questionBankRepository;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
+
+    @Autowired
+    private LessonRepository lessonRepository;
 
     public QuestionBank findById(Integer id) {
         return questionBankRepository.findByQuestionId(id);
@@ -47,7 +57,9 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     }
 
     @Override
-    public Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType, Integer subject, Integer lesson){
+    public Page<QuestionBank> searchQuestion(String questionContent, String questionType, Integer subjectId, Integer lessonId, Pageable pages){
+        Subject subject = subjectRepository.findBySubjectId(subjectId);
+        Lesson lesson = lessonRepository.findByLessonId(lessonId);
         return questionBankRepository.searchQuestion(questionContent, questionType, subject, lesson, pages);
     }
 

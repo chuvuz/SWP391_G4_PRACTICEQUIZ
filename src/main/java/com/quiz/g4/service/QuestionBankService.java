@@ -19,7 +19,7 @@ public interface QuestionBankService {
 
     Page<QuestionBank> allQuestions(Pageable pages);
 
-    Page<QuestionBank> searchQuestion(Pageable pages, String questionContent, String questionType, Integer subject, Integer lesson);
+    Page<QuestionBank> searchQuestion(String questionContent, String questionType, Integer subject, Integer lesson, Pageable pages);
 
     boolean checkCorrectAnswer(Integer questionId, Integer selectedOptionId);
 }

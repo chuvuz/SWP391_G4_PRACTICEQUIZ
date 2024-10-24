@@ -13,5 +13,5 @@ public interface LessonRepository extends JpaRepository<Lesson,Integer> {
 //            "LEFT JOIN FETCH qb.answerOptions " +
 //            "WHERE l.lessonId = :lessonId")
 //    Lesson findLessonWithQuestionsById(@Param("lessonId") Integer lessonId);
-
+    Lesson findByLessonId(Integer lessonId);
 }

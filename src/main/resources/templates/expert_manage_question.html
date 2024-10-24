@@ -524,7 +524,7 @@
                     <option value="">-- Select Subject --</option>
                     <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
                             th:text="${subject.subjectName}"
-                            th:selected="${subject.subjectId == selectedSubjectId}"></option>
+                            th:selected="${selectedSubjectId == subject.subjectId}"></option>
                 </select>
             </div>
             <div class="form-group">
@@ -532,7 +532,7 @@
                 <select id="lesson" name="lesson" class="form-control">
                     <option value="">-- Select Lesson --</option>
                     <option th:each="lesson : ${lessons}" th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"
-                            th:selected="${lesson.lessonId == selectedLessonId}"></option>
+                            th:selected="${selectedLessonId == lesson.lessonId }"></option>
                 </select>
             </div>
             <div class="form-group">
