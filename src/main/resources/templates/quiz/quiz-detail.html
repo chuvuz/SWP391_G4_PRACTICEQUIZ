@@ -99,11 +99,20 @@
 
 <div class="page-content bg-white">
     <!-- Breadcrumb row -->
+    <div class="page-banner ovbl-dark" style="background-image:url('assets/images/banner/banner2.jpg');">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Quiz Result</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb row -->
     <div class="breadcrumb-row">
         <div class="container">
             <ul class="list-inline">
                 <li><a href="#">Home</a></li>
-                <li th:text="${quiz.quizName}">Quiz Detail</li>
+                <li>Quiz Detail</li>
             </ul>
         </div>
     </div>
@@ -126,7 +135,7 @@
                                     <label th:if="${question.questionType == 'single'}">
                                         <input type="radio"
                                                th:name="${'question_' + question.questionId}"
-                                               th:value="${option.optionId}"/>
+                                               th:value="${option.optionId}" required/>
                                         <span th:text="${option.content}"></span>
                                     </label>
 
@@ -141,7 +150,7 @@
                                     <!-- Numeric question -->
                                     <label th:if="${question.questionType == 'numeric'}">
                                         <input type="number"
-                                               th:name="${'question_' + question.questionId}"/>
+                                               th:name="${'question_' + question.questionId}" required/>
                                     </label>
                                 </div>
                             </div>

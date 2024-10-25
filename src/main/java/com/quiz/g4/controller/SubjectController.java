@@ -89,6 +89,15 @@ public class SubjectController {
 
     @GetMapping("/subject-detail/{subjectId}")
     public String showSubjectDetail(@PathVariable("subjectId") Integer subjectId, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
+
+
         // Lấy subject theo subjectId từ service
         Subject subject = subjectService.getSubjectById(subjectId);
 
@@ -101,6 +110,15 @@ public class SubjectController {
 
     @GetMapping("/lesson-detail/{lessonId}")
     public String getLessonDetail(@PathVariable("lessonId") Integer lessonId, Model model) {
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
+
 
         // Lấy danh sách quiz
         List<Quiz> quizzes = quizService.getQuizzesByLessonId(lessonId);
