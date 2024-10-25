@@ -20,7 +20,7 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
     @Query("SELECT s FROM Subject s WHERE s.isActive = true")
     Page<Subject> findAllActiveSubject(Pageable pageable);
 
-    @Query("SELECT s FROM Subject s WHERE s.subjectName LIKE %:subjectName%")
+    @Query("SELECT s FROM Subject s WHERE s.subjectName LIKE %:subjectName% AND s.isActive = true")
     Page<Subject> searchSubject(@Param("subjectName") String subjectName, Pageable pageable);
 
 
