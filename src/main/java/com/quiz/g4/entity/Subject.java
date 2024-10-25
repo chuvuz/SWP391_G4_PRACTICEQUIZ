@@ -26,6 +26,8 @@ public class Subject {
     @Column(name = "subject_image")
     private String subjectImage;
 
+
+
     @Column(name = "is_active")
     private Boolean isActive = true;
 

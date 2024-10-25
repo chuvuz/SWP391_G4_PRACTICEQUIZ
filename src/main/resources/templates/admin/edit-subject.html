@@ -89,7 +89,7 @@
 
     <div class="form-group">
       <label for="editImageUrl">Image URL (optional):</label>
-      <input type="text" id="editImageUrl" name="imageUrl" class="form-control" placeholder="Enter image URL" required>
+      <input type="text" id="editImageUrl" name="imageUrl" th:value="${subject.subjectImage}"  class="form-control" placeholder="Enter image URL" required>
       <small class="form-text text-muted">Leave empty if you don't want to change the image.</small>
     </div>
 
