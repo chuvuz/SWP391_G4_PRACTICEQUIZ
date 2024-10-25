@@ -100,6 +100,17 @@
       </ul>
     </div>
   </div>
+  <!-- Search Form -->
+  <form th:action="@{/manage-subject}" method="get" class="form-inline mb-3">
+    <div class="form-group">
+      <div class="input-group">
+        <label>Search Courses</label>
+        <input name="subjectName" type="text" class="form-control" th:value="${subjectName}" placeholder="Enter Course Name">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+
 
   <!-- Button to trigger modal -->
   <button class="btn btn-primary mb-3" onclick="openModal('createModal')">Create New Subject</button>

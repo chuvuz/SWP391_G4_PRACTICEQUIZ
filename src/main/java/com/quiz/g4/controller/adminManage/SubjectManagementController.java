@@ -42,6 +42,7 @@ public class SubjectManagementController {
 
     @GetMapping("/manage-subject")
     public String manageSubject(Model model, Principal principal,
+                                @RequestParam(value = "subjectName", required = false) String subjectName,
                                 @RequestParam(value = "page", defaultValue = "0") int page,
                                 @RequestParam(value = "size", defaultValue = "9") int size) {
         // Lấy thông tin người dùng đã đăng nhập thông qua principal
@@ -49,14 +50,23 @@ public class SubjectManagementController {
             User user = userService.findByEmail(principal.getName());
             model.addAttribute("user", user); // Truyền thông tin người dùng vào model
         }
-        Page<Subject> subjectsPage = subjectService.getAllSubjectNoCondition(page, size);
+
+        Page<Subject> subjectsPage;
+        if (subjectName != null && !subjectName.trim().isEmpty()) {
+            // Nếu có subjectName, thực hiện tìm kiếm theo subjectName
+            subjectsPage = subjectService.searchSubject(subjectName, page, size);
+        } else {
+            // Nếu không có subjectName, hiển thị tất cả các môn học
+            subjectsPage = subjectService.getAllSubjectNoCondition(page, size);
+        }
+
         model.addAttribute("subjectsPage", subjectsPage);
-        // Truyền danh sách các môn học vào model
-       // model.addAttribute("subjects", subjectService.getAllSubjects());
+        model.addAttribute("subjectName", subjectName); // Truyền subjectName vào model để giữ giá trị trong ô tìm kiếm
 
         // Trả về trang admin/manage-subject
         return "admin/manage-subject";
     }
+
 
     @PostMapping("/create-subject")
     public String createSubject(@RequestParam("subjectName") String subjectName,
