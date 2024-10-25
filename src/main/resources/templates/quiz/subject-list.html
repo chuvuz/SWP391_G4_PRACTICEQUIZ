@@ -114,10 +114,10 @@
                                 <div class="cours-bx">
                                     <div class="action-box">
                                         <img th:src="${subject.subjectImage}" alt="Quiz Image"> <!-- Dynamic image -->
-                                        <a href="" class="btn">Read More</a>
+                                        <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}" class="btn">Read More</a>
                                     </div>
                                     <div class="info-bx text-center">
-                                        <h5><a th:text="${subject.subjectName}" href=""></a></h5> <!-- Dynamic quiz name -->
+                                        <h5><a th:text="${subject.subjectName}" th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"></a></h5> <!-- Dynamic quiz name -->
 <!--                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> &lt;!&ndash; Dynamic subject name &ndash;&gt;-->
                                     </div>
                                     <div class="cours-more-info">
