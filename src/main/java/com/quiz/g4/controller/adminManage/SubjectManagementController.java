@@ -54,7 +54,7 @@ public class SubjectManagementController {
         Page<Subject> subjectsPage;
         if (subjectName != null && !subjectName.trim().isEmpty()) {
             // Nếu có subjectName, thực hiện tìm kiếm theo subjectName
-            subjectsPage = subjectService.searchSubject(subjectName, page, size);
+            subjectsPage = subjectService.searchSubjectAll(subjectName, page, size);
         } else {
             // Nếu không có subjectName, hiển thị tất cả các môn học
             subjectsPage = subjectService.getAllSubjectNoCondition(page, size);

@@ -37,4 +37,6 @@ public interface SubjectService {
     void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl);
 
     Page<Subject> getAllSubjectNoCondition(int page, int size);
+
+    Page<Subject> searchSubjectAll(String subjectName, int page, int size);
 }
