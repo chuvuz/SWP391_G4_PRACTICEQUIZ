@@ -24,9 +24,6 @@ public class Feedback {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;  // Người dùng đưa ra phản hồi
 
-    @Column(name = "quiz_id")
-    private Integer quizId; // Bài kiểm tra được phản hồi
-
     @Column(name = "blog_id")
     private Integer blogId; //Blog được phản hồi
 

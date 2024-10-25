@@ -44,13 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register/**", "/login", "/quiz-list", "/subject-list/**", "/search-quizzes/**", "/search-subject", "/expert/**", "/lesson-detail/*"
+                .antMatchers("/", "/register/**", "/login", "/quiz-list", "/subject-list/**", "/search-quizzes/**", "/search-subject", "/expert/**", "/lesson-detail/*", "/subject-detail/**"
                         , "/home", "/css/**", "/js/**", "/vendors/**", "/images/**", "/blog-detail/**"
                         , "/about/**", "/forgot-password/**", "/reset-password/**", "/expert_detail/**", "/search_expert/**"
-                        , "/blogs/**", "/blog-list", "/quiz-detail/**", "/blogs/**", "/blog-list", "/QuestionBank/question_bank", "/questions", "/answers/**", "/search_questions", "/questionlist", "/add_Question", "/QuestionBank/addQuestion", "/create", "/questions/create", "/createQuestions", "/question/**", "/QuestionBank/UpdateQuestion", "/updateQuestion/**", "/question/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
+                        , "/blogs/**", "/blog-list", "/blogs/**", "/blog-list", "/QuestionBank/question_bank", "/questions", "/answers/**", "/search_questions", "/questionlist", "/add_Question", "/QuestionBank/addQuestion", "/create", "/questions/create", "/createQuestions", "/question/**", "/QuestionBank/UpdateQuestion", "/updateQuestion/**", "/question/**").permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 .antMatchers("/manage_expert").hasRole("ADMIN")
-                .antMatchers("/profile/**", "/lesson-detail/**", "/quiz-review/**", "/quiz-submit/**", "/quiz-result/**"
-                        , "/subject-detail/**").hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
+                .antMatchers("/profile/**", "/quiz-review/**", "/quiz-submit/**", "/quiz-result/**", "/quiz-detail/**"
+                        ).hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
                 //Role cho Admin
 
                 .antMatchers("/manage-expert", "/manage-subject", "/edit-subject/**", "/admin/dashboard", "/admin/users/create", "admin/users").hasRole("ADMIN")

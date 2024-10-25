@@ -1,62 +1,170 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Quiz Detail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FAVICONS ICON -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
+
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}" />
+    <link rel="stylesheet" th:href="@{/css/typography.css}" />
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f0f0f0; /* Light grey background */
+            color: #333; /* Dark text */
+        }
+
+        .question-box {
+            background-color: #ffffff; /* White background for questions */
+            padding: 20px;
+            border: 1px solid #ddd; /* Light border for separation */
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .answer-options {
+            margin-top: 15px;
+        }
+
+        .answer-options label {
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #fafafa;
+        }
+
+        .answer-options input[type="radio"],
+        .answer-options input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit-btn button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb-row {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb-row ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-row li {
+            display: inline;
+            color: #fff;
+        }
+
+        .breadcrumb-row li + li:before {
+            content: ">";
+            padding: 0 8px;
+            color: #fff;
+        }
+
+        .breadcrumb-row a {
+            color: #fff;
+        }
+
+    </style>
 </head>
 <body>
-<h1 th:text="${quiz.quizName}">Quiz Name</h1>
-<p th:text="${quiz.description}">Quiz Description</p>
+<div th:replace="header :: header"></div>
 
-<h2>Questions</h2>
-<ul>
-    <div class="m-b30" id="curriculum">
-        <h4 th:text="${quiz.quizName}">Quiz Name</h4>
-
-        <!-- Thông báo nếu không có câu hỏi -->
-        <p th:if="${#lists.isEmpty(quiz.questions)}">No questions available for this quiz.</p>
-
-        <form th:action="@{/quiz-submit}" method="post">
-            <!-- Hidden input để truyền quizId -->
-            <input type="hidden" name="quizId" th:value="${quiz.quizId}"/>
-
-            <!-- Lặp qua từng câu hỏi trong quiz -->
-            <div th:each="question : ${quiz.questions}" class="question-box">
-                <h5 th:text="${question.questionContent}">Question</h5>
-                <div class="answer-options">
-                    <div th:each="option : ${question.answerOptions}">
-                        <!-- For single-choice questions -->
-                        <label th:if="${question.questionType == 'single'}">
-                            <input type="radio"
-                                   th:name="${'question_' + question.questionId}"
-                                   th:value="${option.optionId}"/>
-                            <span th:text="${option.content}">Option</span>
-                        </label>
-
-                        <!-- For multi-choice questions -->
-                        <label th:if="${question.questionType == 'multi'}">
-                            <input type="checkbox"
-                                   th:name="${'question_' + question.questionId}"
-                                   th:value="${option.optionId}"/>
-                            <span th:text="${option.content}">Option</span>
-                        </label>
-
-                        <!-- For numeric questions -->
-                        <label th:if="${question.questionType == 'numeric'}">
-                            <input type="number"
-                                   th:name="${'question_' + question.questionId}"/>
-                        </label>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Nút submit -->
-            <div class="submit-btn">
-                <button type="submit">Submit Answers</button>
-            </div>
-        </form>
+<div class="page-content bg-white">
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li th:text="${quiz.quizName}">Quiz Detail</li>
+            </ul>
+        </div>
     </div>
 
-</ul>
+    <!-- Quiz Content -->
+    <div class="content-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h4>Questions</h4>
+                    <form th:action="@{/quiz-submit}" method="post">
+                        <!-- Hidden input to pass quizId -->
+                        <input type="hidden" name="quizId" th:value="${quiz.quizId}"/>
+
+                        <div th:each="question : ${quiz.questions}" class="question-box">
+                            <h5 th:text="${question.questionContent}">Question</h5>
+                            <div class="answer-options">
+                                <div th:each="option : ${question.answerOptions}">
+                                    <!-- Single-choice question -->
+                                    <label th:if="${question.questionType == 'single'}">
+                                        <input type="radio"
+                                               th:name="${'question_' + question.questionId}"
+                                               th:value="${option.optionId}"/>
+                                        <span th:text="${option.content}"></span>
+                                    </label>
+
+                                    <!-- Multi-choice question -->
+                                    <label th:if="${question.questionType == 'multi'}">
+                                        <input type="checkbox"
+                                               th:name="${'question_' + question.questionId}"
+                                               th:value="${option.optionId}"/>
+                                        <span th:text="${option.content}"></span>
+                                    </label>
+
+                                    <!-- Numeric question -->
+                                    <label th:if="${question.questionType == 'numeric'}">
+                                        <input type="number"
+                                               th:name="${'question_' + question.questionId}"/>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="submit-btn">
+                            <button type="submit">Submit Answers</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="footer :: footer"></div>
+
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
 </body>
 </html>
