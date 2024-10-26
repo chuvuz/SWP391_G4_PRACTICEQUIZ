@@ -380,29 +380,16 @@
                                             </div>
                                             <div class="card-courses-user-info">
                                                 <h5>Teacher</h5>
-                                                <h4 th:text="${quiz.createdBy.fullName}"></h4>
+                                                <h6 th:text="${quiz.createdBy.fullName}"></h6>
                                             </div>
                                         </li>
                                         <li class="card-courses-categories">
-                                            <h5>3 Categories</h5>
-                                            <h4>Backend</h4>
-                                        </li>
-                                        <li class="card-courses-review">
-                                            <h5>3 Review</h5>
-                                            <ul class="cours-star">
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </li>
-                                        <li class="card-courses-stats">
-                                            <a href="#" class="btn button-sm green radius-xl">Pending</a>
+                                            <h5>Lessons</h5>
+                                            <h6 th:text="${quiz.lesson.lessonName}"></h6>
                                         </li>
                                         <li class="card-courses-price">
-                                            <del>$190</del>
-                                            <h5 class="text-primary">$120</h5>
+                                            <h5>Create Date</h5>
+                                            <h6 class="text-primary" th:text="${quiz.createdDate}"></h6>
                                         </li>
                                     </ul>
                                 </div>
@@ -418,9 +405,28 @@
                                 </div>
 
                             </div>
-                        </div>
 
+                        </div>
+                        <!-- Pagination controls -->
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                                    <a class="page-link" th:href="@{'//expert/expert_quizz?page=' + ${currentPage - 1}}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                                    <a class="page-link" th:href="@{'/expert/expert_quizz?page=' + ${i}}" th:text="${i + 1}"></a>
+                                </li>
+                                <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+                                    <a class="page-link" th:href="@{'/expert/expert_quizz?page=' + ${currentPage + 1}}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
+
                 </div>
             </div>
             <!-- Your Profile Views Chart END-->

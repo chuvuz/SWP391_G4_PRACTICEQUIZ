@@ -2,6 +2,7 @@ package com.quiz.g4.service;
 
 import com.quiz.g4.entity.Quiz;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public interface QuizService {
     Quiz getQuizById(Integer quizId);
 
     Quiz getQuizWithQuestions(Integer quizId);
+
+    Page<Quiz> findQuizByAuthor(Integer userId, Pageable pageable);
 
 //    Quiz getQuizWithQuestionsAndAnswers(Integer quizId);
 //

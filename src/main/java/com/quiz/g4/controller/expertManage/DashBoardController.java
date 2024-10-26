@@ -1,21 +1,25 @@
 package com.quiz.g4.controller.expertManage;
 
 import com.quiz.g4.entity.*;
+import com.quiz.g4.repository.LessonRepository;
 import com.quiz.g4.service.*;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 public class DashBoardController {
@@ -31,6 +35,8 @@ public class DashBoardController {
     private QuestionBankService questionBankService;
     @Autowired
     private SubjectService subjectService;
+    @Autowired
+    private LessonRepository lessonRepository;
 
     @GetMapping("/expert/expert_dashboard")
     public String getDoashboard(){
@@ -38,24 +44,48 @@ public class DashBoardController {
         return "expert_dashboard";
     }
 
-    @GetMapping("/expert/expert_quizz")
-    public String getExpertQuizz(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = null;
-        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
-            String email = authentication.getName();
-            user = userService.findByEmail(email);
-            model.addAttribute("user", user);
-            List<Quiz> quizzes = quizService.findQuizByAuther(user.getUserId());
-            model.addAttribute("quizzes", quizzes);
+//    @GetMapping("/expert/expert_quizz")
+//    public String getExpertQuizz(Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        User user = null;
+//        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+//            String email = authentication.getName();
+//            user = userService.findByEmail(email);
+//            model.addAttribute("user", user);
+//            List<Quiz> quizzes = quizService.findQuizByAuther(user.getUserId());
+//            model.addAttribute("quizzes", quizzes);
+//
+//            return "/quiz/expert_quizz";
+//        }
+//
+//        List<Quiz> quizzes = quizService.findQuizByAuther(user.getUserId());
+//        model.addAttribute("quizzes", quizzes);
+//        return "/quiz/expert_quizz";
+//    }
+@GetMapping("/expert/expert_quizz")
+public String getExpertQuizz(@RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "10") int size,
+                             Model model) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    User user = null;
 
-            return "/quiz/expert_quizz";
-        }
+    if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+        String email = authentication.getName();
+        user = userService.findByEmail(email);
+        model.addAttribute("user", user);
 
-        List<Quiz> quizzes = quizService.findQuizByAuther(user.getUserId());
-        model.addAttribute("quizzes", quizzes);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Quiz> quizzesPage = quizService.findQuizByAuthor(user.getUserId(), pageable);
+        model.addAttribute("quizzes", quizzesPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", quizzesPage.getTotalPages());
+
         return "/quiz/expert_quizz";
     }
+
+    // Handle case when user is null, if needed
+    return "redirect:/login"; // or any appropriate action
+}
 
 
     @GetMapping("/expert/expert_manage_question")
@@ -110,5 +140,35 @@ public class DashBoardController {
 
         return "expert_manage_lesson"; // Trả về trang HTML chứa danh sách lesson
     }
+
+//    @ResponseBody
+//    @GetMapping("/expert/expert_manage_lesson/edit/{id}")
+//    public ResponseEntity<?> editLesson(@PathVariable Integer id, @RequestBody Lesson updatedLesson) {
+//
+//        System.out.println("có" + updatedLesson);
+//        Optional<Lesson> lesson = lessonRepository.findById(id);
+//        if (lesson.isPresent()) {
+//            Lesson existingLesson = lesson.get();
+//            existingLesson.setLessonName(updatedLesson.getLessonName());
+//            lessonRepository.save(existingLesson);
+//            return ResponseEntity.ok(Collections.singletonMap("success", true));
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
+//        }
+//    }
+//
+//    @GetMapping("/expert/expert_manage_lesson/delete/{id}")
+//    @ResponseBody
+//    public ResponseEntity<?> deleteLesson(@PathVariable Integer id) {
+//        System.out.println("có vào rồi" + id);
+//        if (lessonRepository.existsById(id)) {
+//            Lesson lesson=lessonRepository.findById(id).get();
+//
+//            lessonRepository.deleteById(id);
+//            return ResponseEntity.ok(Collections.singletonMap("success", true));
+//        } else {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
+//        }
+//    }
 
 }

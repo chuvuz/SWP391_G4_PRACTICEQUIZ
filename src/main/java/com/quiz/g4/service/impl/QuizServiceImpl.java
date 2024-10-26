@@ -48,6 +48,11 @@ public class QuizServiceImpl implements QuizService {
         return quizRepository.findById(quizId).orElseThrow(null);
     }
 
+    @Override
+    public Page<Quiz> findQuizByAuthor(Integer userId, Pageable pageable) {
+        return quizRepository.findByAuthorId(userId, pageable);
+    }
+
 //    @Override
 //    public Quiz getQuizWithQuestionsAndAnswers(Integer quizId) {
 //        return null;
