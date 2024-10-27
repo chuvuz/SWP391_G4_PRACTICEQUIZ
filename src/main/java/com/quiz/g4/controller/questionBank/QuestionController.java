@@ -177,7 +177,7 @@ public class QuestionController {
         return "/QuestionBank/UpdateQuestion"; // Trang hiển thị thông tin câu hỏi
     }
 
-    @PostMapping("/question/update")
+    @PostMapping("/question/updateQuestion")
     public String updateQuestion(Model model,
                                  @RequestParam("id") Integer id,
                                  @RequestParam("questionContent")  String questionContent,

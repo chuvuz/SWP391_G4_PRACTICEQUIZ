@@ -9,7 +9,7 @@
 <h1>Question Details</h1>
 
 <div>
-    <form th:action="@{/question/update}" method="post">
+    <form th:action="@{/question/updateQuestion}" method="post">
 
         <input type="hidden" th:value="${question.questionId}" name="id"/>
 
@@ -18,8 +18,11 @@
 
         <label for="questionType">Question Type:</label>
         <select id="questionType" name="questionType">
-            <option value="SINGLE_CHOICE" th:selected="${question.questionType == 'SINGLE_CHOICE'}">SINGLE_CHOICE</option>
-            <option value="MULTIPLE_CHOICE" th:selected="${question.questionType == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE</option>
+            <option value="SINGLE_CHOICE" th:selected="${question.questionType == 'SINGLE_CHOICE'}">SINGLE_CHOICE
+            </option>
+            <option value="MULTIPLE_CHOICE" th:selected="${question.questionType == 'MULTIPLE_CHOICE'}">
+                MULTIPLE_CHOICE
+            </option>
             <option value="NUMERIC" th:selected="${question.questionType == 'NUMERIC'}">NUMERIC</option>
         </select><br><br>
 
@@ -35,9 +38,146 @@
             </p>
         </li>
     </ul>
+    <h3>Add Answer Options:</h3>
+    <form th:action="@{/question/update}" method="post">
+        <div class="form-group col-md-6 col-sm-12 m-b30">
+            <div id="answers">
+
+            </div>
+
+            <div>
+                <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">Add
+                    another answer
+                </button>
+            </div>
+
+            <input type="submit" value="Save" class="btn btn-primary">
+        </div>
+    </form>
+
 </div>
 
 <a href="/expert/expert_manage_question">Back to Question List</a>
 
+
+<script>
+    let answerCount = 0;
+
+    document.getElementById("questionType").addEventListener("change", handleQuestionTypeChange);
+
+    function handleQuestionTypeChange() {
+        const questionType = document.getElementById("questionType").value;
+        const answersDiv = document.getElementById('answers');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+        const addAnswerButton = document.getElementById('addAnswerButton');
+
+        if (questionType === "SINGLE_CHOICE" || questionType === "MULTIPLE_CHOICE") {
+            addAnswerButton.style.display = 'inline'; // Show the button
+            removeAnswerNumeric(); // Xóa trường Numeric
+            updateAnswerInputs(questionType);
+        } else if (questionType === "NUMERIC") {
+            addAnswerButton.style.display = 'none'; // Hide the button
+            answersDiv.innerHTML = '';
+            answerCount = 1; // Reset answer count
+            addNumericAnswer();
+        }
+    }
+
+    function updateAnswerInputs(questionType) {
+        const answersDiv = document.getElementById('answers');
+        const checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
+
+        checkboxes.forEach((checkbox, index) => {
+            checkbox.type = questionType === "SINGLE_CHOICE" ? "radio" : "checkbox";
+            checkbox.name = "answerIsCorrect"; // Ensure all answers have the same name
+            checkbox.disabled = false; // Enable checkboxes/radio buttons
+            checkbox.checked = (index === 0); // Check the first answer for SINGLE_CHOICE
+        });
+        showRemoveButtons();
+    }
+
+    function addNumericAnswer() {
+        const answersDiv = document.getElementById('answers');
+        const newAnswerDiv = document.createElement('div');
+        newAnswerDiv.classList.add('answer');
+        newAnswerDiv.id = `answerNumeric`;
+        newAnswerDiv.innerHTML = `
+            <label for="answerContent">Answer:</label>
+            <input type="number" id="answerContent" name="answerContent" required>
+            <label for="isCorrect">Is Correct:</label>
+            <input type="hidden" name="answerIsCorrect" value="true"> <!-- This will always be sent -->
+            <input type="checkbox" id="isCorrect" name="answerIsCorrect" value="true" checked disabled>
+            <br><br>
+        `;
+        answersDiv.appendChild(newAnswerDiv);
+    }
+
+    function addAnswer() {
+        answerCount++;
+        const answersDiv = document.getElementById('answers');
+        const newAnswerDiv = createAnswerDiv(answerCount);
+        answersDiv.appendChild(newAnswerDiv);
+        handleQuestionTypeChange();
+    }
+
+    function createAnswerDiv(count) {
+    const newAnswerDiv = document.createElement('div');
+    newAnswerDiv.classList.add('answer');
+    newAnswerDiv.id = `answer${count}`;;
+    newAnswerDiv.innerHTML = `
+        <label for="answer${count}Content">Answer ${count}:</label>
+        <input type="text" id="answer${count}Content" name="answerContent" required>
+        <input type="hidden" name="answerIsCorrect" value="false"> <!-- Hidden input -->
+        <label for="isCorrect${count}">Is Correct:</label>
+        <input type="checkbox" id="isCorrect${count}" name="answerIsCorrect" value="true">
+        <button type="button" onclick="removeAnswer(${count})">Remove</button>
+        <br><br>
+    `;
+    return newAnswerDiv;
+}
+
+
+    function removeAnswer(index) {
+        const answerDiv = document.getElementById(`answer${index}`);
+        answerDiv.remove(); // Remove the answer
+
+        const answers = document.querySelectorAll('.answer');
+        answerCount = answers.length; // Update answer count
+
+        // Update the IDs and attributes of remaining answers
+        answers.forEach((answerDiv, newIndex) => {
+            const oldIndex = newIndex + 1; // New index starts from 1
+            answerDiv.id = `answer${oldIndex}`;
+            answerDiv.querySelector('label').setAttribute('for', `answer${oldIndex}Content`);
+            answerDiv.querySelector('input[type="text"]').setAttribute('id', `answer${oldIndex}Content`);
+            answerDiv.querySelector('input[type="checkbox"], input[type="radio"]').setAttribute('id', `isCorrect${oldIndex}`);
+            answerDiv.querySelector('button').setAttribute('onclick', `removeAnswer(${oldIndex})`);
+            answerDiv.querySelector('label').innerText = `Answer ${oldIndex}:`;
+        });
+
+        handleQuestionTypeChange(); // Update checkbox/radio types after removal
+    }
+
+    function removeAnswerNumeric() {
+        const answerDiv = document.getElementById(`answerNumeric`);
+        if (answerDiv) {
+            answerDiv.remove(); // Remove numeric answer if exists
+            answerCount = 1
+        const answersDiv = document.getElementById('answers');
+        const newAnswerDiv = createAnswerDiv(answerCount);
+        answersDiv.appendChild(newAnswerDiv);
+        }
+    }
+
+    function showRemoveButtons() {
+        const removeButtons = document.querySelectorAll('.answer button');
+        removeButtons.forEach(button => {
+            button.style.display = 'inline'; // Show remove buttons
+        });
+    }
+
+    // Ensure the initial state is correct
+    handleQuestionTypeChange();
+</script>
 </body>
 </html>
