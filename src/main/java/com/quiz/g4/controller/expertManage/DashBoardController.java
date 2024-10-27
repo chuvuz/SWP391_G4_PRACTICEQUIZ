@@ -90,7 +90,7 @@ public String getExpertQuizz(@RequestParam(defaultValue = "0") int page,
 
     @GetMapping("/expert/expert_manage_question")
     public String getAllQuestionsPaged(@RequestParam(defaultValue = "0") int page,  // Default to first page
-                                       @RequestParam(defaultValue = "5") int size,  // Default page size of 5
+                                       @RequestParam(defaultValue = "15") int size,  // Default page size of 5
                                        Model model){
         Pageable pageable = PageRequest.of(page, size);
         Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
