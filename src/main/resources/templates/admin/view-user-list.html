@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<!-- Mirrored from educhamp.themetrades.com/demo/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:08:15 GMT -->
 <head>
+
+    <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="keywords" content=""/>
@@ -17,85 +21,38 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
-    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
+    <link th:href="@{/admin/error-404.html}" rel="icon" type="image/x-icon"/>
+    <link th:href="@{/admin/images/favicon.png}" rel="shortcut icon" type="image/x-icon"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
-    <title>EduChamp : Education HTML Template </title>
+    <title>EduChamp : Education HTML Template</title>
 
     <!-- MOBILE SPECIFIC ============================================= -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--[if lt IE 9]>
-    <script th:src="@{/js/html5shiv.min.js}"></script>
-    <script th:src="@{/js/respond.min.js}"></script>
+    <script th:src="@{/assets/js/html5shiv.min.js}"></script>
+    <script th:src="@{/assets/js/respond.min.js}"></script>
     <![endif]-->
 
     <!-- All PLUGINS CSS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/assets.css}"/>
+    <link th:href="@{/admin/css/assets.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/vendors/calendar/fullcalendar.css}" rel="stylesheet" type="text/css">
 
     <!-- TYPOGRAPHY ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/typography.css}"/>
+    <link th:href="@{/admin/css/typography.css}" rel="stylesheet" type="text/css">
 
     <!-- SHORTCODES ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}"/>
+    <link th:href="@{/admin/css/shortcodes/shortcodes.css}" rel="stylesheet" type="text/css">
 
     <!-- STYLESHEETS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
-
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/css/dashboard.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script th:src="@{/js/filterUsers.js}"></script>
     <script th:src="@{/js/filterUsersByRole.js}"></script>
     <style>
-        /* Header Styles */
-        .header {
-            background-color: #2c2c2c; /* Nền header tối */
-            color: white;
-            padding: 10px 0;
-        }
-
-        .top-bar {
-            background-color: #343a40; /* Nền thanh trên cùng */
-            padding: 5px 0;
-        }
-
-        .nav-link {
-            color: white !important;
-        }
-
-        /* Dropdown Styles */
-        .navbar .dropdown-menu {
-            background-color: #343a40; /* Nền dropdown */
-            color: white;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar .dropdown-menu .dropdown-item {
-            color: white;
-        }
-
-        .navbar .dropdown-menu .dropdown-item:hover {
-            background-color: #495057;
-            color: white;
-        }
-
-        .menu-logo img {
-            max-height: 50px;
-        }
-
-        /* Search Bar */
-        .nav-search-bar {
-            position: relative;
-            display: none; /* Ẩn search bar mặc định */
-        }
-
-        #quik-search-btn {
-            background: none;
-            border: none;
-            color: white;
-        }
-
         .pagination {
             display: flex;
             justify-content: center;
@@ -129,223 +86,475 @@
             margin: 0 10px;
             font-size: 16px;
         }
+        .btn-primary {
+            padding: 10px 20px;
+            background-color: #800080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #301934;
+            transform: scale(1.05);
+        }
+
+        .btn-primary:active {
+            background-color: #301934;
+            transform: scale(1);
+        }
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-field input,
+        .form-field select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </head>
-<body>
-<header class="header rs-nav header-transparent">
-    <!-- Top Bar -->
-    <div class="top-bar">
-        <div class="container">
-            <div class="row d-flex justify-content-between">
-                <div class="topbar-left">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="mailto:Support@website.com">
-                                <i class="fa fa-envelope-o"></i> Support@website.com
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="topbar-right">
-                    <ul class="nav">
-                        <!-- Nếu user là null, hiển thị Login và Register -->
-                        <li class="nav-item" th:if="${#authentication.name == 'anonymousUser'}">
-                            <a class="nav-link" th:href="@{/login}">Login</a>
-                        </li>
-                        <li class="nav-item" th:if="${#authentication.name == 'anonymousUser'}">
-                            <a class="nav-link" th:href="@{/register}">Register</a>
-                        </li>
+<body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
-                        <!-- Nếu user không phải là null, hiển thị dropdown -->
-                        <li class="nav-item dropdown" th:if="${#authentication.name != 'anonymousUser'}">
-                            <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="userDropdown"
-                                    role="button"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                Welcome, <span th:text="${#authentication.name}"></span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" th:href="@{/profile}">Hồ sơ của tôi</a>
-                                <a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+<!-- header start -->
+<header class="ttr-header">
+    <div class="ttr-header-wrapper">
+        <!--sidebar menu toggler start -->
+        <div class="ttr-toggle-sidebar ttr-material-button">
+            <i class="ti-close ttr-open-icon"></i>
+            <i class="ti-menu ttr-close-icon"></i>
+        </div>
+        <!--sidebar menu toggler end -->
+        <!--logo start -->
+        <div class="ttr-logo-box">
+            <div>
+                <a href="index.html" class="ttr-logo">
+                    <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
+                    <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
+                </a>
             </div>
         </div>
-    </div>
-
-    <!-- Sticky Header -->
-    <div class="sticky-header navbar-expand-lg">
-        <div class="menu-bar clearfix">
-            <div class="container">
-                <div class="menu-logo">
-                    <a href="index.html"><img src="assets/images/logo-white.png" alt="Logo"></a>
-                </div>
-
-                <button class="navbar-toggler collapsed menuicon" type="button"
-                        data-toggle="collapse" data-target="#menuDropdown"
-                        aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <div class="menu-links navbar-collapse collapse" id="menuDropdown">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/home}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/subject-list}">Subject</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/questionlist}">Question Bank</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                Blog
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" th:href="@{/blog-list}">Blog Classic</a></li>
-                                <li><a class="dropdown-item" href="blog-classic-sidebar.html">Blog Classic Sidebar</a>
-                                </li>
-                                <li><a class="dropdown-item" href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <div class="nav-social-link">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <!--logo end -->
+        <div class="ttr-header-menu">
+            <!-- header left menu start -->
+            <ul class="ttr-header-navigation">
+                <li>
+                    <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+                </li>
+                <li>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
+                            class="fa fa-angle-down"></i></a>
+                    <div class="ttr-header-submenu">
+                        <ul>
+                            <li><a href="../courses.html">Our Courses</a></li>
+                            <li><a href="../event.html">New Event</a></li>
+                            <li><a href="../membership.html">Membership</a></li>
+                        </ul>
                     </div>
-                </div>
-            </div>
+                </li>
+            </ul>
+            <!-- header left menu end -->
         </div>
+        <div class="ttr-header-right ttr-with-seperator">
+            <!-- header right menu start -->
+            <ul class="ttr-header-navigation">
+                <li>
+                    <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
+                </li>
+                <li>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
+                    <div class="ttr-header-submenu noti-menu">
+                        <div class="ttr-notify-header">
+                            <span class="ttr-notify-text-top">9 New</span>
+                            <span class="ttr-notify-text">User Notifications</span>
+                        </div>
+                        <div class="noti-box-list">
+                            <ul>
+                                <li>
+										<span class="notification-icon dashbg-gray">
+											<i class="fa fa-check"></i>
+										</span>
+                                    <span class="notification-text">
+											<span>Sneha Jogi</span> sent you a message.
+										</span>
+                                    <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 02:14</span>
+										</span>
+                                </li>
+                                <li>
+										<span class="notification-icon dashbg-yellow">
+											<i class="fa fa-shopping-cart"></i>
+										</span>
+                                    <span class="notification-text">
+											<a href="#">Your order is placed</a> sent you a message.
+										</span>
+                                    <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 7 Min</span>
+										</span>
+                                </li>
+                                <li>
+										<span class="notification-icon dashbg-red">
+											<i class="fa fa-bullhorn"></i>
+										</span>
+                                    <span class="notification-text">
+											<span>Your item is shipped</span> sent you a message.
+										</span>
+                                    <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 2 May</span>
+										</span>
+                                </li>
+                                <li>
+										<span class="notification-icon dashbg-green">
+											<i class="fa fa-comments-o"></i>
+										</span>
+                                    <span class="notification-text">
+											<a href="#">Sneha Jogi</a> sent you a message.
+										</span>
+                                    <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 14 July</span>
+										</span>
+                                </li>
+                                <li>
+										<span class="notification-icon dashbg-primary">
+											<i class="fa fa-file-word-o"></i>
+										</span>
+                                    <span class="notification-text">
+											<span>Sneha Jogi</span> sent you a message.
+										</span>
+                                    <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 15 Min</span>
+										</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
+                                                                                                                  src="assets/images/testimonials/pic3.jpg"
+                                                                                                                  width="32"
+                                                                                                                  height="32"></span></a>
+                    <div class="ttr-header-submenu">
+                        <ul>
+                            <li><a th:href="@{/profile}">My profile</a></li>
+                            <li><a th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="ttr-hide-on-mobile">
+                    <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
+                    <div class="ttr-header-submenu ttr-extra-menu">
+                        <a href="#">
+                            <i class="fa fa-music"></i>
+                            <span>Musics</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-youtube-play"></i>
+                            <span>Videos</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-envelope"></i>
+                            <span>Emails</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-book"></i>
+                            <span>Reports</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-smile-o"></i>
+                            <span>Persons</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-picture-o"></i>
+                            <span>Pictures</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <!-- header right menu end -->
+        </div>
+        <!--header search panel start -->
+        <div class="ttr-search-bar">
+            <form class="ttr-search-form">
+                <div class="ttr-search-input-wrapper">
+                    <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
+                    </button>
+                </div>
+                <span class="ttr-search-close ttr-search-toggle">
+						<i class="ti-close"></i>
+					</span>
+            </form>
+        </div>
+        <!--header search panel end -->
     </div>
 </header>
-<div style="height: 150px"></div>
-<section class="dashboard-section">
+<!-- header end -->
 
-    <!--        <form th:action="@{/admin/users}" method="get">-->
-    <!--            <label for="role">Filter by role:</label>-->
-    <!--            <select name="role" id="role">-->
-    <!--                <option value="">All</option>-->
-    <!--                <option value="customer">Customer</option>-->
-    <!--                <option value="marketing">Marketing</option>-->
-    <!--                <option value="expert">Expert</option>-->
-    <!--                <option value="admin">Admin</option>-->
-    <!--            </select>-->
-    <!--            <button type="submit">Filter</button>-->
-    <!--        </form>-->
-    <div class="sidebar">
-        <ul>
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab"
-                                    th:href="@{/admin/dashboard}">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" th:href="@{/profile}">Profile</a></li>
-            <li class="nav-item">
-                <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
-                <a class="nav-link" data-toggle="tab" th:href="@{/profile/edit}">Edit Profile</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" th:href="@{/admin/users}">View User List</a></li>
-            <li class="nav-item"><a th:href="@{/admin/users/create}">Create New User</a></li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" th:href="@{/profile/change-password}">Change Password</a>
-            </li>
-        </ul>
-    </div>
-    <div class="main-content">
-        <input class="f" type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Search by full name"><br>
-        <div>
-            <label for="roleFilter">Filter by Role: </label>
-            <select id="roleFilter" onchange="filterUsersByRole()">
-                <option value="all">All</option>
-                <option th:each="role : ${roles}" th:value="${role.getRoleName()}"
-                        th:text="${role.getRoleName()}"></option>
-            </select>
+
+<!--        <form th:action="@{/admin/users}" method="get">-->
+<!--            <label for="role">Filter by role:</label>-->
+<!--            <select name="role" id="role">-->
+<!--                <option value="">All</option>-->
+<!--                <option value="customer">Customer</option>-->
+<!--                <option value="marketing">Marketing</option>-->
+<!--                <option value="expert">Expert</option>-->
+<!--                <option value="admin">Admin</option>-->
+<!--            </select>-->
+<!--            <button type="submit">Filter</button>-->
+<!--        </form>-->
+<div class="ttr-sidebar">
+    <div class="ttr-sidebar-wrapper content-scroll">
+        <!-- side menu logo start -->
+        <div class="ttr-sidebar-logo">
+            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+            <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+            </div> -->
+            <div class="ttr-sidebar-toggle-button">
+                <i class="ti-arrow-left"></i>
+            </div>
         </div>
-        <table id="userTable">
-            <thead>
-            <tr>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!--            <tr th:each="user : ${users}">-->
-            <!--                <td th:text="${user.getFullName()}"></td>-->
-            <!--                <td th:text="${user.getEmail()}"></td>-->
-            <!--                <td th:text="${user.getRole().getRoleName()}"></td>-->
-            <!--                <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>-->
-            <!--                <td>-->
-            <!--                    <form th:action="@{/admin/users/update-status}" method="post">-->
-            <!--                        <input type="hidden" name="userId" th:value="${user.userId}">-->
-            <!--                        <button type="submit" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></button>-->
-            <!--                    </form>-->
-            <!--                </td>-->
-
-            <!--            </tr>-->
-            <tr th:each="user : ${userPage.content}">
-                <td th:text="${user.fullName}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.role.roleName}"></td>
-                <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
-                <td>
-                    <form th:action="@{/admin/users/update-status}" method="post">
-                        <input type="hidden" name="userId" th:value="${user.userId}">
-                        <button type="submit" th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="pagination">
-            <a th:href="@{/admin/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}"><i
-                    class="fas fa-chevron-left"></i> Previous</a>
-            <span>Page <span th:text="${userPage.number + 1}"></span> of <span
-                    th:text="${userPage.totalPages}"></span></span>
-            <a th:href="@{/admin/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}">Next <i
-                    class="fas fa-chevron-right"></i></a>
-        </div>
+        <!-- side menu logo end -->
+        <!-- sidebar menu start -->
+        <nav class="ttr-sidebar-navi">
+            <ul>
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/admin/dashboard}">
+                        <span class="ttr-icon"><i class="ti-home"></i></span>
+                        <span class="ttr-label">Dashboard</span></a>
+                </li>
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/profile}">
+                        <span class="ttr-icon"><i class="ti-user"></i></span>
+                        <span class="ttr-label">Profile</span></a>
+                </li>
+                <li>
+                    <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
+                    <a class="ttr-material-button"
+                       th:href="@{/profile/edit}">
+                        <span class="ttr-icon"><i class="ti-eraser"></i></span>
+                        <span class="ttr-label">Edit Profile</span></a>
+                </li>
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/admin/users}">
+                        <span class="ttr-icon"><i class="ti-view-list"></i></span>
+                        <span class="ttr-label">View User List</span></a>
+                </li>
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/admin/users/create}">
+                        <span class="ttr-icon"><i class="ti-new-window"></i></span>
+                        <span class="ttr-label">Create New User</span></a>
+                </li>
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/profile/change-password}">
+                        <span class="ttr-icon"><i class="ti-pencil"></i></span>
+                        <span class="ttr-label">Change Password</span></a>
+                </li>
+                <li><a class="ttr-material-button"
+                       th:href="@{/manage-subject}">
+                    <span class="ttr-icon"><i class="ti-pencil"></i></span>
+                    <span class="ttr-label">Subject Management</span></a>
+                </li>
+                <li class="ttr-seperate"></li>
+            </ul>
+            <!-- sidebar menu end -->
+        </nav>
+        <!-- sidebar menu end -->
     </div>
-</section>
-
-<div th:replace="footer :: footer"></div>
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"/>
-    </svg>
 </div>
+<main class="ttr-wrapper">
+    <h1>User List</h1>
+    <input class="ttr-search-form" type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Search by full name"><br>
+    <div>
+        <label for="roleFilter">Filter by Role: </label>
+        <select id="roleFilter" onchange="filterUsersByRole()">
+            <option value="all">All</option>
+            <option th:each="role : ${roles}" th:value="${role.getRoleName()}"
+                    th:text="${role.getRoleName()}"></option>
+        </select>
+    </div>
+    <table id="userTable">
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--            <tr th:each="user : ${users}">-->
+        <!--                <td th:text="${user.getFullName()}"></td>-->
+        <!--                <td th:text="${user.getEmail()}"></td>-->
+        <!--                <td th:text="${user.getRole().getRoleName()}"></td>-->
+        <!--                <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>-->
+        <!--                <td>-->
+        <!--                    <form th:action="@{/admin/users/update-status}" method="post">-->
+        <!--                        <input type="hidden" name="userId" th:value="${user.userId}">-->
+        <!--                        <button type="submit" th:text="${user.isActive() ? 'Deactivate' : 'Activate'}"></button>-->
+        <!--                    </form>-->
+        <!--                </td>-->
+
+        <!--            </tr>-->
+        <tr th:each="user : ${userPage.content}">
+            <td th:text="${user.fullName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.role.roleName}"></td>
+            <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
+            <td>
+                <form th:action="@{/admin/users/update-status}" method="post">
+                    <input type="hidden" name="userId" th:value="${user.userId}">
+                    <button class="btn-primary" type="submit" th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <a th:href="@{/admin/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}"><i
+                class="fas fa-chevron-left"></i> Previous</a>
+        <span>Page <span th:text="${userPage.number + 1}"></span> of <span
+                th:text="${userPage.totalPages}"></span></span>
+        <a th:href="@{/admin/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}">Next <i
+                class="fas fa-chevron-right"></i></a>
+    </div>
+</main>
+
+<!--<div th:replace="footer :: footer"></div>-->
+
+<!--&lt;!&ndash; loader &ndash;&gt;-->
+<!--<div id="ftco-loader" class="show fullscreen">-->
+<!--    <svg class="circular" width="48px" height="48px">-->
+<!--        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>-->
+<!--        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"-->
+<!--                stroke="#F96D00"/>-->
+<!--    </svg>-->
+<!--</div>-->
 <script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-migrate-3.0.1.min.js}"></script>
-<script th:src="@{/js/popper.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.easing.1.3.js}"></script>
-<script th:src="@{/js/jquery.waypoints.min.js}"></script>
-<script th:src="@{/js/jquery.stellar.min.js}"></script>
-<script th:src="@{/js/owl.carousel.min.js}"></script>
-<script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
-<script th:src="@{/js/bootstrap-datepicker.js}"></script>
-<script th:src="@{/js/scrollax.min.js}"></script>
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script th:src="@{/js/google-map.js}"></script>
-<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/admin/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/admin/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/admin/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/admin/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/admin/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/admin/vendors/masonry/filter.js}"></script>
+<script th:src="@{/admin/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/admin/vendors/scroll/scrollbar.min.js}"></script>
+<script th:src="@{/admin/js/functions.js}"></script>
+<script th:src="@{/admin/vendors/chart/chart.min.js}"></script>
+<script th:src="@{/admin/js/admin.js}"></script>
+<script th:src="@{/admin/vendors/calendar/moment.min.js}"></script>
+<script th:src="@{/admin/vendors/calendar/fullcalendar.js}"></script>
+<script th:src="@{/admin/vendors/switcher/switcher.js}"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: '2019-03-12',
+            navLinks: true, // can click day/week names to navigate views
+
+            weekNumbers: true,
+            weekNumbersWithinDays: true,
+            weekNumberCalculation: 'ISO',
+
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2019-03-01'
+                },
+                {
+                    title: 'Long Event',
+                    start: '2019-03-07',
+                    end: '2019-03-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2019-03-09T16:00:00'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2019-03-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2019-03-11',
+                    end: '2019-03-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2019-03-12T10:30:00',
+                    end: '2019-03-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2019-03-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2019-03-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2019-03-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2019-03-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2019-03-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2019-03-28'
+                }
+            ]
+        });
+
+    });
+</script>
 </body>
 </html>
