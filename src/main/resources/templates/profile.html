@@ -214,7 +214,7 @@
                             <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_ADMIN'}" th:href="@{/admin/dashboard}">Home</a>
                             <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_EXPERT'}" th:href="@{/expert/dashboard}">Home</a>
                             <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_MARKETING'}" th:href="@{/marketing/dashboard}">Home</a>
-                            <a class="nav-link" th:unless="${user.getRole().getRoleName() == 'ROLE_CUSTOMER'}" th:href="@{/home}">Home</a>
+                            <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_CUSTOMER'}" th:href="@{/home}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>

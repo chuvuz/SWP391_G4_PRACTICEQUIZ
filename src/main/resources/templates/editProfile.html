@@ -206,7 +206,10 @@
                 <div class="menu-links navbar-collapse collapse" id="menuDropdown">
                     <ul class="nav navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link" th:href="@{/home}">Home</a>
+                            <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_ADMIN'}" th:href="@{/admin/dashboard}">Home</a>
+                            <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_EXPERT'}" th:href="@{/expert/dashboard}">Home</a>
+                            <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_MARKETING'}" th:href="@{/marketing/dashboard}">Home</a>
+                            <a class="nav-link" th:if="${user.getRole().getRoleName() == 'ROLE_CUSTOMER'}" th:href="@{/home}">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">About</a>
@@ -303,15 +306,15 @@
 <div class="dashboard-section">
     <div class="sidebar">
         <ul>
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab"
-                                    th:href="@{/admin/dashboard}">Dashboard</a></li>
+<!--            <li class="nav-item"><a class="nav-link active" data-toggle="tab"-->
+<!--                                    th:href="@{/admin/dashboard}">Dashboard</a></li>-->
             <li class="nav-item"><a class="nav-link" data-toggle="tab" th:href="@{/profile}">Profile</a></li>
             <li class="nav-item">
                 <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
                 <a class="nav-link" data-toggle="tab" th:href="@{/profile/edit}">Edit Profile</a>
             </li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" th:href="@{/admin/users}">View User List</a></li>
-            <li class="nav-item"><a th:href="@{/admin/users/create}">Create New User</a></li>
+<!--            <li class="nav-item"><a class="nav-link" data-toggle="tab" th:href="@{/admin/users}">View User List</a></li>-->
+<!--            <li class="nav-item"><a th:href="@{/admin/users/create}">Create New User</a></li>-->
             <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" th:href="@{/profile/change-password}">Change Password</a>
             </li>
