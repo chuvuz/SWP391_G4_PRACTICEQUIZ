@@ -365,6 +365,10 @@
             </ul>
         </div>
         <div class="row">
+            <a th:href="@{/add_Question}">create question</a>
+        </div>
+        <div class="row">
+
                     <!-- Filter by Type -->
                     <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
                         <label for="typeFilter">Type</label>
@@ -418,6 +422,7 @@
                     <th>Type</th>
                     <th>Lesson</th>
                     <th>Subject</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody id="questionTable">
@@ -427,6 +432,9 @@
                     <td th:text="${question.questionType}"></td>
                     <td th:text="${question.lesson.lessonName}"></td>
                     <td th:text="${question.subject.subjectName}"></td>
+                    <td>
+                        <a th:href="@{/question/{id}(id=${question.questionId})}">Update</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -437,8 +445,9 @@
                     <ul class="pagination">
                         <!-- Previous button -->
                         <li th:classappend="${questionPage.hasPrevious()} ? '': 'disabled'"
-                            class="page-item">
+                            class="page-item page-change">
                             <a th:href="@{/expert/expert_manage_question(page=${questionPage.number - 1}, size=${questionPage.size})}"
+                               onclick="saveFilters()"
                                class="page-link">Previous</a>
                         </li>
 
@@ -447,14 +456,16 @@
                             th:classappend="${questionPage.number + 1 == i} ? 'active' : ''"
                             class="page-item">
                             <a th:href="@{/expert/expert_manage_question(page=${i - 1}, size=${questionPage.size})}"
+                               onclick="saveFilters()"
                                class="page-link"
                                th:text="${i}">1</a>
                         </li>
 
                         <!-- Next button -->
                         <li th:classappend="${questionPage.hasNext()} ? '' : 'disabled'"
-                            class="page-item">
+                            class="page-item page-change">
                             <a th:href="@{/expert/expert_manage_question(page=${questionPage.number + 1}, size=${questionPage.size})}"
+                               onclick="saveFilters()"
                                class="page-link">Next</a>
                         </li>
                     </ul>
@@ -467,49 +478,6 @@
 
 <div class="ttr-overlay"></div>
 
-<!-- External JavaScripts -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const typeFilter = document.getElementById('typeFilter');
-    const lessonFilter = document.getElementById('lessonFilter');
-    const subjectFilter = document.getElementById('subjectFilter');
-    const contentFilter = document.getElementById('contentFilter');
-    const questionTable = document.getElementById('questionTable');
-    const rows = questionTable.getElementsByTagName('tr');
-
-    function filterQuestions() {
-        const typeValue = typeFilter.value.toLowerCase();
-        const lessonValue = lessonFilter.value.toLowerCase();
-        const subjectValue = subjectFilter.value.toLowerCase();
-        const contentValue = contentFilter.value.toLowerCase();
-
-        console.log('Type:', typeValue, 'Lesson:', lessonValue, 'Subject:', subjectValue, 'Content:', contentValue);
-
-        for (let i = 0; i < rows.length; i++) {
-            const contentCell = rows[i].getElementsByTagName('td')[1].textContent.toLowerCase();
-            const typeCell = rows[i].getElementsByTagName('td')[2].textContent.toLowerCase();
-            const lessonCell = rows[i].getElementsByTagName('td')[3].textContent.toLowerCase();
-            const subjectCell = rows[i].getElementsByTagName('td')[4].textContent.toLowerCase();
-
-            console.log('Row', i, 'Content:', contentCell, 'Type:', typeCell, 'Lesson:', lessonCell, 'Subject:', subjectCell);
-
-            if ((typeValue === '' || typeCell === typeValue) &&
-                (lessonValue === '' || lessonCell === lessonValue) &&
-                (subjectValue === '' || subjectCell === subjectValue) &&
-                (contentValue === '' || contentCell.includes(contentValue))) {
-                rows[i].style.display = '';
-            } else {
-                rows[i].style.display = 'none';
-            }
-        }
-    }
-
-    typeFilter.addEventListener('change', filterQuestions);
-    lessonFilter.addEventListener('change', filterQuestions);
-    subjectFilter.addEventListener('change', filterQuestions);
-    contentFilter.addEventListener('input', filterQuestions);
-});
-</script>
 <script th:src="@{/expert/js/jquery.min.js}"></script>
 <script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>
 <script th:src="@{/expert/vendors/bootstrap/js/bootstrap.min.js}"></script>

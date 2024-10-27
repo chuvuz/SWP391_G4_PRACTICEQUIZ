@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -93,13 +94,18 @@ public class QuestionController {
                                   @RequestParam String questionType,
                                   @RequestParam int subject,
                                   @RequestParam int lesson,
-                                  @RequestParam List<String> answerContent,
-                                  @RequestParam List<Boolean> answerIsCorrect
+                                  @RequestParam(required = false) List<String> answerContent,
+                                  @RequestParam(required = false) List<Boolean> answerIsCorrect
     ) {
 
-        for (int i = 0; i < answerIsCorrect.size(); i++){
-            System.out.println(answerIsCorrect.get(i).toString());
+        // Set default values if parameters are null
+        if (answerContent == null) {
+            answerContent = new ArrayList<>();
         }
+        if (answerIsCorrect == null) {
+            answerIsCorrect = new ArrayList<>();
+        }
+
 
         // Kiểm tra xem câu hỏi đã tồn tại chưa
         Set<String> setContent = new HashSet<>();
@@ -113,12 +119,28 @@ public class QuestionController {
                 break;
             }
         }
-        if(setContent.size() < answerContent.size() || !correct){
+        if(setContent.size() < answerContent.size() || !correct || answerContent.isEmpty() || answerIsCorrect.isEmpty()){
+            List<Subject> subjects = subjectService.getAllSubjects();
+            List<Lesson> lessons = lessonService.getAllLessons();
+            model.addAttribute("content", questionContent);
+            model.addAttribute("type", questionType);
+            model.addAttribute("selectedSubjectId", subject);
+            model.addAttribute("selectedLessonId", lesson);
+            model.addAttribute("subjects", subjects);
+            model.addAttribute("lessons", lessons);
             model.addAttribute("error", "đáp án bị trùng hoặc không có đáp án đúng vui lòng thử lại!");
-            return "/addQuestion";
+            return "/QuestionBank/addQuestion";
         } else if (questionBankService.existsByQuestionContent(questionContent)){
+            List<Subject> subjects = subjectService.getAllSubjects();
+            List<Lesson> lessons = lessonService.getAllLessons();
+            model.addAttribute("content", questionContent);
+            model.addAttribute("type", questionType);
+            model.addAttribute("selectedSubjectId", subject);
+            model.addAttribute("selectedLessonId", lesson);
+            model.addAttribute("subjects", subjects);
+            model.addAttribute("lessons", lessons);
             model.addAttribute("error", "câu hỏi đã tồn tại!");
-            return "/addQuestion";
+            return "/QuestionBank/addQuestion";
         }
 
 
@@ -145,7 +167,7 @@ public class QuestionController {
             answerOptionService.save(option);
         }
 
-        return "redirect:/questionlist";  // Chuyển hướng sau khi lưu xong
+        return "redirect:/expert/expert_manage_question";  // Chuyển hướng sau khi lưu xong
     }
 
     @GetMapping("/question/{id}")
