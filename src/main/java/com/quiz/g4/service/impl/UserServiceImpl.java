@@ -245,10 +245,10 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         userRepository.save(user);
     }
-    @Override
-    public List<Role> findRolesForUserCreation() {
-        return roleRepository.findRolesForUserCreation();
-    }
+//    @Override
+//    public List<Role> findRolesForUserCreation() {
+//        return roleRepository.findRolesForUserCreation();
+//    }
     @Override
     public void changeUserStatus(User user) {
         if (user.isActive()) {
@@ -256,6 +256,17 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setIsActive(true);
         }
+        userRepository.save(user);
+    }
+    @Override
+    public void updateProfilePicture(String email, String profileImage) {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+
+        user.setProfileImage(profileImage);
         userRepository.save(user);
     }
 }

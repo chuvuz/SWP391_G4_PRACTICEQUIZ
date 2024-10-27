@@ -48,6 +48,7 @@ public interface UserService extends UserDetailsService {
     long countTotalUsers();
     long countActiveUsers();
     long countInactiveUsers();
-    List<Role> findRolesForUserCreation();
+//    List<Role> findRolesForUserCreation();
+    void updateProfilePicture(String email, String profileImage);
 }
 

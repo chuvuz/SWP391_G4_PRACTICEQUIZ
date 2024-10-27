@@ -8,6 +8,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Random;
 
 @Controller
@@ -36,10 +38,12 @@ public class UserProfileController {
     //Principal tra ve current user
     public String getUserProfile(Principal principal, Model model) {
         try {
-            String username = principal.getName();
-
-            User user = (User) userService.loadUserByUsername(username);
-            model.addAttribute("user", user);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+                String email = authentication.getName();
+                User user = userService.findByEmail(email);
+                model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+            }
             return "profile";
         }catch (Exception e){
             return e.getMessage();
@@ -119,6 +123,11 @@ public class UserProfileController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+    @PostMapping("/profile/update-picture")
+    public String updateProfilePicture(@RequestParam("profileImage") String profileImage, Principal principal) {
+        userService.updateProfilePicture(principal.getName(), profileImage);
+        return "redirect:/profile";
     }
 
 
