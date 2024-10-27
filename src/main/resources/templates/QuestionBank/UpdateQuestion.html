@@ -31,11 +31,12 @@
     <h3>Answer Options:</h3>
     <ul>
         <li th:each="answer : ${question.answerOptions}">
-            <p th:text="${answer.content}">Answer Content</p>
-            <p>
-                <span th:if="${answer.isCorrect}">Correct Answer</span>
-                <span th:if="${!answer.isCorrect}">Incorrect Answer</span>
-            </p>
+            <form th:action="@{/question/updateAnswer}" method="post">
+                <input type="hidden" id="answerId" name="answerId" th:value="${answer.optionId}">
+                <input type="text" id="content" name="content" th:value="${answer.content}" required>
+                <input type="checkbox" id="correct" name="correct" th:value="${answer.isCorrect}">
+                <input type="submit" value="Save" class="btn btn-primary">
+            </form>
         </li>
     </ul>
     <h3>Add Answer Options:</h3>
