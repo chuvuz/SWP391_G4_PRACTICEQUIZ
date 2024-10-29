@@ -68,6 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //Role cho Customer
                 
                 //Role cho Marketing
+                .antMatchers("/marketing/**").hasAnyRole("MARKETING")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

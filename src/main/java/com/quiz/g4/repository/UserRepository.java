@@ -42,10 +42,19 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.isActive = false")
     long countInactiveUsers();
-//    @Query("SELECT u FROM User u WHERE u.role.roleName = :role")
+
+    //    @Query("SELECT u FROM User u WHERE u.role.roleName = :role")
 //    Page<User> findByRole(@Param("role") String role, Pageable pageable);
 //
 //    @Query("SELECT u FROM User u WHERE u.role.roleName NOT IN :roles")
 //    Page<User> findAllExceptRoles(Pageable pageable, String... roles);
+    @Query("SELECT u FROM User u WHERE u.role.roleName = :roleName")
+    Page<User> findByRoleRoleName(@Param("roleName") String roleName, Pageable pageable);
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role.roleName = :roleName")
+    long countByRoleRoleName(@Param("roleName") String roleName);
+
+    @Query("SELECT COUNT(u) FROM User u WHERE u.role.roleName = :roleName AND u.isActive = :isActive")
+    long countByRoleRoleNameAndIsActive(@Param("roleName") String roleName, @Param("isActive") boolean isActive);
 }
 
