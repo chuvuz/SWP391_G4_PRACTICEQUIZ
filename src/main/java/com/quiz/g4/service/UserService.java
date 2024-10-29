@@ -52,7 +52,7 @@ public interface UserService extends UserDetailsService {
     void updateProfilePicture(String email, String profileImage);
     //for marketing
     Page<User> findUsersByRole(String roleName, Pageable pageable);
-    void toggleUserStatus(Integer userId);
+//    User toggleUserStatus(Integer userId);
     long countUsersByRole(String roleName);
     long countUsersByRoleAndStatus(String roleName, boolean isActive);
 }

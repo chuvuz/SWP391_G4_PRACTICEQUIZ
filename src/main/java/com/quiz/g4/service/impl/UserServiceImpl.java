@@ -275,12 +275,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByRoleRoleName(roleName, pageable);
     }
 
-    @Override
-    public void toggleUserStatus(Integer userId) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setIsActive(!user.getIsActive());
-        userRepository.save(user);
-    }
+//    @Override
+//    public User toggleUserStatus(Integer userId) {
+//        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//        user.setIsActive(!user.getIsActive());
+//        userRepository.save(user);
+//    }
 
     @Override
     public long countUsersByRole(String roleName) {

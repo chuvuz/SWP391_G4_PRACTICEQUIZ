@@ -304,7 +304,7 @@
         <div class="db-breadcrumb">
             <h4 class="breadcrumb-title">Dashboard</h4>
             <ul class="db-breadcrumb-list">
-                <li><a th:href="@{/admin/dashboard}"><i class="fa fa-home"></i>Home</a></li>
+                <li><a th:href="@{/marketing/dashboard}"><i class="fa fa-home"></i>Home</a></li>
                 <li>Dashboard</li>
             </ul>
         </div>
@@ -313,14 +313,12 @@
                 <div class="widget-card widget-bg1">
                     <div class="wc-item">
                         <h4 class="wc-title">
-                            Total Users:
+                            Total Customers:
                         </h4>
-                        <!--            <h1>Admin Dashboard</h1>-->
-                        <!--            <div class="statistics">-->
                         <span class="wc-des">
 								All active/ inactive users
 							</span>
-                        <span class="wc-stats"><span class="counter" th:text="${totalUsers}"></span></span>
+                        <span class="wc-stats"><span class="counter" th:text="${totalCustomers}"></span></span>
                         <div class="progress wc-progress">
                             <div class="progress-bar" role="progressbar" style="width: 78%;" aria-valuenow="50"
                                  aria-valuemin="0" aria-valuemax="100"></div>
@@ -330,9 +328,9 @@
                 <div class="widget-card widget-bg1">
                     <div class="wc-item">
                         <h4 class="wc-title">
-                            Total Active Users
+                            Total Active Customers:
                         </h4>
-                        <span class="wc-stats"><span class="counter" th:text="${activeUsers}"></span></span>
+                        <span class="wc-stats"><span class="counter" th:text="${activeCustomers}"></span></span>
                         <div class="progress wc-progress">
                             <div class="progress-bar" role="progressbar" style="width: 78%;" aria-valuenow="50"
                                  aria-valuemin="0" aria-valuemax="100"></div>
@@ -342,9 +340,9 @@
                 <div class="widget-card widget-bg1">
                     <div class="wc-item">
                         <h4 class="wc-title">
-                            Total Inactive Users
+                            Total Inactive Customers
                         </h4>
-                        <span class="wc-stats"><span class="counter" th:text="${inactiveUsers}"></span></span>
+                        <span class="wc-stats"><span class="counter" th:text="${inactiveCustomers}"></span></span>
                         <div class="progress wc-progress">
                             <div class="progress-bar" role="progressbar" style="width: 78%;" aria-valuenow="50"
                                  aria-valuemin="0" aria-valuemax="100"></div>

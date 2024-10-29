@@ -233,6 +233,74 @@
 </header>
 <!-- header end -->
 <!-- Left sidebar menu start -->
+<div class="ttr-sidebar">
+    <div class="ttr-sidebar-wrapper content-scroll">
+        <!-- side menu logo start -->
+        <div class="ttr-sidebar-logo">
+            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+            <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+                <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+                <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+            </div> -->
+            <div class="ttr-sidebar-toggle-button">
+                <i class="ti-arrow-left"></i>
+            </div>
+        </div>
+        <!-- side menu logo end -->
+        <!-- sidebar menu start -->
+        <nav class="ttr-sidebar-navi">
+            <ul>
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/marketing/dashboard}">
+                        <span class="ttr-icon"><i class="ti-home"></i></span>
+                        <span class="ttr-label">Dashboard</span></a>
+                </li>
+                <!--                <li>-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/profile}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-user"></i></span>-->
+                <!--                        <span class="ttr-label">Profile</span></a>-->
+                <!--                </li>-->
+                <!--                <li>-->
+                <!--                    &lt;!&ndash;                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>&ndash;&gt;-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/profile/edit}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-eraser"></i></span>-->
+                <!--                        <span class="ttr-label">Edit Profile</span></a>-->
+                <!--                </li>-->
+                <li>
+                    <a class="ttr-material-button"
+                       th:href="@{/marketing/view-customers}">
+                        <span class="ttr-icon"><i class="ti-view-list"></i></span>
+                        <span class="ttr-label">View User List</span></a>
+                </li>
+                <!--                <li>-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/admin/users/create}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-new-window"></i></span>-->
+                <!--                        <span class="ttr-label">Create New User</span></a>-->
+                <!--                </li>-->
+                <!--                <li>-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/profile/change-password}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-pencil"></i></span>-->
+                <!--                        <span class="ttr-label">Change Password</span></a>-->
+                <!--                </li>-->
+                <!--                <li><a class="ttr-material-button"-->
+                <!--                       th:href="@{/manage-subject}">-->
+                <!--                    <span class="ttr-icon"><i class="ti-pencil"></i></span>-->
+                <!--                    <span class="ttr-label">Subject Management</span></a>-->
+                <!--                </li>-->
+                <li class="ttr-seperate"></li>
+            </ul>
+            <!-- sidebar menu end -->
+        </nav>
+        <!-- sidebar menu end -->
+    </div>
+</div>
+<main class="ttr-wrapper">
+    <h1>User List</h1>
 <table>
     <thead>
     <tr>
@@ -249,11 +317,11 @@
         <td th:text="${user.fullName}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.role.roleName}"></td>
-        <td th:text="${user.isActive ? 'Active' : 'Inactive'}"></td>
+        <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
         <td th:text="${#dates.format(user.createdDate, 'dd-MM-yyyy')}"></td>
         <td>
-            <form th:action="@{/marketing/users/update-status}" method="post">
-                <input type="hidden" name="userId" th:value="${user.id}">
+            <form th:action="@{/marketing/update-status}" method="post">
+                <input type="hidden" name="userId" th:value="${user.userId}">
                 <button class="btn-primary" type="submit" th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
             </form>
         </td>
@@ -261,9 +329,10 @@
     </tbody>
 </table>
 <div class="pagination">
-    <a th:href="@{/marketing/users/customers(page=${customers.number - 1}, size=${customers.size})}" th:if="${customers.hasPrevious()}">Previous</a>
+    <a th:href="@{/marketing/customers(page=${customers.number - 1}, size=${customers.size})}" th:if="${customers.hasPrevious()}">Previous</a>
     <span>Page <span th:text="${customers.number + 1}"></span> of <span th:text="${customers.totalPages}"></span></span>
-    <a th:href="@{/marketing/users/customers(page=${customers.number + 1}, size=${customers.size})}" th:if="${customers.hasNext()}">Next</a>
+    <a th:href="@{/marketing/customers(page=${customers.number + 1}, size=${customers.size})}" th:if="${customers.hasNext()}">Next</a>
 </div>
+</main>
 </body>
 </html>
