@@ -40,7 +40,7 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public Page<Lesson> getLessons(Pageable pageable) {
-        return lessonRepository.findAll(pageable);
+        return lessonRepository.findAllByDesc(pageable);
     }
 
     @Override

@@ -213,37 +213,25 @@ public class DashBoardController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", lessonPage.getTotalPages());
 
+        List<Subject> subjects = subjectService.getAllSubjects();
+        model.addAttribute("subjects", subjects);
         return "expert_manage_lesson"; // Trả về trang HTML chứa danh sách lesson
     }
 
-//    @ResponseBody
-//    @GetMapping("/expert/expert_manage_lesson/edit/{id}")
-//    public ResponseEntity<?> editLesson(@PathVariable Integer id, @RequestBody Lesson updatedLesson) {
-//
-//        System.out.println("có" + updatedLesson);
-//        Optional<Lesson> lesson = lessonRepository.findById(id);
-//        if (lesson.isPresent()) {
-//            Lesson existingLesson = lesson.get();
-//            existingLesson.setLessonName(updatedLesson.getLessonName());
-//            lessonRepository.save(existingLesson);
-//            return ResponseEntity.ok(Collections.singletonMap("success", true));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
-//        }
-//    }
-//
-//    @GetMapping("/expert/expert_manage_lesson/delete/{id}")
-//    @ResponseBody
-//    public ResponseEntity<?> deleteLesson(@PathVariable Integer id) {
-//        System.out.println("có vào rồi" + id);
-//        if (lessonRepository.existsById(id)) {
-//            Lesson lesson=lessonRepository.findById(id).get();
-//
-//            lessonRepository.deleteById(id);
-//            return ResponseEntity.ok(Collections.singletonMap("success", true));
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
-//        }
-//    }
+    @PostMapping("/expert/create_lesson")
+    public String createLesson(@RequestParam String lessonName, @RequestParam Integer subjectId) {
+
+        Subject subject = subjectService.getSubjectById(subjectId);
+        Lesson lesson = new Lesson();
+        lesson.setLessonName(lessonName);
+        lesson.setSubject(subject);
+        lesson.setCreatedDate(LocalDate.now());
+        lesson.setUpdatedDate(LocalDate.now());
+        lessonRepository.save(lesson);
+        // Implement logic to save the lesson
+        // e.g., lessonService.save(new Lesson(lessonName, subject));
+
+        return "redirect:/expert/expert_manage_lesson"; // Redirect to the lesson management page
+    }
 
 }
