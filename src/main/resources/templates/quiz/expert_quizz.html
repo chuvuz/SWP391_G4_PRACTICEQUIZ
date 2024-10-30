@@ -6,22 +6,22 @@
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" href="../error-404.html" type="image/x-icon" />
-    <link rel="shortcut icon" th:href="@{/expert/images/favicon.png}" />
+    <link rel="icon" href="../error-404.html" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/expert/images/favicon.png}"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
     <title>EduChamp : Education HTML Template</title>
@@ -78,7 +78,8 @@
                     <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
+                            class="fa fa-angle-down"></i></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="../courses.html">Our Courses</a></li>
@@ -170,7 +171,10 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
+                                                                                                                  src="assets/images/testimonials/pic3.jpg"
+                                                                                                                  width="32"
+                                                                                                                  height="32"></span></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="user-profile.html">My profile</a></li>
@@ -217,7 +221,8 @@
             <form class="ttr-search-form">
                 <div class="ttr-search-input-wrapper">
                     <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
+                    </button>
                 </div>
                 <span class="ttr-search-close ttr-search-toggle">
 						<i class="ti-close"></i>
@@ -294,14 +299,32 @@
             <!-- Your Profile Views Chart -->
             <div class="col-lg-12 m-b30">
                 <div class="widget-box">
-                    <div class="wc-title" >
+                    <div class="wc-title">
                         <h4>Your Quizzes</h4>
-                        <button id="openCreateQuizModal" style="margin-top: 20px"  class="btn btn-primary" data-toggle="modal" data-target="#createQuizModal">
+                        <button id="openCreateQuizModal" style="margin-top: 20px" class="btn btn-primary"
+                                data-toggle="modal" data-target="#createQuizModal">
                             Create Quiz
                         </button>
+                        <div style="display: flex">
+                            <div>
+                                <input type="text" id="searchInput" placeholder="Search for quiz..."
+                                       class="form-control"
+                                       style="margin-bottom: 20px;width: 300px">
+                            </div>
+                            <label for="subjectSelectSearch"></label>
+                            <select id="subjectSelectSearch" style="width: 200px" name="subjectId" class="form-control"
+                                    required>
+                                <option value="">Select Subject</option>
+                                <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
+                                        th:text="${subject.subjectName}"></option>
+                            </select>
+
+                        </div>
+
                     </div>
                     <div class="widget-inner">
-                        <div class="card-courses-list admin-courses" th:each="quiz : ${quizzes}">
+                        <div class="card-courses-list admin-courses" th:each="quiz : ${quizzes}"
+                             th:attr="data-subject-id=${quiz.subject.subjectId}">
                             <div class="card-courses-media">
                                 <img src="/images/courses/pic1.jpg" alt=""/>
                             </div>
@@ -309,55 +332,28 @@
                                 <div class="card-courses-title">
                                     <h4 th:text="${quiz.quizName}"></h4>
                                 </div>
-                                <div class="card-courses-list-bx">
-                                    <ul class="card-courses-view">
-                                        <li class="card-courses-user">
-                                            <div class="card-courses-user-pic">
-                                                <img src="/images/courses/pic1.jpg" alt=""/>
-<!--                                                <img th:src="${quiz.createdBy.profileImage}" alt=""/>-->
-                                            </div>
-                                            <div class="card-courses-user-info">
-                                                <h5>Teacher</h5>
-                                                <h6 th:text="${quiz.createdBy.fullName}"></h6>
-                                            </div>
-                                        </li>
-                                        <li class="card-courses-categories">
-                                            <h5>Lessons</h5>
-                                            <h6 th:text="${quiz.lesson.lessonName}"></h6>
-                                        </li>
-                                        <li class="card-courses-price">
-                                            <h5>Create Date</h5>
-                                            <h6 class="text-primary" th:text="${quiz.createdDate}"></h6>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="row card-courses-dec">
-                                    <div class="col-md-12">
-                                        <h6 class="m-b10">Course Description</h6>
-                                        <p th:text="${quiz.description}"></p>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <a href="#" class="btn green radius-xl outline">Views question</a>
-
-                                    </div>
-                                </div>
-
+                                <!-- Rest of the card content -->
                             </div>
-
                         </div>
+
+
                         <!-- Pagination controls -->
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
                                 <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'//expert/expert_quizz?page=' + ${currentPage - 1}}" aria-label="Previous">
+                                    <a class="page-link" th:href="@{'//expert/expert_quizz?page=' + ${currentPage - 1}}"
+                                       aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-                                    <a class="page-link" th:href="@{'/expert/expert_quizz?page=' + ${i}}" th:text="${i + 1}"></a>
+                                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                    th:classappend="${i == currentPage} ? 'active'">
+                                    <a class="page-link" th:href="@{'/expert/expert_quizz?page=' + ${i}}"
+                                       th:text="${i + 1}"></a>
                                 </li>
                                 <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
-                                    <a class="page-link" th:href="@{'/expert/expert_quizz?page=' + ${currentPage + 1}}" aria-label="Next">
+                                    <a class="page-link" th:href="@{'/expert/expert_quizz?page=' + ${currentPage + 1}}"
+                                       aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -372,7 +368,8 @@
     </div>
 
     <!-- Modal HTML -->
-    <div class="modal fade" id="createQuizModal" tabindex="-1" role="dialog" aria-labelledby="createQuizModalLabel" aria-hidden="true">
+    <div id="createQuizModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createQuizModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -387,7 +384,8 @@
                             <label for="subjectSelect">Select Subject</label>
                             <select id="subjectSelect" name="subjectId" class="form-control" required>
                                 <option value="">Select Subject</option>
-                                <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+                                <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
+                                        th:text="${subject.subjectName}"></option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -408,102 +406,47 @@
 </main>
 <div class="ttr-overlay"></div>
 <!-- External JavaScripts -->
-
 <script>
-    // Mở modal khi trang tải
     document.addEventListener('DOMContentLoaded', function () {
         const openModalButton = document.getElementById('openCreateQuizModal');
+        const searchInput = document.getElementById('searchInput');
+        const subjectSelect = document.getElementById('subjectSelectSearch');
+        const quizCards = document.querySelectorAll('.card-courses-list');
 
-        // Mở modal khi nhấn nút "Open Create Quiz Modal"
+        // Function to open the modal
         openModalButton.addEventListener('click', function () {
-            $('#createQuizModal').modal('show'); // Sử dụng jQuery để mở modal
+            $('#createQuizModal').modal('show');
         });
+
+        // Function to filter quizzes
+        function filterQuizzes() {
+            const searchText = searchInput.value.toLowerCase();
+            const selectedSubjectId = subjectSelect.value;
+
+            quizCards.forEach(card => {
+                const quizName = card.querySelector('.card-courses-title h4').innerText.toLowerCase();
+                const quizSubjectId = card.getAttribute('data-subject-id'); // Assuming data attribute for subjectId
+
+                const matchesSearch = quizName.includes(searchText);
+                const matchesSubject = selectedSubjectId === '' || quizSubjectId === selectedSubjectId;
+
+                if (matchesSearch && matchesSubject) {
+                    card.style.display = ''; // Show the card
+                } else {
+                    card.style.display = 'none'; // Hide the card
+                }
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', filterQuizzes);
+        subjectSelect.addEventListener('change', filterQuizzes);
     });
 </script>
-<script>
-    // let selectedSubjectId = null;
-    //
-    // // Hàm để lấy câu hỏi theo subjectId
-    // function fetchQuestions(subjectId) {
-    //     fetch(`/expert/api/questions/${subjectId}`)
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error("Network response was not ok");
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(data => {
-    //             const questionsList = document.getElementById("questionsList");
-    //             questionsList.innerHTML = ""; // Xóa danh sách câu hỏi trước đó
-    //
-    //             if (data.questions) {
-    //                 // Hiển thị câu hỏi
-    //                 data.questions.forEach(question => {
-    //                     const li = document.createElement("li");
-    //                     li.classList.add("list-group-item");
-    //                     li.textContent = question.questionText; // Thay đổi tùy thuộc vào cấu trúc đối tượng QuestionBank
-    //                     questionsList.appendChild(li);
-    //                 });
-    //             } else {
-    //                 const li = document.createElement("li");
-    //                 li.classList.add("list-group-item");
-    //                 li.textContent = "No questions found for this subject.";
-    //                 questionsList.appendChild(li);
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error("Error fetching questions:", error);
-    //         });
-    // }
-    //
-    // // Hàm mở modal cho việc tạo quiz
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const openModalButton = document.getElementById('openCreateQuizModal');
-    //     openModalButton.addEventListener('click', function () {
-    //         $('#createQuizModal').modal('show'); // Mở modal tạo quiz
-    //     });
-    //
-    //     // Xử lý sự kiện cho nút Next
-    //     document.getElementById('nextButton').addEventListener('click', function () {
-    //         selectedSubjectId = document.getElementById("subjectSelect").value; // Lưu ID môn học đã chọn
-    //         if (selectedSubjectId) {
-    //             fetchQuestions(selectedSubjectId); // Gọi hàm lấy câu hỏi cho môn học đã chọn
-    //             $('#createQuizModal').modal('hide'); // Ẩn modal hiện tại
-    //             $('#selectQuestionsModal').modal('show'); // Mở modal chọn câu hỏi
-    //         } else {
-    //             alert("Please select a subject.");
-    //         }
-    //     });
-    //
-    //     // Xử lý sự kiện cho nút Create Quiz
-    //     document.getElementById('createQuizButton').addEventListener('click', function () {
-    //         // Logic để tạo quiz ở đây
-    //         alert("Quiz created!");
-    //     });
-    // });
-    //
-    //
-
-</script>
 
 
-<script th:src="@{/expert/js/jquery.min.js}"></script>
-<script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>
-<script th:src="@{/expert/vendors/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/expert/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
-<script th:src="@{/expert/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
-<script th:src="@{/expert/vendors/magnific-popup/magnific-popup.js}"></script>
-<script th:src="@{/expert/vendors/counter/waypoints-min.js}"></script>
-<script th:src="@{/expert/vendors/counter/counterup.min.js}"></script>
-<script th:src="@{/expert/vendors/imagesloaded/imagesloaded.js}"></script>
-<script th:src="@{/expert/vendors/masonry/masonry.js}"></script>
-<script th:src="@{/expert/vendors/masonry/filter.js}"></script>
-<script th:src="@{/expert/vendors/owl-carousel/owl.carousel.js}"></script>
-<script th:src="@{/expert/vendors/scroll/scrollbar.min.js}"></script>
-<script th:src="@{/expert/js/functions.js}"></script>
-<script th:src="@{/expert/vendors/chart/chart.min.js}"></script>
-<script th:src="@{/expert/js/admin.js}"></script>
-<script th:src="@{/expert/vendors/switcher/switcher.js}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 
 </body>

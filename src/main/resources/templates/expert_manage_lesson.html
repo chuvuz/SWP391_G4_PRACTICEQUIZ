@@ -303,16 +303,18 @@
                     </button>
                     <div style="display: flex">
 
-                    <!--   Them thanh search lesson-->
+                        <!--   Them thanh search lesson-->
 
-                    <div>
-                        <input  type="text" id="searchInput" placeholder="Search for lessons..." class="form-control"
-                                                                style="margin-bottom: 20px;width: 300px">
-                    </div>
+                        <div>
+                            <input type="text" id="searchInput" placeholder="Search for lessons..." class="form-control"
+                                   style="margin-bottom: 20px;width: 300px">
+                        </div>
                         <label for="subjectSelect"></label>
-                        <select id="subjectSelectSearch" style="width: 200px" name="subjectId" class="form-control" required>
+                        <select id="subjectSelectSearch" style="width: 200px" name="subjectId" class="form-control"
+                                required>
                             <option value="">Select Subject</option>
-                            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"></option>
+                            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
+                                    th:text="${subject.subjectName}"></option>
                         </select>
 
                     </div>
@@ -330,8 +332,9 @@
                     <tr th:each="lesson : ${lessons}">
                         <td th:text="${lesson.lessonId}"></td>
                         <td th:text="${lesson.lessonName}"></td>
-<!--                        <td th:text="${lesson.subject.subjectName}"></td>-->
-                        <td th:text="${lesson.subject.subjectName}" th:data-subject-id="${lesson.subject.subjectId}"></td>
+                        <!--                        <td th:text="${lesson.subject.subjectName}"></td>-->
+                        <td th:text="${lesson.subject.subjectName}"
+                            th:data-subject-id="${lesson.subject.subjectId}"></td>
 
                     </tr>
                     </tbody>
