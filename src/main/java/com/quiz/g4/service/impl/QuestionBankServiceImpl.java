@@ -14,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionBankServiceImpl implements QuestionBankService {
@@ -39,6 +41,21 @@ public class QuestionBankServiceImpl implements QuestionBankService {
         return answerOptionRepository.findById(selectedOptionId)
                 .map(option -> option.getQuestionBank().getQuestionId().equals(questionId) && option.getIsCorrect())
                 .orElse(false);
+    }
+
+    @Override
+    public List<QuestionBank> getQuestionsBySubjectId(Subject subjectId) {
+        return questionBankRepository.findBySubject_Id(subjectId);
+    }
+
+    @Override
+    public List<QuestionBank> getAllQuestions() {
+        return questionBankRepository.findAll();
+    }
+
+    @Override
+    public List<QuestionBank> getQuestionsByIds(List<Integer> selectedQuestions) {
+        return questionBankRepository.findAllById(selectedQuestions);
     }
 
     @Override

@@ -26,5 +26,6 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
 
     @Query("SELECT s FROM Subject s WHERE s.subjectName LIKE %:subjectName%")
     Page<Subject> searchSubjectAll(@Param("subjectName") String subjectName, Pageable pageable);
+
     Subject findBySubjectId(Integer subjectId);
 }
