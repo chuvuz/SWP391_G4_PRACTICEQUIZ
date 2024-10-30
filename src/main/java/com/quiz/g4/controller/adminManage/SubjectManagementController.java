@@ -9,15 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,6 +24,7 @@ import java.nio.file.Paths;
 import java.security.Principal;
 
 @Controller
+@RequestMapping("/admin")
 public class SubjectManagementController {
 
     @Autowired
@@ -68,15 +67,15 @@ public class SubjectManagementController {
     }
 
 
-    @PostMapping("/create-subject")
+    @PostMapping("/admin/create-subject")
     public String createSubject(@RequestParam("subjectName") String subjectName,
                                 @RequestParam("isActive") boolean isActive,
-                                @RequestParam("imageUrl") String imageUrl,  // Nhận URL ảnh từ form
+                                @RequestParam("imageUrl") String imageUrl, RedirectAttributes redirectAttributes,// Nhận URL ảnh từ form
                                 Model model, Principal principal) {
         // Kiểm tra nếu URL ảnh trống
         if (imageUrl == null || imageUrl.isEmpty()) {
             model.addAttribute("error", "Image URL is required.");
-            return "redirect:/manage-subject";
+            return "redirect:/admin/manage-subject";
         }
 
         // Kiểm tra người dùng
@@ -87,11 +86,11 @@ public class SubjectManagementController {
 
         // Tạo môn học mới với URL ảnh
         subjectService.createSubjectWithImageUrl(subjectName, isActive, imageUrl);
-        return "redirect:/manage-subject";
+        return "redirect:/admin/manage-subject";
     }
 
 
-    @GetMapping("/edit-subject/{subjectId}")
+    @GetMapping("/manage-subject/edit-subject/{subjectId}")
     public String editSubjectForm(Model model, @PathVariable Integer subjectId, Principal principal) {
         // Kiểm tra xem người dùng có đăng nhập hay không
         if (principal != null) {
@@ -106,7 +105,7 @@ public class SubjectManagementController {
         return "admin/edit-subject";
     }
 
-    @PostMapping("/edit-subject")
+    @PostMapping("/manage-subject/edit-subject")
     public String updateSubject(@RequestParam("subjectId") int id,
                                 @RequestParam("subjectName") String subjectName,
                                 @RequestParam("isActive") boolean isActive,
@@ -114,7 +113,7 @@ public class SubjectManagementController {
     ) {
         // Nếu không có URL ảnh mới, giữ nguyên URL ảnh cũ
         subjectService.updateSubjectWithImageUrl(id, subjectName, isActive, imageUrl);
-        return "redirect:/manage-subject";
+        return "redirect:/admin/manage-subject";
     }
 
 

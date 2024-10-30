@@ -114,6 +114,9 @@ public class QuestionController {
         }
         boolean correct = false;
         for (int i = 0; i < answerIsCorrect.size(); i++){
+            System.out.println(answerIsCorrect.get(i).toString());
+        }
+        for (int i = 0; i < answerIsCorrect.size(); i++){
             if(answerIsCorrect.get(i) == true){
                 correct = true;
                 break;
@@ -151,19 +154,13 @@ public class QuestionController {
         questionBank.setSubject(subjectService.findById(subject));
         questionBank.setLesson(lessonService.getLessonById(lesson));
         questionBankService.save(questionBank);
-
-
         // Tạo AnswerOption từ form
         Set<AnswerOption> answerOptions = new HashSet<>();
         for (int i = 0; i < answerContent.size(); i++) {
             AnswerOption option = new AnswerOption();
             option.setQuestionBank(questionBank);
             option.setContent(answerContent.get(i));
-            if(answerIsCorrect.get(i) != null){
-                option.setIsCorrect(true);
-            }else{
-                option.setIsCorrect(true);
-            }// Xác định đáp án đúng
+            option.setIsCorrect(answerIsCorrect.get(i));
             answerOptionService.save(option);
         }
 

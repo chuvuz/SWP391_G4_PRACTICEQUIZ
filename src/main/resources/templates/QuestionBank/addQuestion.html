@@ -355,7 +355,6 @@
 <main class="ttr-wrapper">
     <div class="container-fluid">
         <div class="db-breadcrumb">
-            <h4 class="breadcrumb-title">Question</h4>
             <ul class="db-breadcrumb-list">
                 <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
                 <li>Create New Question</li>
@@ -414,7 +413,7 @@
                             <label for="answer1Content">Answer 1:</label>
                             <input type="text" id="answer1Content" name="answerContent" required>
                             <label for="isCorrect1">Is Correct:</label>
-                            <input type="checkbox" id="isCorrect1" name="answerIsCorrect" value="true">
+                            <input type="checkbox" id="isCorrect1" name="answerIsCorrect">
                             <button type="button" onclick="removeAnswer(1)">Remove</button>
                             <br><br>
                         </div>
@@ -485,7 +484,6 @@
             <label for="answerContent">Answer:</label>
             <input type="number" id="answerContent" name="answerContent" required>
             <label for="isCorrect">Is Correct:</label>
-            <input type="hidden" name="answerIsCorrect" value="true"> <!-- This will always be sent -->
             <input type="checkbox" id="isCorrect" name="answerIsCorrect" value="true" checked disabled>
             <br><br>
         `;
@@ -509,7 +507,7 @@
         <input type="text" id="answer${count}Content" name="answerContent" required>
         <input type="hidden" name="answerIsCorrect" value="false"> <!-- Hidden input -->
         <label for="isCorrect${count}">Is Correct:</label>
-        <input type="checkbox" id="isCorrect${count}" name="answerIsCorrect" value="true">
+        <input type="checkbox" id="isCorrect${count}" name="answerIsCorrect">
         <button type="button" onclick="removeAnswer(${count})">Remove</button>
         <br><br>
     `;

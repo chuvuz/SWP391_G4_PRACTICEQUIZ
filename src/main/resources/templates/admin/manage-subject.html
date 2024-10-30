@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<!-- Mirrored from educhamp.themetrades.com/demo/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:08:15 GMT -->
 <head>
+
   <!-- META ============================================= -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="keywords" content="" />
-  <meta name="author" content="" />
-  <meta name="robots" content="" />
+  <meta name="keywords" content=""/>
+  <meta name="author" content=""/>
+  <meta name="robots" content=""/>
 
   <!-- DESCRIPTION -->
-  <meta name="description" content="EduChamp : Education HTML Template" />
+  <meta name="description" content="EduChamp : Education HTML Template"/>
 
   <!-- OG -->
-  <meta property="og:title" content="EduChamp : Education HTML Template" />
-  <meta property="og:description" content="EduChamp : Education HTML Template" />
-  <meta property="og:image" content="" />
+  <meta property="og:title" content="EduChamp : Education HTML Template"/>
+  <meta property="og:description" content="EduChamp : Education HTML Template"/>
+  <meta property="og:image" content=""/>
   <meta name="format-detection" content="telephone=no">
 
   <!-- FAVICONS ICON ============================================= -->
-  <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
-  <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+  <link th:href="@{/admin/error-404.html}" rel="icon" type="image/x-icon"/>
+  <link th:href="@{/admin/images/favicon.png}" rel="shortcut icon" type="image/x-icon"/>
 
   <!-- PAGE TITLE HERE ============================================= -->
   <title>EduChamp : Education HTML Template</title>
@@ -28,80 +31,367 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!--[if lt IE 9]>
-  <script th:src="@{/js/html5shiv.min.js}"></script>
-  <script th:src="@{/js/respond.min.js}"></script>
+  <script th:src="@{/assets/js/html5shiv.min.js}"></script>
+  <script th:src="@{/assets/js/respond.min.js}"></script>
   <![endif]-->
 
   <!-- All PLUGINS CSS ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/assets.css}" />
+  <link th:href="@{/admin/css/assets.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/admin/vendors/calendar/fullcalendar.css}" rel="stylesheet" type="text/css">
 
   <!-- TYPOGRAPHY ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/typography.css}" />
+  <link th:href="@{/admin/css/typography.css}" rel="stylesheet" type="text/css">
 
   <!-- SHORTCODES ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+  <link th:href="@{/admin/css/shortcodes/shortcodes.css}" rel="stylesheet" type="text/css">
 
   <!-- STYLESHEETS ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
-  <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
-
+  <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/admin/css/dashboard.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/admin/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script th:src="@{/js/filterUsers.js}"></script>
+  <script th:src="@{/js/filterUsersByRole.js}"></script>
   <style>
-    /* Đảm bảo modal hiển thị giữa trang */
-    .modal {
-      display: none; /* Mặc định là ẩn */
-      justify-content: center; /* Canh giữa theo chiều ngang */
-      align-items: center;     /* Canh giữa theo chiều dọc */
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;           /* Chiều cao toàn bộ trang */
-      background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ phía sau modal */
-      z-index: 1050; /* Đảm bảo modal nằm trên các thành phần khác */
-    }
-
-    .modal-dialog {
-      max-width: 500px;
-      width: 100%;
-      background-color: white;
-      border-radius: 5px;
-      padding: 20px;
-    }
-
-    .modal-header {
+    .pagination {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      margin-top: 20px;
     }
 
-    .close {
+    .pagination a {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      margin: 0 5px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .pagination a:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    .pagination a:active {
+      background-color: #003d80;
+      transform: scale(1);
+    }
+
+    .pagination span {
+      margin: 0 10px;
+      font-size: 16px;
+    }
+    .btn-primary {
+      padding: 10px 20px;
+      background-color: #800080;
+      color: white;
+      border: none;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #301934;
+      transform: scale(1.05);
+    }
+
+    .btn-primary:active {
+      background-color: #301934;
+      transform: scale(1);
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+      width: fit-content;
+    }
+
+    .form-field label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-field input,
+    .form-field select {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
     }
   </style>
 </head>
-<body>
-<div th:replace="header :: header"></div>
-<div class="page-content bg-white">
-  <!-- inner page banner -->
-  <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
-    <div class="container">
-      <div class="page-banner-entry">
-        <h1 class="text-white">Subject List</h1>
+<body class="ttr-opened-sidebar ttr-pinned-sidebar">
+
+<!-- header start -->
+<header class="ttr-header">
+  <div class="ttr-header-wrapper">
+    <!--sidebar menu toggler start -->
+    <div class="ttr-toggle-sidebar ttr-material-button">
+      <i class="ti-close ttr-open-icon"></i>
+      <i class="ti-menu ttr-close-icon"></i>
+    </div>
+    <!--sidebar menu toggler end -->
+    <!--logo start -->
+    <div class="ttr-logo-box">
+      <div>
+        <a href="index.html" class="ttr-logo">
+          <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
+          <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
+        </a>
       </div>
     </div>
-  </div>
-
-  <!-- Breadcrumb row -->
-  <div class="breadcrumb-row">
-    <div class="container">
-      <ul class="list-inline">
-        <li><a href="admin/dashboard">Admin Dashboard</a></li>
-        <li>Subject List</li>
+    <!--logo end -->
+    <div class="ttr-header-menu">
+      <!-- header left menu start -->
+      <ul class="ttr-header-navigation">
+        <li>
+          <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
+        </li>
+        <li>
+          <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
+                  class="fa fa-angle-down"></i></a>
+          <div class="ttr-header-submenu">
+            <ul>
+              <li><a href="../courses.html">Our Courses</a></li>
+              <li><a href="../event.html">New Event</a></li>
+              <li><a href="../membership.html">Membership</a></li>
+            </ul>
+          </div>
+        </li>
       </ul>
+      <!-- header left menu end -->
     </div>
+    <div class="ttr-header-right ttr-with-seperator">
+      <!-- header right menu start -->
+      <ul class="ttr-header-navigation">
+        <li>
+          <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
+        </li>
+        <li>
+          <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
+          <div class="ttr-header-submenu noti-menu">
+            <div class="ttr-notify-header">
+              <span class="ttr-notify-text-top">9 New</span>
+              <span class="ttr-notify-text">User Notifications</span>
+            </div>
+            <div class="noti-box-list">
+              <ul>
+                <li>
+										<span class="notification-icon dashbg-gray">
+											<i class="fa fa-check"></i>
+										</span>
+                  <span class="notification-text">
+											<span>Sneha Jogi</span> sent you a message.
+										</span>
+                  <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 02:14</span>
+										</span>
+                </li>
+                <li>
+										<span class="notification-icon dashbg-yellow">
+											<i class="fa fa-shopping-cart"></i>
+										</span>
+                  <span class="notification-text">
+											<a href="#">Your order is placed</a> sent you a message.
+										</span>
+                  <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 7 Min</span>
+										</span>
+                </li>
+                <li>
+										<span class="notification-icon dashbg-red">
+											<i class="fa fa-bullhorn"></i>
+										</span>
+                  <span class="notification-text">
+											<span>Your item is shipped</span> sent you a message.
+										</span>
+                  <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 2 May</span>
+										</span>
+                </li>
+                <li>
+										<span class="notification-icon dashbg-green">
+											<i class="fa fa-comments-o"></i>
+										</span>
+                  <span class="notification-text">
+											<a href="#">Sneha Jogi</a> sent you a message.
+										</span>
+                  <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 14 July</span>
+										</span>
+                </li>
+                <li>
+										<span class="notification-icon dashbg-primary">
+											<i class="fa fa-file-word-o"></i>
+										</span>
+                  <span class="notification-text">
+											<span>Sneha Jogi</span> sent you a message.
+										</span>
+                  <span class="notification-time">
+											<a href="#" class="fa fa-close"></a>
+											<span> 15 Min</span>
+										</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
+                                                                                                        src="assets/images/testimonials/pic3.jpg"
+                                                                                                        width="32"
+                                                                                                        height="32"></span></a>
+          <div class="ttr-header-submenu">
+            <ul>
+              <li><a th:href="@{/profile}">My profile</a></li>
+              <li><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="ttr-hide-on-mobile">
+          <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
+          <div class="ttr-header-submenu ttr-extra-menu">
+            <a href="#">
+              <i class="fa fa-music"></i>
+              <span>Musics</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-youtube-play"></i>
+              <span>Videos</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-envelope"></i>
+              <span>Emails</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-book"></i>
+              <span>Reports</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-smile-o"></i>
+              <span>Persons</span>
+            </a>
+            <a href="#">
+              <i class="fa fa-picture-o"></i>
+              <span>Pictures</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <!-- header right menu end -->
+    </div>
+    <!--header search panel start -->
+    <div class="ttr-search-bar">
+      <form class="ttr-search-form">
+        <div class="ttr-search-input-wrapper">
+          <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
+          <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
+          </button>
+        </div>
+        <span class="ttr-search-close ttr-search-toggle">
+						<i class="ti-close"></i>
+					</span>
+      </form>
+    </div>
+    <!--header search panel end -->
   </div>
-  <!-- Search Form -->
-  <form th:action="@{/manage-subject}" method="get" class="form-inline mb-3">
+</header>
+<!-- header end -->
+
+
+<!--        <form th:action="@{/admin/users}" method="get">-->
+<!--            <label for="role">Filter by role:</label>-->
+<!--            <select name="role" id="role">-->
+<!--                <option value="">All</option>-->
+<!--                <option value="customer">Customer</option>-->
+<!--                <option value="marketing">Marketing</option>-->
+<!--                <option value="expert">Expert</option>-->
+<!--                <option value="admin">Admin</option>-->
+<!--            </select>-->
+<!--            <button type="submit">Filter</button>-->
+<!--        </form>-->
+<div class="ttr-sidebar">
+  <div class="ttr-sidebar-wrapper content-scroll">
+    <!-- side menu logo start -->
+    <div class="ttr-sidebar-logo">
+      <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
+      <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
+          <i class="material-icons ttr-fixed-icon">gps_fixed</i>
+          <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
+      </div> -->
+      <div class="ttr-sidebar-toggle-button">
+        <i class="ti-arrow-left"></i>
+      </div>
+    </div>
+    <!-- side menu logo end -->
+    <!-- sidebar menu start -->
+    <nav class="ttr-sidebar-navi">
+      <ul>
+        <li>
+          <a class="ttr-material-button"
+             th:href="@{/admin/dashboard}">
+            <span class="ttr-icon"><i class="ti-home"></i></span>
+            <span class="ttr-label">Dashboard</span></a>
+        </li>
+        <li>
+          <a class="ttr-material-button"
+             th:href="@{/profile}">
+            <span class="ttr-icon"><i class="ti-user"></i></span>
+            <span class="ttr-label">Profile</span></a>
+        </li>
+        <li>
+          <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
+          <a class="ttr-material-button"
+             th:href="@{/profile/edit}">
+            <span class="ttr-icon"><i class="ti-eraser"></i></span>
+            <span class="ttr-label">Edit Profile</span></a>
+        </li>
+        <li>
+          <a class="ttr-material-button"
+             th:href="@{/admin/users}">
+            <span class="ttr-icon"><i class="ti-view-list"></i></span>
+            <span class="ttr-label">View User List</span></a>
+        </li>
+        <li>
+          <a class="ttr-material-button"
+             th:href="@{/admin/users/create}">
+            <span class="ttr-icon"><i class="ti-new-window"></i></span>
+            <span class="ttr-label">Create New User</span></a>
+        </li>
+        <li>
+          <a class="ttr-material-button"
+             th:href="@{/profile/change-password}">
+            <span class="ttr-icon"><i class="ti-pencil"></i></span>
+            <span class="ttr-label">Change Password</span></a>
+        </li>
+        <li><a class="ttr-material-button"
+               th:href="@{/admin/manage-subject}">
+          <span class="ttr-icon"><i class="ti-pencil"></i></span>
+          <span class="ttr-label">Subject Management</span></a>
+        </li>
+        <li class="ttr-separate"></li>
+      </ul>
+      <!-- sidebar menu end -->
+    </nav>
+    <!-- sidebar menu end -->
+  </div>
+</div>
+<main class="ttr-wrapper">
+
+  <form th:action="@{/admin/manage-subject}" method="get" class="form-inline mb-3">
     <div class="form-group">
       <div class="input-group">
         <label>Search Courses</label>
@@ -135,7 +425,7 @@
       </td>
       <td><img th:src="${subject.subjectImage}" alt="Subject Image" style="width: 50px; height: 50px;"></td>
       <td>
-        <a th:href="@{/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-warning btn-sm">Edit</a>
+        <a th:href="@{/admin/manage-subject/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-warning btn-sm">Edit</a>
       </td>
     </tr>
     </tbody>
@@ -147,7 +437,7 @@
       <ul class="pagination">
         <!-- Previous Page Link -->
         <li th:classappend="${subjectsPage.hasPrevious()} ? 'previous' : 'previous disabled'">
-          <a th:href="@{/manage-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size})}">
+          <a th:href="@{/admin/manage-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size})}">
             <i class="ti-arrow-left"></i> Prev
           </a>
         </li>
@@ -155,13 +445,13 @@
         <!-- Page Numbers -->
         <li th:each="pageNum : ${#numbers.sequence(0, subjectsPage.totalPages - 1)}"
             th:classappend="${pageNum == subjectsPage.number} ? 'active'">
-          <a th:href="@{/manage-subject(page=${pageNum}, size=${subjectsPage.size})}"
+          <a th:href="@{/admin/manage-subject(page=${pageNum}, size=${subjectsPage.size})}"
              th:text="${pageNum + 1}"></a>
         </li>
 
         <!-- Next Page Link -->
         <li th:classappend="${subjectsPage.hasNext()} ? 'next' : 'next disabled'">
-          <a th:href="@{/manage-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size})}">
+          <a th:href="@{/admin/manage-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size})}">
             Next <i class="ti-arrow-right"></i>
           </a>
         </li>
@@ -170,7 +460,7 @@
   </div>
 
   <!-- Create Modal -->
-  <div id="createModal" class="modal">
+  <div id="createModal" class="modal" style="display:none;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -178,7 +468,7 @@
           <span class="close" onclick="closeModal('createModal')">&times;</span>
         </div>
         <div class="modal-body">
-          <form th:action="@{/create-subject}" method="post" enctype="multipart/form-data">
+          <form th:action="@{/admin/create-subject}" method="post" enctype="multipart/form-data">
             <div class="form-group">
               <label for="createName">Subject Name:</label>
               <input type="text" id="createName" name="subjectName" class="form-control" required>
@@ -201,54 +491,126 @@
     </div>
   </div>
 
-  <div th:replace="footer :: footer"></div>
-</div>
-
-<!-- External JavaScripts -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
-<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
-<script th:src="@{/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
-<script th:src="@{/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
-<script th:src="@{/vendors/magnific-popup/magnific-popup.js}"></script>
-<script th:src="@{/vendors/counter/waypoints-min.js}"></script>
-<script th:src="@{/vendors/counter/counterup.min.js}"></script>
-<script th:src="@{/vendors/imagesloaded/imagesloaded.js}"></script>
-<script th:src="@{/vendors/masonry/masonry.js}"></script>
-<script th:src="@{/vendors/masonry/filter.js}"></script>
-<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
-<script th:src="@{/js/functions.js}"></script>
-<script th:src="@{/js/contact.js}"></script>
-<script th:src="@{/vendors/switcher/switcher.js}"></script>
-
-<!-- Revolution JavaScripts Files -->
-<script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
-
-<script>
-  function openModal(modalId) {
-    document.getElementById(modalId).style.display = "flex"; // Hiển thị modal
-  }
-
-  function closeModal(modalId) {
-    document.getElementById(modalId).style.display = "none"; // Ẩn modal
-  }
-
-  // Đóng modal nếu người dùng nhấn bên ngoài modal
-  window.onclick = function(event) {
-    if (event.target.classList.contains('modal')) {
-      closeModal('createModal');
+  <!-- Script to Open and Close Modal -->
+  <script>
+    function openModal(modalId) {
+      document.getElementById(modalId).style.display = "block";
     }
-  }
-</script>
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = "none";
+    }
+
+    // Close the modal if the user clicks outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById("createModal");
+      if (event.target === modal) {
+        closeModal('createModal');
+      }
+    }
+  </script>
+</main>
+
+
+
+
+<script th:src="@{/js/jquery.min.js}"></script>
+  <script th:src="@{/admin/vendors/bootstrap/js/popper.min.js}"></script>
+  <script th:src="@{/admin/vendors/bootstrap/js/bootstrap.min.js}"></script>
+  <script th:src="@{/admin/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+  <script th:src="@{/admin/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+  <script th:src="@{/admin/vendors/magnific-popup/magnific-popup.js}"></script>
+  <script th:src="@{/admin/vendors/counter/waypoints-min.js}"></script>
+  <script th:src="@{/admin/vendors/counter/counterup.min.js}"></script>
+  <script th:src="@{/admin/vendors/imagesloaded/imagesloaded.js}"></script>
+  <script th:src="@{/admin/vendors/masonry/masonry.js}"></script>
+  <script th:src="@{/admin/vendors/masonry/filter.js}"></script>
+  <script th:src="@{/admin/vendors/owl-carousel/owl.carousel.js}"></script>
+  <script th:src="@{/admin/vendors/scroll/scrollbar.min.js}"></script>
+  <script th:src="@{/admin/js/functions.js}"></script>
+  <script th:src="@{/admin/vendors/chart/chart.min.js}"></script>
+  <script th:src="@{/admin/js/admin.js}"></script>
+  <script th:src="@{/admin/vendors/calendar/moment.min.js}"></script>
+  <script th:src="@{/admin/vendors/calendar/fullcalendar.js}"></script>
+  <script th:src="@{/admin/vendors/switcher/switcher.js}"></script>
+
+  <script>
+    $(document).ready(function () {
+
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay,listWeek'
+        },
+        defaultDate: '2019-03-12',
+        navLinks: true, // can click day/week names to navigate views
+
+        weekNumbers: true,
+        weekNumbersWithinDays: true,
+        weekNumberCalculation: 'ISO',
+
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: [
+          {
+            title: 'All Day Event',
+            start: '2019-03-01'
+          },
+          {
+            title: 'Long Event',
+            start: '2019-03-07',
+            end: '2019-03-10'
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: '2019-03-09T16:00:00'
+          },
+          {
+            id: 999,
+            title: 'Repeating Event',
+            start: '2019-03-16T16:00:00'
+          },
+          {
+            title: 'Conference',
+            start: '2019-03-11',
+            end: '2019-03-13'
+          },
+          {
+            title: 'Meeting',
+            start: '2019-03-12T10:30:00',
+            end: '2019-03-12T12:30:00'
+          },
+          {
+            title: 'Lunch',
+            start: '2019-03-12T12:00:00'
+          },
+          {
+            title: 'Meeting',
+            start: '2019-03-12T14:30:00'
+          },
+          {
+            title: 'Happy Hour',
+            start: '2019-03-12T17:30:00'
+          },
+          {
+            title: 'Dinner',
+            start: '2019-03-12T20:00:00'
+          },
+          {
+            title: 'Birthday Party',
+            start: '2019-03-13T07:00:00'
+          },
+          {
+            title: 'Click for Google',
+            url: 'http://google.com/',
+            start: '2019-03-28'
+          }
+        ]
+      });
+
+    });
+  </script>
 </body>
 </html>

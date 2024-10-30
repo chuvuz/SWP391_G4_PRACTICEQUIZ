@@ -269,5 +269,28 @@ public class UserServiceImpl implements UserService {
         user.setProfileImage(profileImage);
         userRepository.save(user);
     }
+    //Feature for marketing role
+    @Override
+    public Page<User> findUsersByRole(String roleName, Pageable pageable) {
+        return userRepository.findByRoleRoleName(roleName, pageable);
+    }
+
+//    @Override
+//    public User toggleUserStatus(Integer userId) {
+//        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//        user.setIsActive(!user.getIsActive());
+//        userRepository.save(user);
+//    }
+
+    @Override
+    public long countUsersByRole(String roleName) {
+        return userRepository.countByRoleRoleName(roleName);
+    }
+
+    @Override
+    public long countUsersByRoleAndStatus(String roleName, boolean isActive) {
+        return userRepository.countByRoleRoleNameAndIsActive(roleName, isActive);
+
+    }
 }
 

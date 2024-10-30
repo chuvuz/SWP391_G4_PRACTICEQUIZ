@@ -50,5 +50,10 @@ public interface UserService extends UserDetailsService {
     long countInactiveUsers();
 //    List<Role> findRolesForUserCreation();
     void updateProfilePicture(String email, String profileImage);
+    //for marketing
+    Page<User> findUsersByRole(String roleName, Pageable pageable);
+//    User toggleUserStatus(Integer userId);
+    long countUsersByRole(String roleName);
+    long countUsersByRoleAndStatus(String roleName, boolean isActive);
 }
 

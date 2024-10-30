@@ -38,7 +38,7 @@ public class LoginRedirectHandler implements AuthenticationSuccessHandler {
             // Kiểm tra subject_id và điều hướng tới trang phù hợp
             response.sendRedirect("/expert/expert_dashboard");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MARKETING"))) {
-            response.sendRedirect("/home");
+            response.sendRedirect("/marketing/dashboard");
         } else if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CUSTOMER"))) {
             response.sendRedirect("/home");
         } else {

@@ -167,7 +167,7 @@
             </ul>
             <!-- header left menu end -->
         </div>
-        <div class="ttr-header-right ttr-with-seperator">
+        <div class="ttr-header-right ttr-with-separator">
             <!-- header right menu start -->
             <ul class="ttr-header-navigation">
                 <li>
@@ -254,6 +254,7 @@
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a th:href="@{/profile}">My profile</a></li>
+                            <li><a th:href="@{/profile/change-password}">Change Password</a></li>
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>
                     </div>
@@ -307,6 +308,7 @@
     </div>
 </header>
 <!-- header end -->
+<!-- Left sidebar menu start -->
 <div class="ttr-sidebar">
     <div class="ttr-sidebar-wrapper content-scroll">
         <!-- side menu logo start -->
@@ -330,19 +332,19 @@
                         <span class="ttr-icon"><i class="ti-home"></i></span>
                         <span class="ttr-label">Dashboard</span></a>
                 </li>
-                <li>
-                    <a class="ttr-material-button"
-                       th:href="@{/profile}">
-                        <span class="ttr-icon"><i class="ti-user"></i></span>
-                        <span class="ttr-label">Profile</span></a>
-                </li>
-                <li>
-                    <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
-                    <a class="ttr-material-button"
-                       th:href="@{/profile/edit}">
-                        <span class="ttr-icon"><i class="ti-eraser"></i></span>
-                        <span class="ttr-label">Edit Profile</span></a>
-                </li>
+                <!--                <li>-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/profile}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-user"></i></span>-->
+                <!--                        <span class="ttr-label">Profile</span></a>-->
+                <!--                </li>-->
+                <!--                <li>-->
+                <!--                    &lt;!&ndash;                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>&ndash;&gt;-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/profile/edit}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-eraser"></i></span>-->
+                <!--                        <span class="ttr-label">Edit Profile</span></a>-->
+                <!--                </li>-->
                 <li>
                     <a class="ttr-material-button"
                        th:href="@{/admin/users}">
@@ -355,14 +357,14 @@
                         <span class="ttr-icon"><i class="ti-new-window"></i></span>
                         <span class="ttr-label">Create New User</span></a>
                 </li>
-                <li>
-                    <a class="ttr-material-button"
-                       th:href="@{/profile/change-password}">
-                        <span class="ttr-icon"><i class="ti-pencil"></i></span>
-                        <span class="ttr-label">Change Password</span></a>
-                </li>
+                <!--                <li>-->
+                <!--                    <a class="ttr-material-button"-->
+                <!--                       th:href="@{/profile/change-password}">-->
+                <!--                        <span class="ttr-icon"><i class="ti-pencil"></i></span>-->
+                <!--                        <span class="ttr-label">Change Password</span></a>-->
+                <!--                </li>-->
                 <li><a class="ttr-material-button"
-                       th:href="@{/manage-subject}">
+                       th:href="@{/admin/manage-subject}">
                     <span class="ttr-icon"><i class="ti-pencil"></i></span>
                     <span class="ttr-label">Subject Management</span></a>
                 </li>
@@ -373,7 +375,6 @@
         <!-- sidebar menu end -->
     </div>
 </div>
-
 <main class="ttr-wrapper">
     <h1>Create New User</h1>
     <form th:action="@{/admin/users/create}" th:object="${user}" method="post" onsubmit="return validateForm()">
