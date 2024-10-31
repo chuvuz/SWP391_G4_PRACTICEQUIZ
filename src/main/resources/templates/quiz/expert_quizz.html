@@ -333,6 +333,38 @@
                                     <h4 th:text="${quiz.quizName}"></h4>
                                 </div>
                                 <!-- Rest of the card content -->
+                                <div class="card-courses-list-bx">
+                                    <ul class="card-courses-view">
+                                        <li class="card-courses-user">
+                                            <div class="card-courses-user-pic">
+                                                <img src="/images/courses/pic1.jpg" alt=""/>
+                                                <!--                                                <img th:src="${quiz.createdBy.profileImage}" alt=""/>-->
+                                            </div>
+                                            <div class="card-courses-user-info">
+                                                <h5>Teacher</h5>
+                                                <h6 th:text="${quiz.createdBy.fullName}"></h6>
+                                            </div>
+                                        </li>
+                                        <li class="card-courses-categories">
+                                            <h5>Lessons</h5>
+                                            <h6 th:text="${quiz.lesson.lessonName}"></h6>
+                                        </li>
+                                        <li class="card-courses-price">
+                                            <h5>Create Date</h5>
+                                            <h6 class="text-primary" th:text="${quiz.createdDate}"></h6>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="row card-courses-dec">
+                                    <div class="col-md-12">
+                                        <h6 class="m-b10">Course Description</h6>
+                                        <p th:text="${quiz.description}"></p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <a href="#" class="btn green radius-xl outline">Views question</a>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
