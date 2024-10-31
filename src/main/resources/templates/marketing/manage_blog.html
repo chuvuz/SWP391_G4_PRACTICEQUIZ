@@ -279,6 +279,9 @@
 </div>
 <main class="ttr-wrapper">
     <h1>User List</h1>
+    <!-- Button Create -->
+    <button class="btn btn-success" onclick="openCreateModal()">Create</button>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -409,7 +412,6 @@
     </div>
 
     <!-- Confirm Delete Modal -->
-    <!-- Confirm Delete Modal -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -434,6 +436,43 @@
 
 
 
+    <!-- Create Blog Modal -->
+    <div class="modal fade" id="createBlogModal" tabindex="-1" aria-labelledby="createBlogModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="createBlogModalLabel">Create New Blog</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{/marketing/manage/create-blog}" method="post">
+                    <div class="modal-body">
+                        <div class="container">
+                            <!-- Title Input -->
+                            <div class="row mb-3">
+                                <label for="createBlogTitle" class="col-form-label col-3 fw-bold">Title:</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="createBlogTitle" name="title" required>
+                                </div>
+                            </div>
+
+                            <!-- Content Input -->
+                            <div class="row mb-3">
+                                <label for="createBlogContent" class="col-form-label col-3 fw-bold">Content:</label>
+                                <div class="col">
+                                    <textarea class="form-control" id="createBlogContent" name="content" rows="4" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" th:value="${user.userId}" name="userId">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -483,6 +522,11 @@
 
         const confirmModal = new bootstrap.Modal(document.getElementById('confirmDeleteModal'));
         confirmModal.show(); // Hiển thị modal xác nhận
+    }
+
+    function openCreateModal() {
+        const createModal = new bootstrap.Modal(document.getElementById('createBlogModal'));
+        createModal.show();
     }
 
 </script>

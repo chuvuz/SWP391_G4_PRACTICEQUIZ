@@ -161,10 +161,32 @@ public class BlogController {
     @PostMapping("/marketing/manage/delete-blog")
     public String deleteBlog(@RequestParam("blogIdDelete") Integer blogId, RedirectAttributes redirectAttributes) {
 
-        System.out.println("aloo" +blogId);
-//          blogRepository.deleteById(blogId);
+
+          blogRepository.deleteById(blogId);
         // Chuyển hướng về trang danh sách blog sau khi xóa
         return "redirect:/marketing/manage/blog-list";
     }
 
+    @PostMapping("/marketing/manage/create-blog")
+    public String createBlog(
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("userId") Integer userId,
+            RedirectAttributes redirectAttributes) {
+
+        // Tạo đối tượng blog mới và lưu thông tin từ form
+        Blog newBlog = new Blog();
+        newBlog.setTitle(title);
+        newBlog.setContent(content);
+        newBlog.setCreatedBy(userRepository.getOne(userId)); // Lấy userId từ User service
+        newBlog.setCreatedDate(LocalDate.now());
+        // Lưu blog vào database (sử dụng blogService hoặc blogRepository)
+        blogRepository.save(newBlog);
+
+        // Thông báo thành công
+        redirectAttributes.addFlashAttribute("message", "Blog created successfully!");
+
+        // Redirect về trang quản lý blog
+        return "redirect:/marketing/manage/blog-list";
+    }
 }
