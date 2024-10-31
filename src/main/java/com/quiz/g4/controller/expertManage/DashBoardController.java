@@ -39,12 +39,12 @@ public class DashBoardController {
     private LessonRepository lessonRepository;
 
     @GetMapping("/expert/expert_dashboard")
-    public String getDoashboard(){
+    public String getDoashboard() {
 
         return "expert_dashboard";
     }
 
-//    @GetMapping("/expert/expert_quizz")
+    //    @GetMapping("/expert/expert_quizz")
 //    public String getExpertQuizz(Model model) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        User user = null;
@@ -62,42 +62,48 @@ public class DashBoardController {
 //        model.addAttribute("quizzes", quizzes);
 //        return "/quiz/expert_quizz";
 //    }
-@GetMapping("/expert/expert_quizz")
-public String getExpertQuizz(@RequestParam(defaultValue = "0") int page,
-                             @RequestParam(defaultValue = "10") int size,
-                             Model model) {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    User user = null;
+    @GetMapping("/expert/expert_quizz")
+    public String getExpertQuizz(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "10") int size,
+                                 Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = null;
 
-    if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
-        String email = authentication.getName();
-        user = userService.findByEmail(email);
-        model.addAttribute("user", user);
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            user = userService.findByEmail(email);
+            model.addAttribute("user", user);
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Quiz> quizzesPage = quizService.findQuizByAuthor(user.getUserId(), pageable);
-        model.addAttribute("quizzes", quizzesPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", quizzesPage.getTotalPages());
+            Pageable pageable = PageRequest.of(page, size);
+            Page<Quiz> quizzesPage = quizService.findQuizByAuthor(user.getUserId(), pageable);
+            model.addAttribute("quizzes", quizzesPage.getContent());
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", quizzesPage.getTotalPages());
 
-        return "/quiz/expert_quizz";
+            return "/quiz/expert_quizz";
+        }
+
+        // Handle case when user is null, if needed
+        return "redirect:/login"; // or any appropriate action
     }
-
-    // Handle case when user is null, if needed
-    return "redirect:/login"; // or any appropriate action
-}
 
 
     @GetMapping("/expert/expert_manage_question")
     public String getAllQuestionsPaged(@RequestParam(defaultValue = "0") int page,  // Default to first page
                                        @RequestParam(defaultValue = "15") int size,  // Default page size of 5
-                                       Model model){
+                                       @RequestParam(defaultValue = "", required = false) String subjectFilter,
+                                       Model model) {
         Pageable pageable = PageRequest.of(page, size);
         Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
         List<Subject> subjects = subjectService.getAllSubjects();
-        List<Lesson> lessons = lessonService.getAllLessons();
         model.addAttribute("subjects", subjects);
-        model.addAttribute("lessons", lessons);
+        model.addAttribute("selectedSubject", subjectFilter);
+        if (!subjectFilter.isEmpty()) {
+            List<Lesson> lessons = lessonService.getLessonsBySubjectId(subjectFilter);
+            model.addAttribute("lessons", lessons);
+            System.out.println(subjectFilter);
+            System.out.println(lessons.get(1).getLessonName());
+        }
         model.addAttribute("questionPage", questionPage);
 
         return "expert_manage_question";

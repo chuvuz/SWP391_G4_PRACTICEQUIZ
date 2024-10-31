@@ -20,4 +20,6 @@ public interface LessonService {
     List<Lesson> getAllLessons();
 
     Lesson getLessonById(Integer lessonId);
+
+    List<Lesson> getLessonsBySubjectId(String subjectName);
 }

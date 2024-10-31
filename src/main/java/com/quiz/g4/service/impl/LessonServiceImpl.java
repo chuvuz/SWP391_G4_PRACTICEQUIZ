@@ -2,7 +2,9 @@ package com.quiz.g4.service.impl;
 
 import com.quiz.g4.entity.Lesson;
 
+import com.quiz.g4.entity.Subject;
 import com.quiz.g4.repository.LessonRepository;
+import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ public class LessonServiceImpl implements LessonService {
 
     @Autowired
     private LessonRepository lessonRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
 //    @Override
 //    public Lesson getLessonWithQuestions(Integer lessonId) {
 //        return lessonRepository.findLessonWithQuestionsById(lessonId);
@@ -50,5 +54,11 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public List<Lesson> getAllLessons() {return lessonRepository.findAll();}
+
+    @Override
+    public List<Lesson> getLessonsBySubjectId(String subjectName) {
+        Subject subject = subjectRepository.findBySubjectName(subjectName);
+        return lessonRepository.findLessonsBySubject(subject);
+    }
 
 }
