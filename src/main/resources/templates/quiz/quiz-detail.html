@@ -19,16 +19,65 @@
     <!-- Custom Styles -->
     <style>
         body {
-            background-color: #f0f0f0; /* Light grey background */
-            color: #333; /* Dark text */
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .content-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .questions-nav {
+            width: 80px;
+            background: #fff;
+            border-radius: 5px;
+            padding: 15px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-list li {
+            margin-bottom: 10px;
+        }
+
+        .nav-button {
+            width: 100%;
+            padding: 8px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #333;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-button.active {
+            background: #333;
+            color: white;
         }
 
         .question-box {
-            background-color: #ffffff; /* White background for questions */
+            background-color: #ffffff;
             padding: 20px;
-            border: 1px solid #ddd; /* Light border for separation */
+            border: 1px solid #ddd;
             border-radius: 5px;
             margin-bottom: 20px;
+            scroll-margin-top: 20px;
         }
 
         .answer-options {
@@ -64,34 +113,32 @@
             cursor: pointer;
         }
 
-        .breadcrumb-row {
-            background-color: #333;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+        .questions-content {
+            flex: 1;
         }
 
-        .breadcrumb-row ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+            }
 
-        .breadcrumb-row li {
-            display: inline;
-            color: #fff;
-        }
+            .questions-nav {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
 
-        .breadcrumb-row li + li:before {
-            content: ">";
-            padding: 0 8px;
-            color: #fff;
-        }
+            .nav-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
 
-        .breadcrumb-row a {
-            color: #fff;
+            .nav-list li {
+                margin: 0;
+                width: calc(20% - 8px);
+            }
         }
-
     </style>
 </head>
 <body>
@@ -120,15 +167,32 @@
     <!-- Quiz Content -->
     <div class="content-block">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <h4>Questions</h4>
+            <div class="content-container">
+                <!-- Question Navigation -->
+                <div class="questions-nav">
+                    <ul class="nav-list">
+                        <li th:each="question, questionStat : ${quiz.questions}">
+                            <button
+                                    th:onclick="'scrollToQuestion(' + ${questionStat.count} + ')'"
+                                    th:text="${questionStat.count}"
+                                    th:class="${questionStat.first} ? 'nav-button active' : 'nav-button'">
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Questions Content -->
+                <div class="questions-content">
                     <form th:action="@{/quiz-submit}" method="post">
-                        <!-- Hidden input to pass quizId -->
                         <input type="hidden" name="quizId" th:value="${quiz.quizId}"/>
 
-                        <div th:each="question : ${quiz.questions}" class="question-box">
-                            <h5 th:text="${question.questionContent}">Question</h5>
+                        <div th:each="question, questionStat : ${quiz.questions}"
+                             class="question-box"
+                             th:id="'question-' + ${questionStat.count}">
+                            <h5>
+                                <span th:text="'Câu ' + ${questionStat.count} + ': '"></span>
+                                <span th:text="${question.questionContent}"></span>
+                            </h5>
                             <div class="answer-options">
                                 <div th:each="option : ${question.answerOptions}">
                                     <!-- Single-choice question -->
@@ -175,5 +239,36 @@
 <script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
 <script th:src="@{/js/functions.js}"></script>
+
+<!-- Navigation Script -->
+<script>
+    function scrollToQuestion(questionNumber) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.nav-button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Add active class to clicked button
+        document.querySelector(`.nav-list li:nth-child(${questionNumber}) .nav-button`).classList.add('active');
+
+        // Scroll to question
+        const questionElement = document.getElementById('question-' + questionNumber);
+        questionElement.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Update active question while scrolling
+    document.addEventListener('scroll', function() {
+        const questionBoxes = document.querySelectorAll('.question-box');
+        const buttons = document.querySelectorAll('.nav-button');
+
+        questionBoxes.forEach((box, index) => {
+            const rect = box.getBoundingClientRect();
+            if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+                buttons.forEach(btn => btn.classList.remove('active'));
+                buttons[index].classList.add('active');
+            }
+        });
+    });
+</script>
 </body>
 </html>

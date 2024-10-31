@@ -22,4 +22,6 @@ public interface LessonService {
     Lesson getLessonById(Integer lessonId);
 
     List<Lesson> getLessonsBySubjectId(String subjectName);
+
+   List<Lesson> getLessonsBySubjectId(Integer subjectId);
 }

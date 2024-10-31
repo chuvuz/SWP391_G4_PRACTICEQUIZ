@@ -6,32 +6,32 @@
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content=""/>
-    <meta name="author" content=""/>
-    <meta name="robots" content=""/>
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template"/>
+    <meta name="description" content="EduChamp : Education HTML Template" />
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template"/>
-    <meta property="og:description" content="EduChamp : Education HTML Template"/>
-    <meta property="og:image" content=""/>
+    <meta property="og:title" content="EduChamp : Education HTML Template" />
+    <meta property="og:description" content="EduChamp : Education HTML Template" />
+    <meta property="og:image" content="" />
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link th:href="@{/expert/error-404.html}" rel="icon" type="image/x-icon"/>
-    <link th:href="@{/expert/images/favicon.png}" rel="shortcut icon" type="image/x-icon"/>
+    <link rel="icon" href="../error-404.html" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{/expert/images/favicon.png}" />
 
     <!-- PAGE TITLE HERE ============================================= -->
-    <title>EduChamp : Education HTML Template </title>
+    <title>EduChamp : Education HTML Template</title>
 
     <!-- MOBILE SPECIFIC ============================================= -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--[if lt IE 9]>
-    <script th:src="@{/expert/assets/js/html5shiv.min.js}"></script>
-    <script th:src="@{/expert/assets/js/respond.min.js}"></script>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
     <![endif]-->
 
     <!-- All PLUGINS CSS ============================================= -->
@@ -47,9 +47,9 @@
     <!-- STYLESHEETS ============================================= -->
     <link th:href="@{/expert/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/dashboard.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/expert/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
-
+    <link class="skin" th:href="@{/expert/css/color/color-1.css}" rel="stylesheet" type="text/css">
 </head>
+
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
 <!-- header start -->
@@ -78,8 +78,7 @@
                     <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
-                            class="fa fa-angle-down"></i></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="../courses.html">Our Courses</a></li>
@@ -171,10 +170,7 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
-                                                                                                                  src="assets/images/testimonials/pic3.jpg"
-                                                                                                                  width="32"
-                                                                                                                  height="32"></span></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="user-profile.html">My profile</a></li>
@@ -221,8 +217,7 @@
             <form class="ttr-search-form">
                 <div class="ttr-search-input-wrapper">
                     <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
-                    </button>
+                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
                 </div>
                 <span class="ttr-search-close ttr-search-toggle">
 						<i class="ti-close"></i>
@@ -239,16 +234,11 @@
         <!-- side menu logo start -->
         <div class="ttr-sidebar-logo">
             <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-            <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-            </div> -->
             <div class="ttr-sidebar-toggle-button">
                 <i class="ti-arrow-left"></i>
             </div>
         </div>
-        <!-- side menu logo end -->
-        <!-- sidebar menu start -->
+
         <nav class="ttr-sidebar-navi">
             <ul>
                 <li>
@@ -270,11 +260,13 @@
                     </a>
                 </li>
                 <li>
+                <li>
                     <a th:href="@{/expert/expert_manage_lesson}" class="ttr-material-button">
                         <span class="ttr-icon"><i class="ti-book"></i></span>
                         <span class="ttr-label">Lesson Manage</span>
                     </a>
                 </li>
+                <li class="ttr-seperate"></li>
             </ul>
             <!-- sidebar menu end -->
         </nav>
@@ -287,182 +279,100 @@
 <main class="ttr-wrapper">
     <div class="container-fluid">
         <div class="db-breadcrumb">
-            <h4 class="breadcrumb-title">Lesson</h4>
+
             <ul class="db-breadcrumb-list">
                 <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                <li>Lesson</li>
+                <li>Quizzes</li>
             </ul>
         </div>
         <div class="row">
-            <div class="container">
-                <h2 class="text-center">List of Lessons</h2>
-                <div>
-                    <button id="openCreateQuizModal" style="margin-top: 20px;margin-bottom: 20px"
-                            class="btn btn-primary" data-toggle="modal" data-target="#createQuizModal">
-                        Create Lesson
-                    </button>
-                    <div style="display: flex">
-
-                        <!--   Them thanh search lesson-->
-
-                        <div>
-                            <input type="text" id="searchInput" placeholder="Search for lessons..." class="form-control"
-                                   style="margin-bottom: 20px;width: 300px">
-                        </div>
-                        <label for="subjectSelect"></label>
-                        <select id="subjectSelectSearch" style="width: 200px" name="subjectId" class="form-control"
-                                required>
-                            <option value="">Select Subject</option>
-                            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
-                                    th:text="${subject.subjectName}"></option>
-                        </select>
-
+            <!-- Your Profile Views Chart -->
+            <div class="col-lg-12 m-b30">
+                <div class="widget-box">
+                    <div class="wc-title" >
+                        <h3> Quiz Name: <span th:text="${quizName}"></span></h3>
                     </div>
+                    <div class="widget-inner">
 
-                </div>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Lesson ID</th>
-                        <th>Lesson Name</th>
-                        <th>Subject</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="lesson : ${lessons}">
-                        <td th:text="${lesson.lessonId}"></td>
-                        <td th:text="${lesson.lessonName}"></td>
-                        <!--                        <td th:text="${lesson.subject.subjectName}"></td>-->
-                        <td th:text="${lesson.subject.subjectName}"
-                            th:data-subject-id="${lesson.subject.subjectId}"></td>
+                        <h4>Subject : <span th:text="${subject.subjectName}"></span></h4>
+                        <p th:text="'Description: ' + ${description}"></p>
 
-                    </tr>
-                    </tbody>
-                </table>
+<!--                        <form action="/expert/api/create-quiz" method="GET"> &lt;!&ndash; Sử dụng GET để gửi thông tin &ndash;&gt;-->
+<!--                            <div class="form-group">-->
+<!--                                <label for="lessonSelect">Select Lesson:</label>-->
+<!--                                <select id="lessonSelect" name="lessonId" class="form-control" required>-->
+<!--                                    <option value="" disabled selected>Select a lesson</option>-->
+<!--                                    <li class="list-group-item" th:each="lesson : ${lessons}">-->
+<!--                                        <option th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"></option>-->
+<!--                                    </li>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                            <label for="lessonSelect">Select Question :</label>-->
+<!--                            <ul class="list-group">-->
+<!--                                <li class="list-group-item" th:each="question : ${questions}">-->
+<!--                                    <input type="checkbox" th:value="${question.questionId}" name="selectedQuestions" />-->
+<!--                                    <span th:text="${question.questionContent}"></span>-->
+<!--                                </li>-->
+<!--                            </ul>-->
 
-                <!-- Pagination controls -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                            <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${currentPage - 1}}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                            th:classappend="${i == currentPage} ? 'active'">
-                            <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${i}}"
-                               th:text="${i + 1}"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
-                            <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${currentPage + 1}}"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- Your Profile Views Chart END-->
-            </div>
-        </div>
-        <!-- Create Lesson Modal -->
-        <div class="modal fade" id="createQuizModal" tabindex="-1" role="dialog" aria-labelledby="createQuizModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="createQuizModalLabel">Create New Lesson</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form th:action="@{/expert/create_lesson}" method="post">
+<!--                            <input type="hidden" name="subjectId" th:value="${subjectId}"/> &lt;!&ndash; Gửi thêm subjectId &ndash;&gt;-->
+<!--                            <input type="hidden" name="quizName" th:value="${quizName}"/> &lt;!&ndash; Gửi thêm quizName &ndash;&gt;-->
+<!--                            <input type="hidden" name="description" th:value="${description}"/> &lt;!&ndash; Gửi thêm description &ndash;&gt;-->
+
+<!--                            <button style="margin-top: 20px" type="submit" class="btn btn-success">Create Quiz</button>-->
+<!--                        </form>-->
+
+                        <form action="/expert/api/create-quiz" method="GET">
                             <div class="form-group">
-                                <label for="lessonName">Lesson Name</label>
-                                <input type="text" class="form-control" id="lessonName" name="lessonName" required>
+                                <label for="lessonSelect">Select Lesson:</label>
+                                <select id="lessonSelect" name="lessonId" class="form-control" required>
+                                    <option value="" disabled selected>Select a lesson</option>
+                                    <option th:each="lesson : ${lessons}" th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"></option>
+                                </select>
                             </div>
-                            <div class="form-group">
 
-                                <label for="subjectSelect"></label><select id="subjectSelect" name="subjectId"
-                                                                           class="form-control" required>
-                                <option value="">Select Subject</option>
-                                <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
-                                        th:text="${subject.subjectName}"></option>
-                            </select>
-                            </div>
-                            <!-- Add more fields as needed -->
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <label for="questionList">Select Questions:</label>
+                            <ul class="list-group" id="questionList">
+                                <li class="list-group-item" th:each="question : ${questions}" th:data-lesson-id="${question.lesson.lessonId}">
+                                    <input type="checkbox" th:value="${question.questionId}" name="selectedQuestions" />
+                                    <span th:text="${question.questionContent}"></span>
+                                </li>
+                            </ul>
+
+                            <input type="hidden" name="subjectId" th:value="${subjectId}"/>
+                            <input type="hidden" name="quizName" th:value="${quizName}"/>
+                            <input type="hidden" name="description" th:value="${description}"/>
+
+                            <button style="margin-top: 20px" type="submit" class="btn btn-success">Create Quiz</button>
                         </form>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                document.getElementById('lessonSelect').addEventListener('change', function() {
+                                    const selectedLessonId = this.value;
+                                    const questions = document.querySelectorAll('#questionList .list-group-item');
+
+                                    questions.forEach(function(question) {
+                                        const lessonId = question.getAttribute('data-lesson-id');
+                                        question.style.display = (lessonId === selectedLessonId) ? '' : 'none'; // Show or hide question
+                                    });
+                                });
+                            });
+                        </script>
+
                     </div>
+
                 </div>
             </div>
+            <!-- Your Profile Views Chart END-->
         </div>
+    </div>
+
 
 </main>
-
 <div class="ttr-overlay"></div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        // Khi nhấn nút Create Lesson, mở modal
-        $('#openCreateQuizModal').click(function () {
-            $('#createQuizModal').modal('show');
-        });
-
-        // Xử lý submit form
-        $('#createLessonForm').submit(function (event) {
-            event.preventDefault(); // Ngăn không cho form tự động submit
-            // Có thể thực hiện các validation hoặc xử lý khác trước khi submit
-            this.submit(); // Thực hiện submit form
-        });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        // Open Create Lesson Modal
-        $('#openCreateQuizModal').click(function () {
-            $('#createQuizModal').modal('show');
-        });
-
-        // Search Functionality
-        $('#searchInput').on('keyup', function () {
-            var value = $(this).val().toLowerCase(); // Get the input value and convert to lowercase
-            $('table tbody tr').filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1) // Show/hide rows based on input
-            });
-        });
-
-        // Handle form submit for creating lesson
-        $('#createLessonForm').submit(function (event) {
-            event.preventDefault(); // Prevent default form submission
-            this.submit(); // Submit form after validation
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#subjectSelectSearch').on('change', function () {
-            // Lấy ID môn học từ dropdown
-            var selectedSubjectId = $(this).val();
-
-            // Lọc các hàng trong bảng dựa trên môn học
-            $('table tbody tr').each(function () {
-                var lessonSubjectId = $(this).find('td:eq(2)').data('subject-id'); // Lấy ID môn học từ cột Subject
-                if (selectedSubjectId === "" || lessonSubjectId == selectedSubjectId) {
-                    $(this).show(); // Hiển thị nếu ID môn học khớp
-                } else {
-                    $(this).hide(); // Ẩn nếu không khớp
-                }
-            });
-        });
-    });
-
-</script>
 <!-- External JavaScripts -->
+
 <!--<script th:src="@{/expert/js/jquery.min.js}"></script>-->
 <!--<script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>-->
 <!--<script th:src="@{/expert/vendors/bootstrap/js/bootstrap.min.js}"></script>-->
@@ -480,6 +390,8 @@
 <!--<script th:src="@{/expert/vendors/chart/chart.min.js}"></script>-->
 <!--<script th:src="@{/expert/js/admin.js}"></script>-->
 <!--<script th:src="@{/expert/vendors/switcher/switcher.js}"></script>-->
+
+
 </body>
 
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:11:35 GMT -->

@@ -42,7 +42,7 @@ public interface QuizRepository extends JpaRepository<Quiz,Integer> {
     @Query("SELECT q FROM Quiz q JOIN q.lesson l WHERE l.lessonId = :lessonId")
     List<Quiz> findQuizzesByLessonId(@Param("lessonId") Integer lessonId);
 
-    @Query("SELECT q FROM Quiz q WHERE q.createdBy.userId = :authorId")
+    @Query("SELECT q FROM Quiz q WHERE q.createdBy.userId = :authorId ORDER BY q.createdDate DESC ")
     Page<Quiz> findByAuthorId(@Param("authorId") Integer userId, Pageable pageable);
 
 }

@@ -271,7 +271,7 @@
                 <!--                </li>-->
                 <li>
                     <a class="ttr-material-button"
-                       th:href="@{/marketing/view-customers}">
+                       th:href="@{/marketing/customers}">
                         <span class="ttr-icon"><i class="ti-view-list"></i></span>
                         <span class="ttr-label">View User List</span></a>
                 </li>
@@ -308,7 +308,7 @@
         <th>Email</th>
         <th>Role</th>
         <th>Status</th>
-        <th>Created Date</th>
+        <th>Updated Date</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -318,7 +318,7 @@
         <td th:text="${user.email}"></td>
         <td th:text="${user.role.roleName}"></td>
         <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
-        <td th:text="${#dates.format(user.createdDate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${user.updatedDate}"></td>
         <td>
             <form th:action="@{/marketing/update-status}" method="post">
                 <input type="hidden" name="userId" th:value="${user.userId}">

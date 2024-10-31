@@ -11,6 +11,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface QuestionBankRepository extends JpaRepository<QuestionBank, Integer>, CrudRepository<QuestionBank, Integer> {
 
@@ -29,4 +31,6 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Inte
 
     QuestionBank findByQuestionId(Integer id);
 
+    @Query("SELECT qb FROM QuestionBank qb WHERE qb.subject = :subjectId")
+    List<QuestionBank> findBySubject_Id(Subject subjectId);
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!-- META ============================================= -->
@@ -42,7 +42,7 @@
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}">
 
     <style>
-        /* Custom styles for result page layout */
+        /* Existing styles */
         .result-box {
             margin-bottom: 40px;
             padding: 20px;
@@ -61,19 +61,41 @@
             color: #333;
         }
 
-        .score-info h3 {
-            font-size: 24px;
-            color: #28a745;
+        /* New circle progress styles */
+        .circle-progress-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
         }
 
-        .score-info .fail-message {
-            color: red;
-            font-weight: bold;
+        .circle-progress {
+            position: relative;
+            width: 200px;
+            height: 200px;
         }
 
-        .score-info .pass-message {
-            color: green;
+        .circle-progress svg {
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
             font-weight: bold;
+            color: #333;
+        }
+
+        .result-message {
+            margin-top: 20px;
+            font-size: 1.25rem;
+            text-align: center;
+            font-weight: 500;
         }
 
         .submit-btn {
@@ -89,6 +111,7 @@
             border-radius: 6px;
             font-size: 18px;
             text-decoration: none;
+            margin: 0 10px;
         }
 
         .submit-btn a:hover {
@@ -102,7 +125,7 @@
     <div id="loading-icon-bx"></div>
 
     <!-- HEADER INCLUDED HERE -->
-    <div th:replace="header :: header"></div> <!-- Header has been defined elsewhere -->
+    <div th:replace="header :: header"></div>
 
     <!-- Content -->
     <div class="page-content bg-white">
@@ -127,23 +150,55 @@
 
         <!-- Content Block -->
         <div class="content-block">
-            <!-- Quiz Result Section -->
             <div class="section-area section-sp1">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="result-box">
                                 <!-- Display Quiz Information -->
-                                <div class="result-info">
-                                    <h5>Quiz: <span th:text="${quizResult.quiz.quizName}">Quiz Name</span></h5>
-                                    <p><strong>Date Completed:</strong> <span th:text="${quizResult.completedAt}">Completion Date</span></p>
-                                </div>
 
-                                <!-- Display Score -->
-                                <div class="score-info">
-                                    <h3>Your Score: <span th:text="${quizResult.score}">0</span>%</h3>
-                                    <p th:if="${quizResult.score >= 70}" class="pass-message">Great job! You've successfully completed the quiz.</p>
-                                    <p th:if="${quizResult.score < 70}" class="fail-message">Keep practicing, you'll get there next time. Don't give up!</p>
+
+                                <!-- Circle Progress Display -->
+                                <div class="circle-progress-container">
+                                    <div class="circle-progress">
+                                        <svg viewBox="0 0 100 100">
+                                            <!-- Background circle -->
+                                            <circle cx="50" cy="50" r="45" fill="none" stroke="#f0f0f0" stroke-width="8"/>
+                                            <!-- Progress circle -->
+                                            <circle
+                                                    th:with="circumference=${2 * 3.14159 * 45},
+                                                            dashOffset=${circumference - (quizResult.score * circumference / 100)}"
+                                                    cx="50"
+                                                    cy="50"
+                                                    r="45"
+                                                    fill="none"
+                                                    th:stroke="${quizResult.score <= 50 ? '#dc3545' :
+                                                               quizResult.score <= 80 ? '#ffc107' : '#28a745'}"
+                                                    stroke-width="8"
+                                                    th:stroke-dasharray="${circumference}"
+                                                    th:stroke-dashoffset="${dashOffset}"
+                                            />
+                                        </svg>
+                                        <div class="score-text">
+                                            <span th:text="${#numbers.formatDecimal(quizResult.score, 1, 1)}">0</span>%
+                                        </div>
+                                    </div>
+                                    <div class="result-info">
+                                        <h5>Quiz: <span th:text="${quizResult.quiz.quizName}">Quiz Name</span></h5>
+                                        <p><strong>Date Completed:</strong> <span th:text="${quizResult.completedAt}">Completion Date</span></p>
+                                    </div>
+                                    <!-- Result Message -->
+                                    <div class="result-message">
+                                        <p th:if="${quizResult.score <= 50}" style="color: #dc3545">
+                                            Keep practicing! You'll improve with more study.
+                                        </p>
+                                        <p th:if="${quizResult.score > 50 && quizResult.score <= 80}" style="color: #ffc107">
+                                            Good job! You're making great progress.
+                                        </p>
+                                        <p th:if="${quizResult.score > 80}" style="color: #28a745">
+                                            Excellent! You've mastered this topic!
+                                        </p>
+                                    </div>
                                 </div>
 
                                 <!-- Display User Info -->
@@ -153,7 +208,7 @@
                                     <p><strong>Email:</strong> <span th:text="${quizResult.user.email}">User Email</span></p>
                                 </div>
 
-                                <!-- Button to go back to quiz list or review answers -->
+                                <!-- Navigation Buttons -->
                                 <div class="submit-btn">
                                     <a href="/quiz-list">Back to Quizzes</a>
                                     <a href="/quiz_review">Review Your Answers</a>
@@ -167,7 +222,7 @@
     </div>
 
     <!-- Footer Included -->
-    <div th:replace="footer :: footer"></div> <!-- Footer defined elsewhere -->
+    <div th:replace="footer :: footer"></div>
 </div>
 
 <!-- External JavaScripts -->
@@ -186,6 +241,13 @@
 <script th:src="@{/js/jquery.scroller.js}"></script>
 <script th:src="@{/js/functions.js}"></script>
 <script th:src="@{/js/contact.js}"></script>
-</body>
 
+<script>
+    // Animation for the circle progress
+    window.addEventListener('DOMContentLoaded', () => {
+        const circle = document.querySelector('.circle-progress circle:last-child');
+        circle.style.transition = 'stroke-dashoffset 1s ease-in-out';
+    });
+</script>
+</body>
 </html>

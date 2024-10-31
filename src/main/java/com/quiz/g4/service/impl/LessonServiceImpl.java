@@ -44,12 +44,17 @@ public class LessonServiceImpl implements LessonService {
 
     @Override
     public Page<Lesson> getLessons(Pageable pageable) {
-        return lessonRepository.findAll(pageable);
+        return lessonRepository.findAllByDesc(pageable);
     }
 
     @Override
     public Lesson getLessonById(Integer lessonId) {
         return lessonRepository.findById(lessonId).orElseThrow(null);
+    }
+
+    @Override
+    public List<Lesson> getLessonsBySubjectId(Integer subjectId) {
+        return lessonRepository.findBySubject_SubjectId(subjectId);
     }
 
     @Override

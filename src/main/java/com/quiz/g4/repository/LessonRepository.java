@@ -2,6 +2,8 @@ package com.quiz.g4.repository;
 
 import com.quiz.g4.entity.Lesson;
 import com.quiz.g4.entity.Subject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +21,11 @@ public interface LessonRepository extends JpaRepository<Lesson,Integer> {
     Lesson findByLessonId(Integer lessonId);
 
     List<Lesson> findLessonsBySubject (Subject subject);
+    List<Lesson> findBySubject_SubjectId(Integer subjectId);
+
+
+    @Query("SELECT l FROM Lesson l ORDER BY l.createdDate DESC ")
+    Page<Lesson> findAllByDesc(Pageable pageable);
+
+//    List<Lesson> findBySubjectId(Integer subjectId);
 }
