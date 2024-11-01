@@ -45,6 +45,9 @@ public class SubjectController {
     @Autowired
     private UserAnswerService userAnswerService;
 
+    @Autowired
+    private CategoryService categoryService;
+
 
     @GetMapping("/subject-list")
     public String quizList(Model model,
@@ -62,13 +65,17 @@ public class SubjectController {
         Page<Subject> subjectsPage = subjectService.getAllSubject(page, size);
         model.addAttribute("subjectsPage", subjectsPage);
 
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
+
         return "quiz/subject-list"; // Trả về view quiz-list
     }
 
 
-        @GetMapping("/search-subject")
+    @GetMapping("/search-subject")
     public String searchQuizzes(Model model,
                                 @RequestParam(value = "subjectName", required = false) String subjectName,
+                                @RequestParam(value = "categoryId", required = false) Integer categoryId,
                                 @RequestParam(value = "page", defaultValue = "0") int page,
                                 @RequestParam(value = "size", defaultValue = "9") int size) {
 
@@ -80,12 +87,18 @@ public class SubjectController {
         }
 
         model.addAttribute("subjectName", subjectName);
+        model.addAttribute("selectedCategoryId", categoryId);
 
+        // Sử dụng `categoryId` để lọc theo danh mục nếu có
+        Page<Subject> subjectsPage = subjectService.searchSubject(subjectName, categoryId, page, size);
+        model.addAttribute("subjectsPage", subjectsPage);
 
-            Page<Subject> subjectsPage = subjectService.searchSubject(subjectName ,page, size);
-            model.addAttribute("subjectsPage", subjectsPage);
-            return "quiz/subject-list"; // Trả về view quiz-list cùng với kết quả tìm kiếm
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
+
+        return "quiz/subject-list"; // Trả về view quiz-list cùng với kết quả tìm kiếm
     }
+
 
     @GetMapping("/subject-detail/{subjectId}")
     public String showSubjectDetail(@PathVariable("subjectId") Integer subjectId, Model model) {
@@ -276,7 +289,6 @@ public class SubjectController {
         // Return the view to display the result
         return "quiz/quiz-result";
     }
-
 
 
 }

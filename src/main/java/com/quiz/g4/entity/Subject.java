@@ -26,8 +26,6 @@ public class Subject {
     @Column(name = "subject_image")
     private String subjectImage;
 
-
-
     @Column(name = "is_active")
     private Boolean isActive = true;
 
@@ -41,8 +39,7 @@ public class Subject {
     @OneToMany(mappedBy = "subject")
     private Set<QuestionBank> questionBanks;
 
-
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private Category category; // liên kết với bảng Category
 }
-
-
-

@@ -85,25 +85,18 @@
                                     </div>
                                 </div>
 
-                                <!-- Dropdown for Subject -->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Subject</label>s-->
-<!--                                    <select name="subjectId" class="form-control">-->
-<!--                                        <option value="">All Subjects</option>-->
-<!--                                        <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"-->
-<!--                                                th:selected="${subject.subjectId == selectedSubjectId}">Subject Name</option> &lt;!&ndash; Pre-select selected subject &ndash;&gt;-->
-<!--                                    </select>-->
-<!--                                </div>-->
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select name="categoryId" class="form-control">
+                                        <option value="">All Categories</option>
+                                        <option th:each="category : ${categories}"
+                                                th:value="${category.categoryId}"
+                                                th:text="${category.categoryName}"
+                                                th:selected="${category.categoryId == selectedCategoryId}">Category</option>
+                                    </select>
+                                </div>
 
-                                <!-- Dropdown for Expert -->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Expert</label>-->
-<!--                                    <select name="expertId" class="form-control">-->
-<!--                                        <option value="">All Experts</option>-->
-<!--                                        <option th:each="expert : ${experts}" th:value="${expert.userId}" th:text="${expert.fullName}"-->
-<!--                                                th:selected="${expert.userId == selectedExpertId}">Expert Name</option> &lt;!&ndash; Pre-select selected expert &ndash;&gt;-->
-<!--                                    </select>-->
-<!--                                </div>-->
+
                             </form>
                         </div>
                     </div>
@@ -145,7 +138,7 @@
                                     <ul class="pagination">
                                         <!-- Previous Page Link -->
                                         <li th:classappend="${subjectsPage.hasPrevious()} ? 'previous' : 'previous disabled'">
-                                            <a th:href="@{/search-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size}, subjectName=${subjectName})}">
+                                            <a th:href="@{/search-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}">
                                                 <i class="ti-arrow-left"></i> Prev
                                             </a>
                                         </li>
@@ -153,16 +146,17 @@
                                         <!-- Page Numbers -->
                                         <li th:each="pageNum : ${#numbers.sequence(0, subjectsPage.totalPages - 1)}"
                                             th:classappend="${pageNum == subjectsPage.number} ? 'active'">
-                                            <a th:href="@{/search-subject(page=${pageNum}, size=${subjectsPage.size}, subjectName=${subjectName})}"
+                                            <a th:href="@{/search-subject(page=${pageNum}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}"
                                                th:text="${pageNum + 1}">1</a>
                                         </li>
 
                                         <!-- Next Page Link -->
                                         <li th:classappend="${subjectsPage.hasNext()} ? 'next' : 'next disabled'">
-                                            <a th:href="@{/search-quizzes(page=${subjectsPage.number + 1}, size=${subjectsPage.size}, subjectName=${subjectName})}">
+                                            <a th:href="@{/search-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}">
                                                 Next <i class="ti-arrow-right"></i>
                                             </a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>

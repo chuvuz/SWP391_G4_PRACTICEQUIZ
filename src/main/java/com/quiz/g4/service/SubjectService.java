@@ -22,7 +22,7 @@ public interface SubjectService {
 
     Page<Subject> getAllSubject(int page, int size);
 
-    Page<Subject> searchSubject(String subjectName, int page, int size);
+    
 
     Subject getSubjectById(Integer subjectId);
 
@@ -39,4 +39,6 @@ public interface SubjectService {
     Page<Subject> getAllSubjectNoCondition(int page, int size);
 
     Page<Subject> searchSubjectAll(String subjectName, int page, int size);
+
+    Page<Subject> searchSubject(String subjectName, Integer categoryId, int page, int size);
 }

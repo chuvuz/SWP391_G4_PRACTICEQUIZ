@@ -22,11 +22,17 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
     Page<Subject> findAllActiveSubject(Pageable pageable);
 
 
-    @Query("SELECT s FROM Subject s WHERE s.subjectName LIKE %:subjectName% AND s.isActive = true")
-    Page<Subject> searchSubject(@Param("subjectName") String subjectName, Pageable pageable);
-
     @Query("SELECT s FROM Subject s WHERE s.subjectName LIKE %:subjectName%")
     Page<Subject> searchSubjectAll(@Param("subjectName") String subjectName, Pageable pageable);
 
     Subject findBySubjectId(Integer subjectId);
+
+
+    @Query("SELECT s FROM Subject s WHERE (:subjectName IS NULL OR s.subjectName LIKE CONCAT('%', :subjectName, '%'))" +
+            " AND (:categoryId IS NULL OR s.category.categoryId = :categoryId)" +
+            " AND s.isActive = true")
+    Page<Subject> searchSubject(@Param("subjectName") String subjectName,
+                                @Param("categoryId") Integer categoryId,
+                                Pageable pageable);
+
 }
