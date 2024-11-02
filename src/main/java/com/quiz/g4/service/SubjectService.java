@@ -41,4 +41,5 @@ public interface SubjectService {
     Page<Subject> searchSubjectAll(String subjectName, int page, int size);
 
     Page<Subject> searchSubject(String subjectName, Integer categoryId, int page, int size);
+
 }

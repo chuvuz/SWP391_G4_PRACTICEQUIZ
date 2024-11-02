@@ -25,6 +25,8 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
     @Query("SELECT s FROM Subject s WHERE s.subjectName LIKE %:subjectName%")
     Page<Subject> searchSubjectAll(@Param("subjectName") String subjectName, Pageable pageable);
 
+
+
     Subject findBySubjectId(Integer subjectId);
 
 
@@ -34,5 +36,9 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
     Page<Subject> searchSubject(@Param("subjectName") String subjectName,
                                 @Param("categoryId") Integer categoryId,
                                 Pageable pageable);
+
+
+    @Query("SELECT s FROM Subject s JOIN FETCH s.lessons l WHERE s.subjectId = :subjectId ORDER BY l.createdDate ASC")
+    Subject getSubjectByIdWithLessonAsc(@Param("subjectId") Integer subjectId);
 
 }
