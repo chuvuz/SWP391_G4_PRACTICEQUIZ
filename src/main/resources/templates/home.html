@@ -5,22 +5,22 @@
     <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png"/>
 
     <!-- PAGE TITLE -->
     <title>EduChamp : Education HTML Template</title>
@@ -44,6 +44,34 @@
     <script th:src="@{/js/html5shiv.min.js}"></script>
     <script th:src="@{/js/respond.min.js}"></script>
     <![endif]-->
+
+    <style>
+        .info-bx h5 {
+            height: 48px; /* Adjust based on desired height */
+            line-height: 24px; /* Match line height to ensure two lines fit */
+            overflow: hidden; /* Hide overflow if the title is too long */
+        }
+
+        .info-bx span {
+            display: block;
+            margin-top: 8px;
+        }
+
+
+        .courses-carousel .item {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .cours-bx {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+    </style>
 </head>
 
 <body id="bg">
@@ -64,7 +92,8 @@
                         <div class="row">
                             <div class="col-md-12 heading-bx left">
                                 <h2 class="title-head">Popular <span>Subjects</span></h2>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                <p>It is a long established fact that a reader will be distracted by the readable
+                                    content of a page</p>
                             </div>
                         </div>
                         <div class="row">
@@ -74,13 +103,17 @@
                                     <div class="cours-bx">
                                         <div class="action-box">
                                             <img th:src="${subject.subjectImage}" alt="Subject Image">
-                                            <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}" class="btn">Read More</a>
+                                            <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"
+                                               class="btn">Read More</a>
                                         </div>
                                         <div class="info-bx text-center">
-                                            <h5><a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}" th:text="${subject.subjectName}"></a></h5>
+                                            <h5>
+                                                <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"
+                                                   th:text="${subject.subjectName}"></a></h5>
                                             <span th:text="${subject.category.categoryName}">Category</span>
                                         </div>
                                     </div>
+
                                 </div>
                                 <!-- End of dynamic subjects loop -->
                             </div>
@@ -89,14 +122,18 @@
                 </div>
                 <!-- Popular Subjects END -->
 
-                <div class="section-area section-sp2 bg-fix ovbl-dark join-bx text-center" style="background-image:url(assets/images/background/bg1.jpg);">
+                <div class="section-area section-sp2 bg-fix ovbl-dark join-bx text-center"
+                     style="background-image:url(assets/images/background/bg1.jpg);">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="join-content-bx text-white">
                                     <h2>Learn a new skill online on <br> your time</h2>
                                     <h4><span class="counter">57,000</span> Online Courses</h4>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                        Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                        unknown printer took a galley of type and scrambled it to make a type specimen
+                                        book.</p>
                                     <a href="#" class="btn button-md">Join Now</a>
                                 </div>
                             </div>
@@ -109,9 +146,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 m-b30">
-                                <h2 class="title-head">Learn a new skill online<br> <span class="text-primary"> on your time</span></h2>
+                                <h2 class="title-head">Learn a new skill online<br> <span class="text-primary"> on your time</span>
+                                </h2>
                                 <h4><span class="counter">57,000</span> Online Courses</h4>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.</p>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                                    unknown printer took a galley of type.</p>
                                 <a href="#" class="btn button-md">Join Now</a>
                             </div>
                             <div class="col-lg-6">
@@ -119,7 +159,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
                                         <div class="feature-container">
                                             <div class="feature-md text-white m-b20">
-                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon1.png" alt=""></a>
+                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon1.png"
+                                                                                   alt=""></a>
                                             </div>
                                             <div class="icon-content">
                                                 <h5 class="ttr-tilte">Our Philosophy</h5>
@@ -130,7 +171,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
                                         <div class="feature-container">
                                             <div class="feature-md text-white m-b20">
-                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon2.png" alt=""></a>
+                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon2.png"
+                                                                                   alt=""></a>
                                             </div>
                                             <div class="icon-content">
                                                 <h5 class="ttr-tilte">Kingster's Principle</h5>
@@ -141,7 +183,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
                                         <div class="feature-container">
                                             <div class="feature-md text-white m-b20">
-                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon3.png" alt=""></a>
+                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon3.png"
+                                                                                   alt=""></a>
                                             </div>
                                             <div class="icon-content">
                                                 <h5 class="ttr-tilte">Key Of Success</h5>
@@ -152,7 +195,8 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
                                         <div class="feature-container">
                                             <div class="feature-md text-white m-b20">
-                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon4.png" alt=""></a>
+                                                <a href="#" class="icon-cell"><img src="assets/images/icon/icon4.png"
+                                                                                   alt=""></a>
                                             </div>
                                             <div class="icon-content">
                                                 <h5 class="ttr-tilte">Our Philosophy</h5>
@@ -167,7 +211,8 @@
                 </div>
 
                 <!-- Testimonials -->
-                <div class="section-area section-sp1 bg-fix ovbl-dark text-white" style="background-image:url(assets/images/background/bg1.jpg);">
+                <div class="section-area section-sp1 bg-fix ovbl-dark text-white"
+                     style="background-image:url(assets/images/background/bg1.jpg);">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-3 col-md-6 col-sm-6 col-6 m-b30">
@@ -213,7 +258,8 @@
                         <div class="row">
                             <div class="col-md-12 heading-bx left">
                                 <h2 class="title-head text-uppercase">What People <span>Say</span></h2>
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                <p>It is a long established fact that a reader will be distracted by the readable
+                                    content of a page</p>
                             </div>
                         </div>
                         <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
@@ -227,7 +273,8 @@
                                         <p>-Art Director</p>
                                     </div>
                                     <div class="testimonial-content">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry.</p>
                                     </div>
                                 </div>
                             </div>
@@ -241,7 +288,8 @@
                                         <p>-Art Director</p>
                                     </div>
                                     <div class="testimonial-content">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry.</p>
                                     </div>
                                 </div>
                             </div>
