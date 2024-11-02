@@ -58,6 +58,11 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
+    public List<Lesson> getLessonsBySubjectIdWithCreateDateAsc(Integer subjectId) {
+        return lessonRepository.findLessonsBySubjectIdOrderByCreatedDateAsc(subjectId);
+    }
+
+    @Override
     public List<Lesson> getAllLessons() {return lessonRepository.findAll();}
 
     @Override

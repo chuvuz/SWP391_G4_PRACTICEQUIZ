@@ -27,5 +27,8 @@ public interface LessonRepository extends JpaRepository<Lesson,Integer> {
     @Query("SELECT l FROM Lesson l ORDER BY l.createdDate DESC ")
     Page<Lesson> findAllByDesc(Pageable pageable);
 
+    @Query("SELECT l FROM Lesson l WHERE l.subject.subjectId = :subjectId ORDER BY l.createdDate ASC")
+    List<Lesson> findLessonsBySubjectIdOrderByCreatedDateAsc(Integer subjectId);
+
 //    List<Lesson> findBySubjectId(Integer subjectId);
 }

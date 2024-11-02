@@ -104,6 +104,7 @@ public class SubjectController {
     @GetMapping("/subject-detail/{subjectId}")
     public String showSubjectDetail(@PathVariable("subjectId") Integer subjectId, Model model) {
 
+        // Kiểm tra xác thực người dùng
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
             String email = authentication.getName();
@@ -111,15 +112,19 @@ public class SubjectController {
             model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
         }
 
-
         // Lấy subject theo subjectId từ service
         Subject subject = subjectService.getSubjectById(subjectId);
 
-        // Đưa thông tin subject vào model
+        // Lấy danh sách Lesson theo subjectId, sắp xếp theo createdDate tăng dần
+        List<Lesson> lessons = lessonService.getLessonsBySubjectIdWithCreateDateAsc(subjectId);
+
+        // Đưa thông tin subject và danh sách lessons vào model
         model.addAttribute("subject", subject);
+        model.addAttribute("lessons", lessons);
 
         return "quiz/subject-detail"; // Trả về template `subject-detail.html`
     }
+
 
 
     @GetMapping("/lesson-detail/{lessonId}")

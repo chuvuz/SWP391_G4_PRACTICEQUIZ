@@ -36,4 +36,8 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
                                 Pageable pageable);
 
     boolean existsBySubjectName(String subjectName);
+
+    @Query("SELECT s FROM Subject s JOIN FETCH s.lessons l WHERE s.subjectId = :subjectId ORDER BY l.createdDate ASC")
+    Subject getSubjectByIdWithLessonAsc(@Param("subjectId") Integer subjectId);
+
 }
