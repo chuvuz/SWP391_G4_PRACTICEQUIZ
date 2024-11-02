@@ -2,69 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Header with User Dropdown</title>
-
-  <!-- Bootstrap CSS -->
+  <title>Header Section</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <!-- Custom CSS -->
-  <style>
-    /* Header Styles */
-    .header {
-      background-color: #2c2c2c; /* Nền header tối */
-      color: white;
-      padding: 10px 0;
-    }
-
-    .top-bar {
-      background-color: #343a40; /* Nền thanh trên cùng */
-      padding: 5px 0;
-    }
-
-    .nav-link {
-      color: white !important;
-    }
-
-    /* Dropdown Styles */
-    .navbar .dropdown-menu {
-      background-color: #343a40; /* Nền dropdown */
-      color: white;
-      border: none;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .navbar .dropdown-menu .dropdown-item {
-      color: white;
-    }
-
-    .navbar .dropdown-menu .dropdown-item:hover {
-      background-color: #495057;
-      color: white;
-    }
-
-    .menu-logo img {
-      max-height: 50px;
-    }
-
-    /* Search Bar */
-    .nav-search-bar {
-      position: relative;
-      display: none; /* Ẩn search bar mặc định */
-    }
-
-    #quik-search-btn {
-      background: none;
-      border: none;
-      color: white;
-    }
-  </style>
 </head>
 <body>
 
-<header class="header rs-nav header-transparent">
-  <!-- Top Bar -->
+<header class="header rs-nav">
   <div class="top-bar">
     <div class="container">
       <div class="row d-flex justify-content-between">
@@ -79,24 +23,16 @@
         </div>
         <div class="topbar-right">
           <ul class="nav">
-            <!-- Nếu user là null, hiển thị Login và Register -->
+            <!-- Login/Register if user is null -->
             <li class="nav-item" th:if="${user == null}">
               <a class="nav-link" th:href="@{/login}">Login</a>
             </li>
             <li class="nav-item" th:if="${user == null}">
               <a class="nav-link" th:href="@{/register}">Register</a>
             </li>
-
-            <!-- Nếu user không phải là null, hiển thị dropdown -->
+            <!-- User Dropdown if user is logged in -->
             <li class="nav-item dropdown" th:if="${user != null}">
-              <a
-                      class="nav-link dropdown-toggle"
-                      href="#"
-                      id="userDropdown"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
                 Xin chào, <span th:text="${user.fullName}"></span>
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
@@ -110,20 +46,15 @@
     </div>
   </div>
 
-  <!-- Sticky Header -->
   <div class="sticky-header navbar-expand-lg">
     <div class="menu-bar clearfix">
-      <div class="container">
+      <div class="container clearfix">
         <div class="menu-logo">
-          <a href="index.html"></a>
+          <a href="index.html"><img src="assets/images/logo.png" alt="Logo"></a>
         </div>
 
-        <button class="navbar-toggler collapsed menuicon" type="button"
-                data-toggle="collapse" data-target="#menuDropdown"
-                aria-controls="menuDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span></span>
-          <span></span>
-          <span></span>
+        <button class="navbar-toggler collapsed menuicon" type="button" data-toggle="collapse" data-target="#menuDropdown">
+          <span></span><span></span><span></span>
         </button>
 
         <div class="menu-links navbar-collapse collapse" id="menuDropdown">
@@ -135,20 +66,16 @@
               <a class="nav-link" href="#">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" th:href="@{/subject-list}">Subject</a>
+              <a class="nav-link" th:href="@{/subject-list}">Subjects</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" th:href="@{/questionlist}">Question Bank</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                Blog
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" th:href="@{/blog-list}">Blog Classic</a></li>
-                <li><a class="dropdown-item" href="blog-classic-sidebar.html">Blog Classic Sidebar</a></li>
-                <li><a class="dropdown-item" href="blog-list-sidebar.html">Blog List Sidebar</a></li>
-              </ul>
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">Blog</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" th:href="@{/blog-list}">Blog Classic</a>
+              </div>
             </li>
           </ul>
 
@@ -163,9 +90,8 @@
   </div>
 </header>
 
-<!-- Bootstrap JS và jQuery -->
+<!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
