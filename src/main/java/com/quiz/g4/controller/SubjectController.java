@@ -300,6 +300,14 @@ public class SubjectController {
 
     @GetMapping("/quiz-result/{resultId}")
     public String showQuizResult(@PathVariable("resultId") Integer resultId, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+            model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
+        }
+
         // Fetch the quiz result using the resultId
         QuizResult quizResult = quizResultService.findQuizResultById(resultId);
 
