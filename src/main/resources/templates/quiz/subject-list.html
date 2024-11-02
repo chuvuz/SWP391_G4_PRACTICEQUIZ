@@ -44,6 +44,45 @@
     <!-- STYLESHEETS ============================================= -->
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+    <style>
+
+        /* Ensure each card (cours-bx) has a consistent height */
+        .cours-bx {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: for a card shadow */
+            border-radius: 8px;
+        }
+
+        /* Set a fixed height for the info box to accommodate single and double-line titles */
+        .info-bx {
+            min-height: 80px; /* Adjust this based on your content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Ensure title (h5) has controlled line height and text overflow handling */
+        .info-bx h5 {
+            max-height: 48px; /* Enough space for two lines */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2; /* Adjust line height to fit two lines neatly */
+            margin: 0;
+        }
+
+        /* Ensure pagination styles remain consistent */
+        .pagination-bx .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+    </style>
 </head>
 <body>
 <div th:replace="header :: header"></div>
@@ -112,22 +151,6 @@
                                     <div class="info-bx text-center">
                                         <h5><a th:text="${subject.subjectName}" th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"></a></h5> <!-- Dynamic quiz name -->
 <!--                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> &lt;!&ndash; Dynamic subject name &ndash;&gt;-->
-                                    </div>
-                                    <div class="cours-more-info">
-                                        <div class="review">
-                                            <span>3 Review</span>
-                                            <ul class="cours-star">
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price">
-                                            <del>$190</del>
-                                            <h5>$120</h5>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
