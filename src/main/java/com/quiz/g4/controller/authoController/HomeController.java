@@ -41,15 +41,15 @@ public class HomeController {
             String email = authentication.getName();
             User user = userService.findByEmail(email);
 
-            if (!user.isActive()) {
-                // Logout người dùng nếu không hoạt động
-                request.getSession().invalidate();
-                SecurityContextHolder.clearContext();
-
-                // Gửi thông báo lỗi và chuyển hướng tới trang login
-                redirectAttributes.addFlashAttribute("errorMessage", "Your account has been disabled. Please contact administrator.");
-                return "redirect:/login";
-            }
+//            if (!user.isActive()) {
+//                // Logout người dùng nếu không hoạt động
+//                request.getSession().invalidate();
+//                SecurityContextHolder.clearContext();
+//
+//                // Gửi thông báo lỗi và chuyển hướng tới trang login
+//                redirectAttributes.addFlashAttribute("errorMessage", "Your account has been disabled. Please contact administrator.");
+//                return "redirect:/login";
+//            }
 
             // Nếu người dùng hoạt động, thêm thông tin vào model
             model.addAttribute("user", user);
@@ -60,7 +60,7 @@ public class HomeController {
         model.addAttribute("subjects", subjects);
 
         // Lấy danh sách blogs từ service
-        List<Blog> blogs = blogService.findAllBlogs();
+        List<Blog> blogs = blogService.getAllBlogs();
         model.addAttribute("blogs", blogs);
 
         return "home";

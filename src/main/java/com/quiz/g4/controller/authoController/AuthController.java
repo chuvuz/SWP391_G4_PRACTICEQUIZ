@@ -133,9 +133,6 @@ public class AuthController {
     @PostMapping("/forgot-password")
     public String processForgotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
-            User user = userRepository.findByEmail(email);
-            System.out.println("User found: " + (user != null ? user.getEmail() : "No user found"));
-
             userService.sendResetPasswordEmail(email, request);
             redirectAttributes.addFlashAttribute("successMessage", "We have sent an email to you.");
         } catch (Exception e) {

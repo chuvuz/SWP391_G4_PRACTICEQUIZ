@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService {
         // Set other fields like fullName và email
         user.setFullName(user.getFullName());
         user.setEmail(user.getEmail());
+        user.setIsActive(false);
 
         // Kiểm tra role người dùng
         Role role = roleRepository.findRoleByRoleId(1);

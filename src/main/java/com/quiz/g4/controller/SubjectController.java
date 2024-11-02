@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -149,7 +150,30 @@ public class SubjectController {
 
 
     @GetMapping("/quiz-detail/{quizId}")
-    public String getQuizDetail(@PathVariable Integer quizId, Model model) {
+    public String getQuizDetail(@PathVariable Integer quizId, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (Objects.nonNull(authentication) && authentication.isAuthenticated()
+                && !authentication.getName().equals("anonymousUser")) {
+            String email = authentication.getName();
+            User user = userService.findByEmail(email);
+
+            if (!user.isActive()) {
+                // Logout người dùng nếu không hoạt động
+                request.getSession().invalidate();
+                SecurityContextHolder.clearContext();
+
+                // Gửi thông báo lỗi và chuyển hướng tới trang login
+                redirectAttributes.addFlashAttribute("errorMessage", "Your account has been disabled. Please contact administrator.");
+                return "redirect:/login";
+            }
+
+            // Nếu người dùng hoạt động, thêm thông tin vào model
+            model.addAttribute("user", user);
+        }
+
         // Lấy quiz dựa trên quizId
         Quiz quiz = quizService.getQuizById(quizId);
 
