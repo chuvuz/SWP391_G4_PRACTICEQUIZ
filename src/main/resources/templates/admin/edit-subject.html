@@ -346,19 +346,19 @@
             <span class="ttr-icon"><i class="ti-home"></i></span>
             <span class="ttr-label">Dashboard</span></a>
         </li>
-        <li>
-          <a class="ttr-material-button"
-             th:href="@{/profile}">
-            <span class="ttr-icon"><i class="ti-user"></i></span>
-            <span class="ttr-label">Profile</span></a>
-        </li>
-        <li>
-          <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
-          <a class="ttr-material-button"
-             th:href="@{/profile/edit}">
-            <span class="ttr-icon"><i class="ti-eraser"></i></span>
-            <span class="ttr-label">Edit Profile</span></a>
-        </li>
+<!--        <li>-->
+<!--          <a class="ttr-material-button"-->
+<!--             th:href="@{/profile}">-->
+<!--            <span class="ttr-icon"><i class="ti-user"></i></span>-->
+<!--            <span class="ttr-label">Profile</span></a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          &lt;!&ndash;                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>&ndash;&gt;-->
+<!--          <a class="ttr-material-button"-->
+<!--             th:href="@{/profile/edit}">-->
+<!--            <span class="ttr-icon"><i class="ti-eraser"></i></span>-->
+<!--            <span class="ttr-label">Edit Profile</span></a>-->
+<!--        </li>-->
         <li>
           <a class="ttr-material-button"
              th:href="@{/admin/users}">
@@ -371,12 +371,12 @@
             <span class="ttr-icon"><i class="ti-new-window"></i></span>
             <span class="ttr-label">Create New User</span></a>
         </li>
-        <li>
-          <a class="ttr-material-button"
-             th:href="@{/profile/change-password}">
-            <span class="ttr-icon"><i class="ti-pencil"></i></span>
-            <span class="ttr-label">Change Password</span></a>
-        </li>
+<!--        <li>-->
+<!--          <a class="ttr-material-button"-->
+<!--             th:href="@{/profile/change-password}">-->
+<!--            <span class="ttr-icon"><i class="ti-pencil"></i></span>-->
+<!--            <span class="ttr-label">Change Password</span></a>-->
+<!--        </li>-->
         <li><a class="ttr-material-button"
                th:href="@{/admin/manage-subject}">
           <span class="ttr-icon"><i class="ti-pencil"></i></span>
@@ -390,7 +390,7 @@
   </div>
 </div>
 <main class="ttr-wrapper">
-
+  <h1>Edit Subject Management</h1>
   <form th:action="@{/admin/manage-subject/edit-subject}" method="post" class="form-horizontal">
     <input type="hidden" name="subjectId" th:value="${subject.subjectId}">
 
@@ -416,10 +416,13 @@
       <input type="text" id="editImageUrl" name="imageUrl" th:value="${subject.subjectImage}"  class="form-control" placeholder="Enter image URL" required>
       <small class="form-text text-muted">Leave empty if you don't want to change the image.</small>
     </div>
-
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+      <span th:text="${error}">
+      </span>
+    </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-success">Update Subject</button>
-      <a href="/admin/manage-subject" class="btn btn-secondary">Back to Subject List</a>
+      <button type="submit" class="btn btn-primary">Update Subject</button>
+      <a href="/admin/manage-subject" class="btn btn-primary">Back to Subject List</a>
     </div>
   </form>
 

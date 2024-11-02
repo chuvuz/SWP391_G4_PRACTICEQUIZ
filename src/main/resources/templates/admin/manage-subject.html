@@ -309,35 +309,18 @@
     <!--header search panel end -->
   </div>
 </header>
-<!-- header end -->
 
-
-<!--        <form th:action="@{/admin/users}" method="get">-->
-<!--            <label for="role">Filter by role:</label>-->
-<!--            <select name="role" id="role">-->
-<!--                <option value="">All</option>-->
-<!--                <option value="customer">Customer</option>-->
-<!--                <option value="marketing">Marketing</option>-->
-<!--                <option value="expert">Expert</option>-->
-<!--                <option value="admin">Admin</option>-->
-<!--            </select>-->
-<!--            <button type="submit">Filter</button>-->
-<!--        </form>-->
 <div class="ttr-sidebar">
   <div class="ttr-sidebar-wrapper content-scroll">
     <!-- side menu logo start -->
     <div class="ttr-sidebar-logo">
       <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-      <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-          <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-          <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-      </div> -->
+
       <div class="ttr-sidebar-toggle-button">
         <i class="ti-arrow-left"></i>
       </div>
     </div>
-    <!-- side menu logo end -->
-    <!-- sidebar menu start -->
+
     <nav class="ttr-sidebar-navi">
       <ul>
         <li>
@@ -346,19 +329,19 @@
             <span class="ttr-icon"><i class="ti-home"></i></span>
             <span class="ttr-label">Dashboard</span></a>
         </li>
-        <li>
-          <a class="ttr-material-button"
-             th:href="@{/profile}">
-            <span class="ttr-icon"><i class="ti-user"></i></span>
-            <span class="ttr-label">Profile</span></a>
-        </li>
-        <li>
-          <!--                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>-->
-          <a class="ttr-material-button"
-             th:href="@{/profile/edit}">
-            <span class="ttr-icon"><i class="ti-eraser"></i></span>
-            <span class="ttr-label">Edit Profile</span></a>
-        </li>
+<!--        <li>-->
+<!--          <a class="ttr-material-button"-->
+<!--             th:href="@{/profile}">-->
+<!--            <span class="ttr-icon"><i class="ti-user"></i></span>-->
+<!--            <span class="ttr-label">Profile</span></a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--          &lt;!&ndash;                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>&ndash;&gt;-->
+<!--          <a class="ttr-material-button"-->
+<!--             th:href="@{/profile/edit}">-->
+<!--            <span class="ttr-icon"><i class="ti-eraser"></i></span>-->
+<!--            <span class="ttr-label">Edit Profile</span></a>-->
+<!--        </li>-->
         <li>
           <a class="ttr-material-button"
              th:href="@{/admin/users}">
@@ -371,12 +354,12 @@
             <span class="ttr-icon"><i class="ti-new-window"></i></span>
             <span class="ttr-label">Create New User</span></a>
         </li>
-        <li>
-          <a class="ttr-material-button"
-             th:href="@{/profile/change-password}">
-            <span class="ttr-icon"><i class="ti-pencil"></i></span>
-            <span class="ttr-label">Change Password</span></a>
-        </li>
+<!--        <li>-->
+<!--          <a class="ttr-material-button"-->
+<!--             th:href="@{/profile/change-password}">-->
+<!--            <span class="ttr-icon"><i class="ti-pencil"></i></span>-->
+<!--            <span class="ttr-label">Change Password</span></a>-->
+<!--        </li>-->
         <li><a class="ttr-material-button"
                th:href="@{/admin/manage-subject}">
           <span class="ttr-icon"><i class="ti-pencil"></i></span>
@@ -390,11 +373,11 @@
   </div>
 </div>
 <main class="ttr-wrapper">
-
+  <h1>Subject Management</h1>
   <form th:action="@{/admin/manage-subject}" method="get" class="form-inline mb-3">
     <div class="form-group">
       <div class="input-group">
-        <label>Search Courses</label>
+<!--        <label>Search Courses</label>-->
         <input name="subjectName" type="text" class="form-control" th:value="${subjectName}" placeholder="Enter Course Name">
       </div>
     </div>
@@ -425,7 +408,7 @@
       </td>
       <td><img th:src="${subject.subjectImage}" alt="Subject Image" style="width: 50px; height: 50px;"></td>
       <td>
-        <a th:href="@{/admin/manage-subject/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-warning btn-sm">Edit</a>
+        <a th:href="@{/admin/manage-subject/edit-subject/{subjectId}(subjectId=${subject.subjectId})}" class="btn btn-primary btn-sm">Edit</a>
       </td>
     </tr>
     </tbody>
@@ -484,6 +467,9 @@
               <label for="createImage">Image URL:</label>
               <input type="text" id="createImage" name="imageUrl" class="form-control" placeholder="Enter Image URL" required>
             </div>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+              <span th:text="${error}"></span>
+            </div>
             <button type="submit" class="btn btn-success">Create Subject</button>
           </form>
         </div>
@@ -492,7 +478,7 @@
   </div>
 
   <!-- Script to Open and Close Modal -->
-  <script>
+  <script th:inline="javascript">
     function openModal(modalId) {
       document.getElementById(modalId).style.display = "block";
     }
@@ -508,6 +494,16 @@
         closeModal('createModal');
       }
     }
+    // Kiểm tra nếu có lỗi khi tải trang
+    /*[[*/
+    var hasError = [[${error}]] !== null && [[${error}]] !== '';
+    /*]]*/
+    window.onload = function() {
+// Mở modal nếu có lỗi
+      if (hasError) {
+        openModal('createModal');
+      }
+    };
   </script>
 </main>
 

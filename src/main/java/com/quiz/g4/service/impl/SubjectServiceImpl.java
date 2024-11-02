@@ -127,4 +127,14 @@ public class SubjectServiceImpl implements SubjectService {
         Pageable pageable = PageRequest.of(page, size);
         return subjectRepository.searchSubject(subjectName, categoryId, pageable);
     }
+
+    @Override
+    public boolean existsBySubjectName(String subjectName) {
+        return subjectRepository.existsBySubjectName(subjectName);
+    }
+
+    @Override
+    public Subject findBySubjectId(int id) {
+        return subjectRepository.findById(id).orElse(null);
+    }
 }

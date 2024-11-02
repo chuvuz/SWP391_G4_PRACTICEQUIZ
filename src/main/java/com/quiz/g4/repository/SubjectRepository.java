@@ -35,4 +35,5 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
                                 @Param("categoryId") Integer categoryId,
                                 Pageable pageable);
 
+    boolean existsBySubjectName(String subjectName);
 }
