@@ -1,5 +1,6 @@
 package com.quiz.g4.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,6 +34,7 @@ public class Subject {
     private Set<Quiz> quizzes;
 
     @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Lesson> lessons;
     // One subject contains one or more lessons
 

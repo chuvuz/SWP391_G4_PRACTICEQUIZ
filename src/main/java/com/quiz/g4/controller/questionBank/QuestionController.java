@@ -88,6 +88,12 @@ public class QuestionController {
         return "/QuestionBank/addQuestion";
     }
 
+    @GetMapping("/lessonsBySubject/{subjectId}")
+    @ResponseBody // Chỉ định rằng kết quả sẽ được trả về dưới dạng JSON
+    public List<Lesson> getLessonsBySubject(@PathVariable Integer subjectId) {
+        return lessonService.getLessonsBySubjectId(subjectId); // Lấy bài học theo môn học
+    }
+
     @PostMapping("/createQuestions")
     public String createQuestion (Model model,
                                   @RequestParam String questionContent,
@@ -177,8 +183,7 @@ public class QuestionController {
     @PostMapping("/question/updateQuestion")
     public String updateQuestion(Model model,
                                  @RequestParam("id") Integer id,
-                                 @RequestParam("questionContent")  String questionContent,
-                                 @RequestParam("questionType") String questionType
+                                 @RequestParam("questionContent")  String questionContent
     ) {
         // Tìm câu hỏi hiện tại
         QuestionBank questionBank = questionBankService.findById(id);
@@ -189,7 +194,6 @@ public class QuestionController {
 
         // Cập nhật thông tin câu hỏi
         questionBank.setQuestionContent(questionContent);
-        questionBank.setQuestionType(questionType);
         questionBankService.save(questionBank);
 
         /*//Cập nhật các câu trả lời
