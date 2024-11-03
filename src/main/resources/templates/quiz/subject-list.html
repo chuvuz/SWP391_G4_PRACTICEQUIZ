@@ -44,6 +44,45 @@
     <!-- STYLESHEETS ============================================= -->
     <link rel="stylesheet" th:href="@{/css/style.css}" />
     <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+    <style>
+
+        /* Ensure each card (cours-bx) has a consistent height */
+        .cours-bx {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: for a card shadow */
+            border-radius: 8px;
+        }
+
+        /* Set a fixed height for the info box to accommodate single and double-line titles */
+        .info-bx {
+            min-height: 80px; /* Adjust this based on your content */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Ensure title (h5) has controlled line height and text overflow handling */
+        .info-bx h5 {
+            max-height: 48px; /* Enough space for two lines */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2; /* Adjust line height to fit two lines neatly */
+            margin: 0;
+        }
+
+        /* Ensure pagination styles remain consistent */
+        .pagination-bx .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+    </style>
 </head>
 <body>
 <div th:replace="header :: header"></div>
@@ -51,14 +90,7 @@
 
 
 <div class="page-content bg-white">
-    <!-- inner page banner -->
-    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
-        <div class="container">
-            <div class="page-banner-entry">
-                <h1 class="text-white">Our Courses</h1>
-            </div>
-        </div>
-    </div>
+
     <!-- Breadcrumb row -->
     <div class="breadcrumb-row">
         <div class="container">
@@ -85,25 +117,18 @@
                                     </div>
                                 </div>
 
-                                <!-- Dropdown for Subject -->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Subject</label>s-->
-<!--                                    <select name="subjectId" class="form-control">-->
-<!--                                        <option value="">All Subjects</option>-->
-<!--                                        <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:text="${subject.subjectName}"-->
-<!--                                                th:selected="${subject.subjectId == selectedSubjectId}">Subject Name</option> &lt;!&ndash; Pre-select selected subject &ndash;&gt;-->
-<!--                                    </select>-->
-<!--                                </div>-->
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select name="categoryId" class="form-control">
+                                        <option value="">All Categories</option>
+                                        <option th:each="category : ${categories}"
+                                                th:value="${category.categoryId}"
+                                                th:text="${category.categoryName}"
+                                                th:selected="${category.categoryId == selectedCategoryId}">Category</option>
+                                    </select>
+                                </div>
 
-                                <!-- Dropdown for Expert -->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Expert</label>-->
-<!--                                    <select name="expertId" class="form-control">-->
-<!--                                        <option value="">All Experts</option>-->
-<!--                                        <option th:each="expert : ${experts}" th:value="${expert.userId}" th:text="${expert.fullName}"-->
-<!--                                                th:selected="${expert.userId == selectedExpertId}">Expert Name</option> &lt;!&ndash; Pre-select selected expert &ndash;&gt;-->
-<!--                                    </select>-->
-<!--                                </div>-->
+
                             </form>
                         </div>
                     </div>
@@ -120,22 +145,6 @@
                                         <h5><a th:text="${subject.subjectName}" th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"></a></h5> <!-- Dynamic quiz name -->
 <!--                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> &lt;!&ndash; Dynamic subject name &ndash;&gt;-->
                                     </div>
-                                    <div class="cours-more-info">
-                                        <div class="review">
-                                            <span>3 Review</span>
-                                            <ul class="cours-star">
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li class="active"><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                                <li><i class="fa fa-star"></i></li>
-                                            </ul>
-                                        </div>
-                                        <div class="price">
-                                            <del>$190</del>
-                                            <h5>$120</h5>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
 
@@ -145,7 +154,7 @@
                                     <ul class="pagination">
                                         <!-- Previous Page Link -->
                                         <li th:classappend="${subjectsPage.hasPrevious()} ? 'previous' : 'previous disabled'">
-                                            <a th:href="@{/search-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size}, subjectName=${subjectName})}">
+                                            <a th:href="@{/search-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}">
                                                 <i class="ti-arrow-left"></i> Prev
                                             </a>
                                         </li>
@@ -153,16 +162,17 @@
                                         <!-- Page Numbers -->
                                         <li th:each="pageNum : ${#numbers.sequence(0, subjectsPage.totalPages - 1)}"
                                             th:classappend="${pageNum == subjectsPage.number} ? 'active'">
-                                            <a th:href="@{/search-subject(page=${pageNum}, size=${subjectsPage.size}, subjectName=${subjectName})}"
+                                            <a th:href="@{/search-subject(page=${pageNum}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}"
                                                th:text="${pageNum + 1}">1</a>
                                         </li>
 
                                         <!-- Next Page Link -->
                                         <li th:classappend="${subjectsPage.hasNext()} ? 'next' : 'next disabled'">
-                                            <a th:href="@{/search-quizzes(page=${subjectsPage.number + 1}, size=${subjectsPage.size}, subjectName=${subjectName})}">
+                                            <a th:href="@{/search-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}">
                                                 Next <i class="ti-arrow-right"></i>
                                             </a>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>

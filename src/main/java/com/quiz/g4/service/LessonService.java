@@ -21,5 +21,9 @@ public interface LessonService {
 
     Lesson getLessonById(Integer lessonId);
 
+    List<Lesson> getLessonsBySubjectId(String subjectName);
+
    List<Lesson> getLessonsBySubjectId(Integer subjectId);
+
+    List<Lesson> getLessonsBySubjectIdWithCreateDateAsc(Integer subjectId);
 }

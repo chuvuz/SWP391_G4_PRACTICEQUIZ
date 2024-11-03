@@ -1,6 +1,7 @@
 package com.quiz.g4.controller.authoController;
 
 import com.quiz.g4.entity.User;
+import com.quiz.g4.repository.UserRepository;
 import com.quiz.g4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,25 +23,13 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/login")
     public String loginForm(Authentication authentication, Model model, HttpSession session) {
         if (authentication != null && authentication.isAuthenticated()
                 && !authentication.getName().equals("anonymousUser")) {
-            // If already logged in, check user status
-            String email = authentication.getName();
-            User user = userService.findByEmail(email);
-
-            if (!user.isActive()) {
-                // Logout if the account is disabled
-                session.invalidate();
-                SecurityContextHolder.clearContext();
-
-                // Redirect to login page with error message
-                model.addAttribute("errorMessage", "Your account has been disabled. Please contact the administrator.");
-                return "auth/login"; // Return to login page with message
-            }
-
-            // If account is active, redirect to home page
             return "redirect:/home";
         }
 

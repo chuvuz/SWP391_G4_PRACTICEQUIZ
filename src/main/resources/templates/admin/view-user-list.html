@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:08:15 GMT -->
 <head>
@@ -50,8 +50,8 @@
     <link th:href="@{/admin/css/dashboard.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/admin/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script th:src="@{/js/filterUsers.js}"></script>
-    <script th:src="@{/js/filterUsersByRole.js}"></script>
+<!--    <script th:src="@{/js/filterUsers.js}"></script>-->
+<!--    <script th:src="@{/js/filterUsersByRole.js}"></script>-->
     <style>
         .pagination {
             display: flex;
@@ -132,298 +132,156 @@
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
 <!-- header start -->
-<header class="ttr-header">
-    <div class="ttr-header-wrapper">
-        <!--sidebar menu toggler start -->
-        <div class="ttr-toggle-sidebar ttr-material-button">
-            <i class="ti-close ttr-open-icon"></i>
-            <i class="ti-menu ttr-close-icon"></i>
-        </div>
-        <!--sidebar menu toggler end -->
-        <!--logo start -->
-        <div class="ttr-logo-box">
-            <div>
-                <a href="index.html" class="ttr-logo">
-                    <img alt="" class="ttr-logo-mobile" src="assets/images/logo-mobile.png" width="30" height="30">
-                    <img alt="" class="ttr-logo-desktop" src="assets/images/logo-white.png" width="160" height="27">
-                </a>
-            </div>
-        </div>
-        <!--logo end -->
-        <div class="ttr-header-menu">
-            <!-- header left menu start -->
-            <ul class="ttr-header-navigation">
-                <li>
-                    <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
-                </li>
-                <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
-                            class="fa fa-angle-down"></i></a>
-                    <div class="ttr-header-submenu">
-                        <ul>
-                            <li><a href="../courses.html">Our Courses</a></li>
-                            <li><a href="../event.html">New Event</a></li>
-                            <li><a href="../membership.html">Membership</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <!-- header left menu end -->
-        </div>
-        <div class="ttr-header-right ttr-with-separator">
-            <!-- header right menu start -->
-            <ul class="ttr-header-navigation">
-                <li>
-                    <a href="#" class="ttr-material-button ttr-search-toggle"><i class="fa fa-search"></i></a>
-                </li>
-                <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><i class="fa fa-bell"></i></a>
-                    <div class="ttr-header-submenu noti-menu">
-                        <div class="ttr-notify-header">
-                            <span class="ttr-notify-text-top">9 New</span>
-                            <span class="ttr-notify-text">User Notifications</span>
-                        </div>
-                        <div class="noti-box-list">
-                            <ul>
-                                <li>
-										<span class="notification-icon dashbg-gray">
-											<i class="fa fa-check"></i>
-										</span>
-                                    <span class="notification-text">
-											<span>Sneha Jogi</span> sent you a message.
-										</span>
-                                    <span class="notification-time">
-											<a href="#" class="fa fa-close"></a>
-											<span> 02:14</span>
-										</span>
-                                </li>
-                                <li>
-										<span class="notification-icon dashbg-yellow">
-											<i class="fa fa-shopping-cart"></i>
-										</span>
-                                    <span class="notification-text">
-											<a href="#">Your order is placed</a> sent you a message.
-										</span>
-                                    <span class="notification-time">
-											<a href="#" class="fa fa-close"></a>
-											<span> 7 Min</span>
-										</span>
-                                </li>
-                                <li>
-										<span class="notification-icon dashbg-red">
-											<i class="fa fa-bullhorn"></i>
-										</span>
-                                    <span class="notification-text">
-											<span>Your item is shipped</span> sent you a message.
-										</span>
-                                    <span class="notification-time">
-											<a href="#" class="fa fa-close"></a>
-											<span> 2 May</span>
-										</span>
-                                </li>
-                                <li>
-										<span class="notification-icon dashbg-green">
-											<i class="fa fa-comments-o"></i>
-										</span>
-                                    <span class="notification-text">
-											<a href="#">Sneha Jogi</a> sent you a message.
-										</span>
-                                    <span class="notification-time">
-											<a href="#" class="fa fa-close"></a>
-											<span> 14 July</span>
-										</span>
-                                </li>
-                                <li>
-										<span class="notification-icon dashbg-primary">
-											<i class="fa fa-file-word-o"></i>
-										</span>
-                                    <span class="notification-text">
-											<span>Sneha Jogi</span> sent you a message.
-										</span>
-                                    <span class="notification-time">
-											<a href="#" class="fa fa-close"></a>
-											<span> 15 Min</span>
-										</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
-                                                                                                                  src="assets/images/testimonials/pic3.jpg"
-                                                                                                                  width="32"
-                                                                                                                  height="32"></span></a>
-                    <div class="ttr-header-submenu">
-                        <ul>
-                            <li><a th:href="@{/profile}">My profile</a></li>
-                            <li><a th:href="@{/profile/change-password}">Change Password</a></li>
-                            <li><a th:href="@{/logout}">Logout</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="ttr-hide-on-mobile">
-                    <a href="#" class="ttr-material-button"><i class="ti-layout-grid3-alt"></i></a>
-                    <div class="ttr-header-submenu ttr-extra-menu">
-                        <a href="#">
-                            <i class="fa fa-music"></i>
-                            <span>Musics</span>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-youtube-play"></i>
-                            <span>Videos</span>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-envelope"></i>
-                            <span>Emails</span>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-book"></i>
-                            <span>Reports</span>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-smile-o"></i>
-                            <span>Persons</span>
-                        </a>
-                        <a href="#">
-                            <i class="fa fa-picture-o"></i>
-                            <span>Pictures</span>
-                        </a>
-                    </div>
-                </li>
-            </ul>
-            <!-- header right menu end -->
-        </div>
-        <!--header search panel start -->
-        <div class="ttr-search-bar">
-            <form class="ttr-search-form">
-                <div class="ttr-search-input-wrapper">
-                    <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
-                    </button>
-                </div>
-                <span class="ttr-search-close ttr-search-toggle">
-						<i class="ti-close"></i>
-					</span>
-            </form>
-        </div>
-        <!--header search panel end -->
-    </div>
-</header>
+<div th:replace="fragments/util :: admin-header"></div>
 <!-- header end -->
 <!-- Left sidebar menu start -->
-<div class="ttr-sidebar">
-    <div class="ttr-sidebar-wrapper content-scroll">
-        <!-- side menu logo start -->
-        <div class="ttr-sidebar-logo">
-            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-            <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-            </div> -->
-            <div class="ttr-sidebar-toggle-button">
-                <i class="ti-arrow-left"></i>
-            </div>
-        </div>
-        <!-- side menu logo end -->
-        <!-- sidebar menu start -->
-        <nav class="ttr-sidebar-navi">
-            <ul>
-                <li>
-                    <a class="ttr-material-button"
-                       th:href="@{/admin/dashboard}">
-                        <span class="ttr-icon"><i class="ti-home"></i></span>
-                        <span class="ttr-label">Dashboard</span></a>
-                </li>
-                <!--                <li>-->
-                <!--                    <a class="ttr-material-button"-->
-                <!--                       th:href="@{/profile}">-->
-                <!--                        <span class="ttr-icon"><i class="ti-user"></i></span>-->
-                <!--                        <span class="ttr-label">Profile</span></a>-->
-                <!--                </li>-->
-                <!--                <li>-->
-                <!--                    &lt;!&ndash;                                            <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>&ndash;&gt;-->
-                <!--                    <a class="ttr-material-button"-->
-                <!--                       th:href="@{/profile/edit}">-->
-                <!--                        <span class="ttr-icon"><i class="ti-eraser"></i></span>-->
-                <!--                        <span class="ttr-label">Edit Profile</span></a>-->
-                <!--                </li>-->
-                <li>
-                    <a class="ttr-material-button"
-                       th:href="@{/admin/users}">
-                        <span class="ttr-icon"><i class="ti-view-list"></i></span>
-                        <span class="ttr-label">View User List</span></a>
-                </li>
-                <li>
-                    <a class="ttr-material-button"
-                       th:href="@{/admin/users/create}">
-                        <span class="ttr-icon"><i class="ti-new-window"></i></span>
-                        <span class="ttr-label">Create New User</span></a>
-                </li>
-                <!--                <li>-->
-                <!--                    <a class="ttr-material-button"-->
-                <!--                       th:href="@{/profile/change-password}">-->
-                <!--                        <span class="ttr-icon"><i class="ti-pencil"></i></span>-->
-                <!--                        <span class="ttr-label">Change Password</span></a>-->
-                <!--                </li>-->
-                <li><a class="ttr-material-button"
-                       th:href="@{/admin/manage-subject}">
-                    <span class="ttr-icon"><i class="ti-pencil"></i></span>
-                    <span class="ttr-label">Subject Management</span></a>
-                </li>
-                <li class="ttr-seperate"></li>
-            </ul>
-            <!-- sidebar menu end -->
-        </nav>
-        <!-- sidebar menu end -->
-    </div>
-</div>
+<div th:replace="fragments/util :: admin-sidebar"></div>
 <main class="ttr-wrapper">
-    <h1>User List</h1>
-    <input class="ttr-search-form" type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Search by full name"><br>
-    <div>
-        <label for="roleFilter">Filter by Role: </label>
-        <select id="roleFilter" onchange="filterUsersByRole()">
-            <option value="all">All</option>
-            <option th:each="role : ${roles}" th:value="${role.getRoleName()}"
-                    th:text="${role.getRoleName()}"></option>
-        </select>
-    </div>
-    <table id="userTable">
-        <thead>
-        <tr>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="container mt-4">
+        <!-- Breadcrumb Navigation -->
+        <div class="db-breadcrumb mb-3">
+            <ul class="db-breadcrumb-list">
+                <li><a th:href="@{/admin/dashboard}"><i class="fa fa-home"></i> Home</a></li>
+                <li><a th:href="@{/admin/users}"><i class="ti-view-list"></i> View User List</a></li>
+            </ul>
+        </div>
 
-        <tr th:each="user : ${userPage.content}">
-            <td th:text="${user.fullName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role.roleName}"></td>
-            <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
-            <td>
-                <form th:action="@{/admin/users/update-status}" method="post">
-                    <input type="hidden" name="userId" th:value="${user.userId}">
-                    <button class="btn-primary" type="submit" th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="pagination">
-        <a th:href="@{/admin/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}"><i
-                class="fas fa-chevron-left"></i> Previous</a>
-        <span>Page <span th:text="${userPage.number + 1}"></span> of <span
-                th:text="${userPage.totalPages}"></span></span>
-        <a th:href="@{/admin/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}">Next <i
-                class="fas fa-chevron-right"></i></a>
+        <!-- Search and Filter Options -->
+        <div class="d-flex align-items-center mb-4">
+            <input class="form-control mr-3" type="text" id="searchInput" onkeyup="filterUsers()"
+                   placeholder="Search by full name" style="max-width: 300px;">
+
+            <label for="roleFilter" class="mr-2">Role:</label>
+            <select id="roleFilter" class="form-control mr-3" style="max-width: 150px;" onchange="filterUsers()">
+                <option value="all">All</option>
+                <option th:each="role : ${roles}" th:value="${role.getRoleName()}" th:text="${role.getRoleName()}"></option>
+            </select>
+
+            <label for="statusFilter" class="mr-2">Status:</label>
+            <select id="statusFilter" class="form-control" style="max-width: 150px;" onchange="filterUsers()">
+                <option value="all">All</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+        </div>
+
+        <!-- User Table -->
+        <table id="userTable" class="table table-bordered table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>Full Name
+                    <button onclick="sortTable(0, 'asc')">▲</button>
+                    <button onclick="sortTable(0, 'desc')">▼</button>
+                </th>
+                <th>Email
+                    <button onclick="sortTable(1, 'asc')">▲</button>
+                    <button onclick="sortTable(1, 'desc')">▼</button>
+                </th>
+                <th>Role
+                    <button onclick="sortTable(2, 'asc')">▲</button>
+                    <button onclick="sortTable(2, 'desc')">▼</button>
+                </th>
+                <th>Status
+                    <button onclick="sortTable(3, 'asc')">▲</button>
+                    <button onclick="sortTable(3, 'desc')">▼</button>
+                </th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userPage}">
+                <td th:text="${user.fullName}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role.roleName}"></td>
+                <td th:text="${user.isActive ? 'Active' : 'Inactive'}"></td>
+                <td>
+                    <form th:action="@{/admin/users/update-status}" method="post" class="d-inline">
+                        <input type="hidden" name="userId" th:value="${user.userId}">
+                        <button type="submit" class="btn btn-sm btn-primary"
+                                th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+<!--        <div class="pagination d-flex justify-content-between align-items-center">-->
+<!--            <a th:href="@{/admin/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}"-->
+<!--               class="btn btn-outline-secondary">-->
+<!--                <i class="fas fa-chevron-left"></i> Previous-->
+<!--            </a>-->
+<!--            <span>Page <span th:text="${userPage.number + 1}"></span> of <span th:text="${userPage.totalPages}"></span></span>-->
+<!--            <a th:href="@{/admin/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}"-->
+<!--               class="btn btn-outline-secondary">-->
+<!--                Next <i class="fas fa-chevron-right"></i>-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
 </main>
+
+<!-- JavaScript for filtering by name, role, status -->
+<script>
+    function filterUsers() {
+        const searchInput = document.getElementById("searchInput").value.toLowerCase();
+        const roleFilter = document.getElementById("roleFilter").value;
+        const statusFilter = document.getElementById("statusFilter").value;
+        const table = document.getElementById("userTable");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+            const fullName = cells[0].innerText.toLowerCase();
+            const role = cells[2].innerText.toLowerCase();
+            const status = cells[3].innerText.toLowerCase();
+
+            const nameMatch = fullName.includes(searchInput);
+            const roleMatch = (roleFilter === "all" || role === roleFilter.toLowerCase());
+            const statusMatch = (statusFilter === "all" || status === statusFilter);
+
+            rows[i].style.display = nameMatch && roleMatch && statusMatch ? "" : "none";
+        }
+    }
+
+    function sortTable(columnIndex, order) {
+        let table = document.getElementById("userTable");
+        let rows = Array.from(table.rows).slice(1); // Exclude the header row
+
+        rows.sort((rowA, rowB) => {
+            let cellA = rowA.cells[columnIndex].innerText.trim().toLowerCase();
+            let cellB = rowB.cells[columnIndex].innerText.trim().toLowerCase();
+
+            if (order === 'asc') {
+                return cellA.localeCompare(cellB, undefined, { numeric: true });
+            } else {
+                return cellB.localeCompare(cellA, undefined, { numeric: true });
+            }
+        });
+
+        rows.forEach(row => table.appendChild(row));
+    }
+</script>
+
+<style>
+    /* Styling for table and form controls */
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+    .table th {
+        vertical-align: bottom;
+        border-bottom: 2px solid #dee2e6;
+    }
+    .table td, .table th {
+        padding: 0.75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+    .pagination {
+        padding: 1rem 0;
+    }
+</style>
 
 
 <script th:src="@{/js/jquery.min.js}"></script>

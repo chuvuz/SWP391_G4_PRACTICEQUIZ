@@ -379,7 +379,7 @@
                                   placeholder="Content..."><br><br></div>
 
                     <div><label for="questionType">Question Type:</label>
-                        <select id="questionType" name="questionType" required>
+                        <select id="questionType" name="questionType" required onchange="handleQuestionTypeChange()">
                             <option value="SINGLE_CHOICE" th:selected="${type == 'SINGLE_CHOICE'}">SINGLE_CHOICE</option>
                             <option value="MULTIPLE_CHOICE" th:selected="${type == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE</option>
                             <option value="NUMERIC" th:selected="${type == 'NUMERIC'}">NUMERIC</option>

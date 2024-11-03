@@ -2,487 +2,194 @@
 <html lang="en">
 
 <head>
-
-    <!-- META ============================================= -->
+    <!-- META -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
-    <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png" />
+    <!-- FAVICONS ICON -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png"/>
 
-    <!-- PAGE TITLE HERE ============================================= -->
-    <title>EduChamp : Education HTML Template </title>
+    <!-- PAGE TITLE -->
+    <title>EduChamp : Education HTML Template</title>
 
-    <!-- MOBILE SPECIFIC ============================================= -->
+    <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- All PLUGINS CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/assets.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/typography.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/shortcodes/shortcodes.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link class="skin" rel="stylesheet" type="text/css" th:href="@{/css/color/color-1.css}">
+
+    <!-- REVOLUTION SLIDER CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/layers.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/settings.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/navigation.css}">
 
     <!--[if lt IE 9]>
     <script th:src="@{/js/html5shiv.min.js}"></script>
     <script th:src="@{/js/respond.min.js}"></script>
     <![endif]-->
 
-    <!-- All PLUGINS CSS ============================================= -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/assets.css}">
+    <style>
+        .info-bx h5 {
+            height: 48px; /* Adjust based on desired height */
+            line-height: 24px; /* Match line height to ensure two lines fit */
+            overflow: hidden; /* Hide overflow if the title is too long */
+        }
 
-    <!-- TYPOGRAPHY ============================================= -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/typography.css}">
+        .info-bx span {
+            display: block;
+            margin-top: 8px;
+        }
 
-    <!-- SHORTCODES ============================================= -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/shortcodes/shortcodes.css}">
 
-    <!-- STYLESHEETS ============================================= -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link class="skin" rel="stylesheet" type="text/css" th:href="@{/css/color/color-1.css}">
+        .courses-carousel .item {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
 
-    <!-- REVOLUTION SLIDER CSS ============================================= -->
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/layers.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/settings.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/vendors/revolution/css/navigation.css}">
+        .cours-bx {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
 
-    <!-- REVOLUTION SLIDER END -->
+    </style>
 </head>
+
 <body id="bg">
 <div class="page-wraper">
-    <div id="loading-icon-bx"></div>
-    <!-- Header Top ==== -->
+    <!-- Include Header -->
     <div th:replace="header :: header"></div>
-    <!-- Header Top END ==== -->
+
     <!-- Content -->
     <div class="page-content bg-white">
-        <!-- Main Slider -->
-        <div class="rev-slider">
-            <div id="rev_slider_486_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" data-alias="news-gallery36" data-source="gallery" style="margin:0px auto;background-color:#ffffff;padding:0px;margin-top:0px;margin-bottom:0px;">
-                <!-- START REVOLUTION SLIDER 5.3.0.2 fullwidth mode -->
-                <div id="rev_slider_486_1" class="rev_slider fullwidthabanner" style="display:none;" data-version="5.3.0.2">
-                    <ul>	<!-- SLIDE  -->
-                        <li data-index="rs-100"
-                            data-transition="parallaxvertical"
-                            data-slotamount="default"
-                            data-hideafterloop="0"
-                            data-hideslideonmobile="off"
-                            data-easein="default"
-                            data-easeout="default"
-                            data-masterspeed="default"
-                            data-thumb="error-404.html"
-                            data-rotate="0"
-                            data-fstransition="fade"
-                            data-fsmasterspeed="1500"
-                            data-fsslotamount="7"
-                            data-saveperformance="off"
-                            data-title="A STUDY ON HAPPINESS"
-                            data-param1="" data-param2=""
-                            data-param3="" data-param4=""
-                            data-param5="" data-param6=""
-                            data-param7="" data-param8=""
-                            data-param9="" data-param10=""
-                            data-description="Science says that Women are generally happier">
-                            <!-- MAIN IMAGE -->
-                            <img src="assets/images/slider/slide1.jpg" alt=""
-                                 data-bgposition="center center"
-                                 data-bgfit="cover"
-                                 data-bgrepeat="no-repeat"
-                                 data-bgparallax="10"
-                                 class="rev-slidebg"
-                                 data-no-retina />
+        <div class="page-content bg-white">
+            <!-- Main Slider -->
 
-                            <!-- LAYER NR. 1 -->
-                            <div class="tp-caption tp-shape tp-shapewrapper "
-                                 id="slide-100-layer-1"
-                                 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                 data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
-                                 data-width="full"
-                                 data-height="full"
-                                 data-whitespace="nowrap"
-                                 data-type="shape"
-                                 data-basealign="slide"
-                                 data-responsive_offset="off"
-                                 data-responsive="off"
-                                 data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1,"to":"opacity:0;","ease":"Power4.easeOut"}]'
-                                 data-textAlign="['left','left','left','left']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[0,0,0,0]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;"> </div>
-                            <!-- LAYER NR. 2 -->
-                            <div class="tp-caption Newspaper-Title   tp-resizeme"
-                                 id="slide-100-layer-2"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['0','0','0','0']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['250','250','250','240']"
-                                 data-fontsize="['50','50','50','30']"
-                                 data-lineheight="['55','55','55','35']"
-                                 data-width="full"
-                                 data-height="none"
-                                 data-whitespace="normal"
-                                 data-type="text"
-                                 data-responsive_offset="on"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[10,10,10,10]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;">
-                                Welcome To University
+            <!-- Main Slider -->
+            <div class="content-block">
+                <!-- Popular Subjects -->
+                <div class="section-area section-sp2 popular-courses-bx">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 heading-bx left">
+                                <h2 class="title-head">Popular <span>Subjects</span></h2>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+                                <!-- Dynamic subjects loop -->
+                                <div th:each="subject : ${subjects}" class="item">
+                                    <div class="cours-bx">
+                                        <div class="action-box">
+                                            <img th:src="${subject.subjectImage}" alt="Subject Image">
+                                            <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"
+                                               class="btn">Read More</a>
+                                        </div>
+                                        <div class="info-bx text-center">
+                                            <h5>
+                                                <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"
+                                                   th:text="${subject.subjectName}"></a></h5>
+                                            <span th:text="${subject.category.categoryName}">Category</span>
+                                        </div>
+                                    </div>
 
-                            <!-- LAYER NR. 3 -->
-                            <div class="tp-caption Newspaper-Subtitle   tp-resizeme"
-                                 id="slide-100-layer-3"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['0','0','0','0']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['210','210','210','210']"
-                                 data-width="none"
-                                 data-height="none"
-                                 data-whitespace="nowrap"
-                                 data-type="text"
-                                 data-responsive_offset="on"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                 data-textAlign="['left','left','left','left']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[0,0,0,0]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 7; white-space: nowrap; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
-                                Batter Education For A Better
+                                </div>
+                                <!-- End of dynamic subjects loop -->
                             </div>
-
-                            <!-- LAYER NR. 3 -->
-                            <div class="tp-caption Newspaper-Subtitle   tp-resizeme"
-                                 id="slide-100-layer-4"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['0','0','0','0']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['320','320','320','290']"
-                                 data-width="['800','800','700','420']"
-                                 data-height="['100','100','100','120']"
-                                 data-whitespace="unset"
-                                 data-type="text"
-                                 data-responsive_offset="on"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[0,0,0,0]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
-                            </div>
-                            <!-- LAYER NR. 4 -->
-                            <div class="tp-caption Newspaper-Button rev-btn "
-                                 id="slide-100-layer-5"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['90','80','75','90']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['400','400','400','420']"
-                                 data-width="none"
-                                 data-height="none"
-                                 data-whitespace="nowrap"
-                                 data-type="button"
-                                 data-responsive_offset="on"
-                                 data-responsive="off"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[12,12,12,12]"
-                                 data-paddingright="[30,35,35,15]"
-                                 data-paddingbottom="[12,12,12,12]"
-                                 data-paddingleft="[30,35,35,15]"
-                                 style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; background-color:var(--primary) !important; border:0; border-radius:30px; margin-right:5px;">READ MORE </div>
-                            <div class="tp-caption Newspaper-Button rev-btn"
-                                 id="slide-100-layer-6"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['-90','-80','-75','-90']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['400','400','400','420']"
-                                 data-width="none"
-                                 data-height="none"
-                                 data-whitespace="nowrap"
-                                 data-type="button"
-                                 data-responsive_offset="on"
-                                 data-responsive="off"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[12,12,12,12]"
-                                 data-paddingright="[30,35,35,15]"
-                                 data-paddingbottom="[12,12,12,12]"
-                                 data-paddingleft="[30,35,35,15]"
-                                 style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; border-radius:30px;">CONTACT US</div>
-                        </li>
-                        <li data-index="rs-200"
-                            data-transition="parallaxvertical"
-                            data-slotamount="default"
-                            data-hideafterloop="0"
-                            data-hideslideonmobile="off"
-                            data-easein="default"
-                            data-easeout="default"
-                            data-masterspeed="default"
-                            data-thumb="assets/images/slider/slide1.jpg"
-                            data-rotate="0"
-                            data-fstransition="fade"
-                            data-fsmasterspeed="1500"
-                            data-fsslotamount="7"
-                            data-saveperformance="off"
-                            data-title="A STUDY ON HAPPINESS"
-                            data-param1="" data-param2=""
-                            data-param3="" data-param4=""
-                            data-param5="" data-param6=""
-                            data-param7="" data-param8=""
-                            data-param9="" data-param10=""
-                            data-description="Science says that Women are generally happier">
-                            <!-- MAIN IMAGE -->
-                            <img src="assets/images/slider/slide2.jpg" alt=""
-                                 data-bgposition="center center"
-                                 data-bgfit="cover"
-                                 data-bgrepeat="no-repeat"
-                                 data-bgparallax="10"
-                                 class="rev-slidebg"
-                                 data-no-retina />
-
-                            <!-- LAYER NR. 1 -->
-                            <div class="tp-caption tp-shape tp-shapewrapper "
-                                 id="slide-200-layer-1"
-                                 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                                 data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
-                                 data-width="full"
-                                 data-height="full"
-                                 data-whitespace="nowrap"
-                                 data-type="shape"
-                                 data-basealign="slide"
-                                 data-responsive_offset="off"
-                                 data-responsive="off"
-                                 data-frames='[{"from":"opacity:0;","speed":1,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"opacity:1;","ease":"Power4.easeOut"}]'
-                                 data-textAlign="['left','left','left','left']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[0,0,0,0]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 5;background-color:rgba(2, 0, 11, 0.80);border-color:rgba(0, 0, 0, 0);border-width:0px;">
-                            </div>
-
-                            <!-- LAYER NR. 2 -->
-                            <div class="tp-caption Newspaper-Title   tp-resizeme"
-                                 id="slide-200-layer-2"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['0','0','0','0']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['250','250','250','240']"
-                                 data-fontsize="['50','50','50','30']"
-                                 data-lineheight="['55','55','55','35']"
-                                 data-width="full"
-                                 data-height="none"
-                                 data-whitespace="normal"
-                                 data-type="text"
-                                 data-responsive_offset="on"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[10,10,10,10]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 6; font-family:rubik; font-weight:700; text-align:center; white-space: normal;text-transform:uppercase;">
-                                Welcome To University
-                            </div>
-
-                            <!-- LAYER NR. 3 -->
-                            <div class="tp-caption Newspaper-Subtitle   tp-resizeme"
-                                 id="slide-200-layer-3"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['0','0','0','0']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['210','210','210','210']"
-                                 data-width="none"
-                                 data-height="none"
-                                 data-whitespace="nowrap"
-                                 data-type="text"
-                                 data-responsive_offset="on"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                 data-textAlign="['left','left','left','left']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[0,0,0,0]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 7; white-space: nowrap;text-transform:uppercase; color:#fff; font-family:rubik; font-size:18px; font-weight:400;">
-                                Batter Education For A Better
-                            </div>
-
-                            <!-- LAYER NR. 3 -->
-                            <div class="tp-caption Newspaper-Subtitle   tp-resizeme"
-                                 id="slide-200-layer-4"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['0','0','0','0']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['320','320','320','290']"
-                                 data-width="['800','800','700','420']"
-                                 data-height="['100','100','100','120']"
-                                 data-whitespace="unset"
-                                 data-type="text"
-                                 data-responsive_offset="on"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;s:inherit;e:inherit;","ease":"Power3.easeInOut"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[0,0,0,0]"
-                                 data-paddingright="[0,0,0,0]"
-                                 data-paddingbottom="[0,0,0,0]"
-                                 data-paddingleft="[0,0,0,0]"
-                                 style="z-index: 7; text-transform:capitalize; white-space: unset; color:#fff; font-family:rubik; font-size:18px; line-height:28px; font-weight:400;">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the
-                            </div>
-                            <!-- LAYER NR. 4 -->
-                            <div class="tp-caption Newspaper-Button rev-btn "
-                                 id="slide-200-layer-5"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['90','80','75','90']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['400','400','400','420']"
-                                 data-width="none"
-                                 data-height="none"
-                                 data-whitespace="nowrap"
-                                 data-type="button"
-                                 data-responsive_offset="on"
-                                 data-responsive="off"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[12,12,12,12]"
-                                 data-paddingright="[30,35,35,15]"
-                                 data-paddingbottom="[12,12,12,12]"
-                                 data-paddingleft="[30,35,35,15]"
-                                 style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; background-color:var(--primary) !important; border:0; border-radius:30px; margin-right:5px;">READ MORE </div>
-                            <div class="tp-caption Newspaper-Button rev-btn"
-                                 id="slide-200-layer-6"
-                                 data-x="['center','center','center','center']"
-                                 data-hoffset="['-90','-80','-75','-90']"
-                                 data-y="['top','top','top','top']"
-                                 data-voffset="['400','400','400','420']"
-                                 data-width="none"
-                                 data-height="none"
-                                 data-whitespace="nowrap"
-                                 data-type="button"
-                                 data-responsive_offset="on"
-                                 data-responsive="off"
-                                 data-frames='[{"from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;","speed":1500,"to":"o:1;","delay":1000,"ease":"Power3.easeInOut"},{"delay":"wait","speed":1000,"to":"auto:auto;","mask":"x:0;y:0;","ease":"Power3.easeInOut"},{"frame":"hover","speed":"300","ease":"Power1.easeInOut","to":"o:1;rX:0;rY:0;rZ:0;z:0;","style":"c:rgba(0, 0, 0, 1.00);bg:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);bw:1px 1px 1px 1px;"}]'
-                                 data-textAlign="['center','center','center','center']"
-                                 data-paddingtop="[12,12,12,12]"
-                                 data-paddingright="[30,35,35,15]"
-                                 data-paddingbottom="[12,12,12,12]"
-                                 data-paddingleft="[30,35,35,15]"
-                                 style="z-index: 8; white-space: nowrap; outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;cursor:pointer; border-radius:30px;">CONTACT US</div>
-                        </li>
-                        <!-- SLIDE  -->
-                    </ul>
-                </div><!-- END REVOLUTION SLIDER -->
-            </div>
-        </div>
-        <!-- Main Slider -->
-        <div class="content-block">
-            <!-- Popular Courses -->
-            <div class="section-area section-sp2 popular-courses-bx">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 heading-bx left">
-                            <h2 class="title-head">Popular <span>Subject</span></h2>
-                            <p>Explore our wide range of quizzes across various subjects</p>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="courses-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                            <div th:each="subjects : ${subjects}" class="item">
-                                <div class="cours-bx">
+                </div>
+                <!-- Popular Subjects END -->
+
+                <div class="section-area section-sp2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 heading-bx left">
+                                <h2 class="title-head">Recent <span>Blogs</span></h2>
+                            </div>
+                        </div>
+                        <div class="recent-news-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+                            <div class="item" th:each="blog : ${blogs}">
+                                <div class="recent-news">
                                     <div class="action-box">
-                                        <img th:src="${subjects.subjectImage}" alt="Quiz Image"> <!-- Dynamic image -->
-                                        <a th:href="@{/subject-detail/{subjectId}(subjectId=${subjects.subjectId})}" class="btn">Read More</a>
+                                        <img th:src="${blog.image}" alt="Blog Image">
                                     </div>
-                                    <div class="info-bx text-center">
-                                        <h5><a th:href="@{/subject-detail/{subjectId}(subjectId=${subjects.subjectId})}" th:text="${subjects.subjectName}"></a></h5>
-                                    </div>
-                                    <div class="cours-more-info">
-<!--                                        <div class="created-by">-->
-<!--                                            <span th:text="'Created by: ' + ${quiz.createdBy.fullName}">Creator</span> &lt;!&ndash; Assuming User entity has a fullName field &ndash;&gt;-->
-<!--                                        </div>-->
-<!--                                        <div class="created-date">-->
-<!--                                            <span th:text="${quiz.createdDate}">Created Date</span>-->
-<!--                                        </div>-->
+                                    <div class="info-bx">
+                                        <ul class="media-post">
+                                            <li><a href="#"><i class="fa fa-calendar"></i> <span th:text="${blog.createdDate}">Jan 02 2019</span></a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i> By <span th:text="${blog.createdBy.fullName}">Author</span></a></li>
+                                        </ul>
+                                        <h5 class="post-title"><a th:href="@{/blog-details/{id}(id=${blog.blogId})}" th:text="${blog.title}">Blog Title</a></h5>
+                                        <p th:text="${blog.content}">Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
+                                        <div class="post-extra">
+                                            <a th:href="@{/blog-details/{id}(id=${blog.blogId})}" class="btn-link">READ MORE</a>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Popular Courses END -->
-
-
-            <!-- Recent Blog -->
-            <div class="section-area section-sp2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 heading-bx left">
-                            <h2 class="title-head">Recent <span>News</span></h2>
-                            <p>It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                <!-- Testimonials ==== -->
+                <div class="section-area section-sp2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 heading-bx left">
+                                <h2 class="title-head text-uppercase">Our <span>Experts</span></h2>
+                            </div>
                         </div>
-                    </div>
-                    <div class="recent-news-carousel owl-carousel owl-btn-1 col-12 p-lr0">
-                        <div th:each="blog : ${blogs}">
-                            <div class="recent-news">
-                                <div class="action-box">
-                                    <!-- Hiển thị ảnh của blog -->
-                                    <img th:src="${blog.image}" alt="Blog Image">
-                                </div>
-                                <div class="info-bx">
-                                    <ul class="media-post">
-                                        <!-- Hiển thị ngày tạo blog trực tiếp -->
-                                        <li><a href="#"><i class="fa fa-calendar"></i>
-                                            <span th:text="${blog.createdDate}"></span>
-                                        </a></li>
-                                        <!-- Hiển thị tên tác giả của blog (nếu có) -->
-                                        <li><a href="#"><i class="fa fa-user"></i>
-                                            <span th:text="${blog.createdBy.fullName}">Author ID</span>
-                                        </a></li>
-                                    </ul>
-                                    <!-- Hiển thị tiêu đề bài viết -->
-                                    <h5 class="post-title"><a th:href="@{/blogs/{id}(id=${blog.blogId})}"  th:text="${blog.title}"></a></h5>
-                                    <!-- Hiển thị nội dung tóm tắt của bài viết -->
-                                    <p th:text="${blog.content}"></p>
-                                    <div class="post-extra">
-                                        <!-- Link đến bài viết đầy đủ -->
-                                        <a th:href="@{/blogs/{id}(id=${blog.blogId})}"  class="btn-link">READ MORE</a>
-                                        <!-- Hiển thị trạng thái bài viết (active hay không) -->
-                                        <a href="#" class="comments-bx">
-                                            <span th:text="${blog.isActiveBlog == 1 ? 'Active' : 'Inactive'}"></span>
-                                        </a>
+                        <div class="testimonial-carousel owl-carousel owl-btn-1 col-12 p-lr0">
+                            <div class="item" th:each="expert : ${experts}">
+                                <div class="testimonial-bx">
+                                    <div class="testimonial-thumb">
+                                        <img th:src="${expert.profileImage}" alt="Expert Image" src="">
+                                    </div>
+                                    <div class="testimonial-info">
+                                        <h5 class="name" th:text="${expert.fullName}">Expert Name</h5>
+                                        <p th:text="${expert.role.roleName}">- Expert Role</p>
+                                    </div>
+                                    <div class="testimonial-content">
+                                        <p th:text="${expert.description != null ? expert.description : 'No description available.'}">Description text</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+                </div>
+
+
             </div>
-            <!-- Recent News End -->
+            <!-- contact area END -->
 
         </div>
-        <!-- contact area END -->
+
+
+
     </div>
-    <!-- Content END-->
-    <!-- Footer ==== -->
+
+    <!-- Footer Section -->
     <div th:replace="footer :: footer"></div>
-    <!-- Footer END ==== -->
-    <button class="back-to-top fa fa-chevron-up" ></button>
 </div>
 
 <!-- External JavaScripts -->
@@ -501,107 +208,6 @@
 <script th:src="@{/js/functions.js}"></script>
 <script th:src="@{/js/contact.js}"></script>
 <script th:src="@{/vendors/switcher/switcher.js}"></script>
-<!-- Revolution JavaScripts Files -->
-<script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
-<!-- Slider revolution 5.0 Extensions -->
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.layeranimation.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.migration.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.navigation.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
-<script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
-
-<script>
-    jQuery(document).ready(function() {
-        var ttrevapi;
-        var tpj =jQuery;
-        if(tpj("#rev_slider_486_1").revolution == undefined){
-            revslider_showDoubleJqueryError("#rev_slider_486_1");
-        }else{
-            ttrevapi = tpj("#rev_slider_486_1").show().revolution({
-                sliderType:"standard",
-                jsFileLocation:"assets/vendors/revolution/js/",
-                sliderLayout:"fullwidth",
-                dottedOverlay:"none",
-                delay:9000,
-                navigation: {
-                    keyboardNavigation:"on",
-                    keyboard_direction: "horizontal",
-                    mouseScrollNavigation:"off",
-                    mouseScrollReverse:"default",
-                    onHoverStop:"on",
-                    touch:{
-                        touchenabled:"on",
-                        swipe_threshold: 75,
-                        swipe_min_touches: 1,
-                        swipe_direction: "horizontal",
-                        drag_block_vertical: false
-                    }
-                    ,
-                    arrows: {
-                        style: "uranus",
-                        enable: true,
-                        hide_onmobile: false,
-                        hide_onleave: false,
-                        tmp: '',
-                        left: {
-                            h_align: "left",
-                            v_align: "center",
-                            h_offset: 10,
-                            v_offset: 0
-                        },
-                        right: {
-                            h_align: "right",
-                            v_align: "center",
-                            h_offset: 10,
-                            v_offset: 0
-                        }
-                    },
-
-                },
-                viewPort: {
-                    enable:true,
-                    outof:"pause",
-                    visible_area:"80%",
-                    presize:false
-                },
-                responsiveLevels:[1240,1024,778,480],
-                visibilityLevels:[1240,1024,778,480],
-                gridwidth:[1240,1024,778,480],
-                gridheight:[768,600,600,600],
-                lazyType:"none",
-                parallax: {
-                    type:"scroll",
-                    origo:"enterpoint",
-                    speed:400,
-                    levels:[5,10,15,20,25,30,35,40,45,50,46,47,48,49,50,55],
-                    type:"scroll",
-                },
-                shadow:0,
-                spinner:"off",
-                stopLoop:"off",
-                stopAfterLoops:-1,
-                stopAtSlide:-1,
-                shuffle:"off",
-                autoHeight:"off",
-                hideThumbsOnMobile:"off",
-                hideSliderAtLimit:0,
-                hideCaptionAtLimit:0,
-                hideAllCaptionAtLilmit:0,
-                debugMode:false,
-                fallbacks: {
-                    simplifyAll:"off",
-                    nextSlideOnWindowFocus:"off",
-                    disableFocusListener:false,
-                }
-            });
-        }
-    });
-</script>
 </body>
 
 </html>

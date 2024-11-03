@@ -94,36 +94,6 @@ function filterAll() {
         }
 }
 
- // Hàm lưu giá trị bộ lọc vào sessionStorage
-        function saveFilters() {
-            const typeFilterValue = document.getElementById('typeFilter').value.toLowerCase();
-            const lessonFilterValue = document.getElementById('lessonFilter').value.toLowerCase();
-            const subjectFilterValue = document.getElementById('subjectFilter').value.toLowerCase();
-            const contentFilterValue = document.getElementById('contentFilter').value.toLowerCase();
-
-            // Lưu giá trị vào sessionStorage
-            sessionStorage.setItem('typeFilterValue', typeFilterValue);
-            sessionStorage.setItem('lessonFilterValue', lessonFilterValue);
-            sessionStorage.setItem('subjectFilterValue', subjectFilterValue);
-            sessionStorage.setItem('contentFilterValue', contentFilterValue);
-
-        }
-
-// Gán sự kiện thay đổi cho các bộ lọc
-    document.getElementById('typeFilter').addEventListener('change', saveFilters);
-    document.getElementById('lessonFilter').addEventListener('change', saveFilters);
-    document.getElementById('subjectFilter').addEventListener('change', saveFilters);
-    document.getElementById('contentFilter').addEventListener('input', saveFilters);
-
  window.onload = function() {
-     const typeFilterValue = sessionStorage.typeFilterValue;
-     const lessonFilterValue = sessionStorage.lessonFilterValue;
-     const subjectFilterValue = sessionStorage.subjectFilterValue;
-     const contentFilterValue = sessionStorage.contentFilterValue;
-
-         document.getElementById('typeFilter').value = typeFilterValue;
-         document.getElementById('lessonFilter').value = lessonFilterValue;
-         document.getElementById('subjectFilter').value = subjectFilterValue;
-         document.getElementById('contentFilter').value = contentFilterValue;
     filterAll();
     };

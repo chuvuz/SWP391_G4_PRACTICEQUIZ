@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/quizdb
     username: root
-    password: 123456
+    password: AaSsLlKk@1209
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     open-in-view: false
@@ -33,7 +33,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: chuvuz04112001@gmail.com
-    password: tziahhlnkeevrsvj
+    password: hdxivtjoraxkzpyl
     properties:
       mail:
         smtp:
@@ -55,3 +55,5 @@ logging:
       springframework:
         boot:
           autoconfigure: WARN
+file:
+  upload-dir: uploads/

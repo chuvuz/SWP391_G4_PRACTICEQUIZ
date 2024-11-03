@@ -60,11 +60,7 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectRepository.findAllActiveSubject(pageable);
     }
 
-    @Override
-    public Page<Subject> searchSubject(String subjectName, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return subjectRepository.searchSubject(subjectName, pageable);
-    }
+
 
     @Override
     public Subject getSubjectById(Integer subjectId) {
@@ -124,5 +120,21 @@ public class SubjectServiceImpl implements SubjectService {
     public Page<Subject> searchSubjectAll(String subjectName, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return subjectRepository.searchSubjectAll(subjectName, pageable);
+    }
+
+    @Override
+    public Page<Subject> searchSubject(String subjectName, Integer categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return subjectRepository.searchSubject(subjectName, categoryId, pageable);
+    }
+
+    @Override
+    public boolean existsBySubjectName(String subjectName) {
+        return subjectRepository.existsBySubjectName(subjectName);
+    }
+
+    @Override
+    public Subject findBySubjectId(int id) {
+        return subjectRepository.findById(id).orElse(null);
     }
 }

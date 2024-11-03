@@ -368,49 +368,49 @@
         </div>
         <div class="row">
 
-                    <!-- Filter by Type -->
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                        <label for="typeFilter">Type</label>
-                        <select id="typeFilter" class="form-control" onchange="filterAll()">
-                            <option value="">All Types</option>
-                            <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
-                            <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
-                            <option value="NUMERIC">NUMERIC</option>
-                        </select>
-                    </div>
+            <!-- Filter by Type -->
+            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                <label for="typeFilter">Type</label>
+                <select id="typeFilter" class="form-control" onchange="filterAll()">
+                    <option value="">All Types</option>
+                    <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
+                    <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
+                    <option value="NUMERIC">NUMERIC</option>
+                </select>
+            </div>
 
-                    <!-- Filter by Lesson -->
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                        <label for="lessonFilter">Lesson</label>
-                        <select id="lessonFilter" class="form-control" onchange="filterAll()">
-                            <option value="">-- All Lesson --</option>
-                            <option th:each="lesson : ${lessons}"
-                                    th:value="${lesson.lessonName}"
-                                    th:text="${lesson.lessonName}">
-                            </option>
-                        </select>
-                    </div>
+            <!-- Filter by Lesson -->
+            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                <label for="lessonFilter">Lesson</label>
+                <select id="lessonFilter" class="form-control" onchange="filterAll()">
+                    <option value="">-- All Lesson --</option>
+                    <option th:each="lesson : ${lessons}"
+                            th:value="${lesson.lessonName}"
+                            th:text="${lesson.lessonName}">
+                    </option>
+                </select>
+            </div>
 
-                    <!-- Filter by Subject -->
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                        <label for="subjectFilter">Subject</label>
-                        <select id="subjectFilter" class="form-control" onchange="filterAll()">
-                            <option value="">-- All Subject --</option>
-                            <option th:each="subject : ${subjects}"
-                                    th:value="${subject.subjectName}"
-                                    th:text="${subject.subjectName}">
-                            </option>
-                        </select>
-                    </div>
+            <!-- Filter by Subject -->
+            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                <label for="subjectFilter">Subject</label>
+                <select id="subjectFilter" class="form-control" onchange="filterAll()">
+                    <option value="">-- All Subject --</option>
+                    <option th:each="subject : ${subjects}"
+                            th:value="${subject.subjectName}"
+                            th:text="${subject.subjectName}">
+                    </option>
+                </select>
+            </div>
 
-                    <!-- Search by Question Content -->
-                    <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                        <label for="contentFilter">Search Content</label>
-                        <input type="text" id="contentFilter"
-                               class="form-control"
-                               placeholder="Search content..."
-                               onkeyup="filterAll()">
-                    </div>
+            <!-- Search by Question Content -->
+            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
+                <label for="contentFilter">Search Content</label>
+                <input type="text" id="contentFilter"
+                       class="form-control"
+                       placeholder="Search content..."
+                       onkeyup="filterAll()">
+            </div>
 
             <!-- Question Table -->
             <table class="table table-striped">

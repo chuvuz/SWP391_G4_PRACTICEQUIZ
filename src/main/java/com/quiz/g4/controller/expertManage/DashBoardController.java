@@ -133,20 +133,20 @@ public class DashBoardController {
             user = userService.findByEmail(email);
             model.addAttribute("user", user);
 
-        // Tạo một đối tượng Quiz mới
-        Quiz new_quiz = new Quiz();
-        new_quiz.setQuizName(quizName);
-        new_quiz.setDescription(description);
-        new_quiz.setCreatedDate(LocalDate.now());
-        new_quiz.setUpdatedDate(LocalDate.now());
-        new_quiz.setCreatedBy(user);
-        new_quiz.setIsActive(true);
-        Subject subject = subjectRepository.findBySubjectId(subjectId);
-        Lesson lesson = lessonRepository.findByLessonId(lessonId);
-        new_quiz.setSubject(subject);
-        new_quiz.setLesson(lesson);
+            // Tạo một đối tượng Quiz mới
+            Quiz new_quiz = new Quiz();
+            new_quiz.setQuizName(quizName);
+            new_quiz.setDescription(description);
+            new_quiz.setCreatedDate(LocalDate.now());
+            new_quiz.setUpdatedDate(LocalDate.now());
+            new_quiz.setCreatedBy(user);
+            new_quiz.setIsActive(true);
+            Subject subject = subjectRepository.findBySubjectId(subjectId);
+            Lesson lesson = lessonRepository.findByLessonId(lessonId);
+            new_quiz.setSubject(subject);
+            new_quiz.setLesson(lesson);
 
-        // Lấy danh sách câu hỏi từ selectedQuestions và chuyển đổi thành Set
+            // Lấy danh sách câu hỏi từ selectedQuestions và chuyển đổi thành Set
             List<QuestionBank> questions = questionBankService.getQuestionsByIds(selectedQuestions);
 
             // Thêm các câu hỏi vào quiz
@@ -154,8 +154,8 @@ public class DashBoardController {
 
 
             // Lưu Quiz vào database
-        quizRepository.save(new_quiz);
-    }
+            quizRepository.save(new_quiz);
+        }
         // Thêm các thuộc tính vào model để hiển thị thông báo hoặc chuyển tiếp đến view khác nếu cần
         model.addAttribute("quizName", quizName);
         model.addAttribute("description", description);

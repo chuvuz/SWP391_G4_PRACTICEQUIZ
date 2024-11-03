@@ -1,6 +1,8 @@
 package com.quiz.g4.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +31,6 @@ public class User implements UserDetails {
 	@JoinColumn(name = "role_id", nullable = false)
 	private Role role;
 
-
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
 
@@ -42,7 +43,7 @@ public class User implements UserDetails {
 	@Column(nullable = false, unique = true, length = 45)
 	private String email;
 
-	@Column(name = "profile_image")  // Trường bổ sung cho ảnh đại diện
+	@Column(name = "profile_image")
 	private String profileImage;
 
 	@Column(name = "created_date")
@@ -53,6 +54,17 @@ public class User implements UserDetails {
 
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive = true;
+
+	@Column(name = "phone", length = 15)
+	private String phone;
+
+	@Column(name = "date_of_birth")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfBirth;
+
+	@Column(name = "gender", nullable = false)
+	@ColumnDefault("1")
+	private Boolean gender = true; // True có thể đại diện cho "Nam", False cho "Nữ"
 
 	@OneToMany(mappedBy = "createdBy")
 	private Set<Quiz> quizzes;
@@ -91,8 +103,6 @@ public class User implements UserDetails {
 	public boolean isEnabled() {
 		return isActive;
 	}
-
-
 
 	public boolean isActive() {
 		return isActive;

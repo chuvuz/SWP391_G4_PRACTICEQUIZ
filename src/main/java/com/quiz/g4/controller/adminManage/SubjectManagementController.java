@@ -67,14 +67,18 @@ public class SubjectManagementController {
     }
 
 
-    @PostMapping("/admin/create-subject")
+    @PostMapping("/create-subject")
     public String createSubject(@RequestParam("subjectName") String subjectName,
                                 @RequestParam("isActive") boolean isActive,
                                 @RequestParam("imageUrl") String imageUrl, RedirectAttributes redirectAttributes,// Nhận URL ảnh từ form
                                 Model model, Principal principal) {
         // Kiểm tra nếu URL ảnh trống
         if (imageUrl == null || imageUrl.isEmpty()) {
-            model.addAttribute("error", "Image URL is required.");
+            redirectAttributes.addFlashAttribute("error", "Image URL is required.");
+            return "redirect:/admin/manage-subject";
+        } // Check subjectName format
+         if (!subjectName.matches("[A-Za-zA-ÿ]+(?:\\s[A-Za-zA-ÿ]+)*$")) {
+             redirectAttributes .addFlashAttribute("error", "Invalid subject name format.");
             return "redirect:/admin/manage-subject";
         }
 
@@ -83,6 +87,10 @@ public class SubjectManagementController {
             User user = userService.findByEmail(principal.getName());
             model.addAttribute("user", user);
         }
+        if (subjectService.existsBySubjectName(subjectName)) {
+            redirectAttributes.addFlashAttribute("error", "Subject name already exists.");
+            return "redirect:/admin/manage-subject"; // Trở về trang quản lý môn
+             }
 
         // Tạo môn học mới với URL ảnh
         subjectService.createSubjectWithImageUrl(subjectName, isActive, imageUrl);
@@ -109,8 +117,22 @@ public class SubjectManagementController {
     public String updateSubject(@RequestParam("subjectId") int id,
                                 @RequestParam("subjectName") String subjectName,
                                 @RequestParam("isActive") boolean isActive,
-                                @RequestParam(value = "imageUrl", required = false) String imageUrl  // Nhận URL ảnh từ form
+                                @RequestParam(value = "imageUrl", required = false) String imageUrl,  // Nhận URL ảnh từ form
+                                Model model, RedirectAttributes redirectAttributes
+// Nhận URL ảnh từ form
     ) {
+        Subject existingSubject = subjectService.findBySubjectId(id);
+// Kiểm tra định dạng subjectName
+        if (!subjectName.matches("^[A-Za-zÀ-ỹ]+(?:\\s[A-Za-zÀ-ỹ]+)*$")) {
+            redirectAttributes.addFlashAttribute("error", "Invalid subject name format.");
+            return "redirect:/admin/manage-subject/edit-subject/" + id;
+        }
+        // Kiểm tra trùng tên môn học và tên khác với môn học hiện tại
+        if(subjectService.existsBySubjectName(subjectName) &&
+                (existingSubject == null || !existingSubject.getSubjectName().equals(subjectName))) {
+            redirectAttributes.addFlashAttribute("error", "Subject name already exists.");
+            return "redirect:/admin/manage-subject/edit-subject/"+id; // Hoặc trả về trang chỉnh sửa với thông báo lỗi
+        }
         // Nếu không có URL ảnh mới, giữ nguyên URL ảnh cũ
         subjectService.updateSubjectWithImageUrl(id, subjectName, isActive, imageUrl);
         return "redirect:/admin/manage-subject";
