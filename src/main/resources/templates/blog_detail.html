@@ -123,30 +123,6 @@
                                     <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
                                 </div>
                                 <!-- Form -->
-                                <div class="comment-respond" id="respond">
-                                    <h4 class="comment-reply-title" id="reply-title">Leave a Reply <small> <a style="display:none;" href="#" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>
-                                    <form class="comment-form" id="commentform" method="post">
-                                        <p class="comment-form-author">
-                                            <label for="author">Name <span class="required">*</span></label>
-                                            <input type="text" value="" name="Author"  placeholder="Author" id="author">
-                                        </p>
-                                        <p class="comment-form-email">
-                                            <label for="email">Email <span class="required">*</span></label>
-                                            <input type="text" value="" placeholder="Email" name="email" id="email">
-                                        </p>
-                                        <p class="comment-form-url">
-                                            <label for="url">Website</label>
-                                            <input type="text"  value=""  placeholder="Website"  name="url" id="url">
-                                        </p>
-                                        <p class="comment-form-comment">
-                                            <label for="comment">Comment</label>
-                                            <textarea rows="8" name="comment" placeholder="Comment" id="comment"></textarea>
-                                        </p>
-                                        <p class="form-submit">
-                                            <input type="submit" value="Submit Comment" class="submit" id="submit" name="submit">
-                                        </p>
-                                    </form>
-                                </div>
                             </div>
                             <!-- blog END -->
                         </div>
@@ -167,9 +143,9 @@
                                     <h6 class="widget-title">Recent Posts</h6>
                                     <div class="widget-post-bx blog-list">
                                         <div class="widget-post clearfix blog-item" th:each="blog_recent : ${blogs}">
-                                            <div class="ttr-post-media">
-                                                <img th:src="${blog_recent.getImage()}" width="200" height="143" alt="">
-                                            </div>
+<!--                                            <div class="ttr-post-media">-->
+<!--                                                <img th:src="${blog_recent.getImage()}" width="200" height="143" alt="">-->
+<!--                                            </div>-->
                                             <div class="ttr-post-info">
                                                 <div class="ttr-post-header">
                                                     <h6 class="post-title">

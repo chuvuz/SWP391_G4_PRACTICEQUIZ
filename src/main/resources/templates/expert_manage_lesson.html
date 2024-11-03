@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <!-- Mirrored from educhamp.themetrades.com/demo/admin/courses.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:10:19 GMT -->
 <head>
     <!-- META ============================================= -->
@@ -154,6 +154,7 @@
 											<span> 14 July</span>
 										</span>
                                 </li>
+
                                 <li>
 										<span class="notification-icon dashbg-primary">
 											<i class="fa fa-file-word-o"></i>
@@ -234,136 +235,89 @@
 </header>
 <!-- header end -->
 <!-- Left sidebar menu start -->
-<div class="ttr-sidebar">
-    <div class="ttr-sidebar-wrapper content-scroll">
-        <!-- side menu logo start -->
-        <div class="ttr-sidebar-logo">
-            <a href="#"><img alt="" src="assets/images/logo.png" width="122" height="27"></a>
-            <!-- <div class="ttr-sidebar-pin-button" title="Pin/Unpin Menu">
-                <i class="material-icons ttr-fixed-icon">gps_fixed</i>
-                <i class="material-icons ttr-not-fixed-icon">gps_not_fixed</i>
-            </div> -->
-            <div class="ttr-sidebar-toggle-button">
-                <i class="ti-arrow-left"></i>
-            </div>
-        </div>
-        <!-- side menu logo end -->
-        <!-- sidebar menu start -->
-        <nav class="ttr-sidebar-navi">
-            <ul>
-                <li>
-                    <a th:href="@{/expert/expert_dashboard}" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="ti-home"></i></span>
-                        <span class="ttr-label">Dashborad</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/expert/expert_quizz}" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="ti-book"></i></span>
-                        <span class="ttr-label">Quiz Manage</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/expert/expert_manage_question}" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="ti-book"></i></span>
-                        <span class="ttr-label">Question Manage</span>
-                    </a>
-                </li>
-                <li>
-                    <a th:href="@{/expert/expert_manage_lesson}" class="ttr-material-button">
-                        <span class="ttr-icon"><i class="ti-book"></i></span>
-                        <span class="ttr-label">Lesson Manage</span>
-                    </a>
-                </li>
-            </ul>
-            <!-- sidebar menu end -->
-        </nav>
-        <!-- sidebar menu end -->
-    </div>
-</div>
+<div th:insert="~{expert_sidebar}"></div>
+
 <!-- Left sidebar menu end -->
 
 <!--Main container start -->
 <main class="ttr-wrapper">
     <div class="container-fluid">
         <div class="db-breadcrumb">
-            <h4 class="breadcrumb-title">Lesson</h4>
+
             <ul class="db-breadcrumb-list">
                 <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
                 <li>Lesson</li>
             </ul>
         </div>
         <div class="row">
-            <div class="container">
-                <h2 class="text-center">List of Lessons</h2>
-                <div>
-                    <button id="openCreateQuizModal" style="margin-top: 20px;margin-bottom: 20px"
-                            class="btn btn-primary" data-toggle="modal" data-target="#createQuizModal">
-                        Create Lesson
-                    </button>
-                    <div style="display: flex">
+            <div>
+                <button id="openCreateQuizModal" style="margin-top: 20px;margin-bottom: 20px"
+                        class="btn btn-primary" data-toggle="modal" data-target="#createQuizModal">
+                    Create Lesson
+                </button>
+                <div style="display: flex">
 
-                        <!--   Them thanh search lesson-->
+                    <!--   Them thanh search lesson-->
 
-                        <div>
-                            <input type="text" id="searchInput" placeholder="Search for lessons..." class="form-control"
-                                   style="margin-bottom: 20px;width: 300px">
-                        </div>
-                        <label for="subjectSelect"></label>
-                        <select id="subjectSelectSearch" style="width: 200px" name="subjectId" class="form-control"
-                                required>
-                            <option value="">Select Subject</option>
-                            <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
-                                    th:text="${subject.subjectName}"></option>
-                        </select>
-
+                    <div>
+                        <input type="text" id="searchInput" placeholder="Search for lessons..." class="form-control"
+                               style="margin-bottom: 20px;width: 300px">
                     </div>
+                    <label for="subjectSelect"></label>
+                    <select id="subjectSelectSearch" style="width: 200px" name="subjectId" class="form-control"
+                            required>
+                        <option value="">Select Subject</option>
+                        <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
+                                th:text="${subject.subjectName}"></option>
+                    </select>
 
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Lesson ID</th>
-                        <th>Lesson Name</th>
-                        <th>Subject</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="lesson : ${lessons}">
-                        <td th:text="${lesson.lessonId}"></td>
-                        <td th:text="${lesson.lessonName}"></td>
-                        <!--                        <td th:text="${lesson.subject.subjectName}"></td>-->
-                        <td th:text="${lesson.subject.subjectName}"
-                            th:data-subject-id="${lesson.subject.subjectId}"></td>
 
-                    </tr>
-                    </tbody>
-                </table>
-
-                <!-- Pagination controls -->
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
-                            <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${currentPage - 1}}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                            th:classappend="${i == currentPage} ? 'active'">
-                            <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${i}}"
-                               th:text="${i + 1}"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
-                            <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${currentPage + 1}}"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <!-- Your Profile Views Chart END-->
             </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Lesson ID</th>
+                    <th>Lesson Name</th>
+                    <th>Subject</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lesson : ${lessons}">
+                    <td th:text="${lesson.lessonId}"></td>
+                    <td th:text="${lesson.lessonName}"></td>
+                    <!--                        <td th:text="${lesson.subject.subjectName}"></td>-->
+                    <td th:text="${lesson.subject.subjectName}"
+                        th:data-subject-id="${lesson.subject.subjectId}"></td>
+
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- Pagination controls -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${currentPage - 1}}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${i}}"
+                           th:text="${i + 1}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+                        <a class="page-link" th:href="@{'/expert/expert_manage_lesson?page=' + ${currentPage + 1}}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Your Profile Views Chart END-->
+
         </div>
         <!-- Create Lesson Modal -->
         <div class="modal fade" id="createQuizModal" tabindex="-1" role="dialog" aria-labelledby="createQuizModalLabel"
@@ -398,7 +352,6 @@
                 </div>
             </div>
         </div>
-
 </main>
 
 <div class="ttr-overlay"></div>
