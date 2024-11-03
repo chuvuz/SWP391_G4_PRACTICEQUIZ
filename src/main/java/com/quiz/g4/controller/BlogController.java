@@ -45,7 +45,7 @@ public class BlogController {
     @GetMapping("/blog-list")
     public String getAllBlogs(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
@@ -116,7 +116,7 @@ public class BlogController {
     @GetMapping("/marketing/manage/blog-list")
     public String getAllBlogsManage(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "3") int size,
+            @RequestParam(defaultValue = "10") int size,
             Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
