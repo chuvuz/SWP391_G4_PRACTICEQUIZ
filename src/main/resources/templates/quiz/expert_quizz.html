@@ -333,8 +333,9 @@
                                         </div>
 
                                         <div class="modal-footer">
-                                            <form >
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit Question</button>
+                                            <form action="/expert/api/edit_questions" method="GET" >
+                                                <input type="hidden" name="quizId" th:value="${quiz.quizId}">
+                                            <button type="submit" class="btn btn-secondary" >Edit Question</button>
                                             </form>
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         </div>
@@ -403,6 +404,7 @@
                             <label for="description">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                         </div>
+
                         <button type="submit" class="btn btn-primary">Next</button>
                     </form>
                 </div>
