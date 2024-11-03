@@ -46,7 +46,6 @@
     <link th:href="@{/expert/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/dashboard.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
-    <script th:src="@{/js/filterQuestions.js}"></script>
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 <!-- header start -->
@@ -316,7 +315,7 @@
                 <div class="form-group col-md-6 col-sm-12 m-b30">
 
                     <div><label for="subject">Subject:</label>
-                        <select id="subject" name="subject" required>
+                        <select id="subject" name="subject" required onchange="updateLessons()">
                             <option value="">-- Select Subject --</option>
                             <option th:each="subject : ${subjects}"
                                     th:value="${subject.subjectId}"
@@ -376,6 +375,30 @@
                 </div>
             </div>
         </form>
+
+        <script>
+            function updateLessons() {
+    const selectedSubjectId = document.getElementById('subject').value;
+
+    fetch(`/lessonsBySubject/${selectedSubjectId}`)
+        .then(response => response.json())
+        .then(data => {
+            const lessonSelect = document.getElementById('lesson');
+            lessonSelect.innerHTML = ''; // Xóa tất cả tùy chọn hiện tại
+
+
+
+            // Thêm các tùy chọn bài học từ dữ liệu
+            data.forEach(lesson => {
+                const option = document.createElement('option');
+                option.value = lesson.lessonId;
+                option.textContent = lesson.lessonName;
+                lessonSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+        </script>
 
         <div class="row">
             <a th:href="@{/expert/expert_manage_question}">Back</a>
