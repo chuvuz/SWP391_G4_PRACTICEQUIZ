@@ -315,17 +315,47 @@
                 <label>Quyestion Type</label>
                 <p th:text="${question.questionType}"></p>
             </div>
-            <div class="form-group col-md-3 col-md-6 col-sm-12 m-b30">
-                <label>Quyestion Content</label>
+            <div class="form-group col-md-6 col-sm-12 m-b30">
+                <label>Question Content</label>
                 <p th:text="${question.questionContent}"></p>
+                <button id="openUpdateQuestionModal" class="btn btn-primary" data-toggle="modal" data-target="#updateQuestionModal">
+                    Update Question Content
+                </button>
             </div>
 
-            <label>Quyestion Answers</label>
+            <div class="modal fade" id="updateQuestionModal" tabindex="-1" role="dialog" aria-labelledby="updateQuestionModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateQuestionModalLabel">Update Question Content</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/question/updateQuestion}" method="post">
+                                <input type="hidden" th:value="${question.questionId}" name="id"/>
+
+                                <div class="form-group">
+                                    <label for="questionContent">Question Content:</label>
+                                    <input type="text" id="questionContent" name="questionContent" class="form-control" th:value="${question.questionContent}">
+                                </div>
+
+                                <div class="modal-footer">
+                                    <input type="submit" value="Update" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <label>Answer Option</label>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Answer ID</th>
-                    <th>Answer Content</th>
+                    <th>Option ID</th>
+                    <th>Option Content</th>
                     <th>IsCorect</th>
                     <th>Action</th>
                 </tr>
@@ -336,28 +366,40 @@
                     <td th:text="${answer.content}"></td>
                     <td th:text="${answer.isCorrect}"></td>
                     <td>
-                        <a class="btn btn-primary" th:href="@{/question/{id}(id=${question.questionId})}" title="Update"><span>Detail</span></a>
+                        <a class="btn btn-primary" th:href="@{/question/{id}(id=${question.questionId})}" title="Update"><span>Update</span></a>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
+            <label>Add Answer Options:</label>
+            <div class="row">
+                <form th:action="@{/question/update}" method="post">
+                    <div class="form-group col-md-6 col-sm-12 m-b30">
+                        <div id="answers">
+
+                        </div>
+
+                        <input type="submit" value="Save" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
+            <div>
+                <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">Add
+                    another answer
+                </button>
+            </div>
+
         </div>
     </div>
 </main>
 
+
+
 <div>
 
 
-    <form th:action="@{/question/updateQuestion}" method="post">
 
-        <input type="hidden" th:value="${question.questionId}" name="id"/>
-
-        <label for="questionContent">Question Content:</label>
-        <input type="text" id="questionContent" name="questionContent" th:value="${question.questionContent}"><br><br>
-
-        <input type="submit" value="Update">
-    </form>
     <h3>Answer Options:</h3>
     <ul>
         <li th:each="answer : ${question.answerOptions}">
@@ -369,23 +411,6 @@
             </form>
         </li>
     </ul>
-    <h3>Add Answer Options:</h3>
-    <form th:action="@{/question/update}" method="post">
-        <div class="form-group col-md-6 col-sm-12 m-b30">
-            <div id="answers">
-
-            </div>
-
-            <div>
-                <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">Add
-                    another answer
-                </button>
-            </div>
-
-            <input type="submit" value="Save" class="btn btn-primary">
-        </div>
-    </form>
-
 </div>
 
 <a href="/expert/expert_manage_question">Back to Question List</a>
@@ -511,4 +536,27 @@
     handleQuestionTypeChange();
 </script>
 </body>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script th:src="@{/expert/js/jquery.min.js}"></script>
+<script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/expert/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/expert/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/expert/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/expert/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/expert/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/expert/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/expert/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/expert/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/expert/vendors/masonry/filter.js}"></script>
+<script th:src="@{/expert/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/expert/vendors/scroll/scrollbar.min.js}"></script>
+<script th:src="@{/expert/js/functions.js}"></script>
+<script th:src="@{/expert/vendors/chart/chart.min.js}"></script>
+<script th:src="@{/expert/js/admin.js}"></script>
+<script th:src="@{/expert/vendors/switcher/switcher.js}"></script>
+
 </html>
