@@ -75,9 +75,7 @@ public class QuestionBankServiceImpl implements QuestionBankService {
 
     @Override
     public Page<QuestionBank> searchQuestion(String questionContent, String questionType, Integer subjectId, Integer lessonId, Pageable pages){
-        Subject subject = subjectRepository.findBySubjectId(subjectId);
-        Lesson lesson = lessonRepository.findByLessonId(lessonId);
-        return questionBankRepository.searchQuestion(questionContent, questionType, subject, lesson, pages);
+        return questionBankRepository.searchQuestion(questionContent, questionType, subjectId, lessonId, pages);
     }
 
     /*@Transactional

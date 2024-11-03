@@ -18,11 +18,12 @@ public interface LessonRepository extends JpaRepository<Lesson,Integer> {
 //            "LEFT JOIN FETCH qb.answerOptions " +
 //            "WHERE l.lessonId = :lessonId")
 //    Lesson findLessonWithQuestionsById(@Param("lessonId") Integer lessonId);
+
     Lesson findByLessonId(Integer lessonId);
 
     List<Lesson> findLessonsBySubject (Subject subject);
-    List<Lesson> findBySubject_SubjectId(Integer subjectId);
 
+    List<Lesson> findBySubject_SubjectId(Integer subjectId);
 
     @Query("SELECT l FROM Lesson l ORDER BY l.createdDate DESC ")
     Page<Lesson> findAllByDesc(Pageable pageable);

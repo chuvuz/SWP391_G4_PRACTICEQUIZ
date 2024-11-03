@@ -48,7 +48,6 @@
     <link th:href="@{/expert/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/dashboard.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/expert/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
-    <script th:src="@{/js/filterQuestions.js}"></script>
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -368,49 +367,61 @@
         </div>
         <div class="row">
 
-            <!-- Filter by Type -->
-            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                <label for="typeFilter">Type</label>
-                <select id="typeFilter" class="form-control" onchange="filterAll()">
-                    <option value="">All Types</option>
-                    <option value="SINGLE_CHOICE">SINGLE_CHOICE</option>
-                    <option value="MULTIPLE_CHOICE">MULTIPLE_CHOICE</option>
-                    <option value="NUMERIC">NUMERIC</option>
-                </select>
-            </div>
+            <form th:action="@{/expert/expert_manage_question}" method="get" class="form-inline mb-3">
+                <div class="form-group">
+                    <!-- Filter by Type -->
+                    <div class="col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="typeFilter">Type</label>
+                        <select id="typeFilter" name="typeFilter" class="form-control" onchange="this.form.submit()">
+                            <option value="" th:selected="${typeF == ''}">All Types</option>
+                            <option value="SINGLE_CHOICE" th:selected="${typeF == 'SINGLE_CHOICE'}">SINGLE_CHOICE
+                            </option>
+                            <option value="MULTIPLE_CHOICE" th:selected="${typeF == 'MULTIPLE_CHOICE'}">
+                                MULTIPLE_CHOICE
+                            </option>
+                            <option value="NUMERIC" th:selected="${typeF == 'NUMERIC'}">NUMERIC</option>
+                        </select>
+                    </div>
 
-            <!-- Filter by Lesson -->
-            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                <label for="lessonFilter">Lesson</label>
-                <select id="lessonFilter" class="form-control" onchange="filterAll()">
-                    <option value="">-- All Lesson --</option>
-                    <option th:each="lesson : ${lessons}"
-                            th:value="${lesson.lessonName}"
-                            th:text="${lesson.lessonName}">
-                    </option>
-                </select>
-            </div>
+                    <!-- Filter by Lesson -->
+                    <div class="col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="lessonFilter">Lesson</label>
+                        <select id="lessonFilter" name="lessonFilter" class="form-control"
+                                onchange="this.form.submit()">
+                            <option value="" th:selected="${lessonF == ''}">-- All Lesson --</option>
+                            <option th:each="lesson : ${lessons}"
+                                    th:value="${lesson.lessonId}"
+                                    th:text="${lesson.lessonName}"
+                                    th:selected="${lessonF == lesson.lessonId}">
+                            </option>
+                        </select>
+                    </div>
 
-            <!-- Filter by Subject -->
-            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                <label for="subjectFilter">Subject</label>
-                <select id="subjectFilter" class="form-control" onchange="filterAll()">
-                    <option value="">-- All Subject --</option>
-                    <option th:each="subject : ${subjects}"
-                            th:value="${subject.subjectName}"
-                            th:text="${subject.subjectName}">
-                    </option>
-                </select>
-            </div>
+                    <!-- Filter by Subject -->
+                    <div class="col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="subjectFilter">Subject</label>
+                        <select id="subjectFilter" name="subjectFilter" class="form-control"
+                                onchange="this.form.submit()">
+                            <option value="" th:selected="${subjectF == ''}">-- All Subject --</option>
+                            <option th:each="subject : ${subjects}"
+                                    th:value="${subject.subjectId}"
+                                    th:text="${subject.subjectName}"
+                                    th:selected="${subjectF == subject.subjectId}">
+                            </option>
+                        </select>
+                    </div>
 
-            <!-- Search by Question Content -->
-            <div class="form-group col-lg-3 col-md-6 col-sm-12 m-b30">
-                <label for="contentFilter">Search Content</label>
-                <input type="text" id="contentFilter"
-                       class="form-control"
-                       placeholder="Search content..."
-                       onkeyup="filterAll()">
-            </div>
+                    <!-- Search by Question Content -->
+                    <div class="col-lg-3 col-md-6 col-sm-12 m-b30">
+                        <label for="contentFilter">Search Content</label>
+                        <input type="text" id="contentFilter" name="contentFilter"
+                               class="form-control"
+                               placeholder="Search content..."
+                               th:value="${contentF}">
+                    </div>
+                </div>
+                <input type="submit" style="display: none">
+            </form>
 
             <!-- Question Table -->
             <table class="table table-striped">
@@ -445,7 +456,7 @@
                         <!-- Previous button -->
                         <li th:classappend="${questionPage.hasPrevious()} ? '': 'disabled'"
                             class="page-item page-change">
-                            <a th:href="@{/expert/expert_manage_question(page=${questionPage.number - 1}, size=${questionPage.size})}"
+                            <a th:href="@{/expert/expert_manage_question(page=${questionPage.number - 1}, size=${questionPage.size}, contentFilter=${contentF}, typeFilter=${typeF}, subjectFilter=${subjectF}, lessonFilter=${lessonF})}"
                                onclick="saveFilters()"
                                class="page-link">Previous</a>
                         </li>
@@ -454,7 +465,7 @@
                         <li th:each="i : ${#numbers.sequence(1, questionPage.totalPages)}"
                             th:classappend="${questionPage.number + 1 == i} ? 'active' : ''"
                             class="page-item">
-                            <a th:href="@{/expert/expert_manage_question(page=${i - 1}, size=${questionPage.size})}"
+                            <a th:href="@{/expert/expert_manage_question(page=${i - 1}, size=${questionPage.size}, contentFilter=${contentF}, typeFilter=${typeF}, subjectFilter=${subjectF}, lessonFilter=${lessonF})}"
                                onclick="saveFilters()"
                                class="page-link"
                                th:text="${i}">1</a>
@@ -463,7 +474,7 @@
                         <!-- Next button -->
                         <li th:classappend="${questionPage.hasNext()} ? '' : 'disabled'"
                             class="page-item page-change">
-                            <a th:href="@{/expert/expert_manage_question(page=${questionPage.number + 1}, size=${questionPage.size})}"
+                            <a th:href="@{/expert/expert_manage_question(page=${questionPage.number + 1}, size=${questionPage.size}, contentFilter=${contentF}, typeFilter=${typeF}, subjectFilter=${subjectF}, lessonFilter=${lessonF})}"
                                onclick="saveFilters()"
                                class="page-link">Next</a>
                         </li>

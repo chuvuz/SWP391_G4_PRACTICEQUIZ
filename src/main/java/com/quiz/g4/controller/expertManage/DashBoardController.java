@@ -165,16 +165,32 @@ public class DashBoardController {
     }
 
     @GetMapping("/expert/expert_manage_question")
-    public String getAllQuestionsPaged(@RequestParam(defaultValue = "0") int page,  // Default to first page
-                                       @RequestParam(defaultValue = "15") int size,  // Default page size of 5
-                                       Model model) {
+    public String getAllQuestionsPaged(
+            @RequestParam(defaultValue = "",required = false) String contentFilter,
+            @RequestParam(defaultValue = "",required = false) String typeFilter,
+            @RequestParam(defaultValue = "",required = false) Integer subjectFilter,
+            @RequestParam(defaultValue = "",required = false) Integer lessonFilter,
+            @RequestParam(defaultValue = "0") int page,  // Default to first page
+            @RequestParam(defaultValue = "5") int size,  // Default page size of 5
+            Model model){
         Pageable pageable = PageRequest.of(page, size);
-        Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
+        Page<QuestionBank> questionPage = questionBankService.searchQuestion(contentFilter,typeFilter,subjectFilter,lessonFilter,pageable);
         List<Subject> subjects = subjectService.getAllSubjects();
-        List<Lesson> lessons = lessonService.getAllLessons();
         model.addAttribute("subjects", subjects);
-        model.addAttribute("lessons", lessons);
+        model.addAttribute("selectedSubject", subjectFilter);
+        if (subjectFilter != null) {
+            List<Lesson> lessons = lessonService.getLessonsBySubjectId(subjectFilter);
+            model.addAttribute("lessons", lessons);
+        }else {
+            List<Lesson> lessons = lessonService.getAllLessons();
+            model.addAttribute("lessons", lessons);
+        }
+
         model.addAttribute("questionPage", questionPage);
+        model.addAttribute("subjectF", subjectFilter);
+        model.addAttribute("typeF", typeFilter);
+        model.addAttribute("lessonF", lessonFilter);
+        model.addAttribute("contentF", contentFilter);
 
         return "expert_manage_question";
     }
