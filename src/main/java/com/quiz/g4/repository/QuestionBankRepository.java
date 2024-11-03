@@ -18,13 +18,13 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Inte
 
     @Query("SELECT qb FROM QuestionBank qb WHERE" +
             " (:questionContent IS NULL OR LOWER(qb.questionContent) LIKE LOWER(CONCAT('%', :questionContent, '%')))" +
-            " AND (:questionType IS NULL OR qb.questionType = :questionType)" +
-            " AND (:subject IS NULL OR qb.subject = :subject)" +
-            " AND (:lesson IS NULL OR qb.lesson = :lesson)")
+            " AND (:questionType IS NULL OR qb.questionType LIKE %:questionType%)" +
+            " AND (:subjectId IS NULL OR qb.subject.subjectId = :subjectId)" +
+            " AND (:lessonId IS NULL OR qb.lesson.lessonId = :lessonId)")
     Page<QuestionBank> searchQuestion(@Param("questionContent") String questionContent,
                                       @Param("questionType") String questionType,
-                                      @Param("subject") Subject subject,
-                                      @Param("lesson") Lesson lesson,
+                                      @Param("subjectId") Integer subjectId,
+                                      @Param("lessonId") Integer lessonId,
                                       Pageable pages);
 
     boolean existsByQuestionContent(String questionContent);

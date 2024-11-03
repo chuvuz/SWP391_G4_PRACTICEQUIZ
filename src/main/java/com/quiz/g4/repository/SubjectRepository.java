@@ -27,7 +27,6 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
 
     Subject findBySubjectId(Integer subjectId);
 
-
     @Query("SELECT s FROM Subject s WHERE (:subjectName IS NULL OR s.subjectName LIKE CONCAT('%', :subjectName, '%'))" +
             " AND (:categoryId IS NULL OR s.category.categoryId = :categoryId)" +
             " AND s.isActive = true")
