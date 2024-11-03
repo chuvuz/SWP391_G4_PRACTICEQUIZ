@@ -29,10 +29,10 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 //    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, Pageable pageable);
 
     @Query("SELECT u FROM User u WHERE u.role.roleName = :role")
-    Page<User> findByRole(@Param("role") String role, Pageable pageable);
+    List<User> findByRole(@Param("role") String role);
 
-    @Query("SELECT u FROM User u WHERE u.role.roleName != 'ROLE_ADMIN'")
-    Page<User> findAllExceptRoles(Pageable pageable);
+    @Query("SELECT u FROM User u WHERE u.role.roleName NOT IN ('ROLE_ADMIN', 'ROLE_CUSTOMER')")
+    List<User> findAllExceptRoles();
 
     @Query("SELECT COUNT(u) FROM User u")
     long countTotalUsers();

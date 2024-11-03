@@ -36,10 +36,10 @@ public interface UserService extends UserDetailsService {
 
     boolean isResetTokenValid(String token);
 
-    Page<User> findByRole(String role, Pageable pageable);
+    List<User> findByRole(String role);
 
 
-    Page<User> findAllExceptAdminAndGuest(Pageable pageable);
+    List<User> findAllExceptAdminAndGuest();
 
     void updateUserStatus(Integer userId, boolean active);
 

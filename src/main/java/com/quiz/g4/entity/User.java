@@ -2,6 +2,7 @@ package com.quiz.g4.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,6 +59,7 @@ public class User implements UserDetails {
 	private String phone;
 
 	@Column(name = "date_of_birth")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateOfBirth;
 
 	@Column(name = "gender", nullable = false)

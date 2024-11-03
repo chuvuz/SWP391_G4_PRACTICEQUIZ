@@ -45,16 +45,10 @@ public class AdminController {
 //    }
     @GetMapping("/users")
     public String viewUserList(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String role,
             Model model) {
-        Page<User> userPage;
-        if (role != null && !role.isEmpty()) {
-            userPage = userService.findByRole(role, PageRequest.of(page, size));
-        } else {
-            userPage = userService.findAllExceptAdminAndGuest(PageRequest.of(page, size));
-        }
+        List<User> userPage;
+
+        userPage = userService.findAllExceptAdminAndGuest();
         List<Role> roles = roleService.findRolesForUserCreation();
         model.addAttribute("roles", roles);
         model.addAttribute("userPage", userPage);
