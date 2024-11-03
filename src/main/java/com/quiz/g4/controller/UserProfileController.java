@@ -49,6 +49,7 @@ public class UserProfileController {
                 User user = userService.findByEmail(email);
                 model.addAttribute("user", user);  // Thêm thông tin người dùng vào model
             }
+            model.addAttribute("passwordForm", new PasswordForm());
             return "profile";
         } catch (Exception e) {
             return e.getMessage();
