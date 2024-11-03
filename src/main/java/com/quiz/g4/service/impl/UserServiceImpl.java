@@ -110,7 +110,12 @@ public class UserServiceImpl implements UserService {
     public User updateUser(String email, User updatedUser) {
         User user = findByEmail(email);
         user.setFullName(updatedUser.getFullName());
-        user.setProfileImage(updatedUser.getProfileImage());
+        if (updatedUser.getProfileImage() != null && !updatedUser.getProfileImage().isEmpty()) {
+            user.setProfileImage(updatedUser.getProfileImage());
+        }
+        user.setPhone(updatedUser.getPhone());
+        user.setDateOfBirth(updatedUser.getDateOfBirth());
+        user.setGender(updatedUser.getGender());
         user.setDescription(updatedUser.getDescription());
         return userRepository.save(user);
     }
@@ -211,14 +216,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Page<User> findByRole(String role, Pageable pageable) {
-        return userRepository.findByRole(role, pageable);
+    public List<User> findByRole(String role) {
+        return userRepository.findByRole(role);
     }
 
 
     @Override
-    public Page<User> findAllExceptAdminAndGuest(Pageable pageable) {
-        return userRepository.findAllExceptRoles(pageable);
+    public List<User> findAllExceptAdminAndGuest() {
+        return userRepository.findAllExceptRoles();
     }
 
     @Override
