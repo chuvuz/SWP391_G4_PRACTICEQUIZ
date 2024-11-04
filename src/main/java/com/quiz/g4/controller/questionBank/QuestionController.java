@@ -158,9 +158,36 @@ public class QuestionController {
     }
 
     @PostMapping("/question/updateOption")
-    public String updateOption(Model model) {
-        return "/QuestionBank/UpdateQuestion";
+    public String updateOption(Model model,
+                               @RequestParam("id") Integer id,
+                               @RequestParam("optionId") Integer optionId,
+                               @RequestParam("optionContent") String optionContent) {
+
+        QuestionBank question = questionBankService.findById(id);
+
+        // Kiểm tra xem câu hỏi đã tồn tại chưa
+        Set<AnswerOption> setContent = question.getAnswerOptions();
+
+        // Kiểm tra xem option đã tồn tại hay chưa
+        boolean exists = setContent.stream()
+                .anyMatch(option -> option.getContent().equalsIgnoreCase(optionContent));
+
+        // Kiểm tra xem nội dung option có bị trùng không
+        if (exists) {
+            model.addAttribute("errorUpdateOption", "Cập nhật thất bại do nội dung đáp án trùng lặp!");
+            model.addAttribute("question", questionBankService.findById(id));
+            return "/QuestionBank/UpdateQuestion";
+        }
+
+        // Cập nhật nội dung đáp án
+        AnswerOption option = answerOptionService.findById(optionId);
+        option.setContent(optionContent);
+        answerOptionService.save(option);
+
+        model.addAttribute("question", questionBankService.findById(id));
+        return "/QuestionBank/UpdateQuestion";  // Trả về trang cập nhật sau khi lưu
     }
+
 
     @PostMapping("/question/updateAnswer")
     public String updateAnswer(Model model,
@@ -288,19 +315,6 @@ public class QuestionController {
         question.setQuestionContent(questionContent);
         questionBankService.save(question);
         model.addAttribute("question", questionBankService.findById(id));
-        /*//Cập nhật các câu trả lời
-        for (AnswerOptionForm answerOptionForm : questionForm.getAnswerOptions()) {
-            // Kiểm tra xem câu trả lời đã tồn tại chưa, nếu chưa thì thêm mới
-            AnswerOption answerOption = answerOptionService.findByContentAndQuestion(questionBank, answerOptionForm.getContent());
-            if (answerOption == null) {
-                answerOption = new AnswerOption();
-                answerOption.setQuestionBank(questionBank);
-            }
-            answerOption.setContent(answerOptionForm.getContent());
-            answerOption.setIsCorrect(answerOptionForm.getCorrect());
-            answerOptionService.save(answerOption);
-        }*/
-
         return "/QuestionBank/UpdateQuestion";  // Chuyển hướng sau khi cập nhật xong
     }
 

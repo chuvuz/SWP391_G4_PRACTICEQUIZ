@@ -448,17 +448,36 @@
                             <div th:if="${errorUpdateAnswer}" style="color: red;">
                                 <p id="updateAnswerError" th:text="${errorUpdateAnswer}"></p>
                             </div>
+
                             <form id="answerOptionsForm" th:action="@{/question/updateAnswer}" method="post">
-                                <div id="answerOptionsList" th:each="answer, iterStat : ${question.answerOptions}">
-                                    <input type="hidden" th:value="${question.questionId}" name="id"/>
-                                    <input type="hidden" id="answerId__${iterStat.index}" name="answerId" th:value="${answer.optionId}">
+                                <input type="hidden" th:value="${question.questionId}" name="id"/>
 
-                                    <!-- Hiển thị nội dung câu trả lời mà không cho phép chỉnh sửa -->
-                                    <span th:text="${answer.content}"></span>
+                                <!-- Tạo bảng để xếp các phần tử -->
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Answer Content</th>
+                                        <th>Correct</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="answer, iterStat : ${question.answerOptions}">
+                                        <input type="hidden" id="answerId__${iterStat.index}" name="answerId" th:value="${answer.optionId}"/>
 
-                                    <!-- Checkbox để đánh dấu tính đúng sai -->
-                                    <input type="checkbox" id="correct__${iterStat.index}" name="correct__${iterStat.index}" th:value="${answer.optionId}" th:checked="${answer.isCorrect}"> Correct
-                                </div>
+                                        <!-- Hiển thị nội dung câu trả lời -->
+                                        <td>
+                                            <span th:text="${answer.content}"></span>
+                                        </td>
+
+                                        <!-- Checkbox để đánh dấu tính đúng sai -->
+                                        <td>
+                                            <input type="checkbox" id="correct__${iterStat.index}" name="correct__${iterStat.index}"
+                                                   th:value="${answer.optionId}" th:checked="${answer.isCorrect}"> Correct
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Save All</button>
                                 </div>
@@ -486,18 +505,20 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Hiển thị thông báo lỗi -->
+                <div th:if="${errorUpdateOption}" style="color: red;">
+                    <p id="updateOptionError" th:text="${errorUpdateOption}"></p>
+                </div>
                 <form id="updateOptionForm" th:action="@{/question/updateOption}" method="post">
+                    <input type="hidden" th:value="${question.questionId}" name="id"/>
                     <input type="hidden" id="optionId" name="optionId">
                     <div class="mb-3">
                         <label for="optionContent" class="form-label">Option Content</label>
                         <input type="text" class="form-control" id="optionContent" name="optionContent" required>
                     </div>
                     <div class="mb-3">
-                        <label for="isCorrect" class="form-label">Is Correct</label>
-                        <select class="form-select" id="isCorrect" name="isCorrect">
-                            <option value="true">True</option>
-                            <option value="false">False</option>
-                        </select>
+                        <label for="isCorrect" class="form-label">Is Correct: </label>
+                        <span id="isCorrect"></span>
                     </div>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </form>
@@ -507,6 +528,15 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Kiểm tra biến trạng thái từ backend
+        const updateFailed = document.getElementById("updateOptionError").textContent;
+        if (updateFailed) {
+            // Mở modal
+            $('#updateOptionModal').modal('show');
+         }
+    });
+
     document.addEventListener("DOMContentLoaded", function() {
         // Kiểm tra biến trạng thái từ backend
         const updateFailed = document.getElementById("questionContentError").textContent;
@@ -542,7 +572,7 @@
 
         document.getElementById('optionId').value = optionId;
         document.getElementById('optionContent').value = content;
-        document.getElementById('isCorrect').value = isCorrect.toString(); // Convert to string for selection
+        document.getElementById('isCorrect').textContent = isCorrect.toString(); // Convert to string for selection
     }
 </script>
 <script>
