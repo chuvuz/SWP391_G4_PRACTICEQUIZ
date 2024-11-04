@@ -18,7 +18,7 @@ public interface AnswerOptionRepository extends JpaRepository<AnswerOption, Inte
     @Query("SELECT ao FROM AnswerOption ao WHERE ao.questionBank.questionId = :questionId AND ao.isCorrect = true")
     List<AnswerOption> findCorrectOptionsByQuestionId(@Param("questionId") Integer questionId);
 
-
+    boolean existsByContent(String optionContent);
 
     @Query("SELECT ao FROM AnswerOption ao WHERE ao.questionBank.questionId = :questionId AND ao.isCorrect = true")
     AnswerOption findCorrectOptionByQuestionId(@Param("questionId") Integer questionId);
