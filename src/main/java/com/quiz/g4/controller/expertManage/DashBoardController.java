@@ -166,7 +166,7 @@ public class DashBoardController {
                              @RequestParam("quizId") Integer quizId,
                              Model model) {
         System.out.println("QuizId Udate chuen bao" + quizId);
-        if (quizId == null) {
+        if (quizId == 0) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             User user = null;
             if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
