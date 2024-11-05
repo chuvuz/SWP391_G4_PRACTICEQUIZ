@@ -190,12 +190,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findByRole(String role) {
-        return null;
+        return userRepository.findByRole(role);
     }
 
     @Override
     public List<User> findAllExceptAdminAndGuest() {
-        return null;
+        return userRepository.findAllExceptRoles();
     }
 
 
