@@ -2,6 +2,7 @@ package com.quiz.g4.repository;
 
 import com.quiz.g4.entity.Subject;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -39,4 +40,11 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
     @Query("SELECT s FROM Subject s JOIN FETCH s.lessons l WHERE s.subjectId = :subjectId ORDER BY l.createdDate ASC")
     Subject getSubjectByIdWithLessonAsc(@Param("subjectId") Integer subjectId);
 
+
+        Page<Subject> findByCategory_CategoryId(Integer categoryId, Pageable pageable);
+
+
+    @Query("SELECT s FROM Subject s WHERE (:subjectName IS NULL OR s.subjectName LIKE CONCAT('%', :subjectName, '%'))" +
+            " AND (:categoryId IS NULL OR s.category.categoryId = :categoryId)")
+    Page<Subject> searchSubjectAll(String subjectName, Integer categoryId, Pageable pageable);
 }

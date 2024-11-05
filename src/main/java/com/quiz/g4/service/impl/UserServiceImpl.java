@@ -80,7 +80,13 @@ public class UserServiceImpl implements UserService {
         // Set other fields like fullName và email
         user.setFullName(user.getFullName());
         user.setEmail(user.getEmail());
+        // Set phone, dateOfBirth, and gender fields
+        user.setPhone(user.getPhone());
+        user.setDateOfBirth(user.getDateOfBirth());
+        user.setGender(user.getGender());
         user.setIsActive(true);
+
+
 
         // Kiểm tra role người dùng
         Role role = roleRepository.findRoleByRoleId(1);
@@ -110,12 +116,7 @@ public class UserServiceImpl implements UserService {
     public User updateUser(String email, User updatedUser) {
         User user = findByEmail(email);
         user.setFullName(updatedUser.getFullName());
-        if (updatedUser.getProfileImage() != null && !updatedUser.getProfileImage().isEmpty()) {
-            user.setProfileImage(updatedUser.getProfileImage());
-        }
-        user.setPhone(updatedUser.getPhone());
-        user.setDateOfBirth(updatedUser.getDateOfBirth());
-        user.setGender(updatedUser.getGender());
+        user.setProfileImage(updatedUser.getProfileImage());
         user.setDescription(updatedUser.getDescription());
         return userRepository.save(user);
     }
@@ -216,14 +217,14 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> findByRole(String role) {
-        return userRepository.findByRole(role);
+    public Page<User> findByRole(String role, Pageable pageable) {
+        return userRepository.findByRole(role, pageable);
     }
 
 
     @Override
-    public List<User> findAllExceptAdminAndGuest() {
-        return userRepository.findAllExceptRoles();
+    public Page<User> findAllExceptAdminAndGuest(Pageable pageable) {
+        return userRepository.findAllExceptRoles(pageable);
     }
 
     @Override

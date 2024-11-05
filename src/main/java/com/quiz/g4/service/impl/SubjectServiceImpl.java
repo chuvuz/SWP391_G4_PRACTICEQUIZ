@@ -1,6 +1,8 @@
 package com.quiz.g4.service.impl;
 
+import com.quiz.g4.entity.Category;
 import com.quiz.g4.entity.Subject;
+import com.quiz.g4.repository.CategoryRepository;
 import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,8 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Autowired
     private SubjectRepository subjectRepository;
-
+    @Autowired
+    private CategoryRepository categoryRepository;
     @Override
     public List<Subject> getAllSubjects() {
         return subjectRepository.findAll();
@@ -30,6 +33,7 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Subject not found"));
     }
+
 
     @Override
     public void createSubject(String subjectName, boolean isActive) {
@@ -79,15 +83,22 @@ public class SubjectServiceImpl implements SubjectService {
 
     // Tạo môn học với chuỗi URL ảnh
     @Override
-    public void createSubjectWithImageUrl(String subjectName, boolean isActive, String imageUrl) {
+    public void createSubjectWithImageUrl(String subjectName, Integer categoryId, boolean isActive, String imageUrl) {
+        // Lấy đối tượng Category dựa trên categoryId
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category ID: " + categoryId));
+
         // Xử lý khi người dùng nhập URL ảnh
         Subject newSubject = Subject.builder()
                 .subjectName(subjectName)
+                .category(category) // Gán đối tượng Category vào Subject
                 .isActive(isActive)
                 .subjectImage(imageUrl)  // Lưu URL ảnh thay vì file ảnh
                 .build();
+
         subjectRepository.save(newSubject);
     }
+
 
     // Cập nhật môn học với chuỗi URL ảnh
     @Override
@@ -136,5 +147,16 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public Subject findBySubjectId(int id) {
         return subjectRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Page<Subject> getAllSubjectByCategory(Integer categoryId, int page, int size) {
+        return subjectRepository.findByCategory_CategoryId(categoryId, PageRequest.of(page, size));
+    }
+
+    @Override
+    public Page<Subject> searchSubjectAll(String subjectName, Integer categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return subjectRepository.searchSubjectAll(subjectName, categoryId, pageable);
     }
 }
