@@ -129,6 +129,7 @@ public class SubjectManagementController {
     public String updateSubject(@RequestParam("subjectId") int id,
                                 @RequestParam("subjectName") String subjectName,
                                 @RequestParam("isActive") boolean isActive,
+                                @RequestParam("categoryId") Integer categoryId,
                                 @RequestParam(value = "imageUrl", required = false) String imageUrl,  // Nhận URL ảnh từ form
                                 Model model, RedirectAttributes redirectAttributes
 // Nhận URL ảnh từ form
@@ -146,7 +147,7 @@ public class SubjectManagementController {
             return "redirect:/admin/manage-subject/edit-subject/"+id; // Hoặc trả về trang chỉnh sửa với thông báo lỗi
         }
         // Nếu không có URL ảnh mới, giữ nguyên URL ảnh cũ
-        subjectService.updateSubjectWithImageUrl(id, subjectName, isActive, imageUrl);
+        subjectService.updateSubjectWithImageUrl(id, subjectName, isActive, imageUrl, categoryId);
         return "redirect:/admin/manage-subject";
     }
 

@@ -33,7 +33,7 @@ public interface SubjectService {
     void createSubjectWithImageUrl(String subjectName, Integer categoryId, boolean isActive, String imageUrl);
 
     // Cập nhật môn học với chuỗi URL ảnh
-    void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl);
+    void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl, Integer  categoryId);
 
     Page<Subject> getAllSubjectNoCondition(int page, int size);
 

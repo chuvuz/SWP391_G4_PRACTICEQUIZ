@@ -23,6 +23,7 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectRepository subjectRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Override
     public List<Subject> getAllSubjects() {
         return subjectRepository.findAll();
@@ -65,7 +66,6 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
 
-
     @Override
     public Subject getSubjectById(Integer subjectId) {
         return subjectRepository.findBySubjectId(subjectId);
@@ -102,13 +102,18 @@ public class SubjectServiceImpl implements SubjectService {
 
     // Cập nhật môn học với chuỗi URL ảnh
     @Override
-    public void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl) {
+    public void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl, Integer categoryId) {
         Optional<Subject> optionalSubject = subjectRepository.findById(id);
 
         if (optionalSubject.isPresent()) {
             Subject subject = optionalSubject.get();
             subject.setSubjectName(subjectName);
             subject.setIsActive(isActive);
+            if (categoryId != null) {
+                Category category = categoryRepository.findById(categoryId)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid category ID: " + categoryId));
+                subject.setCategory(category); // Gán danh mục vào môn học
+            }
 
             // Nếu người dùng nhập URL ảnh mới, cập nhật URL ảnh
             if (imageUrl != null && !imageUrl.isEmpty()) {
