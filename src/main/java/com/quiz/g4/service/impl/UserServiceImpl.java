@@ -188,6 +188,16 @@ public class UserServiceImpl implements UserService {
         return resetToken != null && !resetToken.isExpired();
     }
 
+    @Override
+    public List<User> findByRole(String role) {
+        return null;
+    }
+
+    @Override
+    public List<User> findAllExceptAdminAndGuest() {
+        return null;
+    }
+
 
     @Override
     public void updatePasswordReset(String token, String password) {
@@ -216,23 +226,8 @@ public class UserServiceImpl implements UserService {
 
 
 
-    @Override
-    public Page<User> findByRole(String role, Pageable pageable) {
-        return userRepository.findByRole(role, pageable);
-    }
 
 
-    @Override
-    public Page<User> findAllExceptAdminAndGuest(Pageable pageable) {
-        return userRepository.findAllExceptRoles(pageable);
-    }
-
-    @Override
-    public void updateUserStatus(Integer userId, boolean active) {
-        User user = userRepository.findUserByUserId(userId);
-        user.setIsActive(active);
-        userRepository.save(user);
-    }
 
     @Override
     public long countTotalUsers() {
@@ -252,10 +247,7 @@ public class UserServiceImpl implements UserService {
     public void createUser(User user) {
         userRepository.save(user);
     }
-//    @Override
-//    public List<Role> findRolesForUserCreation() {
-//        return roleRepository.findRolesForUserCreation();
-//    }
+
     @Override
     public void changeUserStatus(User user) {
         if (user.isActive()) {
@@ -276,18 +268,7 @@ public class UserServiceImpl implements UserService {
         user.setProfileImage(profileImage);
         userRepository.save(user);
     }
-    //Feature for marketing role
-    @Override
-    public Page<User> findUsersByRole(String roleName, Pageable pageable) {
-        return userRepository.findByRoleRoleName(roleName, pageable);
-    }
 
-//    @Override
-//    public User toggleUserStatus(Integer userId) {
-//        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-//        user.setIsActive(!user.getIsActive());
-//        userRepository.save(user);
-//    }
 
     @Override
     public long countUsersByRole(String roleName) {

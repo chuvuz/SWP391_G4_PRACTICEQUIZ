@@ -23,8 +23,7 @@ public interface UserService extends UserDetailsService {
     void changePassword(String email, String newPassword);
 
     Page<User> getAllExpert(int page, int size);
-//    Page<User> findByRole(String role, Pageable pageable);
-//    Page<User> findAllExceptAdminAndGuest(Pageable pageable);
+
 
     void saveUser(User user);
 
@@ -41,18 +40,15 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAllExceptAdminAndGuest();
 
-    void updateUserStatus(Integer userId, boolean active);
 
-//    Page<User> searchExpert(String expertName, Integer subjectId, Integer roleId, int page, int size);
+
     void createUser(User user);
     long countTotalUsers();
     long countActiveUsers();
     long countInactiveUsers();
-//    List<Role> findRolesForUserCreation();
+
     void updateProfilePicture(String email, String profileImage);
-    //for marketing
-    Page<User> findUsersByRole(String roleName, Pageable pageable);
-//    User toggleUserStatus(Integer userId);
+
     long countUsersByRole(String roleName);
     long countUsersByRoleAndStatus(String roleName, boolean isActive);
 }
