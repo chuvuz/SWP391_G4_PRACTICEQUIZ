@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 
 @Controller
 public class AuthController {
@@ -70,6 +71,30 @@ public class AuthController {
             hasError = true;
         }
 
+        // Check Phone
+        if (user.getPhone() == null || user.getPhone().trim().isEmpty()) {
+            model.addAttribute("phoneError", "Phone number cannot be empty!");
+            hasError = true;
+        } else if (!user.getPhone().matches("^\\d{10}$")) {
+            model.addAttribute("phoneError", "Phone number must be exactly 10 digits!");
+            hasError = true;
+        }
+
+        // Check Date of Birth
+        if (user.getDateOfBirth() == null) {
+            model.addAttribute("dateOfBirthError", "Date of birth cannot be empty!");
+            hasError = true;
+        } else if (user.getDateOfBirth().isAfter(LocalDate.now().minusYears(18))) {
+            model.addAttribute("dateOfBirthError", "You must be at least 18 years old!");
+            hasError = true;
+        }
+
+        // Check Gender
+        if (user.getGender() == null) {
+            model.addAttribute("genderError", "Gender must be selected!");
+            hasError = true;
+        }
+
         // Check Password
         if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
             model.addAttribute("passwordError", "Password cannot be empty!");
@@ -108,6 +133,7 @@ public class AuthController {
             return "auth/register";
         }
     }
+
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {

@@ -4,7 +4,6 @@ import com.quiz.g4.entity.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface SubjectService {
@@ -31,7 +30,7 @@ public interface SubjectService {
     void createSubjectWithImage(String subjectName, boolean isActive, MultipartFile imageFile);
 
     // Tạo môn học với chuỗi URL ảnh
-    void createSubjectWithImageUrl(String subjectName, boolean isActive, String imageUrl);
+    void createSubjectWithImageUrl(String subjectName, Integer categoryId, boolean isActive, String imageUrl);
 
     // Cập nhật môn học với chuỗi URL ảnh
     void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl);
@@ -45,4 +44,7 @@ public interface SubjectService {
     boolean existsBySubjectName(String subjectName);
 
     Subject findBySubjectId(int id);
+    Page<Subject> getAllSubjectByCategory(Integer categoryId, int page, int size);
+
+    Page<Subject> searchSubjectAll(String subjectName, Integer categoryId, int page, int size);
 }

@@ -9,17 +9,11 @@ import com.quiz.g4.service.QuestionBankService;
 import com.quiz.g4.service.impl.LessonServiceImpl;
 import com.quiz.g4.service.impl.SubjectServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class QuestionController {
@@ -35,23 +29,6 @@ public class QuestionController {
 
     @Autowired
     private LessonServiceImpl lessonService;
-
-    @GetMapping("/questionlist")
-    public String questions (
-            @RequestParam(defaultValue = "0") int page,  // Default to first page
-            @RequestParam(defaultValue = "15") int size,  // Default page size of 5
-            Model model) {
-
-        Pageable pageable = PageRequest.of(page, size);
-        Page<QuestionBank> questionPage = questionBankService.allQuestions(pageable);
-        List<Subject> subjects = subjectService.getAllSubjects();
-        List<Lesson> lessons = lessonService.getAllLessons();
-        model.addAttribute("subjects", subjects);
-        model.addAttribute("lessons", lessons);
-
-        model.addAttribute("questionPage", questionPage);
-        return "/QuestionBank/question_bank";
-    }
 
 //    @GetMapping("/search_questions")
 //    public String search_questions (
@@ -80,7 +57,7 @@ public class QuestionController {
 //    }
 
     @GetMapping("/add_Question")
-    public String addQuestion(Model model){
+    public String addQuestion(Model model) {
         List<Subject> subjects = subjectService.getAllSubjects();
         List<Lesson> lessons = lessonService.getAllLessons();
         model.addAttribute("subjects", subjects);
@@ -95,13 +72,13 @@ public class QuestionController {
     }
 
     @PostMapping("/createQuestions")
-    public String createQuestion (Model model,
-                                  @RequestParam String questionContent,
-                                  @RequestParam String questionType,
-                                  @RequestParam int subject,
-                                  @RequestParam int lesson,
-                                  @RequestParam(required = false) List<String> answerContent,
-                                  @RequestParam(required = false) List<Boolean> answerIsCorrect
+    public String createQuestion(Model model,
+                                 @RequestParam String questionContent,
+                                 @RequestParam String questionType,
+                                 @RequestParam int subject,
+                                 @RequestParam int lesson,
+                                 @RequestParam(required = false) List<String> answerContent,
+                                 @RequestParam(required = false) List<Boolean> answerIsCorrect
     ) {
 
         // Set default values if parameters are null
@@ -115,20 +92,20 @@ public class QuestionController {
 
         // Kiểm tra xem câu hỏi đã tồn tại chưa
         Set<String> setContent = new HashSet<>();
-        for (int i = 0; i < answerContent.size(); i++){
+        for (int i = 0; i < answerContent.size(); i++) {
             setContent.add(answerContent.get(i));
         }
         boolean correct = false;
-        for (int i = 0; i < answerIsCorrect.size(); i++){
+        for (int i = 0; i < answerIsCorrect.size(); i++) {
             System.out.println(answerIsCorrect.get(i).toString());
         }
-        for (int i = 0; i < answerIsCorrect.size(); i++){
-            if(answerIsCorrect.get(i) == true){
+        for (int i = 0; i < answerIsCorrect.size(); i++) {
+            if (answerIsCorrect.get(i) == true) {
                 correct = true;
                 break;
             }
         }
-        if(setContent.size() < answerContent.size() || !correct || answerContent.isEmpty() || answerIsCorrect.isEmpty()){
+        if (setContent.size() < answerContent.size() || !correct || answerContent.isEmpty() || answerIsCorrect.isEmpty()) {
             List<Subject> subjects = subjectService.getAllSubjects();
             List<Lesson> lessons = lessonService.getAllLessons();
             model.addAttribute("content", questionContent);
@@ -139,7 +116,7 @@ public class QuestionController {
             model.addAttribute("lessons", lessons);
             model.addAttribute("error", "đáp án bị trùng hoặc không có đáp án đúng vui lòng thử lại!");
             return "/QuestionBank/addQuestion";
-        } else if (questionBankService.existsByQuestionContent(questionContent)){
+        } else if (questionBankService.existsByQuestionContent(questionContent)) {
             List<Subject> subjects = subjectService.getAllSubjects();
             List<Lesson> lessons = lessonService.getAllLessons();
             model.addAttribute("content", questionContent);
@@ -153,7 +130,7 @@ public class QuestionController {
         }
 
 
-            // Tạo QuestionBank
+        // Tạo QuestionBank
         QuestionBank questionBank = new QuestionBank();
         questionBank.setQuestionContent(questionContent);
         questionBank.setQuestionType(questionType);
@@ -180,38 +157,166 @@ public class QuestionController {
         return "/QuestionBank/UpdateQuestion"; // Trang hiển thị thông tin câu hỏi
     }
 
+    @PostMapping("/question/updateOption")
+    public String updateOption(Model model,
+                               @RequestParam("id") Integer id,
+                               @RequestParam("optionId") Integer optionId,
+                               @RequestParam("optionContent") String optionContent) {
+
+        QuestionBank question = questionBankService.findById(id);
+
+        // Kiểm tra xem câu hỏi đã tồn tại chưa
+        Set<AnswerOption> setContent = question.getAnswerOptions();
+
+        // Kiểm tra xem option đã tồn tại hay chưa
+        boolean exists = setContent.stream()
+                .anyMatch(option -> option.getContent().equalsIgnoreCase(optionContent));
+
+        // Kiểm tra xem nội dung option có bị trùng không
+        if (exists) {
+            model.addAttribute("errorUpdateOption", "Cập nhật thất bại do nội dung đáp án trùng lặp!");
+            model.addAttribute("question", questionBankService.findById(id));
+            return "/QuestionBank/UpdateQuestion";
+        }
+
+        // Cập nhật nội dung đáp án
+        AnswerOption option = answerOptionService.findById(optionId);
+        option.setContent(optionContent);
+        answerOptionService.save(option);
+
+        model.addAttribute("question", questionBankService.findById(id));
+        return "/QuestionBank/UpdateQuestion";  // Trả về trang cập nhật sau khi lưu
+    }
+
+
+    @PostMapping("/question/updateAnswer")
+    public String updateAnswer(Model model,
+                               @RequestParam("id") Integer id,
+                               @RequestParam(value = "answerId", required = false) List<Integer> answerIds,
+                               @RequestParam(value = "correct", required = false) List<Integer> correctAnswers,
+                               @RequestParam Map<String, String> requestParams) {
+
+        // Lấy câu hỏi từ dịch vụ
+        QuestionBank question = questionBankService.findById(id);
+
+        // Biến để theo dõi có đáp án đúng hay không
+        boolean hasCorrectAnswer = false;
+
+        // Xử lý loại câu hỏi
+        if (question.getQuestionType().equals("SINGLE_CHOICE")) {
+            List<AnswerOption> answerOptions = new ArrayList<>();
+            // Xử lý cho SINGLE_CHOICE
+            Integer selectedCorrectAnswerId = correctAnswers != null && !correctAnswers.isEmpty() ? correctAnswers.get(0) : null;
+
+            for (Integer answerId : answerIds) {
+                AnswerOption answerOption = answerOptionService.findById(answerId);
+                if (answerOption != null) {
+                    boolean isCorrect = answerId.equals(selectedCorrectAnswerId);
+                    answerOption.setIsCorrect(isCorrect);
+                    hasCorrectAnswer |= isCorrect; // Cập nhật trạng thái có đáp án đúng
+                    answerOptions.add(answerOption);
+                    // Lưu cập nhật
+                    answerOptionService.save(answerOption);
+                }
+            }
+            if (hasCorrectAnswer) {
+                for (AnswerOption Option : answerOptions) {
+                    // Lưu cập nhật
+                    answerOptionService.save(Option);
+                }
+            }
+        } else if (question.getQuestionType().equals("MULTIPLE_CHOICE")) {
+            List<AnswerOption> answerOptions = new ArrayList<>();
+            // Xử lý cho MULTIPLE_CHOICE
+            for (int i = 0; i < answerIds.size(); i++) {
+                Integer answerId = answerIds.get(i);
+                AnswerOption answerOption = answerOptionService.findById(answerId);
+                if (answerOption != null) {
+                    // Kiểm tra tên của checkbox, sử dụng index để ánh xạ
+                    String correctAnswerKey = "correct__" + i; // Tạo tên cho checkbox
+                    boolean isCorrect = requestParams.containsKey(correctAnswerKey);
+                    answerOption.setIsCorrect(isCorrect);
+                    answerOptions.add(answerOption);
+                    hasCorrectAnswer |= isCorrect; // Cập nhật trạng thái có đáp án đúng
+                }
+            }
+            if (hasCorrectAnswer) {
+                for (AnswerOption Option : answerOptions) {
+                    // Lưu cập nhật
+                    answerOptionService.save(Option);
+                }
+            }
+        }
+
+        // Kiểm tra xem có đáp án đúng hay không
+        if (!hasCorrectAnswer) {
+            model.addAttribute("errorUpdateAnswer", "Bạn cần chọn ít nhất một đáp án đúng.");
+            model.addAttribute("question", question);
+            return "/QuestionBank/UpdateQuestion"; // Quay lại trang hiện tại với thông báo lỗi
+        }
+
+        model.addAttribute("question", question);
+        return "/QuestionBank/UpdateQuestion"; // Quay lại trang hiện tại
+    }
+
+
+    @PostMapping("/question/addOption")
+    public String addOption(Model model,
+                            @RequestParam("id") Integer id,
+                            @RequestParam(required = false) String answerContent,
+                            @RequestParam(required = false) Boolean answerIsCorrect) {
+
+        QuestionBank question = questionBankService.findById(id);
+
+        // Kiểm tra xem câu hỏi đã tồn tại chưa
+        Set<AnswerOption> setContent = question.getAnswerOptions();
+
+        // Kiểm tra xem option đã tồn tại hay chưa
+        boolean exists = setContent.stream()
+                .anyMatch(option -> option.getContent().equalsIgnoreCase(answerContent));
+
+        if (exists) {
+            // Thêm thông báo lỗi nếu option đã tồn tại
+            model.addAttribute("addOptionError", "Option đã tồn tại cho câu hỏi này.");
+            model.addAttribute("question", questionBankService.findById(id));
+            return "/QuestionBank/UpdateQuestion";
+        }
+
+        // Nếu chưa tồn tại, thêm mới AnswerOption
+        AnswerOption newOption = AnswerOption.builder()
+                .content(answerContent)
+                .isCorrect(answerIsCorrect)
+                .questionBank(question)
+                .build();
+
+        // Lưu thay đổi vào cơ sở dữ liệu
+        answerOptionService.save(newOption);
+
+        // Trả về trang cập nhật câu hỏi
+        model.addAttribute("successMessage", "Option đã được thêm thành công.");
+        model.addAttribute("question", questionBankService.findById(id));
+        return "/QuestionBank/UpdateQuestion";
+    }
+
     @PostMapping("/question/updateQuestion")
     public String updateQuestion(Model model,
                                  @RequestParam("id") Integer id,
-                                 @RequestParam("questionContent")  String questionContent
+                                 @RequestParam("questionContent") String questionContent
     ) {
         // Tìm câu hỏi hiện tại
-        QuestionBank questionBank = questionBankService.findById(id);
-
-        if (questionBank == null) {
-            return "redirect:/questionlist"; // Hoặc hiển thị thông báo không tìm thấy
-        }
+        QuestionBank question = questionBankService.findById(id);
 
         // Cập nhật thông tin câu hỏi
-        questionBank.setQuestionContent(questionContent);
-        questionBankService.save(questionBank);
-
-        /*//Cập nhật các câu trả lời
-        for (AnswerOptionForm answerOptionForm : questionForm.getAnswerOptions()) {
-            // Kiểm tra xem câu trả lời đã tồn tại chưa, nếu chưa thì thêm mới
-            AnswerOption answerOption = answerOptionService.findByContentAndQuestion(questionBank, answerOptionForm.getContent());
-            if (answerOption == null) {
-                answerOption = new AnswerOption();
-                answerOption.setQuestionBank(questionBank);
-            }
-            answerOption.setContent(answerOptionForm.getContent());
-            answerOption.setIsCorrect(answerOptionForm.getCorrect());
-            answerOptionService.save(answerOption);
-        }*/
-
-        return "redirect:/questionlist";  // Chuyển hướng sau khi cập nhật xong
+        if (questionBankService.existsByQuestionContent(questionContent)) {
+            model.addAttribute("updateQuestionError", "Cập nhật thất bại do câu hỏi trùng lặp!");
+            model.addAttribute("question", questionBankService.findById(id));
+            return "/QuestionBank/UpdateQuestion";
+        }
+        question.setQuestionContent(questionContent);
+        questionBankService.save(question);
+        model.addAttribute("question", questionBankService.findById(id));
+        return "/QuestionBank/UpdateQuestion";  // Chuyển hướng sau khi cập nhật xong
     }
-
 
 
 }

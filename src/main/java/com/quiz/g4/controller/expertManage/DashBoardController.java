@@ -5,23 +5,22 @@ import com.quiz.g4.repository.LessonRepository;
 import com.quiz.g4.repository.QuizRepository;
 import com.quiz.g4.repository.SubjectRepository;
 import com.quiz.g4.service.*;
-import org.apache.commons.lang3.ArrayUtils;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class DashBoardController {
@@ -45,10 +44,19 @@ public class DashBoardController {
     private QuizRepository quizRepository;
 
     @GetMapping("/expert/expert_dashboard")
-    public String getDoashboard() {
+    public String getDoashboard(Model model) {
+        List<Quiz> quizList = quizRepository.findAll();
+        List<Subject> subjectList = subjectRepository.findAll();
+        List<Lesson> lessonList = lessonRepository.findAll();
+        List<QuestionBank> questionBanks = questionBankService.getAllQuestions();
 
+        model.addAttribute("quizList", quizList);
+        model.addAttribute("subjectList", subjectList);
+        model.addAttribute("lessonList", lessonList);
+        model.addAttribute("questionBanks", questionBanks);
         return "expert_dashboard";
     }
+
     @GetMapping("/expert/expert_quizz")
     public String getExpertQuizz(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "10") int size,
@@ -83,20 +91,15 @@ public class DashBoardController {
                                @RequestParam("quizName") String quizName,
                                @RequestParam("description") String description,
                                Model model) {
-
         // Lấy danh sách câu hỏi dựa trên subjectId
         Subject subject = subjectService.getSubjectById(subjectId);
 //        subjectRepository.findBySubjectId(subjectId);
-
         // Kiểm tra nếu môn học không tồn tại
         if (subject == null) {
             model.addAttribute("error", "Subject not found");
             return "error"; // hoặc trang lỗi của bạn
         }
-
         List<QuestionBank> questions = questionBankService.getQuestionsBySubjectId(subject);
-        System.out.println("Danh sách câu hỏi đã trả về: " + questions.size());
-
         // Kiểm tra nếu không có câu hỏi
         if (questions.isEmpty()) {
             model.addAttribute("message", "No questions found for this subject.");
@@ -104,9 +107,8 @@ public class DashBoardController {
         }
 
         //Lấy ra các lesstion của subject bằng subject id
-        List<Lesson> lessons=lessonService.getLessonsBySubjectId(subjectId);
+        List<Lesson> lessons = lessonService.getLessonsBySubjectId(subjectId);
 //        getLessonsBySubjectId(subjectId);
-
         // Thêm các thuộc tính vào model để hiển thị trong view
         model.addAttribute("subject", subject);
         model.addAttribute("subjectId", subjectId);
@@ -115,9 +117,45 @@ public class DashBoardController {
         model.addAttribute("description", description);
         model.addAttribute("lessons", lessons);
 
+
         return "select_questions"; // Tên của HTML mà bạn sẽ hiển thị các câu hỏi
     }
 
+    @GetMapping("/expert/api/edit_questions")
+    public String getEditQuestions(@RequestParam("quizId") Integer quizId,
+                                   Model model) {
+        Quiz quizUpdate = quizService.getQuizById(quizId);
+        // Lấy danh sách câu hỏi dựa trên subjectId
+        Subject subject = quizUpdate.getSubject();
+//        subjectRepository.findBySubjectId(subjectId);
+
+        // Kiểm tra nếu môn học không tồn tại
+        if (subject == null) {
+            model.addAttribute("error", "Subject not found");
+            return "error"; // hoặc trang lỗi của bạn
+        }
+        List<QuestionBank> questions = questionBankService.getQuestionsBySubjectId(subject);
+        // Kiểm tra nếu không có câu hỏi
+        if (questions.isEmpty()) {
+            model.addAttribute("message", "No questions found for this subject.");
+            return "noQuestions"; // hoặc trang hiển thị không có câu hỏi
+        }
+
+        //Lấy ra các lesstion của subject bằng subject id
+        List<Lesson> lessons = lessonService.getLessonsBySubjectId(subject.getSubjectId());
+//        getLessonsBySubjectId(subjectId);
+
+        // Thêm các thuộc tính vào model để hiển thị trong view
+        model.addAttribute("subject", subject);
+        model.addAttribute("subjectId", subject.getSubjectId());
+        model.addAttribute("questions", questions);
+        model.addAttribute("quizName", quizUpdate.getQuizName());
+        model.addAttribute("description", quizUpdate.getDescription());
+        model.addAttribute("lessons", lessons);
+        model.addAttribute("quizId", quizId);
+
+        return "select_questions"; // Tên của HTML mà bạn sẽ hiển thị các câu hỏi
+    }
 
     @GetMapping("/expert/api/create-quiz")
     public String createQuiz(@RequestParam Integer subjectId,
@@ -125,63 +163,87 @@ public class DashBoardController {
                              @RequestParam String description,
                              @RequestParam List<Integer> selectedQuestions,
                              @RequestParam("lessonId") Integer lessonId,
+                             @RequestParam("quizId") Integer quizId,
                              Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = null;
-        if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
-            String email = authentication.getName();
-            user = userService.findByEmail(email);
-            model.addAttribute("user", user);
+        System.out.println("QuizId Udate chuen bao" + quizId);
+        if (quizId == 0) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User user = null;
+            if (Objects.nonNull(authentication) && authentication.isAuthenticated() && !authentication.getName().equals("anonymousUser")) {
+                String email = authentication.getName();
+                user = userService.findByEmail(email);
+                model.addAttribute("user", user);
 
-            // Tạo một đối tượng Quiz mới
-            Quiz new_quiz = new Quiz();
-            new_quiz.setQuizName(quizName);
-            new_quiz.setDescription(description);
-            new_quiz.setCreatedDate(LocalDate.now());
-            new_quiz.setUpdatedDate(LocalDate.now());
-            new_quiz.setCreatedBy(user);
-            new_quiz.setIsActive(true);
+                // Tạo một đối tượng Quiz mới
+                Quiz new_quiz = new Quiz();
+                new_quiz.setQuizName(quizName);
+                new_quiz.setDescription(description);
+                new_quiz.setCreatedDate(LocalDate.now());
+                new_quiz.setUpdatedDate(LocalDate.now());
+                new_quiz.setCreatedBy(user);
+                new_quiz.setIsActive(true);
+                Subject subject = subjectRepository.findBySubjectId(subjectId);
+                Lesson lesson = lessonRepository.findByLessonId(lessonId);
+                new_quiz.setSubject(subject);
+                new_quiz.setLesson(lesson);
+
+                // Lấy danh sách câu hỏi từ selectedQuestions và chuyển đổi thành Set
+                List<QuestionBank> questions = questionBankService.getQuestionsByIds(selectedQuestions);
+
+                // Thêm các câu hỏi vào quiz
+                new_quiz.setQuestions(new HashSet<>(questions)); // Chuyển đổi List thành Set
+
+
+                // Lưu Quiz vào database
+                quizRepository.save(new_quiz);
+            }
+            // Thêm các thuộc tính vào model để hiển thị thông báo hoặc chuyển tiếp đến view khác nếu cần
+            model.addAttribute("quizName", quizName);
+            model.addAttribute("description", description);
+            model.addAttribute("message", "Quiz created successfully");
+        } else {
+            Quiz quizUpdate = quizService.getQuizById(quizId);
+            quizUpdate.setUpdatedDate(LocalDate.now());
             Subject subject = subjectRepository.findBySubjectId(subjectId);
             Lesson lesson = lessonRepository.findByLessonId(lessonId);
-            new_quiz.setSubject(subject);
-            new_quiz.setLesson(lesson);
+            quizUpdate.setSubject(subject);
+            quizUpdate.setLesson(lesson);
 
             // Lấy danh sách câu hỏi từ selectedQuestions và chuyển đổi thành Set
             List<QuestionBank> questions = questionBankService.getQuestionsByIds(selectedQuestions);
 
             // Thêm các câu hỏi vào quiz
-            new_quiz.setQuestions(new HashSet<>(questions)); // Chuyển đổi List thành Set
-
-
+            quizUpdate.setQuestions(new HashSet<>(questions)); // Chuyển đổi List thành Set
             // Lưu Quiz vào database
-            quizRepository.save(new_quiz);
+            quizRepository.save(quizUpdate);
         }
         // Thêm các thuộc tính vào model để hiển thị thông báo hoặc chuyển tiếp đến view khác nếu cần
         model.addAttribute("quizName", quizName);
         model.addAttribute("description", description);
         model.addAttribute("message", "Quiz created successfully");
 
-        return "expert_dashboard";// Trang HTML để xác nhận quiz đã được tạo thành công
+
+        return "redirect:/expert/expert_quizz";// Trang HTML để xác nhận quiz đã được tạo thành công
     }
 
     @GetMapping("/expert/expert_manage_question")
     public String getAllQuestionsPaged(
-            @RequestParam(defaultValue = "",required = false) String contentFilter,
-            @RequestParam(defaultValue = "",required = false) String typeFilter,
-            @RequestParam(defaultValue = "",required = false) Integer subjectFilter,
-            @RequestParam(defaultValue = "",required = false) Integer lessonFilter,
+            @RequestParam(defaultValue = "", required = false) String contentFilter,
+            @RequestParam(defaultValue = "", required = false) String typeFilter,
+            @RequestParam(defaultValue = "", required = false) Integer subjectFilter,
+            @RequestParam(defaultValue = "", required = false) Integer lessonFilter,
             @RequestParam(defaultValue = "0") int page,  // Default to first page
             @RequestParam(defaultValue = "5") int size,  // Default page size of 5
-            Model model){
+            Model model) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<QuestionBank> questionPage = questionBankService.searchQuestion(contentFilter,typeFilter,subjectFilter,lessonFilter,pageable);
+        Page<QuestionBank> questionPage = questionBankService.searchQuestion(contentFilter, typeFilter, subjectFilter, lessonFilter, pageable);
         List<Subject> subjects = subjectService.getAllSubjects();
         model.addAttribute("subjects", subjects);
         model.addAttribute("selectedSubject", subjectFilter);
         if (subjectFilter != null) {
             List<Lesson> lessons = lessonService.getLessonsBySubjectId(subjectFilter);
             model.addAttribute("lessons", lessons);
-        }else {
+        } else {
             List<Lesson> lessons = lessonService.getAllLessons();
             model.addAttribute("lessons", lessons);
         }

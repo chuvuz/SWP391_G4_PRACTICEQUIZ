@@ -34,4 +34,10 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     public List<AnswerOption> findByQuestionId(Integer questionId){
         return answerOptionRepository.findByQuestionId(questionId);
     }
+
+    @Override
+    public boolean existsByAnswerOptionContent(String optionContent){
+        return answerOptionRepository.existsByContent(optionContent);
+    }
+
 }

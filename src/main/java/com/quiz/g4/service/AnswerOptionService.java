@@ -15,4 +15,6 @@ public interface AnswerOptionService {
     List<AnswerOption> findCorrectOptionsByQuestionId(Integer questionId);
 
     List<AnswerOption> findByQuestionId(Integer questionId);
+
+    boolean existsByAnswerOptionContent(String optionContent);
 }

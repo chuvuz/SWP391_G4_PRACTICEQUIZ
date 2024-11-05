@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -55,11 +56,15 @@ public class User implements UserDetails {
 	@Column(name = "is_active", nullable = false)
 	private Boolean isActive = true;
 
-	@Column(name = "phone", length = 15)
+
+
+	@Column(name = "phone", nullable = false, length = 10)
+	@Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
 	private String phone;
 
 	@Column(name = "date_of_birth")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+
 	private LocalDate dateOfBirth;
 
 	@Column(name = "gender", nullable = false)

@@ -6,22 +6,22 @@
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" href="../error-404.html" type="image/x-icon" />
-    <link rel="shortcut icon" th:href="@{/expert/images/favicon.png}" />
+    <link rel="icon" href="../error-404.html" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/expert/images/favicon.png}"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
     <title>EduChamp : Education HTML Template</title>
@@ -78,7 +78,8 @@
                     <a href="../index.html" class="ttr-material-button ttr-submenu-toggle">HOME</a>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i class="fa fa-angle-down"></i></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle">QUICK MENU <i
+                            class="fa fa-angle-down"></i></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="../courses.html">Our Courses</a></li>
@@ -170,7 +171,10 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg" width="32" height="32"></span></a>
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
+                                                                                                                  src="assets/images/testimonials/pic3.jpg"
+                                                                                                                  width="32"
+                                                                                                                  height="32"></span></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a href="user-profile.html">My profile</a></li>
@@ -217,7 +221,8 @@
             <form class="ttr-search-form">
                 <div class="ttr-search-input-wrapper">
                     <input type="text" name="qq" placeholder="search something..." class="ttr-search-input">
-                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i></button>
+                    <button type="submit" name="search" class="ttr-search-submit"><i class="ti-arrow-right"></i>
+                    </button>
                 </div>
                 <span class="ttr-search-close ttr-search-toggle">
 						<i class="ti-close"></i>
@@ -289,52 +294,28 @@
             <!-- Your Profile Views Chart -->
             <div class="col-lg-12 m-b30">
                 <div class="widget-box">
-                    <div class="wc-title" >
+                    <div class="wc-title">
                         <h3> Quiz Name: <span th:text="${quizName}"></span></h3>
                     </div>
                     <div class="widget-inner">
 
                         <h4>Subject : <span th:text="${subject.subjectName}"></span></h4>
                         <p th:text="'Description: ' + ${description}"></p>
-
-<!--                        <form action="/expert/api/create-quiz" method="GET"> &lt;!&ndash; Sử dụng GET để gửi thông tin &ndash;&gt;-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="lessonSelect">Select Lesson:</label>-->
-<!--                                <select id="lessonSelect" name="lessonId" class="form-control" required>-->
-<!--                                    <option value="" disabled selected>Select a lesson</option>-->
-<!--                                    <li class="list-group-item" th:each="lesson : ${lessons}">-->
-<!--                                        <option th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"></option>-->
-<!--                                    </li>-->
-<!--                                </select>-->
-<!--                            </div>-->
-<!--                            <label for="lessonSelect">Select Question :</label>-->
-<!--                            <ul class="list-group">-->
-<!--                                <li class="list-group-item" th:each="question : ${questions}">-->
-<!--                                    <input type="checkbox" th:value="${question.questionId}" name="selectedQuestions" />-->
-<!--                                    <span th:text="${question.questionContent}"></span>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-
-<!--                            <input type="hidden" name="subjectId" th:value="${subjectId}"/> &lt;!&ndash; Gửi thêm subjectId &ndash;&gt;-->
-<!--                            <input type="hidden" name="quizName" th:value="${quizName}"/> &lt;!&ndash; Gửi thêm quizName &ndash;&gt;-->
-<!--                            <input type="hidden" name="description" th:value="${description}"/> &lt;!&ndash; Gửi thêm description &ndash;&gt;-->
-
-<!--                            <button style="margin-top: 20px" type="submit" class="btn btn-success">Create Quiz</button>-->
-<!--                        </form>-->
-
-                        <form action="/expert/api/create-quiz" method="GET">
+                        <form action="/expert/api/create-quiz" method="GET" >
                             <div class="form-group">
                                 <label for="lessonSelect">Select Lesson:</label>
                                 <select id="lessonSelect" name="lessonId" class="form-control" required>
                                     <option value="" disabled selected>Select a lesson</option>
-                                    <option th:each="lesson : ${lessons}" th:value="${lesson.lessonId}" th:text="${lesson.lessonName}"></option>
+                                    <option th:each="lesson : ${lessons}" th:value="${lesson.lessonId}"
+                                            th:text="${lesson.lessonName}"></option>
                                 </select>
                             </div>
 
                             <label for="questionList">Select Questions:</label>
                             <ul class="list-group" id="questionList">
-                                <li class="list-group-item" th:each="question : ${questions}" th:data-lesson-id="${question.lesson.lessonId}">
-                                    <input type="checkbox" th:value="${question.questionId}" name="selectedQuestions" />
+                                <li class="list-group-item" th:each="question : ${questions}"
+                                    th:data-lesson-id="${question.lesson.lessonId}">
+                                    <input type="checkbox" th:value="${question.questionId}" name="selectedQuestions"/>
                                     <span th:text="${question.questionContent}"></span>
                                 </li>
                             </ul>
@@ -342,17 +323,20 @@
                             <input type="hidden" name="subjectId" th:value="${subjectId}"/>
                             <input type="hidden" name="quizName" th:value="${quizName}"/>
                             <input type="hidden" name="description" th:value="${description}"/>
-
-                            <button style="margin-top: 20px" type="submit" class="btn btn-success">Create Quiz</button>
+                            <input type="hidden" name="quizId" th:value="${quizId}" th:if="${quizId}">
+                            <input type="hidden" name="quizId" value="0" th:if="${quizId==null}">
+                            <button style="margin-top: 20px" type="submit" class="btn btn-success">Save</button>
                         </form>
 
+                        <!--                        update-->
+
                         <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                document.getElementById('lessonSelect').addEventListener('change', function() {
+                            document.addEventListener('DOMContentLoaded', function () {
+                                document.getElementById('lessonSelect').addEventListener('change', function () {
                                     const selectedLessonId = this.value;
                                     const questions = document.querySelectorAll('#questionList .list-group-item');
 
-                                    questions.forEach(function(question) {
+                                    questions.forEach(function (question) {
                                         const lessonId = question.getAttribute('data-lesson-id');
                                         question.style.display = (lessonId === selectedLessonId) ? '' : 'none'; // Show or hide question
                                     });
@@ -372,24 +356,6 @@
 </main>
 <div class="ttr-overlay"></div>
 <!-- External JavaScripts -->
-
-<!--<script th:src="@{/expert/js/jquery.min.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/bootstrap/js/popper.min.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/bootstrap/js/bootstrap.min.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/bootstrap-select/bootstrap-select.min.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/magnific-popup/magnific-popup.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/counter/waypoints-min.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/counter/counterup.min.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/imagesloaded/imagesloaded.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/masonry/masonry.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/masonry/filter.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/owl-carousel/owl.carousel.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/scroll/scrollbar.min.js}"></script>-->
-<!--<script th:src="@{/expert/js/functions.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/chart/chart.min.js}"></script>-->
-<!--<script th:src="@{/expert/js/admin.js}"></script>-->
-<!--<script th:src="@{/expert/vendors/switcher/switcher.js}"></script>-->
 
 
 </body>

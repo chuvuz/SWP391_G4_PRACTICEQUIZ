@@ -1,8 +1,10 @@
 package com.quiz.g4.controller.adminManage;
 
+import com.quiz.g4.entity.Category;
 import com.quiz.g4.entity.Subject;
 import com.quiz.g4.entity.User;
 import com.quiz.g4.repository.SubjectRepository;
+import com.quiz.g4.service.CategoryService;
 import com.quiz.g4.service.UserService;
 import com.quiz.g4.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -35,6 +38,9 @@ public class SubjectManagementController {
 
     @Autowired
     private SubjectRepository subjectRepository;
+    @Autowired
+    private CategoryService categoryService;
+
 
     // Đường dẫn để lưu trữ ảnh
     private final Path imagePath = Paths.get("subject-images");
@@ -42,25 +48,28 @@ public class SubjectManagementController {
     @GetMapping("/manage-subject")
     public String manageSubject(Model model, Principal principal,
                                 @RequestParam(value = "subjectName", required = false) String subjectName,
+                                @RequestParam(value = "categoryId", required = false) Integer categoryId,
                                 @RequestParam(value = "page", defaultValue = "0") int page,
                                 @RequestParam(value = "size", defaultValue = "9") int size) {
+
+        // Lấy tất cả các category để hiển thị trong dropdown
+
+
         // Lấy thông tin người dùng đã đăng nhập thông qua principal
         if (principal != null) {
             User user = userService.findByEmail(principal.getName());
             model.addAttribute("user", user); // Truyền thông tin người dùng vào model
         }
 
-        Page<Subject> subjectsPage;
-        if (subjectName != null && !subjectName.trim().isEmpty()) {
-            // Nếu có subjectName, thực hiện tìm kiếm theo subjectName
-            subjectsPage = subjectService.searchSubjectAll(subjectName, page, size);
-        } else {
-            // Nếu không có subjectName, hiển thị tất cả các môn học
-            subjectsPage = subjectService.getAllSubjectNoCondition(page, size);
-        }
+        model.addAttribute("subjectName", subjectName);
+        model.addAttribute("selectedCategoryId", categoryId);
 
+        // Sử dụng `categoryId` để lọc theo danh mục nếu có
+        Page<Subject> subjectsPage = subjectService.searchSubjectAll(subjectName, categoryId, page, size);
         model.addAttribute("subjectsPage", subjectsPage);
-        model.addAttribute("subjectName", subjectName); // Truyền subjectName vào model để giữ giá trị trong ô tìm kiếm
+
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
 
         // Trả về trang admin/manage-subject
         return "admin/manage-subject";
@@ -70,6 +79,7 @@ public class SubjectManagementController {
     @PostMapping("/create-subject")
     public String createSubject(@RequestParam("subjectName") String subjectName,
                                 @RequestParam("isActive") boolean isActive,
+                                @RequestParam("categoryId") Integer categoryId, // Thêm categoryId
                                 @RequestParam("imageUrl") String imageUrl, RedirectAttributes redirectAttributes,// Nhận URL ảnh từ form
                                 Model model, Principal principal) {
         // Kiểm tra nếu URL ảnh trống
@@ -93,7 +103,7 @@ public class SubjectManagementController {
              }
 
         // Tạo môn học mới với URL ảnh
-        subjectService.createSubjectWithImageUrl(subjectName, isActive, imageUrl);
+        subjectService.createSubjectWithImageUrl(subjectName,categoryId, isActive, imageUrl);
         return "redirect:/admin/manage-subject";
     }
 
@@ -109,7 +119,9 @@ public class SubjectManagementController {
         // Lấy thông tin subject theo subjectId
         Subject subject = subjectService.findById(subjectId);
         model.addAttribute("subject", subject);
-
+       // model.addAttribute("categories", categoryService.getAllCategory());
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categories", categories);
         return "admin/edit-subject";
     }
 

@@ -381,6 +381,16 @@
         <input name="subjectName" type="text" class="form-control" th:value="${subjectName}" placeholder="Enter Course Name">
       </div>
     </div>
+    <div class="form-group">
+<!--      <label for="selectCategory">Category:</label>-->
+      <select name="categoryId" class="form-control">
+        <option value="">All Categories</option>
+        <option th:each="category : ${categories}"
+                th:value="${category.categoryId}"
+                th:text="${category.categoryName}"
+                th:selected="${category.categoryId == selectedCategoryId}">Category</option>
+      </select>
+    </div>
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
 
@@ -394,6 +404,7 @@
     <tr>
       <th>STT</th>
       <th>Name</th>
+      <th>Category</th>
       <th>Status</th>
       <th>Image</th>
       <th>Actions</th>
@@ -403,6 +414,7 @@
     <tr th:each="subject, iterStat : ${subjectsPage.content}">
       <td th:text="${subjectsPage.number * subjectsPage.size + iterStat.index + 1}"></td>
       <td th:text="${subject.subjectName}"></td>
+      <td th:text="${subject.category.categoryName}"></td>
       <td>
         <span th:text="${subject.isActive ? 'Active' : 'Inactive'}"></span>
       </td>
@@ -420,7 +432,7 @@
       <ul class="pagination">
         <!-- Previous Page Link -->
         <li th:classappend="${subjectsPage.hasPrevious()} ? 'previous' : 'previous disabled'">
-          <a th:href="@{/admin/manage-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size})}">
+          <a th:href="@{/admin/manage-subject(page=${subjectsPage.number - 1}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}">
             <i class="ti-arrow-left"></i> Prev
           </a>
         </li>
@@ -428,19 +440,20 @@
         <!-- Page Numbers -->
         <li th:each="pageNum : ${#numbers.sequence(0, subjectsPage.totalPages - 1)}"
             th:classappend="${pageNum == subjectsPage.number} ? 'active'">
-          <a th:href="@{/admin/manage-subject(page=${pageNum}, size=${subjectsPage.size})}"
+          <a th:href="@{/admin/manage-subject(page=${pageNum}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}"
              th:text="${pageNum + 1}"></a>
         </li>
 
         <!-- Next Page Link -->
         <li th:classappend="${subjectsPage.hasNext()} ? 'next' : 'next disabled'">
-          <a th:href="@{/admin/manage-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size})}">
+          <a th:href="@{/admin/manage-subject(page=${subjectsPage.number + 1}, size=${subjectsPage.size}, subjectName=${subjectName}, categoryId=${selectedCategoryId})}">
             Next <i class="ti-arrow-right"></i>
           </a>
         </li>
       </ul>
     </div>
   </div>
+
 
   <!-- Create Modal -->
   <div id="createModal" class="modal" style="display:none;">
@@ -456,6 +469,17 @@
               <label for="createName">Subject Name:</label>
               <input type="text" id="createName" name="subjectName" class="form-control" required>
             </div>
+            <div class="form-group">
+              <label for="createCategory">Category:</label> <!-- New Category Select -->
+              <select id="createCategory" name="categoryId" class="form-control" required>
+                <option value="" disabled selected>Select Category</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.categoryId}"
+                        th:text="${category.categoryName}">
+                </option>
+              </select>
+            </div>
+
             <div class="form-group">
               <label for="createStatus">Subject Status:</label>
               <select id="createStatus" name="isActive" class="form-control">
