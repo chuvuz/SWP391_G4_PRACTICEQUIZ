@@ -178,7 +178,7 @@
 
                 <!-- Questions Content -->
                 <div class="questions-content">
-                    <form th:action="@{/quiz-submit}" method="post">
+                    <form th:action="@{/quiz-submit}" method="post" onsubmit="return validateChoices();">
                         <input type="hidden" name="quizId" th:value="${quiz.quizId}"/>
 
                         <div th:each="question, questionStat : ${quiz.questions}"
@@ -264,6 +264,27 @@
             }
         });
     });
+    function validateMultiChoice() {
+        let isValid = true;
+
+        // Select all multi-choice questions
+        document.querySelectorAll('.question-box').forEach(questionBox => {
+            // Check if it's a multi-choice question
+            const checkboxes = questionBox.querySelectorAll('input[type="checkbox"]');
+
+            if (checkboxes.length > 0) {
+                const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+                if (!isChecked) {
+                    // If no checkbox is checked, show alert and set isValid to false
+                    alert("Please select at least one answer for each multi-choice question.");
+                    isValid = false;
+                }
+            }
+        });
+
+        return isValid;
+    }
 </script>
 </body>
 </html>
