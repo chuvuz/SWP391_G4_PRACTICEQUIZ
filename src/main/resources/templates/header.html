@@ -37,8 +37,9 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
                 <a class="dropdown-item" th:href="@{/profile}">View Profile</a>
-                <a class="dropdown-item" th:if="${user.role.roleId == 4}" th:href="@{/admin/dashboard}">Dashboard</a>
-                <a class="dropdown-item" th:if="${user.role.roleId == 3}" th:href="@{/marketing/dashboard}">Dashboard</a>
+                <a class="dropdown-item" th:if="${user.role.roleId == 4}" th:href="@{/admin/dashboard}">Dashboard Admin</a>
+                <a class="dropdown-item" th:if="${user.role.roleId == 3}" th:href="@{/expert/expert_dashboard}">Dashboard Expert</a>
+                <a class="dropdown-item" th:if="${user.role.roleId == 2}" th:href="@{/marketing/dashboard}">Dashboard Marketing</a>
                 <a class="dropdown-item" th:href="@{/logout}">Logout</a>
               </div>
             </li>
