@@ -30,15 +30,19 @@
                 <li>
                     <a th:href="@{/home}" class="ttr-material-button ttr-submenu-toggle">Home</a>
                 </li>
-                <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle" th:text="${#authentication.getPrincipal().role.getRoleName() == 'ROLE_ADMIN'? 'Blogs & Subjects' : 'Blogs'}"> <i
-                            class="fa fa-angle-down"></i></a>
-                    <div class="ttr-header-submenu">
-                        <ul>
-                            <li><a href="../courses.html">Our Courses</a></li>
-                        </ul>
-                    </div>
-                </li>
+<!--                <li>-->
+<!--                    <a href="#" class="ttr-material-button ttr-submenu-toggle" th:text="${#authentication.getPrincipal().role.getRoleName() == 'ROLE_ADMIN'? 'Blogs & Subjects' : 'Blogs'}"> <i-->
+<!--                            class="fa fa-angle-down"></i></a>-->
+<!--                    <div class="ttr-header-submenu">-->
+<!--                        <ul>-->
+<!--                            <li><a th:href="@{/blogs}">Blogs</a></li>-->
+<!--                        </ul>-->
+<!--                        <ul>-->
+<!--                            <li><a th:href="@{/manage-subject}">Subjects</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </li>-->
+
             </ul>
             <!-- header left menu end -->
         </div>
