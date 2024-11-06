@@ -37,8 +37,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="userDropdown">
                 <a class="dropdown-item" th:href="@{/profile}">View Profile</a>
-                <a class="dropdown-item" th:if="${#authentication.getPrincipal().role.getRoleName() == 'ROLE_ADMIN'}" th:href="@{/admin/dashboard}">Dashboard</a>
-                <a class="dropdown-item" th:if="${#authentication.getPrincipal().role.getRoleName() == 'ROLE_MARKETING'}" th:href="@{/marketing/dashboard}">Dashboard</a>
+                <a class="dropdown-item" th:if="${user.role.roleId == 4}" th:href="@{/admin/dashboard}">Dashboard</a>
+                <a class="dropdown-item" th:if="${user.role.roleId == 3}" th:href="@{/marketing/dashboard}">Dashboard</a>
                 <a class="dropdown-item" th:href="@{/logout}">Logout</a>
               </div>
             </li>
