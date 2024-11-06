@@ -191,7 +191,7 @@
                             <div class="answer-options">
                                 <div th:each="option : ${question.answerOptions}">
                                     <!-- Single-choice question -->
-                                    <label th:if="${question.questionType == 'single'}">
+                                    <label th:if="${question.questionType == 'SINGLE_CHOICE'}">
                                         <input type="radio"
                                                th:name="${'question_' + question.questionId}"
                                                th:value="${option.optionId}" required/>
@@ -199,7 +199,7 @@
                                     </label>
 
                                     <!-- Multi-choice question -->
-                                    <label th:if="${question.questionType == 'multi'}">
+                                    <label th:if="${question.questionType == 'MULTIPLE_CHOICE'}">
                                         <input type="checkbox"
                                                th:name="${'question_' + question.questionId}"
                                                th:value="${option.optionId}"/>
@@ -207,7 +207,7 @@
                                     </label>
 
                                     <!-- Numeric question -->
-                                    <label th:if="${question.questionType == 'numeric'}">
+                                    <label th:if="${question.questionType == 'NUMERIC'}">
                                         <input type="number"
                                                th:name="${'question_' + question.questionId}" required/>
                                     </label>
