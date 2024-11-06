@@ -388,7 +388,7 @@
             </table>
         </div>
         <div class="row">
-            <div class="form-group col-md-6 col-sm-12 m-b30">
+            <div class="form-group col-md-6 col-sm-12 m-b30" th:if="${question.questionType != 'NUMERIC'}">
             <button id="openAddOptionModal" class="btn btn-primary" data-toggle="modal"
                     data-target="#addOptionModal">
                 Add Answer Options
@@ -426,7 +426,7 @@
             <!--            <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">Add-->
             <!--                another answer-->
             <!--            </button>-->
-            <div class="form-group col-md-6 col-sm-12 m-b30">
+            <div class="form-group col-md-6 col-sm-12 m-b30" th:if="${question.questionType != 'NUMERIC'}">
             <button id="openUpdateAnswerModal" class="btn btn-primary" data-toggle="modal"
                     data-target="#updateAnswerModal">
                 Update Answer
@@ -542,7 +542,7 @@
         const updateFailed = document.getElementById("questionContentError").textContent;
         if (updateFailed) {
             // Mở modal
-            $('#addOptionModal').modal('show');
+            $('#updateQuestionModal').modal('show');
          }
     });
 
@@ -551,7 +551,7 @@
         const updateFailed = document.getElementById("addOptionError").textContent;
         if (updateFailed) {
             // Mở modal
-            $('#updateQuestionModal').modal('show');
+            $('#addOptionModal').modal('show');
          }
     });
 
