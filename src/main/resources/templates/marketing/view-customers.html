@@ -117,7 +117,7 @@
             <td>
                 <form th:action="@{/marketing/customers/update-status}" method="post">
                     <input type="hidden" name="userId" th:value="${user.userId}">
-                    <button class="btn-primary" type="submit"
+                    <button class="btn btn-sm btn-primary" type="submit"
                             th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
                 </form>
             </td>
