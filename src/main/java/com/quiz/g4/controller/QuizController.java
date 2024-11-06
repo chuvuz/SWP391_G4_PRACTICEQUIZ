@@ -118,14 +118,14 @@ public class QuizController {
             List<AnswerOption> selectedAnswers = answerOptionRepository.findAllById(optionIds);
 
             // Xử lý câu hỏi đơn và đa lựa chọn
-            if ("single".equals(question.getQuestionType())) {
+            if ("SINGLE_CHOICE".equals(question.getQuestionType())) {
                 AnswerOption selectedAnswer = selectedAnswers.get(0);
                 boolean isCorrect = selectedAnswer.getIsCorrect();
                 if (isCorrect) correctAnswers++;
 
                 saveUserAnswer(quizResult, question, selectedAnswer, isCorrect);
 
-            } else if ("multi".equals(question.getQuestionType())) {
+            } else if ("MULTIPLE_CHOICE".equals(question.getQuestionType())) {
                 List<AnswerOption> correctOptions = answerOptionRepository
                         .findCorrectOptionsByQuestionId(question.getQuestionId());
 
@@ -144,7 +144,7 @@ public class QuizController {
                     boolean isCorrect = correctOptionIds.contains(answer.getOptionId());
                     saveUserAnswer(quizResult, question, answer, isCorrect);
                 }
-            } else if ("numeric".equals(question.getQuestionType())) {
+            } else if ("NUMERIC".equals(question.getQuestionType())) {
                 // Lấy đáp án người dùng nhập
                 String userInput = request.getParameter(paramName);
 
