@@ -138,10 +138,10 @@
                                             <li><a href="#"><i class="fa fa-calendar"></i> <span th:text="${blog.createdDate}">Jan 02 2019</span></a></li>
                                             <li><a href="#"><i class="fa fa-user"></i> By <span th:text="${blog.createdBy.fullName}">Author</span></a></li>
                                         </ul>
-                                        <h5 class="post-title"><a th:href="@{/blog-details/{id}(id=${blog.blogId})}" th:text="${blog.title}">Blog Title</a></h5>
+                                        <h5 class="post-title"><a th:href="@{/blogs/{id}(id=${blog.blogId})}" th:text="${blog.title}">Blog Title</a></h5>
                                         <p th:text="${blog.content}">Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
                                         <div class="post-extra">
-                                            <a th:href="@{/blog-details/{id}(id=${blog.blogId})}" class="btn-link">READ MORE</a>
+                                            <a th:href="@{/blogs/{id}(id=${blog.blogId})}" class="btn-link">READ MORE</a>
 
                                         </div>
                                     </div>
