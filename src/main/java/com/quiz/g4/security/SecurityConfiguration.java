@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 //Role cho Expert
 
-                .antMatchers("/expert/**", "/QuestionBank/question_bank", "/questions", "/answers/**", "/search_questions",
+                .antMatchers("/QuestionBank/question_bank", "/questions", "/answers/**", "/search_questions",
                         "/questionlist", "/add_Question", "/QuestionBank/addQuestion", "/create",
                         "/questions/create", "/createQuestions", "/question/**", "/QuestionBank/UpdateQuestion",
                         "/updateQuestion/**", "/question/**").hasAnyRole("EXPERT")
