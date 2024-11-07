@@ -65,12 +65,6 @@ public class QuestionController {
         return "/QuestionBank/addQuestion";
     }
 
-    @GetMapping("/lessonsBySubject/{subjectId}")
-    @ResponseBody // Chỉ định rằng kết quả sẽ được trả về dưới dạng JSON
-    public List<Lesson> getLessonsBySubject(@PathVariable Integer subjectId) {
-        return lessonService.getLessonsBySubjectId(subjectId); // Lấy bài học theo môn học
-    }
-
     @PostMapping("/createQuestions")
     public String createQuestion(Model model,
                                  @RequestParam String questionContent,
