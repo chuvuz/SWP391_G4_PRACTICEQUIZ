@@ -73,7 +73,8 @@
     <div class="d-flex align-items-center mb-4">
         <input class="form-control mr-3" type="text" id="searchInput" onkeyup="filterUsers()"
                placeholder="Search by full name" style="max-width: 300px;">
-
+        <input class="form-control mr-3" type="text" id="searchEmail" onkeyup="filterUsers()"
+               placeholder="Search by email" style="max-width: 300px;">
         <label for="statusFilter" class="mr-2">Status:</label>
         <select id="statusFilter" class="form-control" style="max-width: 150px;" onchange="filterUsers()">
             <option value="all">All</option>
@@ -137,6 +138,7 @@
 <script>
     function filterUsers() {
         const searchInput = document.getElementById("searchInput").value.toLowerCase();
+        const searchEmail = document.getElementById("searchEmail").value.toLowerCase();
         const statusFilter = document.getElementById("statusFilter").value;
         const table = document.getElementById("userTable");
         const rows = table.getElementsByTagName("tr");
@@ -144,12 +146,14 @@
         for (let i = 1; i < rows.length; i++) {
             const cells = rows[i].getElementsByTagName("td");
             const fullName = cells[0].innerText.toLowerCase();
+            const email = cells[1].innerText.toLowerCase();
             const status = cells[3].innerText.toLowerCase();
 
             const nameMatch = fullName.includes(searchInput);
+            const emailMatch = email.includes(searchEmail);
             const statusMatch = (statusFilter === "all" || status === statusFilter);
 
-            rows[i].style.display = nameMatch && statusMatch ? "" : "none";
+            rows[i].style.display = nameMatch && emailMatch && statusMatch ? "" : "none";
         }
     }
 
