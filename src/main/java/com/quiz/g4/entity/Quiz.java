@@ -1,4 +1,5 @@
 package com.quiz.g4.entity;
+
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 

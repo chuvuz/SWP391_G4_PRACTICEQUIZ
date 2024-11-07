@@ -49,15 +49,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/home", "/css/**", "/js/**", "/vendors/**", "/images/**", "/blog-detail/**",
                         "/about/**", "/forgot-password/**", "/reset-password/**", "/expert_detail/**",
                         "/search_expert/**", "/blogs/**", "/blog-list", "/blogs/**", "/blog-list"
-                        ).permitAll() // Cho phép truy cập vào tài nguyên tĩnh
+                ).permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 //cho 4 Role
                 .antMatchers("/profile/**", "/quiz-review/**", "/quiz-submit/**", "/quiz-result/**", "/quiz-detail/**"
-                        ).hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
+                ).hasAnyRole("ADMIN", "EXPERT", "CUSTOMER", "MARKETING")
 
                 //Role cho Admin
 
                 .antMatchers("/manage-expert", "/manage-subject", "/edit-subject/**", "/admin/dashboard",
-                        "/admin/users/create", "admin/users" ,"/manage_expert").hasRole("ADMIN")
+                        "/admin/users/create", "admin/users", "/manage_expert").hasRole("ADMIN")
 
                 //Role cho Expert
 
@@ -66,9 +66,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/questions/create", "/createQuestions", "/question/**", "/QuestionBank/UpdateQuestion",
                         "/updateQuestion/**", "/question/**").hasAnyRole("EXPERT")
                 //Role cho Customer
-                
+
                 //Role cho Marketing
-                .antMatchers("/marketing/dashboard","/marketing/customers","/marketing/customers/update-status","/marketing/manage/**").hasRole("MARKETING")
+                .antMatchers("/marketing/dashboard", "/marketing/customers", "/marketing/customers/update-status", "/marketing/manage/**").hasRole("MARKETING")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

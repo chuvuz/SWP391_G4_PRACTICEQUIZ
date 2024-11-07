@@ -69,12 +69,12 @@ public class QuestionBankServiceImpl implements QuestionBankService {
     }
 
     @Override
-    public Page<QuestionBank> allQuestions(Pageable pages){
+    public Page<QuestionBank> allQuestions(Pageable pages) {
         return questionBankRepository.findAll(pages);
     }
 
     @Override
-    public Page<QuestionBank> searchQuestion(String questionContent, String questionType, Integer subjectId, Integer lessonId, Pageable pages){
+    public Page<QuestionBank> searchQuestion(String questionContent, String questionType, Integer subjectId, Integer lessonId, Pageable pages) {
         return questionBankRepository.searchQuestion(questionContent, questionType, subjectId, lessonId, pages);
     }
 

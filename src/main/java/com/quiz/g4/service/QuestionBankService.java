@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public interface QuestionBankService {
 
-/*
-    QuestionBank createQuestion(QuestionRequest questionRequest);
-*/
+    /*
+        QuestionBank createQuestion(QuestionRequest questionRequest);
+    */
     QuestionBank findById(Integer id);
 
     boolean existsByQuestionContent(String questionContent);

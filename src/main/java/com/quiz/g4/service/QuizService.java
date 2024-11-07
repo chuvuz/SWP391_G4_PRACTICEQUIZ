@@ -31,5 +31,4 @@ public interface QuizService {
 //    Quiz getQuizWithLesson(Integer quizId);
 
 
-
 }

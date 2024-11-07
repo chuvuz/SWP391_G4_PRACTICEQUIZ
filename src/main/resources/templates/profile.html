@@ -210,18 +210,22 @@
                                         <div class="profile-head">
                                             <h3>Edit Profile</h3>
                                         </div>
-                                        <form class="edit-profile" th:action="@{/profile/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
+                                        <form class="edit-profile" th:action="@{/profile/edit}" th:object="${user}"
+                                              method="post" enctype="multipart/form-data">
                                             <div class="">
                                                 <div class="text-center mb-4">
                                                     <!-- Profile Picture -->
-                                                    <img id="profilePicturePreview" th:src="@{${user.profileImage}}" alt="Profile Picture"
+                                                    <img id="profilePicturePreview" th:src="@{${user.profileImage}}"
+                                                         alt="Profile Picture"
                                                          class="profile-picture rounded-circle mb-3"
                                                          style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #ddd;">
 
                                                     <!-- File Input for Uploading New Profile Picture -->
                                                     <div class="form-group text-center">
                                                         <label for="profileImage">Update Profile Picture</label>
-                                                        <input type="file" id="profileImage" name="image" class="form-control-file mt-2" onchange="previewProfilePicture()">
+                                                        <input type="file" id="profileImage" name="image"
+                                                               class="form-control-file mt-2"
+                                                               onchange="previewProfilePicture()">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -233,19 +237,23 @@
                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full
                                                         Name</label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <input class="form-control" type="text"  th:field="*{fullName}" required>
+                                                        <input class="form-control" type="text" th:field="*{fullName}"
+                                                               required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Email</label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <input class="form-control" type="text" th:field="*{email}" readonly>
+                                                        <input class="form-control" type="text" th:field="*{email}"
+                                                               readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date Of Birth: </label>
+                                                    <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Date
+                                                        Of Birth: </label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-control" th:field="*{dateOfBirth}"
+                                                        <input type="date" id="dateOfBirth" name="dateOfBirth"
+                                                               class="form-control" th:field="*{dateOfBirth}"
 
                                                                required>
                                                     </div>
@@ -253,9 +261,14 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Gender</label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <select id="gender" th:field="*{gender}" class="form-control" required>
-                                                            <option value="true" th:selected="${user.gender == 'Male'}">Male</option>
-                                                            <option value="false" th:selected="${user.gender == 'Female'}">Female</option>
+                                                        <select id="gender" th:field="*{gender}" class="form-control"
+                                                                required>
+                                                            <option value="true" th:selected="${user.gender == 'Male'}">
+                                                                Male
+                                                            </option>
+                                                            <option value="false"
+                                                                    th:selected="${user.gender == 'Female'}">Female
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -263,7 +276,8 @@
                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone
                                                         No.</label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <input type="text" id="phone" name="phone" class="form-control" th:field="*{phone}"
+                                                        <input type="text" id="phone" name="phone" class="form-control"
+                                                               th:field="*{phone}"
                                                                pattern="(84|0[35789])[0-9]{8}"
                                                                title="Please enter a valid phone number starting with 84 or 0 followed by a valid prefix (3, 5, 7, 8, or 9) and 8 digits."
                                                                required>
@@ -273,7 +287,8 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Description</label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <textarea id="description" name="description" class="form-control" rows="3"
+                                                        <textarea id="description" name="description"
+                                                                  class="form-control" rows="3"
                                                                   th:field="*{description}"></textarea>
                                                     </div>
                                                 </div>
@@ -296,7 +311,8 @@
                                         <div class="profile-head">
                                             <h3>Change Password</h3>
                                         </div>
-                                        <form th:action="@{/profile/change-password}" th:object="${passwordForm}" method="post"
+                                        <form th:action="@{/profile/change-password}" th:object="${passwordForm}"
+                                              method="post"
                                               onsubmit="return validatePassword()" class="edit-profile">
                                             <div class="">
                                                 <div class="form-group row">
@@ -309,11 +325,13 @@
                                                         Password</label>
                                                     <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                         <div class="position-relative">
-                                                            <input class="form-control" id="newPassword" type="password" name="newPassword"
+                                                            <input class="form-control" id="newPassword" type="password"
+                                                                   name="newPassword"
                                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*\s).{8,}$"
                                                                    title="Password must be at least 8 characters, include at least one uppercase letter, one lowercase letter, and one number, with no spaces."
                                                                    required>
-                                                            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('newPassword')">
+                                                            <button type="button" class="password-toggle-btn"
+                                                                    onclick="togglePasswordVisibility('newPassword')">
                                                                 <i class="fa fa-eye"></i>
                                                             </button>
                                                         </div>
@@ -324,11 +342,13 @@
                                                         Type New Password</label>
                                                     <div class="col-12 col-sm-8 col-md-8 col-lg-7">
                                                         <div class="position-relative">
-                                                            <input id="confirmPassword" type="password" name="confirmPassword" class="form-control"
+                                                            <input id="confirmPassword" type="password"
+                                                                   name="confirmPassword" class="form-control"
                                                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?!.*\s).{8,}$"
                                                                    title="Password must be at least 8 characters, include at least one uppercase letter, one lowercase letter, and one number, with no spaces."
                                                                    required>
-                                                            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('confirmPassword')">
+                                                            <button type="button" class="password-toggle-btn"
+                                                                    onclick="togglePasswordVisibility('confirmPassword')">
                                                                 <i class="fa fa-eye"></i>
                                                             </button>
                                                         </div>

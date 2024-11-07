@@ -51,7 +51,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUserId(Integer userId){return userRepository.findUserByUserId(userId);}
+    public User findUserByUserId(Integer userId) {
+        return userRepository.findUserByUserId(userId);
+    }
 
     @Override
     public List<User> findByRoleId(int roleId) {
@@ -87,7 +89,6 @@ public class UserServiceImpl implements UserService {
         user.setIsActive(true);
 
 
-
         // Kiểm tra role người dùng
         Role role = roleRepository.findRoleByRoleId(1);
         if (role == null) {
@@ -99,8 +100,6 @@ public class UserServiceImpl implements UserService {
         // Lưu người dùng vào cơ sở dữ liệu
         userRepository.save(user);
     }
-
-
 
 
     @Override
@@ -138,7 +137,7 @@ public class UserServiceImpl implements UserService {
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?!.*\\s).{8,}$");
     }
 
-//    @Override
+    //    @Override
 //    public Page<User> findByRole(String role, Pageable pageable) {
 //        return userRepository.findByRole(role, pageable);
 //    }
@@ -228,10 +227,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
-
-
-
     @Override
     public long countTotalUsers() {
         return userRepository.countTotalUsers();
@@ -246,6 +241,7 @@ public class UserServiceImpl implements UserService {
     public long countInactiveUsers() {
         return userRepository.countInactiveUsers();
     }
+
     @Override
     public void createUser(User user) {
         userRepository.save(user);
@@ -260,6 +256,7 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.save(user);
     }
+
     @Override
     public void updateProfilePicture(String email, String profileImage) {
         User user = userRepository.findByEmail(email);

@@ -4,22 +4,22 @@
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
-    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
     <title>EduChamp : Education HTML Template </title>
@@ -33,17 +33,17 @@
     <![endif]-->
 
     <!-- All PLUGINS CSS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/assets.css}" />
+    <link rel="stylesheet" th:href="@{/css/assets.css}"/>
 
     <!-- TYPOGRAPHY ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/typography.css}" />
+    <link rel="stylesheet" th:href="@{/css/typography.css}"/>
 
     <!-- SHORTCODES ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}"/>
 
     <!-- STYLESHEETS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
     <style>
 
         /* Ensure each card (cours-bx) has a consistent height */
@@ -109,11 +109,13 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                         <div class="widget courses-search-bx placeani">
-                            <form th:action="@{/search-subject}" method="get"> <!-- Form that submits to /search-quizzes -->
+                            <form th:action="@{/search-subject}" method="get">
+                                <!-- Form that submits to /search-quizzes -->
                                 <div class="form-group">
                                     <div class="input-group">
                                         <label>Search Subject </label>
-                                        <input name="subjectName" type="text" class="form-control" th:value="${subjectName}"> <!-- Input field for quizName -->
+                                        <input name="subjectName" type="text" class="form-control"
+                                               th:value="${subjectName}"> <!-- Input field for quizName -->
                                     </div>
                                 </div>
 
@@ -124,7 +126,8 @@
                                         <option th:each="category : ${categories}"
                                                 th:value="${category.categoryId}"
                                                 th:text="${category.categoryName}"
-                                                th:selected="${category.categoryId == selectedCategoryId}">Category</option>
+                                                th:selected="${category.categoryId == selectedCategoryId}">Category
+                                        </option>
                                     </select>
                                 </div>
 
@@ -139,11 +142,14 @@
                                 <div class="cours-bx">
                                     <div class="action-box">
                                         <img th:src="${subject.subjectImage}" alt="Quiz Image"> <!-- Dynamic image -->
-                                        <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}" class="btn">Read More</a>
+                                        <a th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"
+                                           class="btn">Read More</a>
                                     </div>
                                     <div class="info-bx text-center">
-                                        <h5><a th:text="${subject.subjectName}" th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"></a></h5> <!-- Dynamic quiz name -->
-<!--                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> &lt;!&ndash; Dynamic subject name &ndash;&gt;-->
+                                        <h5><a th:text="${subject.subjectName}"
+                                               th:href="@{/subject-detail/{subjectId}(subjectId=${subject.subjectId})}"></a>
+                                        </h5> <!-- Dynamic quiz name -->
+                                        <!--                                        <span th:text="${quiz.subject.subjectName}">Subject Name</span> &lt;!&ndash; Dynamic subject name &ndash;&gt;-->
                                     </div>
                                 </div>
                             </div>

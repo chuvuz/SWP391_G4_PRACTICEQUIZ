@@ -31,7 +31,7 @@ public class ExpertController {
 
     @GetMapping("/expert")
     public String getExpertlist(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                                @RequestParam(value = "size", defaultValue = "8") int size){
+                                @RequestParam(value = "size", defaultValue = "8") int size) {
         // Lấy danh sách các subject để hiển thị
         List<Subject> subjects = subjectService.getAllSubjects();
         model.addAttribute("subjects", subjects);
@@ -39,10 +39,10 @@ public class ExpertController {
         page = Math.max(page, 0);
         // Lấy danh sách các user có role_id = 3 (ROLE_EXPERT)
         Page<User> expertPage = userService.getAllExpert(page, size);
-        model.addAttribute("expertPage",expertPage);
+        model.addAttribute("expertPage", expertPage);
 
         return "experts";
-        }
+    }
 
     @GetMapping("/search_expert")
     public String searchExpert(@RequestParam(value = "expertName", required = false) String expertName,
@@ -50,7 +50,7 @@ public class ExpertController {
                                @RequestParam(value = "page", defaultValue = "0") int page,
                                @RequestParam(value = "size", defaultValue = "8") int size,
                                Model model
-    ){
+    ) {
         // Lấy danh sách các subject để hiển thị
         List<Subject> subjects = subjectService.getAllSubjects();
         model.addAttribute("subjects", subjects);
@@ -66,7 +66,7 @@ public class ExpertController {
 
     @GetMapping("/expert_detail/{expertId}")
     public String getExpertDetails(Model model,
-                                   @PathVariable("expertId") Integer userId){
+                                   @PathVariable("expertId") Integer userId) {
         // Lấy danh sách các subject và expert để hiển thị
         User expert = userService.findUserByUserId(userId);
 //        Subject subject = expert.getSubject();

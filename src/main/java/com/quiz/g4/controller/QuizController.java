@@ -40,7 +40,6 @@ public class QuizController {
     private QuizService quizService;
 
 
-
     @GetMapping("/quiz-detail/{quizId}")
     public String getQuizDetail(@PathVariable Integer quizId, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 

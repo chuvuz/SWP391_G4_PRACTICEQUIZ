@@ -17,10 +17,12 @@ public class RoleServiceImpl implements RoleService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+
     @Override
     public List<User> findByRoleId(int roleId) {
         return userRepository.findByRoleRoleId(roleId);
     }
+
     @Override
     public List<Role> findRolesForUserCreation() {
         return roleRepository.findRolesForUserCreation();

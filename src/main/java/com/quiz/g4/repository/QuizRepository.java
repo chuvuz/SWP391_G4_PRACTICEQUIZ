@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface QuizRepository extends JpaRepository<Quiz,Integer> {
+public interface QuizRepository extends JpaRepository<Quiz, Integer> {
 
     @Query("SELECT q FROM Quiz q WHERE q.createdBy.userId = :autherId")
     List<Quiz> findQuizByAuther(@Param("autherId") Integer autherId);

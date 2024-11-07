@@ -87,8 +87,8 @@ public class SubjectManagementController {
             redirectAttributes.addFlashAttribute("error", "Image URL is required.");
             return "redirect:/admin/manage-subject";
         } // Check subjectName format
-         if (!subjectName.matches("[A-Za-zA-ÿ]+(?:\\s[A-Za-zA-ÿ]+)*$")) {
-             redirectAttributes .addFlashAttribute("error", "Invalid subject name format.");
+        if (!subjectName.matches("[A-Za-zA-ÿ]+(?:\\s[A-Za-zA-ÿ]+)*$")) {
+            redirectAttributes.addFlashAttribute("error", "Invalid subject name format.");
             return "redirect:/admin/manage-subject";
         }
 
@@ -100,10 +100,10 @@ public class SubjectManagementController {
         if (subjectService.existsBySubjectName(subjectName)) {
             redirectAttributes.addFlashAttribute("error", "Subject name already exists.");
             return "redirect:/admin/manage-subject"; // Trở về trang quản lý môn
-             }
+        }
 
         // Tạo môn học mới với URL ảnh
-        subjectService.createSubjectWithImageUrl(subjectName,categoryId, isActive, imageUrl);
+        subjectService.createSubjectWithImageUrl(subjectName, categoryId, isActive, imageUrl);
         return "redirect:/admin/manage-subject";
     }
 
@@ -119,7 +119,7 @@ public class SubjectManagementController {
         // Lấy thông tin subject theo subjectId
         Subject subject = subjectService.findById(subjectId);
         model.addAttribute("subject", subject);
-       // model.addAttribute("categories", categoryService.getAllCategory());
+        // model.addAttribute("categories", categoryService.getAllCategory());
         List<Category> categories = categoryService.getAllCategory();
         model.addAttribute("categories", categories);
         return "admin/edit-subject";
@@ -141,10 +141,10 @@ public class SubjectManagementController {
             return "redirect:/admin/manage-subject/edit-subject/" + id;
         }
         // Kiểm tra trùng tên môn học và tên khác với môn học hiện tại
-        if(subjectService.existsBySubjectName(subjectName) &&
+        if (subjectService.existsBySubjectName(subjectName) &&
                 (existingSubject == null || !existingSubject.getSubjectName().equals(subjectName))) {
             redirectAttributes.addFlashAttribute("error", "Subject name already exists.");
-            return "redirect:/admin/manage-subject/edit-subject/"+id; // Hoặc trả về trang chỉnh sửa với thông báo lỗi
+            return "redirect:/admin/manage-subject/edit-subject/" + id; // Hoặc trả về trang chỉnh sửa với thông báo lỗi
         }
         // Nếu không có URL ảnh mới, giữ nguyên URL ảnh cũ
         subjectService.updateSubjectWithImageUrl(id, subjectName, isActive, imageUrl, categoryId);

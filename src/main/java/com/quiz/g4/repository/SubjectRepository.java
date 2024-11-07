@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface SubjectRepository extends JpaRepository<Subject,Integer> {
+public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 
 
     Subject findBySubjectName(String subjectName);
@@ -41,7 +41,7 @@ public interface SubjectRepository extends JpaRepository<Subject,Integer> {
     Subject getSubjectByIdWithLessonAsc(@Param("subjectId") Integer subjectId);
 
 
-        Page<Subject> findByCategory_CategoryId(Integer categoryId, Pageable pageable);
+    Page<Subject> findByCategory_CategoryId(Integer categoryId, Pageable pageable);
 
 
     @Query("SELECT s FROM Subject s WHERE (:subjectName IS NULL OR s.subjectName LIKE CONCAT('%', :subjectName, '%'))" +

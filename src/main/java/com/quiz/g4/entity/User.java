@@ -23,93 +23,92 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "user_id")
-	private Integer userId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Integer userId;
 
-	@ManyToOne
-	@JoinColumn(name = "role_id", nullable = false)
-	private Role role;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-	@Column(name = "full_name", nullable = false)
-	private String fullName;
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
 
-	@Column(name = "description")
-	private String description;
+    @Column(name = "description")
+    private String description;
 
-	@Column(name = "password", nullable = false)
-	private String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	@Column(nullable = false, unique = true, length = 45)
-	private String email;
+    @Column(nullable = false, unique = true, length = 45)
+    private String email;
 
-	@Column(name = "profile_image")
-	private String profileImage;
+    @Column(name = "profile_image")
+    private String profileImage;
 
-	@Column(name = "created_date")
-	private LocalDate createdDate = LocalDate.now();
+    @Column(name = "created_date")
+    private LocalDate createdDate = LocalDate.now();
 
-	@Column(name = "updated_date")
-	private LocalDate updatedDate = LocalDate.now();
+    @Column(name = "updated_date")
+    private LocalDate updatedDate = LocalDate.now();
 
-	@Column(name = "is_active", nullable = false)
-	private Boolean isActive = true;
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 
 
+    @Column(name = "phone", nullable = false, length = 10)
+    @Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
+    private String phone;
 
-	@Column(name = "phone", nullable = false, length = 10)
-	@Pattern(regexp = "^\\d{10}$", message = "Phone number must be exactly 10 digits")
-	private String phone;
+    @Column(name = "date_of_birth")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 
-	@Column(name = "date_of_birth")
-	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate dateOfBirth;
 
-	private LocalDate dateOfBirth;
+    @Column(name = "gender", nullable = false)
+    @ColumnDefault("1")
+    private Boolean gender = true; // True có thể đại diện cho "Nam", False cho "Nữ"
 
-	@Column(name = "gender", nullable = false)
-	@ColumnDefault("1")
-	private Boolean gender = true; // True có thể đại diện cho "Nam", False cho "Nữ"
+    @OneToMany(mappedBy = "createdBy")
+    private Set<Quiz> quizzes;
 
-	@OneToMany(mappedBy = "createdBy")
-	private Set<Quiz> quizzes;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority(role.getRoleName()));
-	}
+    @Override
+    public String getUsername() {
+        return email;
+    }
 
-	@Override
-	public String getUsername() {
-		return email;
-	}
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isEnabled() {
+        return isActive;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return isActive;
-	}
-
-	public boolean isActive() {
-		return isActive;
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 }

@@ -19,6 +19,7 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private UserService userService;
+
     @GetMapping("/customers")
     public String viewCustomerUsers(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size,

@@ -9,5 +9,6 @@ import java.util.List;
 @Service
 public interface RoleService {
     List<Role> findRolesForUserCreation();
+
     List<User> findByRoleId(int roleId);
 }

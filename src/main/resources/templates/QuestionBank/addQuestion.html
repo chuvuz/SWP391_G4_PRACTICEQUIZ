@@ -273,18 +273,20 @@
 
                     <div><label for="questionType">Question Type:</label>
                         <select id="questionType" name="questionType" required onchange="handleQuestionTypeChange()">
-                            <option value="SINGLE_CHOICE" th:selected="${type == 'SINGLE_CHOICE'}">SINGLE_CHOICE</option>
-                            <option value="MULTIPLE_CHOICE" th:selected="${type == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE</option>
+                            <option value="SINGLE_CHOICE" th:selected="${type == 'SINGLE_CHOICE'}">SINGLE_CHOICE
+                            </option>
+                            <option value="MULTIPLE_CHOICE" th:selected="${type == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE
+                            </option>
                             <option value="NUMERIC" th:selected="${type == 'NUMERIC'}">NUMERIC</option>
                         </select><br><br></div>
 
                     <div><label for="questionContent">Question Content:</label>
                         <input id="questionContent"
-                                  name="questionContent"
-                                  required
-                                  class="form-control"
-                                  th:value="${content}"
-                                  placeholder="Content..."><br><br></div>
+                               name="questionContent"
+                               required
+                               class="form-control"
+                               th:value="${content}"
+                               placeholder="Content..."><br><br></div>
 
                 </div>
 
@@ -301,7 +303,8 @@
                     </div>
 
                     <div>
-                        <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">Add
+                        <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">
+                            Add
                             another answer
                         </button>
                     </div>

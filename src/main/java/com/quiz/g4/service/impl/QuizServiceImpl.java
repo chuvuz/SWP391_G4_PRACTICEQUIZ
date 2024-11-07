@@ -30,7 +30,9 @@ public class QuizServiceImpl implements QuizService {
     }
 
     @Override
-    public List<Quiz> findQuizByAuther(Integer autherId){return quizRepository.findQuizByAuther(autherId);}
+    public List<Quiz> findQuizByAuther(Integer autherId) {
+        return quizRepository.findQuizByAuther(autherId);
+    }
 
     @Override
     public List<Quiz> getQuizzesByLessonId(Integer lessonId) {
@@ -68,8 +70,6 @@ public class QuizServiceImpl implements QuizService {
 //    public Quiz getQuizWithLesson(Integer quizId) {
 //        return quizRepository.findQuizWithLessons(quizId);
 //    }
-
-
 
 
 }

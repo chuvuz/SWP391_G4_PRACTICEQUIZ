@@ -71,7 +71,7 @@ public class UserProfileController {
     @PostMapping("/profile/edit")
     public String updateUserProfile(@ModelAttribute User updatedUser,
                                     @RequestParam(value = "image", required = false) MultipartFile image
-                                    , Authentication authentication) {
+            , Authentication authentication) {
         String email = authentication.getName();
         User user = (User) userService.loadUserByUsername(email);
 

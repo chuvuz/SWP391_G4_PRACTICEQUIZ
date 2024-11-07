@@ -4,22 +4,22 @@
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
     <!-- DESCRIPTION -->
-    <meta name="description" content="EduChamp : Education HTML Template" />
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
     <!-- OG -->
-    <meta property="og:title" content="EduChamp : Education HTML Template" />
-    <meta property="og:description" content="EduChamp : Education HTML Template" />
-    <meta property="og:image" content="" />
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
     <meta name="format-detection" content="telephone=no">
 
     <!-- FAVICONS ICON ============================================= -->
-    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
-    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
     <title>EduChamp : Education HTML Template </title>
@@ -33,17 +33,17 @@
     <![endif]-->
 
     <!-- All PLUGINS CSS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/assets.css}" />
+    <link rel="stylesheet" th:href="@{/css/assets.css}"/>
 
     <!-- TYPOGRAPHY ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/typography.css}" />
+    <link rel="stylesheet" th:href="@{/css/typography.css}"/>
 
     <!-- SHORTCODES ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}"/>
 
     <!-- STYLESHEETS ============================================= -->
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
-    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
 
 </head>
 <body>
@@ -141,23 +141,23 @@
                                     <div th:if="${expertPage.hasContent()}">
                                         <!-- Previous Page Link -->
                                         <li th:if="${expertPage.hasPrevious()}">
-                                                    <a th:href="@{/expert(page=${expertPage.number - 1}, size=${expertPage.size})}">
-                                                        <i class="ti-arrow-left"></i> Prev
-                                                    </a>
-                                                </li>
+                                            <a th:href="@{/expert(page=${expertPage.number - 1}, size=${expertPage.size})}">
+                                                <i class="ti-arrow-left"></i> Prev
+                                            </a>
+                                        </li>
                                         <!-- Page Numbers -->
                                         <li th:each="i : ${#numbers.sequence(0, expertPage.totalPages - 1)}">
-                                                    <a th:classappend="${i} == ${expertPage.number} ? 'active' : ''"
-                                                       th:href="@{/expert(page=${i}, size=${expertPage.size})}">
-                                                    <span th:text="${i + 1}">1</span>
-                                                    </a>
-                                                </li>
+                                            <a th:classappend="${i} == ${expertPage.number} ? 'active' : ''"
+                                               th:href="@{/expert(page=${i}, size=${expertPage.size})}">
+                                                <span th:text="${i + 1}">1</span>
+                                            </a>
+                                        </li>
                                         <!-- Next Page Link -->
                                         <li th:if="${expertPage.hasNext()}">
-                                                    <a th:href="@{/expert(page=${expertPage.number + 1}, size=${expertPage.size})}">
-                                                        <i class="ti-arrow-right"></i> Next
-                                                    </a>
-                                                </li>
+                                            <a th:href="@{/expert(page=${expertPage.number + 1}, size=${expertPage.size})}">
+                                                <i class="ti-arrow-right"></i> Next
+                                            </a>
+                                        </li>
                                     </div>
                                 </ul>
                             </div>

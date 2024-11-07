@@ -1,102 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Header Section</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Header Section</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
 <header class="header rs-nav">
-  <div class="top-bar">
-    <div class="container">
-      <div class="row d-flex justify-content-between">
-        <div class="topbar-left">
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link" href="mailto:Support@website.com">
-                <i class="fa fa-envelope-o"></i> Support@website.com
-              </a>
-            </li>
-          </ul>
+    <div class="top-bar">
+        <div class="container">
+            <div class="row d-flex justify-content-between">
+                <div class="topbar-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="mailto:Support@website.com">
+                                <i class="fa fa-envelope-o"></i> Support@website.com
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topbar-right">
+                    <ul class="nav">
+                        <!-- Login/Register if user is null -->
+                        <li class="nav-item" th:if="${user == null}">
+                            <a class="nav-link" th:href="@{/login}">Login</a>
+                        </li>
+                        <li class="nav-item" th:if="${user == null}">
+                            <a class="nav-link" th:href="@{/register}">Register</a>
+                        </li>
+                        <!-- User Dropdown if user is logged in -->
+                        <li class="nav-item dropdown" th:if="${user != null}">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown">
+                                Xin chào, <span th:text="${user.fullName}"></span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" th:href="@{/profile}">View Profile</a>
+                                <div th:if="${user.role.roleId == 4}">
+                                    <a class="dropdown-item" th:href="@{/admin/dashboard}">Dashboard Admin</a>
+                                </div>
+
+                                <div th:if="${user.role.roleId == 3}">
+                                    <a class="dropdown-item" th:href="@{/expert/expert_dashboard}">Dashboard Expert</a>
+                                </div>
+
+                                <div th:if="${user.role.roleId == 2}">
+                                    <a class="dropdown-item" th:href="@{/marketing/dashboard}">Dashboard Marketing</a>
+                                </div>
+
+                                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="topbar-right">
-          <ul class="nav">
-            <!-- Login/Register if user is null -->
-            <li class="nav-item" th:if="${user == null}">
-              <a class="nav-link" th:href="@{/login}">Login</a>
-            </li>
-            <li class="nav-item" th:if="${user == null}">
-              <a class="nav-link" th:href="@{/register}">Register</a>
-            </li>
-            <!-- User Dropdown if user is logged in -->
-            <li class="nav-item dropdown" th:if="${user != null}">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
-                Xin chào, <span th:text="${user.fullName}"></span>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="userDropdown">
-                <a class="dropdown-item" th:href="@{/profile}">View Profile</a>
-                <div th:if="${user.role.roleId == 4}">
-                  <a class="dropdown-item" th:href="@{/admin/dashboard}">Dashboard Admin</a>
-                </div>
-
-                <div th:if="${user.role.roleId == 3}">
-                  <a class="dropdown-item" th:href="@{/expert/expert_dashboard}">Dashboard Expert</a>
-                </div>
-
-                <div th:if="${user.role.roleId == 2}">
-                  <a class="dropdown-item" th:href="@{/marketing/dashboard}">Dashboard Marketing</a>
-                </div>
-
-                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <div class="sticky-header navbar-expand-lg">
-    <div class="menu-bar clearfix">
-      <div class="container clearfix">
-        <div class="menu-logo">
-          <a href="/"><img th:src="@{/images/logo-white-2.png}" alt="Logo"></a>
+    <div class="sticky-header navbar-expand-lg">
+        <div class="menu-bar clearfix">
+            <div class="container clearfix">
+                <div class="menu-logo">
+                    <a href="/"><img th:src="@{/images/logo-white-2.png}" alt="Logo"></a>
+                </div>
+
+                <button class="navbar-toggler collapsed menuicon" type="button" data-toggle="collapse"
+                        data-target="#menuDropdown">
+                    <span></span><span></span><span></span>
+                </button>
+
+                <div class="menu-links navbar-collapse collapse" id="menuDropdown">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/home}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/subject-list}">Subjects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/expert}">Our Experts</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">Blog</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" th:href="@{/blog-list}">Blog Classic</a>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="nav-social-link">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <button class="navbar-toggler collapsed menuicon" type="button" data-toggle="collapse" data-target="#menuDropdown">
-          <span></span><span></span><span></span>
-        </button>
-
-        <div class="menu-links navbar-collapse collapse" id="menuDropdown">
-          <ul class="nav navbar-nav">
-            <li class="nav-item active">
-              <a class="nav-link" th:href="@{/home}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/subject-list}">Subjects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" th:href="@{/expert}">Our Experts</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">Blog</a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" th:href="@{/blog-list}">Blog Classic</a>
-              </div>
-            </li>
-          </ul>
-
-          <div class="nav-social-link">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-google-plus"></i></a>
-            <a href="#"><i class="fa fa-linkedin"></i></a>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </header>
 
 <!-- JavaScript Libraries -->

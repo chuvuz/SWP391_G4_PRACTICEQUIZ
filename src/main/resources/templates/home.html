@@ -135,13 +135,18 @@
                                     </div>
                                     <div class="info-bx">
                                         <ul class="media-post">
-                                            <li><a href="#"><i class="fa fa-calendar"></i> <span th:text="${blog.createdDate}">Jan 02 2019</span></a></li>
-                                            <li><a href="#"><i class="fa fa-user"></i> By <span th:text="${blog.createdBy.fullName}">Author</span></a></li>
+                                            <li><a href="#"><i class="fa fa-calendar"></i> <span
+                                                    th:text="${blog.createdDate}">Jan 02 2019</span></a></li>
+                                            <li><a href="#"><i class="fa fa-user"></i> By <span
+                                                    th:text="${blog.createdBy.fullName}">Author</span></a></li>
                                         </ul>
-                                        <h5 class="post-title"><a th:href="@{/blogs/{id}(id=${blog.blogId})}" th:text="${blog.title}">Blog Title</a></h5>
-                                        <p th:text="${blog.content}">Knowing that, you’ve optimised your pages countless amount of times, written tons.</p>
+                                        <h5 class="post-title"><a th:href="@{/blogs/{id}(id=${blog.blogId})}"
+                                                                  th:text="${blog.title}">Blog Title</a></h5>
+                                        <p th:text="${blog.content}">Knowing that, you’ve optimised your pages countless
+                                            amount of times, written tons.</p>
                                         <div class="post-extra">
-                                            <a th:href="@{/blogs/{id}(id=${blog.blogId})}" class="btn-link">READ MORE</a>
+                                            <a th:href="@{/blogs/{id}(id=${blog.blogId})}" class="btn-link">READ
+                                                MORE</a>
 
                                         </div>
                                     </div>
@@ -167,10 +172,12 @@
                                     </div>
                                     <div class="testimonial-info">
                                         <h5 class="name" th:text="${expert.fullName}">Expert Name</h5>
-                                        <p th:text="${expert.role.roleId == 3 ? 'Expert' : expert.role.roleName}">- Expert Role</p>
+                                        <p th:text="${expert.role.roleId == 3 ? 'Expert' : expert.role.roleName}">-
+                                            Expert Role</p>
                                     </div>
                                     <div class="testimonial-content">
-                                        <p th:text="${expert.description != null ? expert.description : 'No description available.'}">Description text</p>
+                                        <p th:text="${expert.description != null ? expert.description : 'No description available.'}">
+                                            Description text</p>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +190,6 @@
             <!-- contact area END -->
 
         </div>
-
 
 
     </div>

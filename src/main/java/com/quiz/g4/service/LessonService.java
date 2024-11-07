@@ -23,7 +23,7 @@ public interface LessonService {
 
     List<Lesson> getLessonsBySubjectId(String subjectName);
 
-   List<Lesson> getLessonsBySubjectId(Integer subjectId);
+    List<Lesson> getLessonsBySubjectId(Integer subjectId);
 
     List<Lesson> getLessonsBySubjectIdWithCreateDateAsc(Integer subjectId);
 }
