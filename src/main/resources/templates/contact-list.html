@@ -68,7 +68,9 @@
                     <span class="ttr-label">Manage Contacts</span></a>
             </li>
         </ul>
-        <table>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>Email</th>
@@ -90,8 +92,9 @@
                 <td th:text="${contact.status}">Status</td>
                 <td>
                     <form th:action="@{/contact/markSeen/{id}(id=${contact.contactId})}" method="post">
-                        <input type="checkbox" th:checked="${contact.status == T(com.quiz.g4.enums.CommentStatus).ACCEPTED}"
-                               onclick="this.form.submit()" />
+                        <input type="checkbox"
+                               th:checked="${contact.status == T(com.quiz.g4.enums.CommentStatus).ACCEPTED}"
+                               onclick="this.form.submit()"/>
                     </form>
                 </td>
             </tr>
