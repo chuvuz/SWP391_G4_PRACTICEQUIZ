@@ -41,95 +41,94 @@
 <body id="bg">
 <div class="page-wraper">
     <div id="loading-icon-bx"></div>
+
     <!-- Header Top ==== -->
     <div th:replace="header :: header"></div>
-    <!-- header END -->
-    <!-- Inner Content Box ==== -->
+    <!-- header END ==== -->
+    <!-- Content -->
     <div class="page-content bg-white">
-        <!-- Page Heading Box ==== -->
-        <!--        <div class="page-banner ovbl-dark" style="background-image:url(/images/banner1.png);">-->
-        <!--            <div class="container">-->
-        <!--                <div class="page-banner-entry">-->
-        <!--                    <h1 class="text-white">Blog Classic</h1>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <!-- Breadcrumb row -->
         <div class="breadcrumb-row">
             <div class="container">
                 <ul class="list-inline">
                     <li><a href="#">Home</a></li>
-                    <li>Blog Classic</li>
+                    <li>Contact Us 1</li>
                 </ul>
             </div>
         </div>
-        <!-- Page Heading Box END ==== -->
-        <!-- Page Content Box ==== -->
-        <div class="content-block">
-            <!-- Blog Grid ==== -->
-            <div class="section-area section-sp1">
-                <div class="container">
-                    <div class="ttr-blog-grid-3 row" id="masonry">
-                        <div class="post action-card col-lg-4 col-md-6 col-sm-12 col-xs-12 m-b40"
-                             th:each="blog : ${blogPage}">
-                            <div class="recent-news">
-                                <div class="action-box">
-                                    <img th:src="${blog.image}" alt="">
-                                </div>
-                                <div class="info-bx">
-                                    <ul class="media-post">
-                                        <li><a href="#"><i class="fa fa-calendar"></i><span
-                                                th:text="${blog.createdDate}"> </span></a></li>
-                                        <li><a href="#"><i class="fa fa-user"></i><span
-                                                th:text="${blog.createdBy.fullName}"> </span></a></li>
-                                    </ul>
-                                    <h5 class="post-title"><a th:href="@{/blogs/{id}(id=${blog.blogId})}"><span
-                                            th:text="${blog.title}"> </span></a></h5>
-                                    <p><span
-                                            th:text="${blog.content.length() > 60 ? blog.content.substring(0, 60) + '...' : blog.content}"> </span>
-                                    </p>
-                                    <div class="post-extra">
-                                        <a href="#" class="btn-link" th:href="@{/blogs/{id}(id=${blog.blogId})}">READ
-                                            MORE</a>
-                                        <a href="#" class="comments-bx"><i class="fa fa-comments-o"></i> <span
-                                                th:text="${feedbackCounts[blog.blogId]} + ' comments'">0 comments</span></a>
+        <!-- Breadcrumb row END -->
 
-                                    </div>
-                                </div>
+        <!-- inner page banner -->
+        <div class="page-banner contact-page section-sp2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 m-b30">
+                        <div class="bg-primary text-white contact-info-bx">
+                            <h2 class="m-b10 title-head">Contact <span>Information</span></h2>
+                            <p>Contact us at the following address:</p>
+                            <div class="widget widget_getintuch">
+                                <ul>
+                                    <li><i class="ti-location-pin"></i>Hoa Lac Hi-tech Park, km 29, Đại lộ, Thăng Long,
+                                        Hà Nội, Vietnam
+                                    </li>
+                                    <li><i class="ti-mobile"></i>0800-123456 (24/7 Support Line)</li>
+                                    <li><i class="ti-email"></i>info@example.com</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- Pagination ==== -->
-                    <div class="pagination-bx rounded-sm gray clearfix">
-                        <ul class="pagination">
-                            <li th:classappend="${blogPage.hasPrevious()} ? '' : 'disabled'">
-                                <a th:href="@{/blog-list(page=${blogPage.number - 1}, size=${blogPage.size})}">
-                                    <i class="ti-arrow-left"></i> Prev
-                                </a>
-                            </li>
-                            <li th:each="i : ${#numbers.sequence(0, blogPage.totalPages - 1)}"
-                                th:classappend="${i} == ${blogPage.number} ? 'active'">
-                                <a th:href="@{/blog-list(page=${i}, size=${blogPage.size})}"
-                                   th:text="${i + 1}">1</a>
-                            </li>
-                            <li th:classappend="${blogPage.hasNext()} ? '' : 'disabled'">
-                                <a th:href="@{/blog-list(page=${blogPage.number + 1}, size=${blogPage.size})}">
-                                    Next <i class="ti-arrow-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <form class="contact-bx" th:action="@{/contact/submit}" method="post" th:object="${contact}">
+                            <div class="heading-bx left">
+                                <h2 class="title-head">Get In <span>Touch</span></h2>
+                                <p>Contact us using the form below.</p>
+                            </div>
+                            <div class="row placeani">
+                                <!-- Name Field -->
+                                <div class="col-lg-6">
+                                    <label>Your Name</label>
+                                    <input type="text" th:field="*{name}" class="form-control" required>
+                                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;"></span>
+                                </div>
 
-                    <!-- Pagination END ==== -->
+                                <!-- Email Field -->
+                                <div class="col-lg-6">
+                                    <label>Your Email Address</label>
+                                    <input type="email" th:field="*{email}" class="form-control" required>
+                                    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red;"></span>
+                                </div>
+
+                                <!-- Phone Field -->
+                                <div class="col-lg-6">
+                                    <label>Your Phone</label>
+                                    <input type="text" th:field="*{phone}" class="form-control" required>
+                                    <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" style="color: red;"></span>
+                                </div>
+
+                                <!-- Message Field -->
+                                <div class="col-lg-12">
+                                    <label>Message</label>
+                                    <textarea rows="4" th:field="*{message}" class="form-control" required></textarea>
+                                    <span th:if="${#fields.hasErrors('message')}" th:errors="*{message}" style="color: red;"></span>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn button-md">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <!-- Blog Grid END ==== -->
         </div>
-        <!-- Page Content Box END ==== -->
+        <!-- inner page banner END -->
     </div>
-    <!-- Page Content Box END ==== -->
+    <!-- Content END-->
     <!-- Footer ==== -->
     <div th:replace="footer :: footer"></div>
     <!-- Footer END ==== -->
+    <!-- scroll top button -->
     <button class="back-to-top fa fa-chevron-up"></button>
 </div>
 <!-- External JavaScripts -->
@@ -148,10 +147,8 @@
 <script th:src="@{/js/functions.js}"></script>
 <script th:src="@{/js/contact.js}"></script>
 <script th:src="@{/vendors/switcher/switcher.js}"></script>
-<!-- Revolution JavaScripts Files -->
 <script th:src="@{/vendors/revolution/js/jquery.themepunch.tools.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/jquery.themepunch.revolution.min.js}"></script>
-<!-- Slider revolution 5.0 Extensions -->
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.actions.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.carousel.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.kenburn.min.js}"></script>
@@ -161,6 +158,8 @@
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.parallax.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.slideanims.min.js}"></script>
 <script th:src="@{/vendors/revolution/js/extensions/revolution.extension.video.min.js}"></script>
+
 </body>
+
 
 </html>
