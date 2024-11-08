@@ -6,6 +6,8 @@ import com.quiz.g4.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContactServiceImpl implements ContactService {
 
@@ -15,5 +17,15 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void saveContact(Contact contact) {
         contactRepository.save(contact);
+    }
+
+    @Override
+    public List<Contact> findAllContacts(){
+        return contactRepository.findAll();
+    }
+
+    @Override
+    public Contact findById(Integer id){
+        return contactRepository.findByContactId(id);
     }
 }

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Mirrored from educhamp.themetrades.com/demo/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:08:15 GMT -->
+<head>
+
+    <!-- META ============================================= -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
+
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template"/>
+
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- FAVICONS ICON ============================================= -->
+    <link th:href="@{/admin/error-404.html}" rel="icon" type="image/x-icon"/>
+    <link th:href="@{/admin/images/favicon.png}" rel="shortcut icon" type="image/x-icon"/>
+
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>Contact List</title>
+
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--[if lt IE 9]>
+    <script th:src="@{/assets/js/html5shiv.min.js}"></script>
+    <script th:src="@{/assets/js/respond.min.js}"></script>
+    <![endif]-->
+
+    <!-- All PLUGINS CSS ============================================= -->
+    <link th:href="@{/admin/css/assets.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/vendors/calendar/fullcalendar.css}" rel="stylesheet" type="text/css">
+
+    <!-- TYPOGRAPHY ============================================= -->
+    <link th:href="@{/admin/css/typography.css}" rel="stylesheet" type="text/css">
+
+    <!-- SHORTCODES ============================================= -->
+    <link th:href="@{/admin/css/shortcodes/shortcodes.css}" rel="stylesheet" type="text/css">
+
+    <!-- STYLESHEETS ============================================= -->
+    <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/css/dashboard.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
+</head>
+<body class="ttr-opened-sidebar ttr-pinned-sidebar">
+
+<!-- header start -->
+<div th:replace="fragments/util :: admin-header"></div>
+<!-- header end -->
+<!-- Left sidebar menu start -->
+<div th:replace="fragments/util :: marketing-sidebar"></div>
+<main class="ttr-wrapper">
+    <div class="db-breadcrumb">
+        <ul class="db-breadcrumb-list">
+            <li><a th:href="@{/marketing/dashboard}"><i class="fa fa-home"></i>Home</a></li>
+            <li>
+                <a class="ttr-material-button"
+                   th:href="@{/marketing/manage/blog-list}">
+                    <span class="ttr-icon"><i class="ti-view-list"></i></span>
+                    <span class="ttr-label">Manage Contacts</span></a>
+            </li>
+        </ul>
+        <table>
+            <thead>
+            <tr>
+                <th>Email</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Message</th>
+                <th>Sent Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="contact : ${contacts}">
+                <td th:text="${contact.email}">Email</td>
+                <td th:text="${contact.name}">Name</td>
+                <td th:text="${contact.phone}">Phone</td>
+                <td th:text="${contact.message}">Message</td>
+                <td th:text="${contact.createdAt}">Date</td>
+                <td th:text="${contact.status}">Status</td>
+                <td>
+                    <form th:action="@{/contact/markSeen/{id}(id=${contact.contactId})}" method="post">
+                        <input type="checkbox" th:checked="${contact.status == T(com.quiz.g4.enums.CommentStatus).ACCEPTED}"
+                               onclick="this.form.submit()" />
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p th:if="${message}" th:text="${message}"></p>
+    </div>
+</main>
+<!-- JavaScript for filtering by name, role, status -->
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap-select/bootstrap-select.min.js}"></script>
+<script th:src="@{/admin/vendors/bootstrap-touchspin/jquery.bootstrap-touchspin.js}"></script>
+<script th:src="@{/admin/vendors/magnific-popup/magnific-popup.js}"></script>
+<script th:src="@{/admin/vendors/counter/waypoints-min.js}"></script>
+<script th:src="@{/admin/vendors/counter/counterup.min.js}"></script>
+<script th:src="@{/admin/vendors/imagesloaded/imagesloaded.js}"></script>
+<script th:src="@{/admin/vendors/masonry/masonry.js}"></script>
+<script th:src="@{/admin/vendors/masonry/filter.js}"></script>
+<script th:src="@{/admin/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/admin/vendors/scroll/scrollbar.min.js}"></script>
+<script th:src="@{/admin/js/functions.js}"></script>
+<script th:src="@{/admin/vendors/chart/chart.min.js}"></script>
+<script th:src="@{/admin/js/admin.js}"></script>
+<script th:src="@{/admin/vendors/calendar/moment.min.js}"></script>
+<script th:src="@{/admin/vendors/calendar/fullcalendar.js}"></script>
+<script th:src="@{/admin/vendors/switcher/switcher.js}"></script>
+
+</body>
+</html>
