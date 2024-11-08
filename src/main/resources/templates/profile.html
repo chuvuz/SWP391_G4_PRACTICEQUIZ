@@ -30,6 +30,7 @@
     <!--[if lt IE 9]>
     <script th:src="@{/assets/js/html5shiv.min.js}"></script>
     <script th:src="@{/assets/js/respond.min.js}"></script>
+
     <![endif]-->
 
     <!-- All PLUGINS CSS ============================================= -->
@@ -210,7 +211,7 @@
                                         <div class="profile-head">
                                             <h3>Edit Profile</h3>
                                         </div>
-                                        <form class="edit-profile" th:action="@{/profile/edit}" th:object="${user}" method="post" enctype="multipart/form-data"
+                                        <form class="edit-profile" th:action="@{/profile/edit}" th:object="${user}" method="post" onchange="return validateForm()" enctype="multipart/form-data"
                                               id="registrationForm">
                                             <div class="">
                                                 <div class="text-center mb-4">
@@ -234,7 +235,8 @@
                                                     <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full
                                                         Name</label>
                                                     <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <input class="form-control" type="text"  th:field="*{fullName}" required>
+                                                        <input id="fullName" class="form-control" type="text"  th:field="*{fullName}" required>
+                                                        <span class="error-message" id="fullNameError"></span>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -520,6 +522,25 @@
             document.getElementById('ageError').textContent = ""; // Clear error message if valid
         }
     });
+</script>
+<script>
+    function validateForm() {
+        const fullName = document.getElementById('fullName').value;
+        const fullNamePattern = /^[A-Za-z]+(\s[A-Za-z]+)*$/;
+        const fullNameError = document.getElementById('fullNameError');
+        const fullNameInput = document.getElementById('fullName');
+
+        if (!fullNamePattern.test(fullName)) {
+            fullNameError.textContent = 'Full Name must contain only letters and a single space between words.';
+            fullNameInput.style.borderColor = 'red';
+            return false;
+        } else {
+            fullNameError.textContent = '';
+            fullNameInput.style.borderColor = '';
+        }
+
+        return true;
+    }
 </script>
 </body>
 </html>
