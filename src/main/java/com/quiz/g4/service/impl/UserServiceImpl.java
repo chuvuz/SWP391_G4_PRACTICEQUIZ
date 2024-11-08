@@ -116,9 +116,11 @@ public class UserServiceImpl implements UserService {
         User user = findByEmail(email);
         user.setFullName(updatedUser.getFullName());
 
-        user.setProfileImage(updatedUser.getProfileImage());
+
         if(updatedUser.getProfileImage() != null){
             user.setProfileImage(updatedUser.getProfileImage());
+        }else{
+            user.setProfileImage(user.getProfileImage());
         }
         user.setDescription(updatedUser.getDescription());
         user.setDateOfBirth(updatedUser.getDateOfBirth());
