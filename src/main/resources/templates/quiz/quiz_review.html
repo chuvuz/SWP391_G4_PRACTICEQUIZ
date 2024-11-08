@@ -150,11 +150,11 @@
                                                     <input type="radio" th:if="${question.questionType == 'single'}"
                                                            th:name="${'question_' + question.questionId}"
                                                            th:value="${option.optionId}" disabled="disabled"
-                                                           th:checked="${option.selected}" />
+                                                           th:checked="${option.selected}"/>
                                                     <input type="checkbox" th:if="${question.questionType == 'multi'}"
                                                            th:name="${'question_' + question.questionId}"
                                                            th:value="${option.optionId}" disabled="disabled"
-                                                           th:checked="${option.selected}" />
+                                                           th:checked="${option.selected}"/>
                                                     <span th:text="${option.content}">Option</span>
                                                 </label>
                                             </div>

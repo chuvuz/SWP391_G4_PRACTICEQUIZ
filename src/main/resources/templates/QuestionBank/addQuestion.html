@@ -264,27 +264,49 @@
                     <div><label for="lesson">Question Lesson:</label>
                         <select id="lesson" name="lesson" required>
                             <option value="">-- Select Lesson --</option>
-                            <option th:each="lesson : ${lessons}"
-                                    th:value="${lesson.lessonId}"
-                                    th:text="${lesson.lessonName}"
-                                    th:selected="${lesson.lessonId == selectedLessonId}">
-                            </option>
                         </select><br><br></div>
+
+                    <script>
+                        function updateLessons() {
+    const selectedSubjectId = document.getElementById('subject').value;
+    const lessonSelect = document.getElementById('lesson');
+
+    // Gửi yêu cầu đến server để lấy danh sách các lesson dựa trên subjectId đã chọn
+    fetch(`/lessonsBySubject/${selectedSubjectId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Tạo danh sách các thẻ <option> từ dữ liệu và gán vào innerHTML
+            // Thêm lựa chọn mặc định trước các lựa chọn khác
+            lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
+            lessonSelect.innerHTML += data.map(lesson =>
+            `<option value="${lesson.lessonId}">${lesson.lessonName}</option>`
+            ).join(''); // Kết hợp các chuỗi option thành một chuỗi duy nhất
+        // Reinitialize Bootstrap Select (nếu có)
+        if (typeof $.fn.selectpicker !== 'undefined') {
+            $(lessonSelect).selectpicker('refresh');
+        }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+                    </script>
 
                     <div><label for="questionType">Question Type:</label>
                         <select id="questionType" name="questionType" required onchange="handleQuestionTypeChange()">
-                            <option value="SINGLE_CHOICE" th:selected="${type == 'SINGLE_CHOICE'}">SINGLE_CHOICE</option>
-                            <option value="MULTIPLE_CHOICE" th:selected="${type == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE</option>
+                            <option value="SINGLE_CHOICE" th:selected="${type == 'SINGLE_CHOICE'}">SINGLE_CHOICE
+                            </option>
+                            <option value="MULTIPLE_CHOICE" th:selected="${type == 'MULTIPLE_CHOICE'}">MULTIPLE_CHOICE
+                            </option>
                             <option value="NUMERIC" th:selected="${type == 'NUMERIC'}">NUMERIC</option>
                         </select><br><br></div>
 
                     <div><label for="questionContent">Question Content:</label>
                         <input id="questionContent"
-                                  name="questionContent"
-                                  required
-                                  class="form-control"
-                                  th:value="${content}"
-                                  placeholder="Content..."><br><br></div>
+                               name="questionContent"
+                               required
+                               class="form-control"
+                               th:value="${content}"
+                               placeholder="Content..."><br><br></div>
 
                 </div>
 
@@ -301,7 +323,8 @@
                     </div>
 
                     <div>
-                        <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">Add
+                        <button class="pagination page-link" type="button" id="addAnswerButton" onclick="addAnswer()">
+                            Add
                             another answer
                         </button>
                     </div>
@@ -312,31 +335,6 @@
                 </div>
             </div>
         </form>
-
-        <script>
-            function updateLessons() {
-    const selectedSubjectId = document.getElementById('subject').value;
-
-    fetch(`/lessonsBySubject/${selectedSubjectId}`)
-        .then(response => response.json())
-        .then(data => {
-            const lessonSelect = document.getElementById('lesson');
-            lessonSelect.innerHTML = ''; // Xóa tất cả tùy chọn hiện tại
-
-
-
-            // Thêm các tùy chọn bài học từ dữ liệu
-            data.forEach(lesson => {
-                const option = document.createElement('option');
-                option.value = lesson.lessonId;
-                option.textContent = lesson.lessonName;
-                lessonSelect.appendChild(option);
-            });
-        })
-        .catch(error => console.error('Error:', error));
-}
-        </script>
-
         <div class="row">
             <a th:href="@{/expert/expert_manage_question}">Back</a>
         </div>

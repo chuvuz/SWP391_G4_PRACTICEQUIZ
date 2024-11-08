@@ -76,13 +76,13 @@
     <!-- Content -->
     <div class="page-content bg-white">
         <!-- inner page banner -->
-<!--        <div class="page-banner ovbl-dark" style="background-image:url(/images/banner1.png);">-->
-<!--            <div class="container">-->
-<!--                <div class="page-banner-entry">-->
-<!--                    <h1 class="text-white">Blog Details</h1>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="page-banner ovbl-dark" style="background-image:url(/images/banner1.png);">-->
+        <!--            <div class="container">-->
+        <!--                <div class="page-banner-entry">-->
+        <!--                    <h1 class="text-white">Blog Details</h1>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
         <!-- Breadcrumb row -->
         <div class="breadcrumb-row">
             <div class="container">
@@ -107,18 +107,25 @@
                                 </div>
                                 <div class="info-bx">
                                     <ul class="media-post">
-                                        <li><a href="#"><i class="fa fa-calendar"></i><span th:text="${blog.createdDate}"></span></a></li>
-                                        <li><a href="#"><i class="fa fa-comments-o"></i><span th:text="${list_feedback.size()} + ' comments'"></span></a></li>
+                                        <li><a href="#"><i class="fa fa-calendar"></i><span
+                                                th:text="${blog.createdDate}"></span></a></li>
+                                        <li><a href="#"><i class="fa fa-comments-o"></i><span
+                                                th:text="${list_feedback.size()} + ' comments'"></span></a></li>
                                     </ul>
-                                    <h5 class="post-title"><a href="#"><span th:text="${blog.getTitle()}"></span></a></h5>
+                                    <h5 class="post-title"><a href="#"><span th:text="${blog.getTitle()}"></span></a>
+                                    </h5>
                                     <p><span th:text="${blog.content}"></span></p>
                                     <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
                                     <h6>SHARE </h6>
                                     <ul class="list-inline contact-social-bx">
-                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-linkedin"></i></a></li>
-                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-facebook"></i></a>
+                                        </li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-twitter"></i></a>
+                                        </li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-linkedin"></i></a>
+                                        </li>
+                                        <li><a href="#" class="btn outline radius-xl"><i class="fa fa-google-plus"></i></a>
+                                        </li>
                                     </ul>
                                     <div class="ttr-divider bg-gray"><i class="icon-dot c-square"></i></div>
                                 </div>
@@ -135,7 +142,8 @@
                                 <div class="widget">
                                     <h6 class="widget-title">Search</h6>
                                     <div class="search-bx style-1">
-                                        <input id="search-input" class="form-control" placeholder="Enter your keywords..." type="text">
+                                        <input id="search-input" class="form-control"
+                                               placeholder="Enter your keywords..." type="text">
                                     </div>
                                 </div>
 
@@ -143,9 +151,9 @@
                                     <h6 class="widget-title">Recent Posts</h6>
                                     <div class="widget-post-bx blog-list">
                                         <div class="widget-post clearfix blog-item" th:each="blog_recent : ${blogs}">
-<!--                                            <div class="ttr-post-media">-->
-<!--                                                <img th:src="${blog_recent.getImage()}" width="200" height="143" alt="">-->
-<!--                                            </div>-->
+                                            <!--                                            <div class="ttr-post-media">-->
+                                            <!--                                                <img th:src="${blog_recent.getImage()}" width="200" height="143" alt="">-->
+                                            <!--                                            </div>-->
                                             <div class="ttr-post-info">
                                                 <div class="ttr-post-header">
                                                     <h6 class="post-title">
@@ -155,7 +163,8 @@
                                                     </h6>
                                                 </div>
                                                 <ul class="media-post">
-                                                    <li><a href="#"><i class="fa fa-calendar"></i><span th:text="${blog_recent.createdDate}"></span></a></li>
+                                                    <li><a href="#"><i class="fa fa-calendar"></i><span
+                                                            th:text="${blog_recent.createdDate}"></span></a></li>
                                                 </ul>
                                             </div>
                                         </div>

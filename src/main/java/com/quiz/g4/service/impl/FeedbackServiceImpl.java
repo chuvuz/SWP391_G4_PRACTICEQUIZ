@@ -13,6 +13,7 @@ import java.util.List;
 public class FeedbackServiceImpl implements FeedbackService {
     @Autowired
     private FeedbackRepository feedbackRepository;
+
     @Override
     public List<Feedback> getFeedbackByBlogId(Integer blogId) {
         return feedbackRepository.findByBlogId(blogId);

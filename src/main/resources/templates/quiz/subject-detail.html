@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- META ============================================= -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="keywords" content="" />
-  <meta name="author" content="" />
-  <meta name="robots" content="" />
+    <!-- META ============================================= -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content=""/>
+    <meta name="author" content=""/>
+    <meta name="robots" content=""/>
 
-  <!-- DESCRIPTION -->
-  <meta name="description" content="EduChamp : Education HTML Template" />
+    <!-- DESCRIPTION -->
+    <meta name="description" content="EduChamp : Education HTML Template"/>
 
-  <!-- OG -->
-  <meta property="og:title" content="EduChamp : Education HTML Template" />
-  <meta property="og:description" content="EduChamp : Education HTML Template" />
-  <meta property="og:image" content="" />
-  <meta name="format-detection" content="telephone=no">
+    <!-- OG -->
+    <meta property="og:title" content="EduChamp : Education HTML Template"/>
+    <meta property="og:description" content="EduChamp : Education HTML Template"/>
+    <meta property="og:image" content=""/>
+    <meta name="format-detection" content="telephone=no">
 
-  <!-- FAVICONS ICON ============================================= -->
-  <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon" />
-  <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon" />
+    <!-- FAVICONS ICON ============================================= -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
 
-  <!-- PAGE TITLE HERE ============================================= -->
-  <title>Events</title>
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>Events</title>
 
-  <!-- MOBILE SPECIFIC ============================================= -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- MOBILE SPECIFIC ============================================= -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- All PLUGINS CSS ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/assets.css}" />
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}"/>
 
-  <!-- TYPOGRAPHY ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/typography.css}" />
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/typography.css}"/>
 
-  <!-- SHORTCODES ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}" />
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}"/>
 
-  <!-- STYLESHEETS ============================================= -->
-  <link rel="stylesheet" th:href="@{/css/style.css}" />
-  <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}" />
-  <style>.event-bx {
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
+    <style>.event-bx {
     display: flex;
     align-items: stretch;
     border: 1px solid #ddd;
@@ -93,41 +93,46 @@
       display: flex;
     }
   }
-  </style>
+    </style>
 </head>
 <body>
 <div th:replace="header :: header"></div>
 
 <div class="page-content bg-white">
-  <!-- Content Block -->
-  <div class="content-block">
-    <div class="section-area section-sp1">
-      <div class="container">
-        <div class="row">
-          <div th:each="lesson, iterStat : ${lessons}" class="col-lg-6 col-md-6 col-sm-12">
-            <div class="event-bx m-b30 d-flex align-items-stretch">
-              <div class="d-flex">
-                <div class="event-time bg-purple text-center p-3">
-                  <div class="event-date text-white font-weight-bold" th:text="${iterStat.index + 1}">1</div>
-                </div>
-              </div>
-              <div class="event-info p-3 flex-grow-1">
-                <h4 class="event-title font-weight-bold">
-                  <a th:href="@{/lesson-detail/{lessonId}(lessonId=${lesson.lessonId})}" th:text="${lesson.lessonName}">Lesson Name</a>
-                </h4>
-                <ul class="media-post list-unstyled d-flex align-items-center mb-2">
-                  <li class="d-flex align-items-center"><i class="fa fa-clock-o mr-2"></i> Created On: <span th:text="${lesson.createdDate}"></span></li>
-                </ul>
-                <p class="mb-0">This lesson provides foundational knowledge and essential concepts to build your skills in the related field.
-                </p>
-              </div>
-            </div>
-          </div>
+    <!-- Content Block -->
+    <div class="content-block">
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row">
+                    <div th:each="lesson, iterStat : ${lessons}" class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="event-bx m-b30 d-flex align-items-stretch">
+                            <div class="d-flex">
+                                <div class="event-time bg-purple text-center p-3">
+                                    <div class="event-date text-white font-weight-bold" th:text="${iterStat.index + 1}">
+                                        1
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="event-info p-3 flex-grow-1">
+                                <h4 class="event-title font-weight-bold">
+                                    <a th:href="@{/lesson-detail/{lessonId}(lessonId=${lesson.lessonId})}"
+                                       th:text="${lesson.lessonName}">Lesson Name</a>
+                                </h4>
+                                <ul class="media-post list-unstyled d-flex align-items-center mb-2">
+                                    <li class="d-flex align-items-center"><i class="fa fa-clock-o mr-2"></i> Created On:
+                                        <span th:text="${lesson.createdDate}"></span></li>
+                                </ul>
+                                <p class="mb-0">This lesson provides foundational knowledge and essential concepts to
+                                    build your skills in the related field.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 

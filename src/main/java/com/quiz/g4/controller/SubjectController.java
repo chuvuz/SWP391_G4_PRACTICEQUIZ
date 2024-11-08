@@ -126,7 +126,6 @@ public class SubjectController {
     }
 
 
-
     @GetMapping("/lesson-detail/{lessonId}")
     public String getLessonDetail(@PathVariable("lessonId") Integer lessonId, Model model) {
 
@@ -152,9 +151,6 @@ public class SubjectController {
         // Trả về view lesson-detail.html
         return "quiz/lesson-detail";
     }
-
-
-
 
 
 }

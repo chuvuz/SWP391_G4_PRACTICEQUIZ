@@ -21,7 +21,6 @@ public interface SubjectService {
 
     Page<Subject> getAllSubject(int page, int size);
 
-    
 
     Subject getSubjectById(Integer subjectId);
 
@@ -33,7 +32,7 @@ public interface SubjectService {
     void createSubjectWithImageUrl(String subjectName, Integer categoryId, boolean isActive, String imageUrl);
 
     // Cập nhật môn học với chuỗi URL ảnh
-    void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl, Integer  categoryId);
+    void updateSubjectWithImageUrl(int id, String subjectName, boolean isActive, String imageUrl, Integer categoryId);
 
     Page<Subject> getAllSubjectNoCondition(int page, int size);
 
@@ -44,6 +43,7 @@ public interface SubjectService {
     boolean existsBySubjectName(String subjectName);
 
     Subject findBySubjectId(int id);
+
     Page<Subject> getAllSubjectByCategory(Integer categoryId, int page, int size);
 
     Page<Subject> searchSubjectAll(String subjectName, Integer categoryId, int page, int size);

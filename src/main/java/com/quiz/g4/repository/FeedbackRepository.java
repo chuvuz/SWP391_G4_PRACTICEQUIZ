@@ -12,6 +12,7 @@ import java.util.List;
 public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
     // Phương thức để lấy tất cả phản hồi theo blogId
     List<Feedback> findByBlogId(Integer blogId);
+
     @Query("SELECT COUNT(f) FROM Feedback f WHERE f.blogId = :blogId")
     long countFeedbackByBlogId(@Param("blogId") Integer blogId);
 }

@@ -30,18 +30,18 @@
                 <li>
                     <a th:href="@{/home}" class="ttr-material-button ttr-submenu-toggle">Home</a>
                 </li>
-<!--                <li>-->
-<!--                    <a href="#" class="ttr-material-button ttr-submenu-toggle" th:text="${#authentication.getPrincipal().role.getRoleName() == 'ROLE_ADMIN'? 'Blogs & Subjects' : 'Blogs'}"> <i-->
-<!--                            class="fa fa-angle-down"></i></a>-->
-<!--                    <div class="ttr-header-submenu">-->
-<!--                        <ul>-->
-<!--                            <li><a th:href="@{/blogs}">Blogs</a></li>-->
-<!--                        </ul>-->
-<!--                        <ul>-->
-<!--                            <li><a th:href="@{/manage-subject}">Subjects</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                </li>-->
+                <!--                <li>-->
+                <!--                    <a href="#" class="ttr-material-button ttr-submenu-toggle" th:text="${#authentication.getPrincipal().role.getRoleName() == 'ROLE_ADMIN'? 'Blogs & Subjects' : 'Blogs'}"> <i-->
+                <!--                            class="fa fa-angle-down"></i></a>-->
+                <!--                    <div class="ttr-header-submenu">-->
+                <!--                        <ul>-->
+                <!--                            <li><a th:href="@{/blogs}">Blogs</a></li>-->
+                <!--                        </ul>-->
+                <!--                        <ul>-->
+                <!--                            <li><a th:href="@{/manage-subject}">Subjects</a></li>-->
+                <!--                        </ul>-->
+                <!--                    </div>-->
+                <!--                </li>-->
 
             </ul>
             <!-- header left menu end -->
@@ -52,12 +52,13 @@
 
                 <li>
                     <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
-                                                                                                                  th:src="${#authentication.getPrincipal().profileImage}" width="32"
+                                                                                                                  th:src="${#authentication.getPrincipal().profileImage}"
+                                                                                                                  width="32"
                                                                                                                   height="32"></span></a>
                     <div class="ttr-header-submenu">
                         <ul>
                             <li><a th:href="@{/profile}">My profile</a></li>
-<!--                            <li><a th:href="@{/profile/change-password}">Change Password</a></li>-->
+                            <!--                            <li><a th:href="@{/profile/change-password}">Change Password</a></li>-->
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>
                     </div>

@@ -1,138 +1,142 @@
-        <!DOCTYPE html>
-        <html lang="en" xmlns:th="http://www.thymeleaf.org">
-        <head>
-            <!-- META ============================================= -->
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- META ============================================= -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            <!-- PAGE TITLE HERE ============================================= -->
-            <title>Register</title>
+    <!-- PAGE TITLE HERE ============================================= -->
+    <title>Register</title>
 
-            <!-- All PLUGINS CSS ============================================= -->
-            <link rel="stylesheet" th:href="@{/css/assets.css}">
+    <!-- All PLUGINS CSS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}">
 
-            <!-- TYPOGRAPHY ============================================= -->
-            <link rel="stylesheet" th:href="@{/css/typography.css}">
+    <!-- TYPOGRAPHY ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/typography.css}">
 
-            <!-- SHORTCODES ============================================= -->
-            <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}">
+    <!-- SHORTCODES ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}">
 
-            <!-- STYLESHEETS ============================================= -->
-            <link rel="stylesheet" th:href="@{/css/style.css}">
-<!--            <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}">-->
-        </head>
-        <body id="bg">
-        <div class="page-wraper">
-<!--            <div id="loading-icon-bx"></div>-->
-            <div class="account-form">
-                <div class="account-head">
-                    <a th:href="@{/}" ><img alt="EduChamp"></a>
+    <!-- STYLESHEETS ============================================= -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!--            <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}">-->
+</head>
+<body id="bg">
+<div class="page-wraper">
+    <!--            <div id="loading-icon-bx"></div>-->
+    <div class="account-form">
+        <div class="account-head">
+            <a th:href="@{/}"><img alt="EduChamp"></a>
+        </div>
+        <div class="account-form-inner">
+            <div class="account-container">
+                <div class="heading-bx left">
+                    <h2 class="title-head">Create your <span>Account</span></h2>
+                    <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
                 </div>
-                <div class="account-form-inner">
-                    <div class="account-container">
-                        <div class="heading-bx left">
-                            <h2 class="title-head">Create your <span>Account</span></h2>
-                            <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
-                        </div>
-                        <form th:action="@{/register}" method="post" class="contact-bx">
-                            <!-- Full Name input -->
-                            <div class="row placeani">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label>Your Full Name</label>
-                                            <input name="fullName" type="text" class="form-control" th:value="${user.fullName}">
-                                            <span class="error-message" th:if="${fullNameError}" th:text="${fullNameError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Email input -->
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label>Your Email</label>
-                                            <input name="email" type="email" class="form-control" th:value="${user.email}">
-                                            <span class="error-message" th:if="${emailError}" th:text="${emailError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Password input -->
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label>Your Password</label>
-                                            <input name="password" type="password" class="form-control">
-                                            <span class="error-message" th:if="${passwordError}" th:text="${passwordError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Confirm Password input -->
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label>Confirm Password</label>
-                                            <input name="confirmPassword" type="password" class="form-control">
-                                            <span class="error-message" th:if="${confirmPasswordError}" th:text="${confirmPasswordError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Phone input -->
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <label>Your Phone Number</label>
-                                            <input name="phone" type="text" class="form-control" th:value="${user.phone}" >
-                                            <span class="error-message" th:if="${phoneError}" th:text="${phoneError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Date of Birth input -->
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-
-                                            <input name="dateOfBirth" type="date" class="form-control" th:value="${user.dateOfBirth}">
-                                            <span class="error-message" th:if="${dobError}" th:text="${dobError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Gender input -->
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <div class="input-group">
-
-                                            <select name="gender" class="form-control">
-                                                <option th:value="true" th:selected="${user.gender == true}">Male</option>
-                                                <option th:value="false" th:selected="${user.gender == false}">Female</option>
-                                            </select>
-                                            <span class="error-message" th:if="${genderError}" th:text="${genderError}"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <!-- Submit button -->
-                                <div class="col-lg-12 m-b30">
-                                    <button name="submit" type="submit" value="Submit" class="btn button-md">Register</button>
+                <form th:action="@{/register}" method="post" class="contact-bx">
+                    <!-- Full Name input -->
+                    <div class="row placeani">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Full Name</label>
+                                    <input name="fullName" type="text" class="form-control" th:value="${user.fullName}">
+                                    <span class="error-message" th:if="${fullNameError}"
+                                          th:text="${fullNameError}"></span>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Email</label>
+                                    <input name="email" type="email" class="form-control" th:value="${user.email}">
+                                    <span class="error-message" th:if="${emailError}" th:text="${emailError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Password</label>
+                                    <input name="password" type="password" class="form-control">
+                                    <span class="error-message" th:if="${passwordError}"
+                                          th:text="${passwordError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Confirm Password</label>
+                                    <input name="confirmPassword" type="password" class="form-control">
+                                    <span class="error-message" th:if="${confirmPasswordError}"
+                                          th:text="${confirmPasswordError}"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Phone input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <label>Your Phone Number</label>
+                                    <input name="phone" type="text" class="form-control" th:value="${user.phone}">
+                                    <span class="error-message" th:if="${phoneError}" th:text="${phoneError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date of Birth input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+
+                                    <input name="dateOfBirth" type="date" class="form-control"
+                                           th:value="${user.dateOfBirth}">
+                                    <span class="error-message" th:if="${dobError}" th:text="${dobError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gender input -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="input-group">
+
+                                    <select name="gender" class="form-control">
+                                        <option th:value="true" th:selected="${user.gender == true}">Male</option>
+                                        <option th:value="false" th:selected="${user.gender == false}">Female</option>
+                                    </select>
+                                    <span class="error-message" th:if="${genderError}" th:text="${genderError}"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Submit button -->
+                        <div class="col-lg-12 m-b30">
+                            <button name="submit" type="submit" value="Submit" class="btn button-md">Register</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- External JavaScripts -->
-        <script th:src="@{/js/jquery.min.js}"></script>
-        <script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
-        <script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
-        <script th:src="@{/js/functions.js}"></script>
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
 
-        </body>
-        </html>
+</body>
+</html>

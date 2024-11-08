@@ -50,84 +50,84 @@
     <link th:href="@{/admin/css/dashboard.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/admin/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!--    <script th:src="@{/js/filterUsers.js}"></script>-->
-<!--    <script th:src="@{/js/filterUsersByRole.js}"></script>-->
-<!--    <style>-->
-<!--        .pagination {-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            align-items: center;-->
-<!--            margin-top: 20px;-->
-<!--        }-->
+    <!--    <script th:src="@{/js/filterUsers.js}"></script>-->
+    <!--    <script th:src="@{/js/filterUsersByRole.js}"></script>-->
+    <!--    <style>-->
+    <!--        .pagination {-->
+    <!--            display: flex;-->
+    <!--            justify-content: center;-->
+    <!--            align-items: center;-->
+    <!--            margin-top: 20px;-->
+    <!--        }-->
 
-<!--        .pagination a {-->
-<!--            display: flex;-->
-<!--            align-items: center;-->
-<!--            padding: 10px 15px;-->
-<!--            margin: 0 5px;-->
-<!--            background-color: #007bff;-->
-<!--            color: white;-->
-<!--            border-radius: 5px;-->
-<!--            text-decoration: none;-->
-<!--            transition: background-color 0.3s ease, transform 0.3s ease;-->
-<!--        }-->
+    <!--        .pagination a {-->
+    <!--            display: flex;-->
+    <!--            align-items: center;-->
+    <!--            padding: 10px 15px;-->
+    <!--            margin: 0 5px;-->
+    <!--            background-color: #007bff;-->
+    <!--            color: white;-->
+    <!--            border-radius: 5px;-->
+    <!--            text-decoration: none;-->
+    <!--            transition: background-color 0.3s ease, transform 0.3s ease;-->
+    <!--        }-->
 
-<!--        .pagination a:hover {-->
-<!--            background-color: #0056b3;-->
-<!--            transform: scale(1.05);-->
-<!--        }-->
+    <!--        .pagination a:hover {-->
+    <!--            background-color: #0056b3;-->
+    <!--            transform: scale(1.05);-->
+    <!--        }-->
 
-<!--        .pagination a:active {-->
-<!--            background-color: #003d80;-->
-<!--            transform: scale(1);-->
-<!--        }-->
+    <!--        .pagination a:active {-->
+    <!--            background-color: #003d80;-->
+    <!--            transform: scale(1);-->
+    <!--        }-->
 
-<!--        .pagination span {-->
-<!--            margin: 0 10px;-->
-<!--            font-size: 16px;-->
-<!--        }-->
-<!--        .btn-primary {-->
-<!--            padding: 10px 20px;-->
-<!--            background-color: #800080;-->
-<!--            color: white;-->
-<!--            border: none;-->
-<!--            border-radius: 5px;-->
-<!--            cursor: pointer;-->
-<!--            font-size: 16px;-->
-<!--            transition: background-color 0.3s ease, transform 0.3s ease;-->
-<!--        }-->
+    <!--        .pagination span {-->
+    <!--            margin: 0 10px;-->
+    <!--            font-size: 16px;-->
+    <!--        }-->
+    <!--        .btn-primary {-->
+    <!--            padding: 10px 20px;-->
+    <!--            background-color: #800080;-->
+    <!--            color: white;-->
+    <!--            border: none;-->
+    <!--            border-radius: 5px;-->
+    <!--            cursor: pointer;-->
+    <!--            font-size: 16px;-->
+    <!--            transition: background-color 0.3s ease, transform 0.3s ease;-->
+    <!--        }-->
 
-<!--        .btn-primary:hover {-->
-<!--            background-color: #301934;-->
-<!--            transform: scale(1.05);-->
-<!--        }-->
+    <!--        .btn-primary:hover {-->
+    <!--            background-color: #301934;-->
+    <!--            transform: scale(1.05);-->
+    <!--        }-->
 
-<!--        .btn-primary:active {-->
-<!--            background-color: #301934;-->
-<!--            transform: scale(1);-->
-<!--        }-->
-<!--        .form-field {-->
-<!--            display: flex;-->
-<!--            flex-direction: column;-->
-<!--            margin-bottom: 15px;-->
-<!--            width: fit-content;-->
-<!--        }-->
+    <!--        .btn-primary:active {-->
+    <!--            background-color: #301934;-->
+    <!--            transform: scale(1);-->
+    <!--        }-->
+    <!--        .form-field {-->
+    <!--            display: flex;-->
+    <!--            flex-direction: column;-->
+    <!--            margin-bottom: 15px;-->
+    <!--            width: fit-content;-->
+    <!--        }-->
 
-<!--        .form-field label {-->
-<!--            margin-bottom: 5px;-->
-<!--            font-weight: bold;-->
-<!--        }-->
+    <!--        .form-field label {-->
+    <!--            margin-bottom: 5px;-->
+    <!--            font-weight: bold;-->
+    <!--        }-->
 
-<!--        .form-field input,-->
-<!--        .form-field select {-->
-<!--            padding: 10px;-->
-<!--            font-size: 16px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 5px;-->
-<!--            width: 100%;-->
-<!--            box-sizing: border-box;-->
-<!--        }-->
-<!--    </style>-->
+    <!--        .form-field input,-->
+    <!--        .form-field select {-->
+    <!--            padding: 10px;-->
+    <!--            font-size: 16px;-->
+    <!--            border: 1px solid #ccc;-->
+    <!--            border-radius: 5px;-->
+    <!--            width: 100%;-->
+    <!--            box-sizing: border-box;-->
+    <!--        }-->
+    <!--    </style>-->
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
 
@@ -154,7 +154,8 @@
             <label for="roleFilter" class="mr-2">Role:</label>
             <select id="roleFilter" class="form-control mr-3" style="max-width: 150px;" onchange="filterUsers()">
                 <option value="all">All</option>
-                <option th:each="role : ${roles}" th:value="${role.getRoleName()}" th:text="${role.getRoleName()}"></option>
+                <option th:each="role : ${roles}" th:value="${role.getRoleName()}"
+                        th:text="${role.getRoleName()}"></option>
             </select>
 
             <label for="statusFilter" class="mr-2">Status:</label>
@@ -206,17 +207,17 @@
         </table>
 
         <!-- Pagination Controls -->
-<!--        <div class="pagination d-flex justify-content-between align-items-center">-->
-<!--            <a th:href="@{/admin/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}"-->
-<!--               class="btn btn-outline-secondary">-->
-<!--                <i class="fas fa-chevron-left"></i> Previous-->
-<!--            </a>-->
-<!--            <span>Page <span th:text="${userPage.number + 1}"></span> of <span th:text="${userPage.totalPages}"></span></span>-->
-<!--            <a th:href="@{/admin/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}"-->
-<!--               class="btn btn-outline-secondary">-->
-<!--                Next <i class="fas fa-chevron-right"></i>-->
-<!--            </a>-->
-<!--        </div>-->
+        <!--        <div class="pagination d-flex justify-content-between align-items-center">-->
+        <!--            <a th:href="@{/admin/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}"-->
+        <!--               class="btn btn-outline-secondary">-->
+        <!--                <i class="fas fa-chevron-left"></i> Previous-->
+        <!--            </a>-->
+        <!--            <span>Page <span th:text="${userPage.number + 1}"></span> of <span th:text="${userPage.totalPages}"></span></span>-->
+        <!--            <a th:href="@{/admin/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}"-->
+        <!--               class="btn btn-outline-secondary">-->
+        <!--                Next <i class="fas fa-chevron-right"></i>-->
+        <!--            </a>-->
+        <!--        </div>-->
     </div>
 </main>
 

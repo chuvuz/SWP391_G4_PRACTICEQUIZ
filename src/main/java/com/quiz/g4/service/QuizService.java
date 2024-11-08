@@ -14,7 +14,7 @@ public interface QuizService {
 
     Page<Quiz> getAllQuizzess(int page, int size);
 
-    List<Quiz> findQuizByAuther(Integer userId);
+    Page<Quiz> findActiveQuizzesByCriteria(Integer authorId, Integer subjectId, Integer lessonId, String quizName, Pageable pageable);
 
     List<Quiz> getQuizzesByLessonId(Integer lessonId);
 
@@ -29,7 +29,6 @@ public interface QuizService {
 //    Page<Quiz> searchQuizzes(String quizName, Integer subjectId, Integer expertId, int page, int size);
 //
 //    Quiz getQuizWithLesson(Integer quizId);
-
 
 
 }

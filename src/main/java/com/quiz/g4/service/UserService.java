@@ -18,6 +18,7 @@ public interface UserService extends UserDetailsService {
     List<User> findByRoleId(int roleId);
 
     User updateUser(String email, User updatedUser);
+
     void changeUserStatus(User user);
 
     void changePassword(String email, String newPassword);
@@ -40,16 +41,20 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAllExceptAdminAndGuest();
 
-
+    Page<User> searchExpert(String expertName, Pageable pageable);
 
     void createUser(User user);
+
     long countTotalUsers();
+
     long countActiveUsers();
+
     long countInactiveUsers();
 
     void updateProfilePicture(String email, String profileImage);
 
     long countUsersByRole(String roleName);
+
     long countUsersByRoleAndStatus(String roleName, boolean isActive);
 }
 

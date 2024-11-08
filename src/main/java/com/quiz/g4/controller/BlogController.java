@@ -88,7 +88,7 @@ public class BlogController {
         List<Blog> blogs = blogService.getAllBlogs();
         model.addAttribute("blogs", blogs);
 
-        List<Feedback> list_feedback= feedbackService.getFeedbackByBlogId(blogId);
+        List<Feedback> list_feedback = feedbackService.getFeedbackByBlogId(blogId);
         model.addAttribute("list_feedback", list_feedback);
         return "blog_detail";  // Tên template cho trang chi tiết blog
     }
@@ -101,7 +101,6 @@ public class BlogController {
         CommentStatus commentStatus = CommentStatus.PENDING;
         // Tạo đối tượng feedback và lưu vào cơ sở dữ liệu
         Feedback feedback = new Feedback();
-        feedback.setBlogId(blog_id);
         feedback.setUser(userRepository.getOne(user_id));
         feedback.setComments(comments);
         feedback.setStatus(commentStatus);
@@ -148,21 +147,22 @@ public class BlogController {
                            @RequestParam("title") String title,
                            @RequestParam("content") String content) {
         // Tìm blog theo ID và cập nhật title và content
-        Blog blog = blogRepository.getOne(blogId) ;
-            blog.setTitle(title);
-            blog.setContent(content);
-            blog.setCreatedDate(LocalDate.now());
-            blogRepository.save(blog);
+        Blog blog = blogRepository.getOne(blogId);
+        blog.setTitle(title);
+        blog.setContent(content);
+        blog.setCreatedDate(LocalDate.now());
+        blogRepository.save(blog);
 
         // Chuyển hướng về trang danh sách blog sau khi cập nhật
         return "redirect:/marketing/manage/blog-list";
     }
+
     // Phương thức xóa blog
     @PostMapping("/marketing/manage/delete-blog")
     public String deleteBlog(@RequestParam("blogIdDelete") Integer blogId, RedirectAttributes redirectAttributes) {
 
 
-          blogRepository.deleteById(blogId);
+        blogRepository.deleteById(blogId);
         // Chuyển hướng về trang danh sách blog sau khi xóa
         return "redirect:/marketing/manage/blog-list";
     }

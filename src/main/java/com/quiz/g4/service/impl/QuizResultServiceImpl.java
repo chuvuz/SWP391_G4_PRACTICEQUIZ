@@ -11,6 +11,7 @@ public class QuizResultServiceImpl implements QuizResultService {
 
     @Autowired
     private QuizResultRepository quizResultRepository;
+
     @Override
     public void saveQuizResult(QuizResult quizResult) {
         quizResultRepository.save(quizResult);

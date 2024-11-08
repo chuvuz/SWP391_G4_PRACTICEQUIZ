@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LessonRepository extends JpaRepository<Lesson,Integer> {
+public interface LessonRepository extends JpaRepository<Lesson, Integer> {
 //    @Query("SELECT l FROM Lesson l " +
 //            "LEFT JOIN FETCH l.questionBanks qb " +
 //            "LEFT JOIN FETCH qb.answerOptions " +
@@ -21,7 +21,7 @@ public interface LessonRepository extends JpaRepository<Lesson,Integer> {
 
     Lesson findByLessonId(Integer lessonId);
 
-    List<Lesson> findLessonsBySubject (Subject subject);
+    List<Lesson> findLessonsBySubject(Subject subject);
 
     List<Lesson> findBySubject_SubjectId(Integer subjectId);
 

@@ -167,7 +167,8 @@
                     </div>
                 </li>
                 <li>
-                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt="" src="assets/images/testimonials/pic3.jpg"
+                    <a href="#" class="ttr-material-button ttr-submenu-toggle"><span class="ttr-user-avatar"><img alt=""
+                                                                                                                  src="assets/images/testimonials/pic3.jpg"
                                                                                                                   width="32"
                                                                                                                   height="32"></span></a>
                 </li>
@@ -319,10 +320,10 @@
         </div>
         <div class="row">
             <div class="form-group col-md-6 col-sm-12 m-b30" th:if="${question.questionType != 'NUMERIC'}">
-            <button id="openAddOptionModal" class="btn btn-primary" data-toggle="modal"
-                    data-target="#addOptionModal">
-                Add Answer Options
-            </button>
+                <button id="openAddOptionModal" class="btn btn-primary" data-toggle="modal"
+                        data-target="#addOptionModal">
+                    Add Answer Options
+                </button>
             </div>
 
             <div class="modal fade" id="addOptionModal" tabindex="-1" role="dialog"
@@ -344,7 +345,8 @@
                                 <input type="hidden" th:value="${question.questionId}" name="id"/>
                                 <label for="answerContent">Content</label>
                                 <input type="text" id="answerContent" name="answerContent" required>
-                                <label for="answerContent" style="color:red">! Option default is false, click to update answer to change !</label>
+                                <label for="answerContent" style="color:red">! Option default is false, click to update
+                                    answer to change !</label>
                                 <input type="hidden" name="answerIsCorrect" value="false"> <!-- Always incorrect -->
                                 <br><br>
                                 <input type="submit" id="addOption" value="Save" class="btn btn-primary">
@@ -357,10 +359,10 @@
             <!--                another answer-->
             <!--            </button>-->
             <div class="form-group col-md-6 col-sm-12 m-b30" th:if="${question.questionType != 'NUMERIC'}">
-            <button id="openUpdateAnswerModal" class="btn btn-primary" data-toggle="modal"
-                    data-target="#updateAnswerModal">
-                Update Answer
-            </button>
+                <button id="openUpdateAnswerModal" class="btn btn-primary" data-toggle="modal"
+                        data-target="#updateAnswerModal">
+                    Update Answer
+                </button>
             </div>
 
             <div class="modal fade" id="updateAnswerModal" tabindex="-1" role="dialog"
@@ -392,7 +394,8 @@
                                     </thead>
                                     <tbody>
                                     <tr th:each="answer, iterStat : ${question.answerOptions}">
-                                        <input type="hidden" id="answerId__${iterStat.index}" name="answerId" th:value="${answer.optionId}"/>
+                                        <input type="hidden" id="answerId__${iterStat.index}" name="answerId"
+                                               th:value="${answer.optionId}"/>
 
                                         <!-- Hiển thị nội dung câu trả lời -->
                                         <td>
@@ -401,8 +404,10 @@
 
                                         <!-- Checkbox để đánh dấu tính đúng sai -->
                                         <td>
-                                            <input type="checkbox" id="correct__${iterStat.index}" name="correct__${iterStat.index}"
-                                                   th:value="${answer.optionId}" th:checked="${answer.isCorrect}"> Correct
+                                            <input type="checkbox" id="correct__${iterStat.index}"
+                                                   name="correct__${iterStat.index}"
+                                                   th:value="${answer.optionId}" th:checked="${answer.isCorrect}">
+                                            Correct
                                         </td>
                                     </tr>
                                     </tbody>

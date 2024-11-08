@@ -1,7 +1,9 @@
 package com.quiz.g4.entity;
+
 import lombok.*;
 
 import javax.persistence.*;
+
 @Getter
 @Setter
 @NoArgsConstructor

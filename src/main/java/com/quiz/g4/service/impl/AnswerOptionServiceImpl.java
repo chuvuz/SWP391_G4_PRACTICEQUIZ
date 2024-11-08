@@ -31,12 +31,12 @@ public class AnswerOptionServiceImpl implements AnswerOptionService {
     }
 
     @Override
-    public List<AnswerOption> findByQuestionId(Integer questionId){
+    public List<AnswerOption> findByQuestionId(Integer questionId) {
         return answerOptionRepository.findByQuestionId(questionId);
     }
 
     @Override
-    public boolean existsByAnswerOptionContent(String optionContent){
+    public boolean existsByAnswerOptionContent(String optionContent) {
         return answerOptionRepository.existsByContent(optionContent);
     }
 
