@@ -9,14 +9,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface QuizRepository extends JpaRepository<Quiz, Integer> {
 
-    @Query("SELECT q FROM Quiz q WHERE q.createdBy.userId = :autherId")
-    List<Quiz> findQuizByAuther(@Param("autherId") Integer autherId);
-
+    @Query("SELECT q FROM Quiz q WHERE q.isActive = true " +
+            "AND q.createdBy.userId = :authorId " +
+            "AND (:subjectId IS NULL OR q.subject.subjectId = :subjectId) " +
+            "AND (:lessonId IS NULL OR q.lesson.lessonId = :lessonId) " +
+            "AND (:quizName IS NULL OR LOWER(q.quizName) LIKE LOWER(CONCAT('%', :quizName, '%')))")
+    Page<Quiz> findActiveQuizzesByCriteria(@Param("authorId") Integer authorId,
+                                           @Param("subjectId") Integer subjectId,
+                                           @Param("lessonId") Integer lessonId,
+                                           @Param("quizName") String quizName,
+                                           Pageable pageable);
 
     @Query("SELECT q FROM Quiz q WHERE (:quizName IS NULL OR q.quizName LIKE %:quizName%)" +
             " AND (:subjectId IS NULL OR q.subject.subjectId = :subjectId)" +

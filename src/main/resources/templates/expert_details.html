@@ -58,14 +58,6 @@
 <!-- END nav -->
 
 <div class="page-content bg-white">
-    <!-- inner page banner -->
-    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
-        <div class="container">
-            <div class="page-banner-entry">
-                <h1 class="text-white">Expert Profile</h1>
-            </div>
-        </div>
-    </div>
     <!-- Breadcrumb row -->
     <div class="breadcrumb-row">
         <div class="container">
@@ -95,11 +87,7 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
                                         <a class="nav-link active" data-toggle="tab" href="#courses"><i
-                                                class="ti-book"></i>Courses</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#edit-profile"><i
-                                                class="ti-pencil-alt"></i>Edit Profile</a>
+                                                class="ti-book"></i>Quizzes</a>
                                     </li>
                                 </ul>
                             </div>
@@ -110,167 +98,104 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="courses">
                                     <div class="profile-head">
-                                        <h3>My Courses</h3>
-                                        <!--<div class="feature-filters style1 ml-auto">
-                                            <ul class="filters" data-toggle="buttons">
-                                                <li data-filter="" class="btn active">
-                                                    <input type="radio">
-                                                    <a href="#"><span>All</span></a>
-                                                </li>
-                                                <li data-filter="publish" class="btn">
-                                                    <input type="radio">
-                                                    <a href="#"><span>Publish</span></a>
-                                                </li>
-                                                <li data-filter="pending" class="btn">
-                                                    <input type="radio">
-                                                    <a href="#"><span>Pending</span></a>
-                                                </li>
-                                            </ul>
-                                        </div>-->
+                                        <h3>My Quizzes</h3>
                                     </div>
                                     <div class="courses-filter">
+                                        <form th:action="@{/expert_detail/searchQuizzes}" method="get"
+                                              class="form-inline mb-3">
+                                            <!-- Hidden Expert ID -->
+                                            <input type="hidden" name="expertId" th:value="${expert.userId}">
+                                            <div class="form-group row">
+                                                <!-- Filter by Subject -->
+                                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                                    <label for="subjectId">Subject</label>
+                                                    <select name="subjectId" id="subjectId" class="form-control"
+                                                            onchange="updateLessons()">
+                                                        <option value="">Select Subject</option>
+                                                        <option th:each="sub : ${subject}" th:value="${sub.subjectId}"
+                                                                th:text="${sub.subjectName}"
+                                                                th:selected="${sub.subjectId == subjectId}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Filter by Lesson -->
+                                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                                    <label for="lessonId">Lesson</label>
+                                                    <select name="lessonId" id="lessonId" class="form-control">
+                                                        <option value="">Select Lesson</option>
+                                                        <option th:each="lesson : ${lessons}"
+                                                                th:value="${lesson.lessonId}"
+                                                                th:text="${lesson.lessonName}"
+                                                                th:selected="${lesson.lessonId == lessonId}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Filter by Quiz Name -->
+                                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                                    <label for="quizName">Quiz Name</label>
+                                                    <input type="text" name="quizName" id="quizName" class="form-control"
+                                                           placeholder="Search Quiz by Name" th:value="${quizName}"/>
+                                                </div>
+
+                                                <!-- Submit Button -->
+                                                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                                                    <label for="submit"></label>
+                                                    <button id="submit" class="btn btn-primary" type="submit">Search</button>
+                                                </div>
+                                            </div>
+                                        </form>
+
                                         <div class="clearfix">
                                             <ul id="masonry" class="ttr-gallery-listing magnific-image row">
-                                                <div th:each="quiz : ${quizzess}">
+                                                <div th:each="quiz : ${quizzess.content}">
                                                     <li class="action-card col-xl-4 col-lg-6 col-md-12 col-sm-6 publish">
                                                         <div class="cours-bx">
                                                             <div class="action-box">
-                                                                <img src="${quiz.quizImage}" alt="">
                                                                 <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"
                                                                    class="btn">Read More</a>
                                                             </div>
                                                             <div class="info-bx text-center">
-                                                                <h5 th:text="${quiz.quizName}">
-                                                                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"></a>
-                                                                </h5>
+                                                                <h5>
+                                                                    <a th:href="@{/quiz-detail/{quizId}(quizId=${quiz.quizId})}"
+                                                                       th:text="${quiz.quizName}"></a></h5>
                                                                 <span th:text="${quiz.subject.subjectName}"></span>
                                                             </div>
                                                         </div>
                                                     </li>
                                                 </div>
                                             </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="edit-profile">
-                                    <div class="profile-head">
-                                        <h3>Edit Profile</h3>
-                                    </div>
-                                    <form class="edit-profile">
-                                        <div class="">
-                                            <div class="form-group row">
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
-                                                    <h3>1. Personal Details</h3>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Full
-                                                    Name</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="Mark Andre">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Occupation</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="CTO">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Company
-                                                    Name</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="EduChamp">
-                                                    <span class="help">If you want your invoices addressed to a company. Leave blank to use your full name.</span>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Phone
-                                                    No.</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="+120 012345 6789">
-                                                </div>
-                                            </div>
 
-                                            <div class="seperator"></div>
+                                            <!-- Pagination Controls -->
+                                            <div class="col-lg-12 m-b20">
+                                                <div class="pagination-bx rounded-sm gray clearfix">
+                                                    <ul class="pagination">
+                                                        <!-- Previous button -->
+                                                        <li th:classappend="${quizzess.hasPrevious()} ? '' : 'disabled'"
+                                                            class="page-item page-change">
+                                                            <a th:href="@{/expert_detail/{expertId}(expertId=${expert.userId}, page=${quizzess.number - 1}, size=${quizzess.size})}"
+                                                               class="page-link">Previous</a>
+                                                        </li>
 
-                                            <div class="form-group row">
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
-                                                    <h3>2. Address</h3>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Address</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text"
-                                                           value="5-S2-20 Dummy City, UK">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">City</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="US">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">State</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="California">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Postcode</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="000702">
-                                                </div>
-                                            </div>
+                                                        <!-- Page numbers -->
+                                                        <li th:each="i : ${#numbers.sequence(1, quizzess.totalPages)}"
+                                                            th:classappend="${quizzess.number + 1 == i} ? 'active' : ''"
+                                                            class="page-item">
+                                                            <a th:href="@{/expert_detail/{expertId}(expertId=${expert.userId}, page=${i - 1}, size=${quizzess.size})}"
+                                                               class="page-link"
+                                                               th:text="${i}">1</a>
+                                                        </li>
 
-                                            <div class="m-form__seperator m-form__seperator--dashed m-form__seperator--space-2x"></div>
-
-                                            <div class="form-group row">
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-10 ml-auto">
-                                                    <h3 class="m-form__section">3. Social Links</h3>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Linkedin</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="www.linkedin.com">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Facebook</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="www.facebook.com">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Twitter</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="www.twitter.com">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-12 col-sm-3 col-md-3 col-lg-2 col-form-label">Instagram</label>
-                                                <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                    <input class="form-control" type="text" value="www.instagram.com">
+                                                        <!-- Next button -->
+                                                        <li th:classappend="${quizzess.hasNext()} ? '' : 'disabled'"
+                                                            class="page-item page-change">
+                                                            <a th:href="@{/expert_detail/{expertId}(expertId=${expert.userId}, page=${quizzess.number + 1}, size=${quizzess.size})}"
+                                                               class="page-link">Next</a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="">
-                                            <div class="">
-                                                <div class="row">
-                                                    <div class="col-12 col-sm-3 col-md-3 col-lg-2">
-                                                    </div>
-                                                    <div class="col-12 col-sm-9 col-md-9 col-lg-7">
-                                                        <button type="reset" class="btn">Save changes</button>
-                                                        <button type="reset" class="btn-secondry">Cancel</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -281,7 +206,30 @@
     </div>
     <!-- contact area END -->
 </div>
+<script>
+    function updateLessons() {
+const selectedSubjectId = document.getElementById('subjectId').value;
+const lessonSelect = document.getElementById('lessonId');
 
+// Gửi yêu cầu đến server để lấy danh sách các lesson dựa trên subjectId đã chọn
+fetch(`/lessonsBySubject/${selectedSubjectId}`)
+.then(response => response.json())
+.then(data => {
+// Tạo danh sách các thẻ <option> từ dữ liệu và gán vào innerHTML
+// Thêm lựa chọn mặc định trước các lựa chọn khác
+lessonSelect.innerHTML = '<option value="">-- Select Lesson --</option>';
+lessonSelect.innerHTML += data.map(lesson =>
+`<option value="${lesson.lessonId}">${lesson.lessonName}</option>`
+).join(''); // Kết hợp các chuỗi option thành một chuỗi duy nhất
+// Reinitialize Bootstrap Select (nếu có)
+if (typeof $.fn.selectpicker !== 'undefined') {
+$(lessonSelect).selectpicker('refresh');
+}
+})
+.catch(error => console.error('Error:', error));
+}
+
+</script>
 <div th:replace="footer :: footer"></div>
 
 <!-- External JavaScripts -->

@@ -52,14 +52,6 @@
 <!-- END nav -->
 
 <div class="page-content bg-white">
-    <!-- inner page banner -->
-    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
-        <div class="container">
-            <div class="page-banner-entry">
-                <h1 class="text-white">Our Experts</h1>
-            </div>
-        </div>
-    </div>
     <!-- Breadcrumb row -->
     <div class="breadcrumb-row">
         <div class="container">
@@ -88,21 +80,6 @@
                                                th:value="${expertName != null} ? ${expertName} : ''">
                                     </label>
                                 </div>
-                                <!-- Search by Subject -->
-                                <div class="form-group">
-                                    <label>Subject</label><br>
-                                    <label>
-                                        <select name="subjectId" class="form-control">
-                                            <option value="">-- Select Subject --</option>
-                                            <option th:each="subject : ${subjects}"
-                                                    th:value="${subject.subjectId}"
-                                                    th:text="${subject.subjectName}"
-                                                    th:selected="${subject.subjectId == selectedSubjectId}">
-                                            </option>
-                                        </select>
-                                    </label>
-                                </div>
-
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
@@ -112,22 +89,21 @@
                     <div class="col-lg-9 col-md-8 col-sm-12">
                         <div class="row">
                             <!-- Loop through experts -->
-                            <div th:each="experts : ${expertPage}"
+                            <div th:each="expert : ${expertPage}"
                                  class="col-md-6 col-lg-4 col-sm-6 m-b30">
                                 <div class="cours-bx">
                                     <div class="action-box">
-                                        <img th:src="${experts.profileImage}">
-                                        <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"
+                                        <img th:src="${expert.profileImage}">
+                                        <a th:href="@{/expert_detail/{expertId}(expertId=${expert.userId})}"
                                            class="btn">Read More</a>
                                     </div>
                                     <div class="info-bx text-center">
-                                        <a th:href="@{/expert_detail/{expertId}(expertId=${experts.userId})}"><h5
-                                                th:text="${experts.fullName}"></h5></a>
-                                        <span class="position mb-2" th:text="${experts.subject.subjectName}"></span>
+                                        <a th:href="@{/expert_detail/{expertId}(expertId=${expert.userId})}"><h5
+                                                th:text="${expert.fullName}"></h5></a>
                                     </div>
                                     <div class="cours-more-info">
                                         <div class="text-center">
-                                            <p th:text="${#strings.substring(experts.description, 0, 100)} + '...'"></p>
+                                            <p th:text="${#strings.substring(expert.description, 0, 100)} + '...'"></p>
                                         </div>
                                     </div>
                                 </div>

@@ -280,5 +280,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.countByRoleRoleNameAndIsActive(roleName, isActive);
 
     }
+
+    @Override
+    public Page<User> searchExpert(String expertName, Pageable pageable){
+        return userRepository.searchExpert(expertName, 3, pageable);
+    }
+
 }
 

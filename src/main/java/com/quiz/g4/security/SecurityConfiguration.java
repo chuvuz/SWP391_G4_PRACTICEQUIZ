@@ -48,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/search-subject", "/expert/**", "/lesson-detail/*", "/subject-detail/**",
                         "/home", "/css/**", "/js/**", "/vendors/**", "/images/**", "/blog-detail/**",
                         "/about/**", "/forgot-password/**", "/reset-password/**", "/expert_detail/**",
-                        "/search_expert/**", "/blogs/**", "/blog-list", "/blogs/**", "/blog-list"
+                        "/search_expert/**", "/blogs/**", "/blog-list", "/blogs/**", "/blog-list", "/lessonsBySubject/**"
                 ).permitAll() // Cho phép truy cập vào tài nguyên tĩnh
                 //cho 4 Role
                 .antMatchers("/profile/**", "/quiz-review/**", "/quiz-submit/**", "/quiz-result/**", "/quiz-detail/**"

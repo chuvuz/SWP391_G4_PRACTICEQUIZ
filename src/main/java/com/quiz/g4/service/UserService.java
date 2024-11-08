@@ -41,6 +41,7 @@ public interface UserService extends UserDetailsService {
 
     List<User> findAllExceptAdminAndGuest();
 
+    Page<User> searchExpert(String expertName, Pageable pageable);
 
     void createUser(User user);
 
