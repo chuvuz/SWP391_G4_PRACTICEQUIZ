@@ -1,0 +1,43 @@
+package com.quiz.g4.controller;
+
+import com.quiz.g4.entity.Contact;
+import com.quiz.g4.enums.CommentStatus;
+import com.quiz.g4.service.ContactService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+
+@Controller
+@RequestMapping("/contact")
+public class ContactController {
+
+    @Autowired
+    private ContactService contactService;
+
+    @GetMapping("/form")
+    public String showContactForm(Contact contact) {
+        return "contact-form";
+    }
+
+    @PostMapping("/submit")
+    public String submitContactForm(@Valid @ModelAttribute("contact") Contact contact,
+                                    BindingResult result,
+                                    RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "contact-form"; // Return to the form page with validation errors
+        }
+
+        contact.setStatus(CommentStatus.PENDING);
+        contact.setCreatedAt(LocalDateTime.now());
+        contactService.saveContact(contact);
+
+        redirectAttributes.addFlashAttribute("message", "Your message has been received.");
+        return "redirect:/contact/form"; // Redirect back to the form with a success message
+    }
+
+}
