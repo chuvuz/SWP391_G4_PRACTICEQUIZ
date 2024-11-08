@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Quiz Review</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- FAVICONS ICON -->
+    <link rel="icon" th:href="@{/images/favicon.ico}" type="image/x-icon"/>
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}" type="image/x-icon"/>
+
+    <!-- STYLESHEETS -->
+    <link rel="stylesheet" th:href="@{/css/assets.css}"/>
+    <link rel="stylesheet" th:href="@{/css/typography.css}"/>
+    <link rel="stylesheet" th:href="@{/css/shortcodes/shortcodes.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link class="skin" rel="stylesheet" th:href="@{/css/color/color-1.css}"/>
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .content-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .questions-nav {
+            width: 80px;
+            background: #fff;
+            border-radius: 5px;
+            padding: 15px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-list li {
+            margin-bottom: 10px;
+        }
+
+        .nav-button {
+            width: 100%;
+            padding: 8px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #333;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .nav-button:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-button.active {
+            background: #333;
+            color: white;
+        }
+
+        .question-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            scroll-margin-top: 20px;
+        }
+
+        .answer-options {
+            margin-top: 15px;
+        }
+
+        .answer-option {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+        }
+
+        /* Highlight styles */
+        .answer-option.correct {
+            background-color: #d4edda; /* Light green background */
+            border-color: #c3e6cb;    /* Green border */
+            color: #155724;           /* Dark green text */
+        }
+
+        .answer-option.incorrect {
+            background-color: #f8d7da; /* Light red background */
+            border-color: #f5c6cb;    /* Red border */
+            color: #721c24;           /* Dark red text */
+        }
+
+        .submit-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .submit-btn button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .questions-content {
+            flex: 1;
+        }
+
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column;
+            }
+
+            .questions-nav {
+                width: 100%;
+                position: relative;
+                top: 0;
+            }
+
+            .nav-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-list li {
+                margin: 0;
+                width: calc(20% - 8px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:replace="header :: header"></div>
+
+<div class="page-content bg-white">
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>Quiz Review</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Quiz Review Content -->
+    <div class="content-block">
+        <div class="container">
+            <div class="content-container">
+                <!-- Question Navigation -->
+                <div class="questions-nav">
+                    <ul class="nav-list">
+                        <li th:each="userAnswer, questionStat : ${userAnswers}">
+                            <button
+                                    th:onclick="'scrollToQuestion(' + ${questionStat.count} + ')'"
+                                    th:text="${questionStat.count}"
+                                    th:classappend="${questionStat.first} ? 'active' : ''"
+                                    class="nav-button">
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Questions Review Content -->
+                <div class="questions-content">
+                    <div th:each="userAnswer : ${userAnswers}" class="question-box"
+                         th:id="'question-' + ${userAnswer.question.questionId}">
+                        <h5 th:text="'Question: ' + ${userAnswer.question.questionContent}"></h5>
+
+                        <!-- Answer Options with User's Answer Highlighted -->
+                        <div class="answer-options">
+                            <div th:each="option : ${userAnswer.question.answerOptions}"
+                                 th:classappend="${option.optionId == userAnswer.selectedAnswer.optionId ? (userAnswer.isCorrect ? 'answer-option correct' : 'answer-option incorrect') : 'answer-option'}">
+                                <span th:text="${option.content}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Back Button -->
+                    <div class="submit-btn">
+                        <a th:href="@{/subject-list}" class="btn btn-secondary">Back to Subject</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="footer :: footer"></div>
+
+<!-- External JavaScripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/popper.min.js}"></script>
+<script th:src="@{/vendors/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/vendors/owl-carousel/owl.carousel.js}"></script>
+<script th:src="@{/js/functions.js}"></script>
+
+<script>
+    function scrollToQuestion(questionNumber) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.nav-button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Add active class to clicked button
+        document.querySelector(`.nav-list li:nth-child(${questionNumber}) .nav-button`).classList.add('active');
+
+        // Scroll to question
+        const questionElement = document.getElementById('question-' + questionNumber);
+        questionElement.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

@@ -213,4 +213,26 @@ public class QuizController {
         return "quiz/quiz-result";
     }
 
+    @GetMapping("/quiz-review/{resultId}")
+    public String reviewQuiz(@PathVariable("resultId") Integer resultId, Model model) {
+        // Get the quiz result by ID
+        QuizResult quizResult = quizResultService.findQuizResultById(resultId);
+
+        if (quizResult == null) {
+            return "error/404";  // Redirect to error if result not found
+        }
+
+        // Get all user answers for this quiz result
+        List<UserAnswer> userAnswers = userAnswerService.findByQuizResultId(resultId);
+
+        // Add quiz result and user answers to the model
+        model.addAttribute("quizResult", quizResult);
+        model.addAttribute("userAnswers", userAnswers);
+
+        return "quiz/quiz-review";  // View for quiz review
+    }
+
+
+
+
 }
