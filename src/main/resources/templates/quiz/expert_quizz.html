@@ -256,7 +256,7 @@
                             <label for="subjectSelect">Select Subject</label>
                             <select id="subjectSelect" name="subjectId" class="form-control" required>
                                 <option value="">Select Subject</option>
-                                <option th:each="subject : ${subjects}" th:value="${subject.subjectId}"
+                                <option th:each="subject : ${subjects}" th:value="${subject.subjectId}" th:if="${subject.questionBanks.size()>0}"
                                         th:text="${subject.subjectName}"></option>
                             </select>
                         </div>
