@@ -40,7 +40,7 @@ public class Contact {
 
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Column(nullable = false, unique = true, length = 45)
+    @Column(nullable = false, length = 45)
     private String email;
 
     @Column(name = "created_at", nullable = false)
