@@ -288,6 +288,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isPhoneExists(String phone) {
+        return userRepository.existsByPhone(phone);
+    }
+
+    @Override
     public Page<User> searchExpert(String expertName, Pageable pageable){
         return userRepository.searchExpert(expertName, 3, pageable);
     }

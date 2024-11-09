@@ -27,7 +27,7 @@
     <!--            <div id="loading-icon-bx"></div>-->
     <div class="account-form">
         <div class="account-head">
-            <a th:href="@{/}"><img alt="EduChamp"></a>
+            <a href="#"><img alt="" src="../images/logo.png" width="122" height="27"></a>
         </div>
         <div class="account-form-inner">
             <div class="account-container">
@@ -101,7 +101,7 @@
 
                                     <input name="dateOfBirth" type="date" class="form-control"
                                            th:value="${user.dateOfBirth}">
-                                    <span class="error-message" th:if="${dobError}" th:text="${dobError}"></span>
+                                    <span class="error-message" th:if="${dateOfBirthError}" th:text="${dateOfBirthError}"></span>
                                 </div>
                             </div>
                         </div>

@@ -6,6 +6,8 @@ import com.quiz.g4.service.UserAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserAnswerServiceImpl implements UserAnswerService {
 
@@ -16,5 +18,10 @@ public class UserAnswerServiceImpl implements UserAnswerService {
     @Override
     public void saveUserAnswer(UserAnswer userAnswer) {
         userAnswerRepository.save(userAnswer);
+    }
+
+    @Override
+    public List<UserAnswer> findByQuizResultId(Integer resultId) {
+        return userAnswerRepository.findByQuizResultId(resultId);
     }
 }

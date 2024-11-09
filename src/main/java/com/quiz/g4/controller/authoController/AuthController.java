@@ -78,6 +78,9 @@ public class AuthController {
         } else if (!user.getPhone().matches("^\\d{10}$")) {
             model.addAttribute("phoneError", "Phone number must be exactly 10 digits!");
             hasError = true;
+        } else if (userService.isPhoneExists(user.getPhone())) { // Kiểm tra số điện thoại có trùng hay không
+            model.addAttribute("phoneError", "Phone number already exists!");
+            hasError = true;
         }
 
         // Check Date of Birth
