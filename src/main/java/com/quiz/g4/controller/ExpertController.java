@@ -35,7 +35,7 @@ public class ExpertController {
     @Autowired
     private LessonService lessonService;
 
-    @GetMapping("/expert")
+    @GetMapping("/experts")
     public String getExpertlist(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
                                 @RequestParam(value = "size", defaultValue = "8") int size) {
         // Lấy danh sách các subject để hiển thị
