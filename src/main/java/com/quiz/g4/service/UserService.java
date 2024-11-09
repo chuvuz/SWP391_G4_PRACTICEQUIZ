@@ -56,5 +56,7 @@ public interface UserService extends UserDetailsService {
     long countUsersByRole(String roleName);
 
     long countUsersByRoleAndStatus(String roleName, boolean isActive);
+
+    boolean isPhoneExists(String phone);
 }
 

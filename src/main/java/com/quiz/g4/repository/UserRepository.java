@@ -55,5 +55,7 @@ public interface UserRepository extends JpaRepository<User, Integer>, CrudReposi
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.role.roleName = :roleName AND u.isActive = :isActive")
     long countByRoleRoleNameAndIsActive(@Param("roleName") String roleName, @Param("isActive") boolean isActive);
+
+    boolean existsByPhone(String phone);
 }
 
