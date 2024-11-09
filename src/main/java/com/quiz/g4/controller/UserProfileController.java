@@ -153,4 +153,11 @@ public class UserProfileController {
             throw new RuntimeException("Failed to store image", e);
         }
     }
+
+    @GetMapping("/info/{id}")
+    public String getInfo(@PathVariable("id") Integer id, Model model){
+        User user = userService.findUserByUserId(id);
+        model.addAttribute("user", user);
+        return "user-info";
+    }
 }

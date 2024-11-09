@@ -201,6 +201,7 @@
                         <button type="submit" class="btn btn-sm btn-primary"
                                 th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
                     </form>
+                    <a th:href="@{/info/{id}(id = ${user.getUserId()})}" class="btn btn-sm btn-primary">Info</a>
                 </td>
             </tr>
             </tbody>

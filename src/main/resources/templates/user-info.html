@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<!-- Mirrored from educhamp.themetrades.com/demo/admin/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 22 Feb 2019 13:08:15 GMT -->
 <head>
-
     <!-- META ============================================= -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,7 +22,7 @@
     <link th:href="@{/admin/images/favicon.png}" rel="shortcut icon" type="image/x-icon"/>
 
     <!-- PAGE TITLE HERE ============================================= -->
-    <title>Customer List</title>
+    <title>Profile</title>
 
     <!-- MOBILE SPECIFIC ============================================= -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,157 +46,122 @@
     <link th:href="@{/admin/css/style.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/admin/css/dashboard.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/admin/css/color/color-1.css}" class="skin" rel="stylesheet" type="text/css">
+    <style>
+        .pagination a {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        .pagination a:active {
+            background-color: #003d80;
+            transform: scale(1);
+        }
+
+        .pagination span {
+            margin: 0 10px;
+            font-size: 16px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        .form-field label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-field input,
+        .form-field select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+        }
+
+        .btn-primary {
+            padding: 10px 20px;
+            background-color: #800080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #301934;
+            transform: scale(1.05);
+        }
+
+        .btn-primary:active {
+            background-color: #301934;
+            transform: scale(1);
+        }
+    </style>
 </head>
 <body class="ttr-opened-sidebar ttr-pinned-sidebar">
-
 <!-- header start -->
 <div th:replace="fragments/util :: admin-header"></div>
 <!-- header end -->
 <!-- Left sidebar menu start -->
-<div th:replace="fragments/util :: marketing-sidebar"></div>
+<div th:if="${#authentication.getPrincipal().role.roleName} == 'ROLE_ADMIN'">
+    <div th:replace="fragments/util :: admin-sidebar"></div>
+</div>
+<div th:if="${#authentication.getPrincipal().role.roleName} == 'ROLE_MARKETING'">
+     <div th:replace="fragments/util :: marketing-sidebar"></div>
+</div>
 <main class="ttr-wrapper">
-    <div class="db-breadcrumb">
-        <ul class="db-breadcrumb-list">
-            <li><a th:href="@{/marketing/dashboard}"><i class="fa fa-home"></i>Home</a></li>
-            <li><a th:href="@{/marketing/customers}"><i class="fa fa-user"></i>User List</a></li>
-            <li>
-                <a class="ttr-material-button"
-                   th:href="@{/marketing/manage/blog-list}">
-                    <span class="ttr-icon"><i class="ti-view-list"></i></span>
-                    <span class="ttr-label">Manage Blog</span></a>
-            </li>
-        </ul>
-    </div>
-    <div class="d-flex align-items-center mb-4">
-        <input class="form-control mr-3" type="text" id="searchInput" onkeyup="filterUsers()"
-               placeholder="Search by full name" style="max-width: 300px;">
-        <input class="form-control mr-3" type="text" id="searchEmail" onkeyup="filterUsers()"
-               placeholder="Search by email" style="max-width: 300px;">
-        <label for="statusFilter" class="mr-2">Status:</label>
-        <select id="statusFilter" class="form-control" style="max-width: 150px;" onchange="filterUsers()">
-            <option value="all">All</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-        </select>
-    </div>
-    <table id="userTable">
-        <thead>
-        <tr>
-            <th>Full Name
-                <button onclick="sortTable(0, 'asc')">▲</button>
-                <button onclick="sortTable(0, 'desc')">▼</button>
-            </th>
-            <th>Email
-                <button onclick="sortTable(1, 'asc')">▲</button>
-                <button onclick="sortTable(1, 'desc')">▼</button>
-            </th>
-            <th>Role
-                <button onclick="sortTable(2, 'asc')">▲</button>
-                <button onclick="sortTable(2, 'desc')">▼</button>
-            </th>
-            <th>Status
-                <button onclick="sortTable(3, 'asc')">▲</button>
-                <button onclick="sortTable(3, 'desc')">▼</button>
-            </th>
-            <th>Updated Date
-                <button onclick="sortTable(4, 'asc')">▲</button>
-                <button onclick="sortTable(4, 'desc')">▼</button>
-            </th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${customers}">
-            <td th:text="${user.fullName}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role.roleName}"></td>
-            <td th:text="${user.getIsActive() ? 'Active' : 'Inactive'}"></td>
-            <td th:text="${user.updatedDate}"></td>
-            <td>
-                <form th:action="@{/marketing/customers/update-status}" method="post">
+    <div class="container mt-4">
+        <div class="card profile-card mx-auto shadow-sm" style="max-width: 600px; border-radius: 10px;">
+            <div class="card-body text-center">
+                <h3 class="card-title mb-4">My Profile</h3>
+                <img th:src="${user.profileImage}" alt="Profile Picture" class="profile-picture rounded-circle mb-3"
+                     style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #ddd;">
+
+                <div class="profile-info text-left mt-4">
+                    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+                    <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
+                    <p><strong>Gender:</strong> <span th:text="${user.gender} ? 'Male':'Female'"></span></p>
+                    <p><strong>Description:</strong> <span th:text="${user.description}"></span></p>
+                    <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
+                    <p><strong>Date Of Birth:</strong> <span th:utext="${#temporals.format(user.dateOfBirth, 'dd-MM-yyyy')}"></span></p>
+                </div>
+
+                <!-- Form to update profile picture -->
+                <form th:action="@{/admin/users/update-status}" method="post" class="d-inline">
                     <input type="hidden" name="userId" th:value="${user.userId}">
-                    <button class="btn btn-sm btn-primary" type="submit"
+                    <button type="submit" class="btn btn-sm btn-primary"
                             th:text="${user.isActive ? 'Deactivate' : 'Activate'}"></button>
                 </form>
-                <a th:href="@{/info/{id}(id = ${user.getUserId()})}" class="btn btn-sm btn-primary">Info</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <!--    <div class="pagination">-->
-    <!--        <a th:href="@{/marketing/customers(page=${customers.number - 1}, size=${customers.size})}"-->
-    <!--           th:if="${customers.hasPrevious()}">Previous</a>-->
-    <!--        <span>Page <span th:text="${customers.number + 1}"></span> of <span-->
-    <!--                th:text="${customers.totalPages}"></span></span>-->
-    <!--        <a th:href="@{/marketing/customers(page=${customers.number + 1}, size=${customers.size})}"-->
-    <!--           th:if="${customers.hasNext()}">Next</a>-->
-    <!--    </div>-->
+            </div>
+        </div>
+    </div>
 </main>
-<!-- JavaScript for filtering by name, role, status -->
-<script>
-    function filterUsers() {
-        const searchInput = document.getElementById("searchInput").value.toLowerCase();
-        const searchEmail = document.getElementById("searchEmail").value.toLowerCase();
-        const statusFilter = document.getElementById("statusFilter").value;
-        const table = document.getElementById("userTable");
-        const rows = table.getElementsByTagName("tr");
 
-        for (let i = 1; i < rows.length; i++) {
-            const cells = rows[i].getElementsByTagName("td");
-            const fullName = cells[0].innerText.toLowerCase();
-            const email = cells[1].innerText.toLowerCase();
-            const status = cells[3].innerText.toLowerCase();
 
-            const nameMatch = fullName.includes(searchInput);
-            const emailMatch = email.includes(searchEmail);
-            const statusMatch = (statusFilter === "all" || status === statusFilter);
-
-            rows[i].style.display = nameMatch && emailMatch && statusMatch ? "" : "none";
-        }
-    }
-
-    function sortTable(columnIndex, order) {
-        let table = document.getElementById("userTable");
-        let rows = Array.from(table.rows).slice(1);
-
-        rows.sort((rowA, rowB) => {
-            let cellA = rowA.cells[columnIndex].innerText.trim().toLowerCase();
-            let cellB = rowB.cells[columnIndex].innerText.trim().toLowerCase();
-
-            if (order === 'asc') {
-                return cellA.localeCompare(cellB, undefined, { numeric: true });
-            } else {
-                return cellB.localeCompare(cellA, undefined, { numeric: true });
-            }
-        });
-
-        rows.forEach(row => table.appendChild(row));
-    }
-</script>
-
-<style>
-    /* Styling for table and form controls */
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-        color: #212529;
-    }
-
-    .table th {
-        vertical-align: bottom;
-        border-bottom: 2px solid #dee2e6;
-    }
-
-    .table td, .table th {
-        padding: 0.75rem;
-        vertical-align: top;
-        border-top: 1px solid #dee2e6;
-    }
-
-    .pagination {
-        padding: 1rem 0;
-    }
-</style>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/admin/vendors/bootstrap/js/popper.min.js}"></script>
 <script th:src="@{/admin/vendors/bootstrap/js/bootstrap.min.js}"></script>
